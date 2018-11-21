@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>swagger-codegen-maven-plugin</artifactId>
+	<groupId>github.miguatech.com</groupId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<distributionManagement>
+		<repository>
+			<id>ele-bpm-release</id>
+			<url>http://maven.dev.elenet.me/nexus/content/repositories/ele-bpm-release/</url>
+		</repository>
+		<snapshotRepository>
+			<id>ele-bpm-snapshots</id>
+			<url>http://maven.dev.elenet.me/nexus/content/repositories/ele-bpm-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<properties>
+		<!-- Java -->
+		<java-version>1.8</java-version>
+		<!-- ElasticSearch -->
+		<elasticsearch-version>2.3.0</elasticsearch-version>
+		<!-- <elasticsearch-version>5.3.1</elasticsearch-version> -->
+		<!-- Spring -->
+		<spring-framework.version>4.2.1.RELEASE</spring-framework.version>
+		<swagger-annotations.version>2.0.5</swagger-annotations.version>
+		<javax-ws-rs-api.version>2.1</javax-ws-rs-api.version>
+		<jackson-annotations.version>2.9.7</jackson-annotations.version>
+		<validation-api.version>2.0.1.Final</validation-api.version>
+		<swagger-codegen-maven-plugin.version>2.3.1</swagger-codegen-maven-plugin.version>
+		<servlet-api-version>2.5</servlet-api-version>
+        <logback-version>1.0.1</logback-version>
+        <maven-plugin-version>1.0.0</maven-plugin-version>
+        <servlet-api-version>2.5</servlet-api-version>
+        <zip-version>1.3.2</zip-version>
+        <jetty-version>9.2.9.v20150224</jetty-version>
+        <jersey2-version>2.6</jersey2-version>
+	</properties>
+	<dependencies>
+	 <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-jersey2-jaxrs</artifactId>
+            <version>${swagger-core-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-codegen</artifactId>
+            <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>${servlet-api-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet-core</artifactId>
+            <version>${jersey2-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-multipart</artifactId>
+            <version>${jersey2-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.lingala.zip4j</groupId>
+            <artifactId>zip4j</artifactId>
+            <version>${zip-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-start</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-xml</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-deploy</artifactId>
+            <version>${jetty-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-runner</artifactId>
+            <version>${jetty-version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>javax.el</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson-version}</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.1.0.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.8.1</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jillesvangurp/jsonj -->
+		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>${elasticsearch-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.18</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware.yamlbeans</groupId>
+			<artifactId>yamlbeans</artifactId>
+			<version>1.12</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.9.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<!-- json -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.dropwizard/dropwizard-core -->
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-core</artifactId>
+			<version>1.3.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jillesvangurp/jsonj -->
+		<dependency>
+			<groupId>com.jillesvangurp</groupId>
+			<artifactId>jsonj</artifactId>
+			<version>2.52</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+			<version>2.9.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<scope>provided</scope>
+			<version>${swagger-annotations.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+			<version>${validation-api.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${jackson-annotations.version}</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>io.swagger</groupId>
+				<artifactId>swagger-codegen-maven-plugin</artifactId>
+				<version>${swagger-codegen-maven-plugin.version}</version>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/api.yaml</inputSpec>
+							<language>jaxrs-spec</language>
+							<apiPackage>no.eidsa.swagger.example.api</apiPackage>
+							<configOptions>
+								<interfaceOnly>true</interfaceOnly>
+								<sourceFolder>main/java</sourceFolder>
+								<modelPackage>no.eidsa.swagger.example.api.domain</modelPackage>
+								<dateLibrary>java8</dateLibrary>
+							</configOptions>
+							<modelNameSuffix>TO</modelNameSuffix>
+						</configuration>
+					</execution>
+					<execution>
+						<id>angular-typescript-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/api.yaml</inputSpec>
+							<output>${project.build.directory}/client/</output>
+							<language>typescript-angular</language>
+							<configOptions></configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>object-c-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/zipkin2-api.yaml</inputSpec>
+							<output>${project.build.directory}/objectc/client/</output>
+							<language>objc</language>
+							<configOptions></configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>object-aspnetcore-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/api.yaml</inputSpec>
+							<output>${project.build.directory}/aspnetcore/client/</output>
+							<language>aspnetcore</language>
+							<configOptions></configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>object-groovy-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/api.yaml</inputSpec>
+							<output>${project.build.directory}/groovy/client/</output>
+							<language>groovy</language>
+							<configOptions></configOptions>
+						</configuration>
+					</execution>
+					<execution>
+						<id>object-java-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${basedir}/src/main/resources/META-INF/resources/api.yaml</inputSpec>
+							<output>${project.build.directory}/java/client/</output>
+							<language>java</language>
+							<configOptions></configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/api.yaml</include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
+	<!-- <properties> <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> 
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
+		<java.version>1.8</java.version> <version.swagger.codegen>2.2.1</version.swagger.codegen> 
+		<yaml.file>${project.basedir}/src/main/resources/META-INF/resources/Api.yaml</yaml.file> 
+		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path> 
+		<generated-sources-java-path>main/java</generated-sources-java-path> </properties> 
+		<build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+		</plugin> <plugin> <groupId>io.swagger</groupId> <artifactId>swagger-codegen-maven-plugin</artifactId> 
+		<version>${version.swagger.codegen}</version> <configuration> <inputSpec>${yaml.file}</inputSpec> 
+		<configOptions> <sourceFolder>${generated-sources-java-path}</sourceFolder> 
+		</configOptions> <output>${generated-sources-path}</output> </configuration> 
+		<executions> <execution> <id>generate-swagger-spring</id> <phase>generate-sources</phase> 
+		<goals> <goal>generate</goal> </goals> <configuration> <language>spring</language> 
+		<modelPackage>${project.groupId}.swagger.model</modelPackage> <apiPackage>${project.groupId}.swagger.api</apiPackage> 
+		<invokerPackage>${project.groupId}.swagger.invoker</invokerPackage> </configuration> 
+		</execution> </executions> </plugin> <plugin> <groupId>org.codehaus.mojo</groupId> 
+		<artifactId>build-helper-maven-plugin</artifactId> <executions> <execution> 
+		<id>add-generated-source</id> <phase>initialize</phase> <goals> <goal>add-source</goal> 
+		</goals> <configuration> <sources> <source>${generated-sources-path}/${generated-sources-java-path}</source> 
+		</sources> </configuration> </execution> </executions> </plugin> </plugins> 
+		<pluginManagement> <plugins> <plugin> <groupId>org.eclipse.m2e</groupId> 
+		<artifactId>lifecycle-mapping</artifactId> <version>1.0.0</version> <configuration> 
+		<lifecycleMappingMetadata> <pluginExecutions> <pluginExecution> <pluginExecutionFilter> 
+		<groupId>io.swagger</groupId> <artifactId>swagger-codegen-maven-plugin</artifactId> 
+		<versionRange>[${version.swagger.codegen},)</versionRange> <goals> <goal>generate</goal> 
+		</goals> </pluginExecutionFilter> <action> <execute /> </action> </pluginExecution> 
+		</pluginExecutions> </lifecycleMappingMetadata> </configuration> </plugin> 
+		</plugins> </pluginManagement> </build> -->
+</project>
