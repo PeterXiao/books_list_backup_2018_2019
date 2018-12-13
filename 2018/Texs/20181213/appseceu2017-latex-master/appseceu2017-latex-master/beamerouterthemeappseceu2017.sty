@@ -1,0 +1,75 @@
+%% Copyright (C) 2016,2017 Achim D. Brucker, https://www.brucker.ch
+%%
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%   OR
+%%   The 2-clause BSD-style license.
+%%
+%%   SPDX-License-Identifier: LPPL-1.0+ OR BSD-2-Clause
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beamerouterthemeappseceu2017}
+     [2017/04/28 v0.0  LaTeX presentation class mimicking the design of the OWASP AppSecEU 2017 PowerPoint template.]
+\mode<presentation>
+
+\def\insertpresentationendframe{\inserttotalframenumber}
+\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
+
+
+  \defbeamertemplate*{navigation symbols}{owasp}{}
+
+  % Section and subsections in head/foot
+  \defbeamertemplate*{section in head/foot}{owasp}{\insertsectionhead}
+  \defbeamertemplate*{section in head/foot shaded}{owasp}[1][50]
+                     {\color{fg!#1!bg}\usebeamertemplate{section in head/foot}}
+
+  \defbeamertemplate*{subsection in head/foot}{owasp}{\insertsubsectionhead}
+
+  \defbeamertemplate*{subsection in head/foot shaded}{owasp}[1][50]
+                     {\color{fg!#1!bg}\usebeamertemplate{subsection in head/foot}}
+
+  \defbeamertemplate*{subsubsection in head/foot}{owasp}
+                     {\insertsubsubsectionhead}
+
+  \defbeamertemplate*{subsubsection in head/foot shaded}{owasp}[1][50]
+                     {\color{fg!#1!bg}\usebeamertemplate{subsubsection in head/foot}}
+
+
+  % Headline and footline
+  \defbeamertemplate*{headline}{owasp}{%
+  \includegraphics[width=\paperwidth]{visuals/appseceu2017-running-head}
+  }
+
+  \defbeamertemplate*{footline}{owasp}{}
+
+  \newdimen\beamer@headheight
+  \beamer@headheight=3.2\baselineskip
+  \defbeamertemplate*{frametitle}{owasp}[1][left]{
+    \@tempdima=\textwidth%
+    \usebeamerfont{frametitle}%
+    \usebeamercolor[fg]{frametitle}%
+    \vbox to \beamer@headheight{%
+      \vskip.6em%
+      \vfil%
+      % 
+      \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+      \strut\insertframetitle\strut\par%
+     {%
+       \ifx\insertframesubtitle\@empty%
+       \else%
+         {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}%
+           \insertframesubtitle\strut\par}%
+       \fi
+     }%
+    }%
+  }
+
+
+  \def\beamer@fteright{\vskip0.35cm\advance\leftskip by 1.7cm\advance\rightskip by1.7cm}
+  % Frame title continuations, default
+  \defbeamertemplate*{frametitle continuation}{owasp}{\insertcontinuationcountroman}
+
+\mode
+<all>

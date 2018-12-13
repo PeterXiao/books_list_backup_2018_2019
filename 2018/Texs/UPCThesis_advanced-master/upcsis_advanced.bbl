@@ -1,0 +1,38 @@
+\begin{thebibliography}{1}
+\providecommand{\bibauthor}[1]{#1}
+\providecommand{\bibeditor}[1]{#1}
+\providecommand{\bibtranslator}[1]{#1}
+\providecommand{\bibtitle}[1]{#1}
+\providecommand{\bibbooktitle}[1]{#1}
+\providecommand{\bibjournal}[1]{#1}
+\providecommand{\bibmark}[1]{#1}
+\providecommand{\bibcountry}[1]{#1}
+\providecommand{\bibpatentid}[1]{#1}
+\providecommand{\bibedition}[1]{#1}
+\providecommand{\biborganization}[1]{#1}
+\providecommand{\bibaddress}[1]{#1}
+\providecommand{\bibpublisher}[1]{#1}
+\providecommand{\bibinstitution}[1]{#1}
+\providecommand{\bibschool}[1]{#1}
+\providecommand{\bibvolume}[1]{#1}
+\providecommand{\bibnumber}[1]{#1}
+\providecommand{\bibversion}[1]{#1}
+\providecommand{\bibpages}[1]{#1}
+\providecommand{\bibmodifydate}[1]{#1}
+\providecommand{\bibcitedate}[1]{#1}
+\providecommand{\bibyear}[1]{#1}
+\providecommand{\bibdate}[1]{#1}
+\providecommand{\biburl}[1]{\newline\url{#1}}
+
+\bibitem{Rouse1974Monitoring}
+\bibauthor{ROUSE J~W}\@. \bibtitle{Monitoring vegetation systems in the great
+  plains with ERTS}\bibmark{[J]}\@. \bibjournal{Nasa Special Publication}\@,
+  \bibyear{1974}\@, \bibvolume{351}\thinspace{}\textnormal{: }\bibpages{309}\@.
+
+\bibitem{贾永红2010数字图像处理}
+\bibauthor{贾永红}\@.
+  \bibbooktitle{数字图像处理.第2版}\bibmark{[M]}\@.
+  \bibaddress{武汉}\thinspace{}\textnormal{:
+  }\bibpublisher{武汉大学出版社}\@, \bibyear{2010}\@.
+
+\end{thebibliography}

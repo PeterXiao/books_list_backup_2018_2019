@@ -1,0 +1,50 @@
+%% LyX 2.0.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[]{USTB}
+\usepackage{longtable}%定义longtable的使用
+\usepackage{subfig}
+\usepackage[unicode=true,pdfusetitle,
+bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+breaklinks=false,pdfborder={0 0 0},backref=false,colorlinks,citecolor=blue,linkcolor=blue]{hyperref}%colorlinksfalse时不为蓝色。linkcolor包括各种目录、交叉引用的颜色
+
+\makeindex
+\PassOptionsToPackage{normalem}{ulem}%强调包，比如较下划线、波浪线等
+
+% the following is useful when we have the old nomencl.sty package
+\providecommand{\printnomenclature}{\printglossary}
+\providecommand{\makenomenclature}{\makeglossary}
+\makenomenclature%产生术语表
+\DeclareCaptionFont{heiti}{\heiti}%这个定义放在导言区，定义\heiti后，在可以放在[caption]中调用。
+
+
+\title{高铁赤泥钪钠选择性分离提取工艺基础研究}%放此处的原因：因为页眉需要此信息。
+\etitle{Metallurgical Process for Selective Leaching and Extraction of Scandium and Sodium from Iron Rich Bauxite Residue}
+
+\includeonly{contents/0-1,contents/0-2,contents/0-3,contents/1,contents/2}%contents/2,contents/3,contents/4,contents/8
+\begin{document}
+\frontmatter
+\include{contents/0-1}
+\include{contents/0-2}
+\include{contents/0-3}
+
+\settowidth{\nomlabelwidth}{排版}%\settowidth{\长度命令}{文本}：使得长度命令的参数处于LR模式的一块文本的自然长度
+
+\mainmatter
+\include{contents/1}
+\include{contents/2}
+\include{contents/3}
+\include{contents/4}
+\include{contents/5}
+\include{contents/6}
+\include{contents/7}
+\include{contents/8}
+
+\backmatter
+\begin{biblio}
+	\bibliographystyle{bstutf8}
+	\bibliography{ckwx}
+\end{biblio}
+
+\include{contents/9}
+
+\end{document}

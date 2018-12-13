@@ -1,0 +1,226 @@
+%% beamercolorthememule.sty
+  %% Copyright 2012 Kartik Prabhu <kartikprabhu00@gmail.com>
+  %
+  % This work may be distributed and/or modified under the
+  % conditions of the LaTeX Project Public License, either version 1.3
+  % of this license or (at your option) any later version.
+  % The latest version of this license is in
+  %   http://www.latex-project.org/lppl.txt
+  % and version 1.3 or later is part of all distributions of LaTeX
+  % version 2005/12/01 or later.
+  %
+  % Or see the file LPPL-license for more details.
+  % 
+  
+
+\ProvidesPackageRCS $Header: /cvsroot/latex-beamer/latex-beamer/themes/color/beamercolorthememule.sty,v 1.28 2007/01/28 20:48:24 tantau Exp $
+
+
+
+\def\beamer@handy{handout}
+
+\mode<presentation>
+
+\ifx\beamer@currentmode\beamer@handy % if it is in handout mode
+
+%define nice colours for handouts
+
+	\definecolor{mblack}{RGB}{255,255,255}	
+	\definecolor{mgray}{RGB}{255, 255, 255}  
+	\definecolor{mwhite}{RGB}{0, 0, 0} 
+	
+	\setbeamercolor{palette}{}
+	\setbeamercolor{palette primary}{fg=mwhite,bg=mblack}
+	\setbeamercolor{palette secondary}{parent=palette primary}
+	\setbeamercolor{palette tertiary}{parent=palette primary}
+	\setbeamercolor{palette quaternary}{parent=palette primary}
+	
+	\setbeamercolor{palette sidebar}{parent=palette}
+	\setbeamercolor{palette sidebar primary}{fg=mwhite,bg=mblack}
+	\setbeamercolor{palette sidebar secondary}{fg=mwhite,bg=mblack}
+	\setbeamercolor{palette sidebar tertiary}{fg=mwhite,bg=mblack}
+	\setbeamercolor{palette sidebar quaternary}{fg=mwhite,bg=mblack}	
+	
+	\newcommand{\bgbox}[1]{\colorbox{mblack}{#1}}	%newcommand to create a coloured background box
+	
+\else % in all other modes
+	
+	\usecolortheme{whale}
+	
+%define nice funky colours for presentation modes
+	
+	\definecolor{mblack}{RGB}{0,0,0}
+	\definecolor{mgray}{RGB}{20, 20, 20}  
+	\definecolor{mwhite}{RGB}{240, 240, 240} 
+	
+	\setbeamercolor{palette}{}
+	\setbeamercolor{palette primary}{fg=mwhite}
+	\setbeamercolor{palette secondary}{fg=mwhite!75!mblack}
+	\setbeamercolor{palette tertiary}{fg=mwhite!50!mblack}
+	\setbeamercolor{palette quaternary}{fg=mwhite!25!mblack}
+	
+	\setbeamercolor{palette sidebar}{parent=palette}
+
+	\newcommand{\bgbox}[1]{\colorbox{mwhite}{#1}}	%newcommand to create a coloured background box
+	
+\fi
+
+
+%for common cases
+
+\setbeamercolor{normal text}{fg=mwhite}
+\setbeamercolor{alerted text}{fg=red!80!mblack}
+\setbeamercolor{example text}{fg=green!50!mblack}
+
+\setbeamercolor{structure}{fg=mblack, bg=mwhite}
+\setbeamerfont{structure}{textcolor=mwhite}
+
+\setbeamertemplate{background canvas}[vertical shading][bottom=mgray,top=mblack]
+\setbeamertemplate{title page}[default][rounded=true]
+
+
+\setbeamercolor{frametitle}{fg=mwhite}
+
+
+\setbeamercolor{math text}{}
+\setbeamercolor{math text inlined}{parent=math text}
+\setbeamercolor{math text displayed}{parent=math text}
+
+\setbeamercolor{normal text in math text}{}
+
+\setbeamercolor{local structure}{parent=structure}
+
+\setbeamercolor{title in head/foot}{parent=palette tertiary}
+\setbeamercolor{title in sidebar}{parent=palette sidebar secondary}
+
+\setbeamercolor{subtitle}{parent=title}
+
+\setbeamercolor{author}{}
+\setbeamercolor{author in head/foot}{parent=palette primary}
+\setbeamercolor{author in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{institute}{}
+\setbeamercolor{institute in head/foot}{parent=palette tertiary}
+\setbeamercolor{institute in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{date}{}
+\setbeamercolor{date in head/foot}{parent=palette secondary}
+\setbeamercolor{date in sidebar}{use=palette sidebar tertiary,fg=palette sidebar tertiary.fg}
+
+\setbeamercolor{titlegraphic}{}
+
+\setbeamercolor{part name}{}
+\setbeamercolor{part title}{parent=titlelike}
+
+\setbeamercolor{section in toc}{fg=mwhite}
+\setbeamercolor{section in toc shaded}{parent=section in toc}
+\setbeamercolor{section in head/foot}{parent=palette secondary}
+\setbeamercolor{section in sidebar}{parent=palette sidebar secondary}
+\setbeamercolor{section in sidebar shaded}{use=section in sidebar,fg=section in sidebar.fg!40!bg}
+\setbeamercolor{section number projected}{parent=item projected}
+
+\setbeamercolor{subsection in toc}{}
+\setbeamercolor{subsection in toc shaded}{parent=subsection in toc}
+\setbeamercolor{subsection in head/foot}{parent=palette secondary}
+\setbeamercolor{subsection in sidebar}{parent=palette sidebar primary}
+\setbeamercolor{subsection in sidebar shaded}{use=subsection in sidebar,fg=subsection in sidebar.fg!40!bg}
+\setbeamercolor{subsection number projected}{parent={subitem projected}}
+
+\setbeamercolor{subsubsection in toc}{parent=subsection in toc}
+\setbeamercolor{subsubsection in toc shaded}{parent=subsubsection in toc}
+\setbeamercolor{subsubsection in head/foot}{parent=subsection in head/foot}
+\setbeamercolor{subsubsection in sidebar}{parent=subsection in sidebar}
+\setbeamercolor{subsubsection in sidebar shaded}{parent=subsection in sidebar shaded}
+\setbeamercolor{subsubsection number projected}{parent=subsubitem projected}
+
+\setbeamercolor{headline}{}
+\setbeamercolor{footline}{}
+
+\setbeamercolor{sidebar}{}
+\setbeamercolor{sidebar left}{parent=sidebar}
+\setbeamercolor{sidebar right}{parent=sidebar}
+
+\setbeamercolor{logo}{parent=palette secondary}
+
+\setbeamercolor{frametitle}{parent=titlelike}
+\setbeamercolor{framesubtitle}{parent=frametitle}
+
+\setbeamercolor{frametitle right}{parent=frametitle}
+
+\setbeamercolor{caption}{}
+\setbeamercolor{caption name}{fg=mwhite}
+
+\setbeamercolor{button}{bg=mwhite!50!mblack,fg=white}
+\setbeamercolor{button border}{use=button,fg=button.bg}
+\setbeamercolor{navigation symbols}{fg=mwhite!70!bg}
+\setbeamercolor{navigation symbols dimmed}{fg=mwhite!50!bg}
+\setbeamercolor{mini frame}{parent=section in head/foot}
+
+\setbeamercolor{block body}{parent=normal text,bg=mblack}
+\setbeamercolor{block body alerted}{parent=block body}
+\setbeamercolor{block body example}{parent=block body}
+\setbeamercolor{block title}{fg=mblack,bg=mwhite}
+\setbeamercolor{block title alerted}{use=alerted text,bg=mwhite, fg=alerted text.fg}
+\setbeamercolor{block title example}{use=example text,bg=mwhite, fg=example text.fg}
+
+\setbeamercolor{item}{fg=mwhite}
+\setbeamercolor{subitem}{parent=item}
+\setbeamercolor{subsubitem}{parent=subitem}
+
+\setbeamercolor{item projected}{parent=item,use=item,fg=mblack,bg=item.fg}
+\setbeamercolor{subitem projected}{parent=item projected}
+\setbeamercolor{subsubitem projected}{parent=subitem projected}
+
+\setbeamercolor{enumerate item}{parent=item}
+\setbeamercolor{enumerate subitem}{parent=subitem}
+\setbeamercolor{enumerate subsubitem}{parent=subsubitem}
+
+\setbeamercolor{itemize item}{parent=item}
+\setbeamercolor{itemize subitem}{parent=subitem}
+\setbeamercolor{itemize subsubitem}{parent=subsubitem}
+
+\setbeamercolor{itemize/enumerate body}{}
+\setbeamercolor{itemize/enumerate subbody}{}
+\setbeamercolor{itemize/enumerate subsubbody}{}
+
+\setbeamercolor{description item}{parent=item}
+
+\setbeamercolor{bibliography item}{parent=item}
+
+\setbeamercolor{bibliography entry author}{fg=mwhite}
+\setbeamercolor{bibliography entry title}{fg=mwhite}
+\setbeamercolor{bibliography entry location}{fg=mwhite!65!bg}
+\setbeamercolor{bibliography entry note}{fg=mwhite!65!bg}
+
+\setbeamercolor{separation line}{}
+
+\setbeamercolor{upper separation line head}{parent=separation line}
+\setbeamercolor{middle separation line head}{parent=separation line}
+\setbeamercolor{lower separation line head}{parent=separation line}
+
+\setbeamercolor{upper separation line foot}{parent=separation line}
+\setbeamercolor{middle separation line foot}{parent=separation line}
+\setbeamercolor{lower separation line foot}{parent=separation line}
+
+\setbeamercolor{abstract}{}
+\setbeamercolor{abstract title}{fg=mwhite}
+
+\setbeamercolor{verse}{}
+
+\setbeamercolor{quotation}{}
+\setbeamercolor{quote}{parent=quotation}
+
+\setbeamercolor{page number in head/foot}{fg=fg!50!bg}
+
+\setbeamercolor{qed symbol}{fg=mwhite}
+
+\hypersetup{
+    colorlinks,%
+    citecolor=blue!60!mwhite,%
+    filecolor=yellow!60!mwhite,%
+    linkcolor=mwhite,%
+    urlcolor=violet!60!mwhite
+}
+
+\mode
+<all>

@@ -1,0 +1,12 @@
+\beamer@endinputifotherversion {3.14pt}
+\beamer@sectionintoc {2}{引言}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{研究背景}{4}{0}{1}
+\beamer@subsectionintoc {2}{2}{主要工作}{6}{0}{1}
+\beamer@sectionintoc {3}{System Design}{14}{0}{2}
+\beamer@subsectionintoc {3}{1}{System Architecture}{15}{0}{2}
+\beamer@subsectionintoc {3}{2}{Demo}{22}{0}{2}
+\beamer@sectionintoc {4}{Recap}{23}{0}{3}
+\beamer@subsectionintoc {4}{1}{Ongoing Study}{24}{0}{3}
+\beamer@subsectionintoc {4}{2}{研究方法与数据集特征}{29}{0}{3}
+\beamer@subsectionintoc {4}{3}{算法}{43}{0}{3}
+\beamer@subsectionintoc {4}{4}{Future Work}{55}{0}{3}

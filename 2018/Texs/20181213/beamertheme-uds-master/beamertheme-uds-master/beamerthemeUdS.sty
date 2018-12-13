@@ -1,0 +1,72 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Beamer color theme for Saarland University
+%
+% Author: Rudolf Siegel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{beamerthemeUdS}[2017/06/19 v 0.1]
+
+% Pass options to subthemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Outer theme: udsicon
+\DeclareOptionBeamer{udsicon}{
+  \PassOptionsToPackage{udsicon=#1}{beamerouterthemeUdS}
+}
+\ExecuteOptionsBeamer{udsicon=true}
+
+% Outer theme: footline
+\DeclareOptionBeamer{footline}{
+  \PassOptionsToPackage{footline=#1}{beamerouterthemeUdS}
+}
+\ExecuteOptionsBeamer{footline=true}
+
+% Outer theme: footlinetext
+\DeclareOptionBeamer{footlinetext}{
+  \PassOptionsToPackage{footlinetext={#1}}{beamerouterthemeUdS}
+}
+\ExecuteOptionsBeamer{footlinetext=}
+
+% Outer theme: titlepagehead
+\DeclareOptionBeamer{titlepagehead}{
+  \PassOptionsToPackage{titlepagehead=#1}{beamerouterthemeUdS}
+}
+\ExecuteOptionsBeamer{titlepagehead=true}
+
+% Outer theme: titlepagepic
+\DeclareOptionBeamer{titlepagepic}{
+  \PassOptionsToPackage{titlepagepic=#1}{beamerouterthemeUdS}
+}
+\ExecuteOptionsBeamer{titlepagepic=true}
+
+% ProcessOptions
+\ProcessOptionsBeamer
+
+%\PassOptionsToClass{}{beamer}
+%\DeclareOptionBeamer{compress}{\beamer@compresstrue}
+%\ProcessOptionsBeamer
+
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \frame{\titlepage}
+  \fi
+}
+
+\mode<presentation>
+
+% Load sub themes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usecolortheme{UdS} 
+\usefonttheme{UdS}
+\useoutertheme{UdS}
+\useinnertheme{UdS}
+
+
+\endinput
+
+\mode<all>

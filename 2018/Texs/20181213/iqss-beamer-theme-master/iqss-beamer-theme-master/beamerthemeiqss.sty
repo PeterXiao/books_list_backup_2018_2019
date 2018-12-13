@@ -1,0 +1,117 @@
+% Modified from beamerthemedefault.sty.
+% Original work Copyright 2007 by Till Tantau
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+
+% Requirement
+\RequirePackage{tikz}
+\RequirePackage{amsmath}
+\RequirePackage{unicode-math}
+
+\mode<presentation>
+
+\hypersetup{colorlinks=true,allcolors=iqss@orange}
+
+\def \iqsssectiontitleheader {}
+
+\newcommand{\iqsssectiontitle}[1]{
+  \def \iqsssectiontitleheader{#1}
+}
+
+\@ifundefined{insertmainframenumber}
+{%
+  % \insertmainframenumber not defined
+  \newcommand{\insertmainframenumber}{\inserttotalframenumber}
+}
+{%
+  % \insertmainframenumber already defined
+}%
+
+
+%\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{footline}
+{ \usebeamercolor[fg]{page number in head/foot}%
+  \usebeamerfont{page number in head/foot}%
+  \hspace{1em}\insertsectionhead%
+  \hfill%
+  \insertframenumber\,/\,\hyperlinkappendixstart{\insertmainframenumber}
+  \ifnum \thepage = \insertframeendpage{\small .}\else{\phantom{\small .}}\fi
+  \hspace{1em}
+  \vskip2pt%
+}
+
+\titlegraphic{\includegraphics[width=\paperwidth]{header.png}}
+
+\setbeamertemplate{title page}
+{
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=north west,xshift=-1.2mm,yshift=1.2mm] at (current page.north west){%
+      \noindent\inserttitlegraphic\par
+    };
+  \end{tikzpicture}
+  \vskip1em
+  \vbox{}
+  \begingroup
+  \centering
+  \usebeamercolor[fg]{titlegraphic}
+    \begin{beamercolorbox}[sep=8pt,center]{title}
+      \usebeamerfont{title}\inserttitle\par%
+      \ifx\insertsubtitle\@empty%
+      \else%
+        \vskip0.25em%
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+      \fi%
+    \end{beamercolorbox}%
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}
+  \endgroup
+  \vfill
+}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{blocks}[rounded][shadow=true]
+
+\usefonttheme{iqss}
+\usecolortheme{iqss}
+\useinnertheme{default}
+\useoutertheme{default}
+
+\setbeamertemplate{itemize items}[circle]
+
+\AtBeginSection[]{
+  \title{\insertsectionhead}
+  {
+    \definecolor{white}{rgb}{0.776,0.357,0.157}
+    \definecolor{iqss@orange}{rgb}{1,1,1}
+    \ifnum \insertmainframenumber > \insertframenumber
+    \frame{
+      \frametitle{\iqsssectiontitleheader}
+      \tableofcontents[currentsection]
+    }
+    \else
+    \frame{
+      \frametitle{Backup Slides}
+      \tableofcontents[sectionstyle=shaded/shaded,subsectionstyle=shaded/shaded/shaded]
+    }
+    \fi
+  }
+}
+
+\mode
+<all>
+
+% Local Variables:
+% TeX-engine: xetex
+% End:

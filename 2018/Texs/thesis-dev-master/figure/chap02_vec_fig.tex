@@ -1,0 +1,25 @@
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[
+	    x tick label style={
+			/pgf/number format/1000 sep=},
+		ylabel=评论数量,
+		xlabel=评论长度($\times$5),
+		enlargelimits=0.05,
+		legend style={at={(0.5,-0.2)},
+		anchor=north,legend columns=-1},
+		ybar interval=.7,
+	]
+	\addplot 
+		coordinates {(1, 14455) (2, 28483) (3, 27614) (4, 24472) (5, 20409) (6, 16657) (7, 13373) (8, 10948) (9, 8557) (10, 6994) (11, 5601) (12, 4665) (13, 2279) (14, 22796)};
+	\addplot 
+		coordinates {(1, 1445) (2, 8483) (3, 2614) (4, 2472) (5, 2009) (6, 1657) (7, 1373) (8, 1948) (9, 557) (10, 994) (11, 501) (12, 466) (13, 22967) (14, 2276)};
+	\legend{图例1, 图例2}
+	\end{axis}
+	\end{tikzpicture}
+	\caption{使用pgfplots画的矢量图像}
+ 	\label{fig:statistiss}
+\end{figure}
+
+

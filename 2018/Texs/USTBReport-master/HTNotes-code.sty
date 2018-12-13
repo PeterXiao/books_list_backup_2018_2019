@@ -1,0 +1,495 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{HTNotes-code}
+
+\RequirePackage{varwidth,fontawesome,minted,tcolorbox,multido}
+
+\tcbuselibrary{minted, skins, xparse, breakable}
+
+\usetikzlibrary{patterns}
+
+% 添加行号
+\minted@def@optfv{highlightlinenumbercolor}
+\minted@def@optfv{linenumberwidth}
+
+%------------------------------------------------------------------------------------
+% 颜色设置
+%------------------------------------------------------------------------------------
+% \definecolor{cvprimary}{RGB}{178,10,142}
+% \definecolor{cvsecondary}{RGB}{209,181,217}
+% \definecolor{cvtext}{RGB}{100,100,100}
+
+\definecolor{mpurple}{RGB}{48,10,36}
+\definecolor{mgray}{RGB}{70,72,67}
+\definecolor{ogray}{RGB}{148,147,141}
+\definecolor{oorange}{RGB}{233,101,56}
+\definecolor{termimal}{RGB}{80,78,70}
+\definecolor{linux}{RGB}{0,39,51}
+\definecolor{cvgrayc}{RGB}{247,247,247}
+\definecolor{cvgray}{RGB}{220,220,220}
+\definecolor{cvgrayb}{RGB}{153,153,153}
+\definecolor{cvblue}{RGB}{223,238,255}
+
+\definecolor{MyLightGray}{HTML}{EEEEEE}
+\definecolor{MyDarkGray}{HTML}{333333}
+\definecolor{MyBlue}{RGB}{0,120,215}
+\definecolor{DarkText}{HTML}{111111}
+\definecolor{AppleRed}{RGB}{255,95,86}
+\definecolor{AppleYellow}{RGB}{255,189,46}
+\definecolor{AppleGreen}{RGB}{39,201,63}
+
+
+% 盒子控制
+\tcbset{%
+  skin=enhanced,
+  cv/.style={%
+    boxrule=0.4mm,
+    pad after break=-1.5ex,
+    breakable,
+    top=0mm,
+    boxsep=1mm,
+    drop shadow,
+    attach boxed title to top,
+    colframe=blue!75!black,
+    left=4.5mm,
+    right=0mm,
+    enhanced,
+    colframe=tcbcol@back!60!black,
+    colback=white,
+    colbacktitle=cvgray,
+    fonttitle=\ttfamily,
+    coltitle=black,
+    overlay broken = {%
+      \begin{tcbclipinterior}
+        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm]frame.north west);
+      \end{tcbclipinterior}
+    },
+    underlay boxed title = {
+      \begin{tcbclipinterior}
+        \fill[cvblue] (frame.south west) rectangle ([xshift=5.9mm,yshift=0mm]frame.north west);
+      \end{tcbclipinterior}
+    }
+  }
+}
+
+\tcbset{%
+  skin=enhanced,
+  pad after break=0mm,
+  lang/.style={%
+    breakable,%
+    drop shadow,%
+    colframe=blue!75!black,%
+    left=4.5mm,
+    enhanced,%
+    colframe=tcbcol@back!60!black,%
+    colback=tcbcol@back!30!white,%
+    colbacktitle=tcbcol@back!5!yellow!10!white,%
+    fonttitle=\bfseries,%
+    coltitle=black,%
+    attach boxed title to top center={%
+      yshift=-0.25mm-\tcboxedtitleheight/2,%
+      yshifttext=2mm-\tcboxedtitleheight/2%
+    },%
+    attach boxed title to top left={%
+      xshift=1cm,%
+      yshift*=1mm-\tcboxedtitleheight%
+    },%
+    varwidth boxed title*=-3cm,%
+    boxed title style={%
+      frame code={%
+        \path[fill=tcbcol@back!30!black]([yshift=-1mm,xshift=-1mm]frame.north west)%
+        arc[start angle=0,end angle=180,radius=1mm]([yshift=-1mm,xshift=1mm]frame.north east)%
+        arc[start angle=180,end angle=0,radius=1mm];
+        \path[left color=tcbcol@back!60!black,right color=tcbcol@back!60!black,middle color=tcbcol@back!80!black]%
+        ([xshift=-2mm]frame.north west)%
+        --([xshift=2mm]frame.north east)[rounded corners=1mm]%
+        --([xshift=1mm,yshift=-1mm]frame.north east)%
+        --(frame.south east)%
+        --(frame.south west)%
+        --([xshift=-1mm,yshift=-1mm]frame.north west)[sharp corners]%
+        --cycle;%
+      },%
+      interior engine=empty%
+    },%
+    % overlay={%
+    %   \begin{tcbclipinterior}
+    %     \fill[tcbcol@back!80!black] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    %   \end{tcbclipinterior}%
+    % }%
+  }%
+}
+
+\tcbset{%
+  skin=enhanced,%
+  gitexample/.style={%
+    halign title=center,%
+    skin=bicolor,%
+    boxrule=1mm,%
+    fonttitle=\sffamily,%
+    coltitle=black,%
+    frame style={%
+      draw=mgray,%
+      left color=mgray,%
+      right color=mgray%
+    },%
+    colback=mpurple,%
+    colupper=white,%
+    breakable,%
+    colframe=mgray,%
+    colbacktitle=mgray,%
+    overlay unbroken={%
+      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
+    },
+    overlay first={%
+      \node[inner sep=0pt,anchor=north west,yshift=-5pt,xshift=10pt,text=white] at (frame.north west){\UbuntuClose~\UbuntuMin~\UbuntuMax};%
+    }%
+  }%
+}
+
+\tcbset{%
+  skin=enhanced,
+  apple/.style={%
+    center title,
+    toptitle=1ex,
+    overlay = {%
+      \node[inner sep=0pt,anchor=north west,yshift=-9pt,xshift=11pt] at (frame.north west)
+      {\textcolor{AppleRed}{\faCircle} \textcolor{AppleYellow}{\faCircle} \textcolor{AppleGreen}{\faCircle}};
+    },
+    fonttitle=\sffamily,
+    fontupper=\small\sffamily,
+    fontlower=\small\sffamily,
+    skin=bicolor,
+  },
+  appledark/.style={%
+    apple,
+    colback=MyDarkGray,
+    colbacktitle=MyDarkGray,
+    colframe=MyDarkGray,
+    coltitle=MyLightGray,
+    coltext=MyLightGray
+  },
+  applelight/.style={%
+    apple,
+    colback=MyLightGray,
+    colbacktitle=MyLightGray,
+    colframe=MyLightGray,
+    coltitle=DarkText
+  },
+  %
+  win10/.style={%
+    toptitle=1ex,
+    sharp corners,
+    fonttitle=\sffamily,
+    fontupper=\small\sffamily,
+    fontlower=\small\sffamily,
+    titlerule=0ex,
+    toprule=0ex,
+    leftrule=0ex,
+    rightrule=0ex,
+    bottomrule=0ex,
+    skin=bicolor,
+    breakable,
+  },
+  win10light/.style={%
+    win10,
+    colback=MyLightGray,
+    colbacktitle=MyBlue,
+    colframe=MyLightGray,
+    coltitle=MyLightGray,
+    overlay = {%
+      \node[inner sep=0pt,anchor=north east,yshift=-6pt,xshift=-11pt,text=MyLightGray] at (frame.north east)
+      {\raisebox{4pt}{\rule{0.8em}{0.6pt}}\quad$\square$\quad{\Large$\times$}};
+    }
+  },
+  win10dark/.style={%
+    win10,
+    colback=MyDarkGray,
+    colbacktitle=MyBlue,
+    coltitle=MyLightGray,
+    coltext=MyLightGray,
+    overlay = {
+      \node[inner sep=0pt,anchor=north east,yshift=-6pt,xshift=-11pt,text=MyLightGray] at (frame.north east)
+      {\raisebox{4pt}{\rule{0.8em}{0.6pt}}\quad$\square$\quad{\Large$\times$}};
+    }
+  }
+}
+
+\newcounter{cvcounter}
+
+% cvcounter 每一节清零
+\RequirePackage{chngcntr}
+  \counterwithin*{cvcounter}{section}
+
+% redefine the minted line number font
+\renewcommand{\theFancyVerbLine}{%
+    \sffamily\textcolor[rgb]{0.5,0.5,1.0}{%
+        \scriptsize\oldstylenums{%
+            \arabic{FancyVerbLine}%
+        }%
+    }%
+}
+
+
+% 程序清单
+% 导入排版
+% \CodeFile[mintedLanguage][lable][displayLanguage]{displayTitle}{filePath}
+\DeclareTCBInputListing[use counter=cvcounter]{\CodeFile}{ O{python} o o m m}{%
+  listing engine=minted,minted style=xcode,
+  minted options={%
+    highlightcolor={cvgray!50!white, white},
+    highlightlinenumbercolor={cvblue, cvblue!70},mathescape,breaklines,fontsize=\zihao{5},linenos,
+    autogobble,
+    numbersep=1.5mm
+  },
+  listing only,
+  cv,
+  listing file={#5},
+  minted language=#1,
+  title={程序清单\thecvcounter:~#4},%\thetcbcounter
+  label = #2,
+  overlay unbroken and first ={%
+    \begin{tcbclipinterior}
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFileText\ \faCode\ \faCodeFork\ \faCopy\ \faExternalLink\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
+    \end{tcbclipinterior}
+  }
+}
+
+% 直接排版
+% \begin{Code}[mintedLanguage][lable][displayLanguage]{displayTitle}
+%   ...
+% \end{Code}
+\DeclareTCBListing[use counter=cvcounter]{Code}{ O{python} o o m }{%
+  listing engine=minted,minted style=xcode,
+  minted options={%
+    highlightcolor={cvgray!50!white, white},
+    highlightlinenumbercolor={cvblue, cvblue!70},mathescape,breaklines,fontsize=\zihao{5},linenos,
+    autogobble,
+    numbersep=1mm%
+  },
+  listing only,
+  cv,
+  minted language=#1,
+  title={程序清单\thecvcounter:~#4},
+  label = #2,
+  overlay unbroken and first ={%
+    \begin{tcbclipinterior}%
+      \node[inner sep=0pt,anchor=north east,yshift=-3pt,xshift=-5pt,text=cvgrayb] at (frame.north east){\ttfamily\faFileText\ \faCode\ \faCodeFork\ \faCopy\ \faExternalLink\ \IfNoValueTF{#3}{\MakeUppercase#1}{#3}};
+    \end{tcbclipinterior}
+  }
+}
+% 程序清单完
+
+
+% Ubantu 终端
+% 图标绘制
+\newcommand{\UbuntuMin}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+  \shade[shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
+  \draw[termimal](-0.3,0)--(0.3,0);
+  \end{tikzpicture}
+}
+
+\newcommand{\UbuntuClose}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+  \shade[shading=ball,left color=oorange,right color=oorange!70!white] (0,0) circle (0.5);
+  \draw[termimal](-0.25,-0.25)--(0.25,0.25);
+  \draw[termimal](-0.25,0.25)--(0.25,-0.25);
+  \end{tikzpicture}
+}
+
+\newcommand{\UbuntuMax}{%
+  \begin{tikzpicture}[x=2.4ex,y=2.4ex,line width=0.15ex,scale=1]
+  \shade [shading=ball,left color=ogray,right color=ogray!50!white] (0,0) circle (0.5);
+  \draw[termimal](-0.25,-0.2)rectangle(0.25,0.2);
+  \end{tikzpicture}
+}
+
+% 带输出直接排版
+% \begin{GitOutput}[mintedLanguage]{
+%   outputContext
+% }{displayTitle}
+%   displayContext
+% \end{GitOutput}
+\DeclareTCBListing{GitOutput}{ O{bash} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing and comment,%
+  colbacklower=tcbcol@back!5!yellow!10!white,%
+  collower=linux,%
+  gitexample,%
+  title={#2},%
+  comment={\small\sffamily#3},%
+  minted language=#1%
+}
+
+% 不带输出直接排版
+% \begin{Git}[mintedLanguage]{displayTitle}
+%   displayContext
+% \end{Git}
+\DeclareTCBListing{Git}{ O{bash} m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  gitexample,%
+  title={#2},%
+  minted language=#1%
+}
+
+% 导入排版
+% \Gitfile[mintedLanguage]{displayTitle}{filePath}
+\DeclareTCBInputListing{\GitFile}{ O{bash} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  gitexample,%
+  listing file={#3},%
+  title={#2},%
+  minted language=#1%
+}
+% Ubantu 终端完
+
+
+% win10 终端
+% 带输出直接排版
+% \begin{WinOutput}[mintedLanguage]{
+%   outputContext
+% }{displayTitle}
+%   displayContext
+% \end{WinOutput}
+\DeclareTCBListing{WinOutput}{ O{sh} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  win10dark,%
+  listing and comment,%
+  colbacklower=tcbcol@back!5!yellow!10!white,%
+  collower=linux,%
+  title={#2},%
+  comment={\small\sffamily#3},%
+  minted language=#1%
+}
+
+% 不带输出直接排版
+% \begin{Win}[mintedLanguage]{displayTitle}
+%   displayContext
+% \end{Win}
+\DeclareTCBListing{Win}{ O{sh} m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  win10light,%
+  title={#2},%
+  minted language=#1%
+}
+
+% 导入排版
+% \WinFile[mintedLanguage]{displayTitle}{filePath}
+\DeclareTCBInputListing{\WinFile}{ O{sh} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  win10dark,%
+  listing file={#3},%
+  title={#2},%
+  minted language=#1%
+}
+% win10 终端完
+
+
+% Mac 终端
+% 带输出直接排版
+% \begin{MacOutput}[mintedLanguage]{
+%   outputContext
+% }{displayTitle}
+%   displayContext
+% \end{MacOutput}
+\DeclareTCBListing{MacOutput}{ O{sh} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing and comment,%
+  appledark,%
+  colbacklower=tcbcol@back!5!yellow!10!white,%
+  collower=linux,%
+  title={#2},%
+  comment={\small\sffamily#3},%
+  minted language=#1%
+}
+
+% 不带输出直接排版
+% \begin{Mac}[mintedLanguage]{displayTitle}
+%   displayContext
+% \end{Mac}
+\DeclareTCBListing{Mac}{ O{sh} m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  applelight,%
+  title={#2},%
+  minted language=#1%
+}
+
+% 导入排版
+% \MacFile[mintedLanguage]{displayTitle}{filePath}
+\DeclareTCBInputListing{\MacFile}{ O{sh} m m }{%
+  listing engine=minted,%
+  minted style=trac,%
+  minted options={%
+    autogobble,%
+    breaklines,%
+    fontsize=\zihao{5},%
+    numbersep=3mm%
+  },%
+  listing only,%
+  appledark,%
+  listing file={#3},%
+  title={#2},%
+  minted language=#1%
+}
+% Mac 终端完
+\endinput

@@ -1,0 +1,6 @@
+\beamer@sectionintoc {2}{研究背景}{3}{0}{1}
+\beamer@sectionintoc {3}{研究内容}{5}{0}{2}
+\beamer@sectionintoc {4}{湍流两相燃烧的数学模型}{6}{0}{3}
+\beamer@sectionintoc {5}{数值求解方法}{10}{0}{4}
+\beamer@sectionintoc {6}{结果分析}{11}{0}{5}
+\beamer@sectionintoc {7}{Q\&A}{12}{0}{6}

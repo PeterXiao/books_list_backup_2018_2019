@@ -1,0 +1,129 @@
+%% Copyright (C) 2016,2017 Achim D. Brucker, https://www.brucker.ch
+%%
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%   OR
+%%   The 2-clause BSD-style license.
+%%
+%%   SPDX-License-Identifier: LPPL-1.0+ OR BSD-2-Clause
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beamerfontthemeappseceu2017}
+     [2017/04/28 v0.0  LaTeX presentation class mimicking the design of the OWASP AppSecEU 2017 PowerPoint template.]
+\mode<presentation>
+
+  \setbeamerfont{normal text}{} 
+  \setbeamerfont{alerted text}{}
+  \setbeamerfont{example text}{}
+
+  \setbeamerfont{structure}{}
+  \setbeamerfont{tiny structure}{size=\tiny}
+
+  \setbeamerfont{title}{parent=structure,size=\Large,family=\sffamily,series=\bfseries}
+  \setbeamerfont{title in head/foot}{}
+  \setbeamerfont{title in sidebar}{size=\tiny}
+
+  \setbeamerfont{subtitle}{size=\normalsize,parent=title}
+
+  \setbeamerfont{author}{series=\bfseries}
+  \setbeamerfont{author in head/foot}{}
+  \setbeamerfont{author in sidebar}{size=\tiny}
+
+  \setbeamerfont{institute}{size=\scriptsize}
+  \setbeamerfont{institute in head/foot}{}
+  \setbeamerfont{institute in sidebar}{}
+
+  \setbeamerfont{date}{size=\scriptsize}
+  \setbeamerfont{date in head/foot}{}
+  \setbeamerfont{date in sidebar}{}
+
+  \setbeamerfont{part name}{size=\LARGE}
+  \setbeamerfont{part title}{size=\LARGE,parent=title}
+
+  \setbeamerfont{section name}{size=\Large}
+  \setbeamerfont{section title}{size=\Large,parent=title}
+
+  \setbeamerfont{section in toc}{parent=structure}
+  \setbeamerfont{section in toc shaded}{parent=section in toc}
+  \setbeamerfont{section in head/foot}{}
+  \setbeamerfont{section in sidebar}{size=\tiny}
+  \setbeamerfont{section number projected}{size=\small,parent={section in toc,projected text}}
+
+  \setbeamerfont{subsection name}{size=\large}
+  \setbeamerfont{subsection title}{size=\large,parent=title}
+
+  \setbeamerfont{subsection in toc}{}
+  \setbeamerfont{subsection in toc shaded}{parent=subsection in toc}
+  \setbeamerfont{subsection in head/foot}{}
+  \setbeamerfont{subsection in sidebar}{}
+
+  \setbeamerfont{subsubsection in toc}{size=\footnotesize}
+  \setbeamerfont{subsubsection in toc shaded}{parent=subsubsection in toc}
+  \setbeamerfont{subsubsection in head/foot}{}
+  \setbeamerfont{subsubsection in sidebar}{}
+
+  \setbeamerfont{headline}{parent={tiny structure}}
+  \setbeamerfont{footline}{parent={tiny structure}}
+
+  \setbeamerfont{sidebar}{size=\Tiny,parent={tiny structure}}
+  \setbeamerfont{sidebar left}{parent=sidebar}
+  \setbeamerfont{sidebar right}{parent=sidebar}
+
+  \setbeamerfont{frametitle}{parent=structure,size=\Huge,family=\sffamily}
+  \setbeamerfont{framesubtitle}{parent=frametitle,size=\large}
+
+  \setbeamerfont{caption}{size=\small}
+  \setbeamerfont{caption name}{parent={structure,caption}}
+
+  \setbeamerfont{button}{size=\tiny}
+
+  \setbeamerfont{block body}{}
+  \setbeamerfont{block body alerted}{}
+  \setbeamerfont{block body example}{}
+  \setbeamerfont{block title}{size=\large,parent={structure,block body}}
+  \setbeamerfont{block title alerted}{parent={block title,alerted text}}
+  \setbeamerfont{block title example}{parent={block title,example text}}
+
+  \setbeamerfont{item}{parent=structure}
+  \setbeamerfont{subitem}{parent=item}
+  \setbeamerfont{subsubitem}{parent=subitem}
+
+  \setbeamerfont{item projected}{size=\tiny,parent={item,projected text}}
+  \setbeamerfont{subitem projected}{parent=item projected}
+  \setbeamerfont{subsubitem projected}{parent=subitem projected}
+
+  \setbeamerfont{itemize item}{parent=item}
+  \setbeamerfont{itemize subitem}{parent=subitem}
+  \setbeamerfont{itemize subsubitem}{parent=subsubitem}
+
+  \setbeamerfont{enumerate item}{parent=item}
+  \setbeamerfont{enumerate subitem}{parent=subitem}
+  \setbeamerfont{enumerate subsubitem}{parent=subsubitem}
+
+  \setbeamerfont{itemize/enumerate body}{}
+  \setbeamerfont{itemize/enumerate subbody}{size=\small}
+  \setbeamerfont{itemize/enumerate subsubbody}{size=\footnotesize}
+
+
+  \setbeamerfont{description item}{parent=item, series=\bfseries}
+
+  \setbeamerfont{projected text}{parent={tiny structure}}
+
+  \setbeamerfont{abstract}{size=\small}
+  \setbeamerfont{abstract title}{parent={abstract,structure},size=\normalsize}
+
+  \setbeamerfont{verse}{family=\rmfamily,shape=\itshape}
+
+  \setbeamerfont{quotation}{shape=\itshape}
+  \setbeamerfont{quote}{parent=quotation}
+
+  \setbeamerfont{note page}{size=\small}
+  \setbeamerfont{note title}{parent=note page}
+  \setbeamerfont{note date}{size=\footnotesize}
+
+\mode
+<all>
+
+\endinput

@@ -1,0 +1,60 @@
+%%% --->
+% general macros
+%%% <---
+\newcommand{\email}[1]{\href{mailto:#1}{#1}}
+
+%%% --->
+% water mark and background picture
+%%% <---
+
+\newcommand{\watermark}[3]{\AddToShipoutPictureBG{%
+    \parbox[b][\paperheight]{\paperwidth}{%
+        \vfill%
+        \centering%
+        \tikz[remember picture, overlay]%
+          \node [rotate = #1, scale = #2] at (current page.center)%
+            {\textcolor{gray!80!cyan!30!white!50}{#3}};
+        \vfill}%
+    }%
+}
+
+\newcommand*{\FullPageBGPicture}[1]{%
+    \clearpage
+    \watermark{0}{1}{\includegraphics[width=\paperwidth]{#1}}}
+
+%%% --->
+% math defines and shortcuts
+%%% <---
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\avg}{avg}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\defeq}{%
+    \mathrel{\overset{\makebox[0pt]{\mbox{\normalfont\tiny\sffamily def}}}{=}}}
+
+\newcommand{\Fstar}{F^{*}}
+\newcommand{\vx}{\vec{x}}
+\newcommand{\vp}{\vec{p}}
+
+%%% --->
+% text defines and shortcuts
+%%% <---
+
+\newcommand{\func}{\texttt}
+\newcommand{\file}{\textsf}
+\newcommand{\cmd}[1]{\texttt{\string#1}}
+% \newcommand{\clp}{\relax}
+\newcommand{\clp}{\clearpage}
+
+%%% --->
+% frontpage
+%%% <---
+\newcommand{\makefrontpage}{%
+    \FullPageBGPicture{book-bg.jpg}%
+    \pagestyle{fancy}%
+    {\maketitle}%
+    \thispagestyle{empty}%
+    \clearpage
+    \setcounter{page}{1}
+}

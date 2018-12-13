@@ -1,0 +1,91 @@
+﻿% 必填选项
+% type=doctor|master|bachelor
+% language=chinese|english
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 选填选项
+% tocdepth=2|3|4 %目录显示子章节 2:x.y 3:x.y.z 4:x.y.z.t
+% 默认是 2
+% debug=true|false
+% 显示版芯框和行号，用来调试。默认否。
+% print==true|false
+% 打印版还是电子版，默认电子版，打印版，章节结束在偶数页，奇数页空一页
+% fontset=adobe|fandol|ubuntu|mac|windows
+% 默认 fandol % texlive自带，可移植字体库，只有常用的6763个汉字
+
+\documentclass[language=english, type=bachelor]{sysuthesis}
+\input{docs/info}     % 论文相关信息
+\ifx \degree \bachelor
+\input{docs/proposal}   % 开题报告内容
+\fi
+\input{docs/abstract}     % 摘要内容
+\ifx \degree \bachelor
+\input{docs/grading}    % 成绩评定记录表评语
+\input{docs/progress}   % 过程检查报告数据
+\fi
+\begin{document}
+    % 论文前置部分
+    \frontmatter
+        \pagenumbering{Roman}
+        \maketitle    % 封面
+        \ifx \degree \bachelor
+        \makeinstruction % 说明
+        \makeProposal% 开题报告
+        % 直接拼入外部的开题报告单页PDF
+        %\makeProposalFromPdf{prebuilt/proposal.pdf}
+        \makeProgressCheck  % 过程检查记录表
+        \makeDefenseRecord  % 答辩情况等级表
+        \fi
+        \makedisclaim       % 学术诚信声明
+        \makeabstract       % 中英文摘要
+        \maketableofcontents        % 目录
+        \makelistoffiguretable
+        \ifx \degree \master
+        \include{docs/master/page-symbols}
+        \fi
+
+    % 论文主体部分
+    \mainmatter
+        % 引言
+
+        % 正文
+        \foreach \i in {0,1,...,9}{
+            \foreach \j in {0,1,...,9}{
+                \IfFileExists{docs/chap\i\j.tex}{
+                    \include{docs/chap\i\j}
+                    \newclearpage
+                }{}
+            }
+        }
+        % 结语
+
+    % 附录部分
+    \backmatter
+        % 参考文献. 因不需要纳入章节目录, 故放入附录部分
+        % 实际上参考文献是属于论文主体部分
+        \makereferences
+
+        \include{docs/ack}    % 致谢
+        \newclearpage
+        % 附录
+    \appendix
+        \foreach \i in {0,1,...,9}{
+            \foreach \j in {0,1,...,9}{
+                \IfFileExists{docs/appendix\i\j.tex}{
+                    \include{docs/appendix\i\j}
+                    \newclearpage
+                }{}
+            }
+        }
+    \ifx \degree \bachelor
+    \makeGrade      % 成绩评定记录表
+    \fi
+    \ifx \degree \master
+    \include{docs/master/back-pub}
+    \include{docs/master/back-resume}
+    \fi
+    \ifx \degree \doctor
+    \include{docs/master/back-pub}
+    \include{docs/master/back-resume}
+    \fi
+\end{document}
+

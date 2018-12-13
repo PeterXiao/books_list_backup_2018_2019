@@ -1,0 +1,67 @@
+\documentclass{ryslidevideo}
+% declare any package you need like below
+\usepackage{fancyvrb}
+\renewcommand{\theFancyVerbLine}{%
+   \color{gray!30}{\tiny\arabic{FancyVerbLine}}}
+% Demo the presentation as follows
+\title{\LaTeX{} Slides styles using tikz}
+\author{Rainy}
+\date{\today}
+\begin{document}
+% show the title page using \myfrontcover defined in the cls file
+\myfrontcover
+% show the outline
+\tableofcontents\thispagestyle{empty}
+% using \section to start a topic of your presentation
+% using \newpage to start a new slide
+\newpage\section{Why is it?}
+\begin{itemize}
+    \item \textsc{Beamer} is the most popular class
+    \item Among \LaTeX{} packages for making presentation
+    \item However, \textsc{Beamer} is too straight
+    \item Interested by the slide design in ConTeXt
+    \item Let's design some new styles in \LaTeX{}
+\end{itemize}
+\newpage\section{Packages used}
+\begin{description}
+    \item[geometry] set the screen size
+    \item[fancyhdr] set header and footer
+    \item[titling] set title format
+    \item[tikz] design the background
+    \item[eso-pic] display the background
+\end{description}
+\newpage\section{How to use the *.cls}
+\begin{itemize}
+    \item using {\small\verb"\documentclass{class_name}"} to declare the class
+    \item using {\small\verb"\myfrontcover"} to show the title page
+    \item using {\small\verb"\tableofcontents"} to show the outline
+    \item using {\small\verb"\section"} to start a topic
+    \item using {\small\verb"\newpage"} to begin a new slide
+    \item using {\small\verb"\mybackcover"} to show the end page
+    \item no more difference with \LaTeX{}
+    \item no functions like {\tt pause} in {\textsc{Beamer}}
+\end{itemize}
+\newpage\section{Source {\tt tex} of this presentation}
+\fvset{fontsize=\scriptsize,numbers=left,numbersep=3pt}
+\VerbatimInput{ryslidevideoTEST.tex}
+\newpage\section{Source {\tt ryslidevideo.cls}}
+\fvset{fontsize=\scriptsize,numbers=left,numbersep=3pt}
+\VerbatimInput{ryslidevideo.cls}
+\newpage\section{\LaTeX{} introduction on Wiki}
+\LaTeX{} is a document preparation system and document markup language.
+It is widely used for the communication and publication of scientific documents in many fields,
+including mathematics, physics, computer science, statistics, economics, and political science.
+It also has a prominent role in the preparation and publication of books %
+and articles that contain complex multilingual materials,
+such as Sanskrit and Arabic, including critical editions.
+\LaTeX{} uses the \TeX{} typesetting program for formatting its output,
+and is itself written in the \TeX{} macro language.
+\LaTeX{} is not the name of a particular editing program,
+but refers to the encoding or tagging conventions that are used in \LaTeX{} documents.
+\mybackcover
+% of cause you can use custom back cover instead of \mybackcover
+%\newpage
+%\vspace*{\fill}
+%{\centering\color{white} See Your Later\\}
+%\vspace*{\fill}
+\end{document}

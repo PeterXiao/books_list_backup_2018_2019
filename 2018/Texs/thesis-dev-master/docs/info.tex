@@ -1,0 +1,64 @@
+%%
+% 论文相关信息
+% 本文档中前缀"c-"代表中文版字段, 前缀"e-"代表英文版字段
+% modifyer: 黄俊杰(huangjj27, 349373001dc@gmail.com)
+% update date: 2017-04-13
+%%
+
+% 标题
+% 论文题目应以简短、明确的词语恰当概括整个论文的核心内容,避免使用不常见的缩略词、缩写字。读者通过标题可大致了解毕业设计(论文)的内容、专业的特点和科学的范畴。中文题目一般不宜超过 24 个字,必要时可增加副标题。外文题目一般不宜超过 12 个实词
+
+% 封面标题。由于技术所限，封面题目过长的划分交由用户您进行定夺
+% 这也能让您的论文封面看起来更有美感
+\covertitlefirst{中山大学}
+\covertitlesecond{
+    \ifx \degree \bachelor 本科\fi
+    \ifx \degree \master 硕士\fi
+    \ifx \degree \doctor 博士\fi
+    毕业论文非正式模版
+}
+
+% Author:   Souler Ou
+% 修改者:    欧一锋
+% Date:     3/30/2018
+% Mail:     ou@souler.cc
+%如果英文标题过长可以使用此两项作为表三(答辩记录表)的标题。
+\etitlefirst{Unofficial \Latex\ Template}
+\etitlesecond{for SYSU Graduation Thesis}
+
+% 另外一种封面的论文题目. 换行使用换行符("\\")
+%\title{
+%    中山大学 \\
+%    本科毕业论文非正式模版
+%}
+
+% 中文标题
+\ctitle{中山大学
+\ifx \degree \bachelor 本科\fi
+\ifx \degree \master 硕士\fi
+\ifx \degree \doctor 博士\fi
+毕业论文非正式模版}
+\etitle{Unofficial \LaTeX\ Template for Undergraduate Thesis of SYSU}
+
+% 解决英文摘要页标题过长问题 (Issue 49&63)
+% 当\etitle的长度超过页边距时，请使用下面的命令自行断行
+% 此操作只影响英文摘要页的标题，不影响页眉的标题
+% 如果不需要断行，将\eabstracttitlesecond{ }留空即可
+\eabstracttitlefirst{Unofficial \LaTeX\ Template} 
+\eabstracttitlesecond{for SYSU Graduation Thesis}
+
+% 作者详细信息
+\author{陈冠英}
+\cauthor{陈\ 冠\ 英}    % 封面作者
+\eauthor{Chen Guanying}
+\studentid{12350004}
+\cschool{电子与信息工程学院}
+
+\cmajor{自动化}
+\emajor{Automation}
+
+% 指导老师
+\cmentor{林倞\ 教授}
+\ementor{Prof. Lin Liang}
+
+\ccity{广州}

@@ -1,0 +1,41 @@
+\chapter{Background}
+\minitoc
+\section{section1}
+\subsection{sub-section 1}
+\section{section 2}
+\InitialCharacter{T}his is another chapter ...
+
+%
+\begin{algorithm}[tb]
+ 	\caption{How to write algorithms}
+  	\label{myAlgorithm}
+ 	\KwData{this text}
+ 	\KwResult{how to write algorithm with \LaTeX2e }
+ 	initialization\;
+ 	\While{not at end of this document}{
+  	read current\;
+  	\eIf{understand}{
+   	go to next section\;
+   	current section becomes this one\;
+   }{
+   go back to the beginning of current section\;
+  	}
+ 	}
+\end{algorithm}
+%
+\newpage
+blah blah \vfill ~
+%
+\begin{algorithm}[tb]
+	\caption{An algorithm}
+    \uIf{if condition}{
+      something if \;
+    }
+    \uElseIf{elseif condition}{
+      something elseif \;
+    }
+    \Else{
+      something else \;
+    }
+\end{algorithm}
+%

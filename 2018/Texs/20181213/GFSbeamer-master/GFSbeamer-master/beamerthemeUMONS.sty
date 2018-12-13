@@ -1,0 +1,30 @@
+% Copyright 2009 by C. Troestler <Christophe.Troestler@umons.ac.be>
+% This file is under GNU GPL v3 or later.
+
+\mode<presentation>
+
+% Display a navigation bar
+\def\beamer@themeUMONS@navigation{false}
+\DeclareOptionBeamer{navigation}[true]{%
+  \def\beamer@themeUMONS@navigation{#1}}
+
+% Do not display "boxes" to go to subsections in the navigation bar.
+\def\beamer@themeUMONS@nosubsection{false}
+\DeclareOptionBeamer{no-subsection}[true]{%
+  \def\beamer@themeUMONS@nosubsection{#1}}
+
+% Do not display the total number of pages.
+\def\beamer@themeUMONS@nototalframenumber{false}
+\DeclareOptionBeamer{no-totalframenumber}[true]{%
+  \def\beamer@themeUMONS@nototalframenumber{#1}}
+
+\ProcessOptionsBeamer
+
+\useinnertheme{rectangles}
+\usecolortheme{UMONS}
+\useoutertheme[navigation=\beamer@themeUMONS@navigation,
+               no-subsection=\beamer@themeUMONS@nosubsection,
+               no-totalframenumber=\beamer@themeUMONS@nototalframenumber]{UMONS}
+
+
+\mode<all>

@@ -1,0 +1,102 @@
+\documentclass[compress]{beamer}%compress表示尽量压缩导航条
+%\usetheme{Berlin}
+\usepackage{thubeamer}
+\usepackage{pgf}
+\usepackage[UTF8,noindent]{ctex}%取消首行缩进
+
+\usepackage{times} %设置文档中的所有英文为Times new roman字体
+\usefonttheme{professionalfonts}    % 设置公式中的数学字体(wenzhong) http://bbs.ctex.org/forum.php?mod=viewthread&tid=76917
+
+\setCJKsansfont[ItalicFont={KaiTi}]{SimSun}
+%\logo{\includegraphics[width=1.3cm,height=1.3cm]{logo.pdf}} %在每个页面的右下角插入logo
+\usepackage{caption}
+\setbeamertemplate{caption}[numbered]{}% Number float-like environments
+
+\begin{document}
+
+\graphicspath{{figures/}} % figures path
+\captionsetup[figure]{font=footnotesize,labelfont=footnotesize}
+
+\title{基于大涡模拟的多旋流燃烧室\\两相燃烧流场研究}
+\author[广末凉子]{学生：广末凉子\\ \vskip 5pt 导师：内田有纪}
+\institute[南京航空航天大学]{\small \vskip 38pt 南京航空航天大学}
+\date{\small \vskip -22pt \today}
+%\titlegraphic{\includegraphics{logo.pdf}}
+%\frame{
+\begin{frame}
+	\vspace{-10mm}
+		\maketitle
+	\vspace{-44mm}
+	\begin{figure}[htbp]
+		\begin{center}
+			\includegraphics[width=0.14\linewidth]{logo.pdf}
+		\end{center}
+	\end{figure}
+\end{frame}
+\section*{目录}
+\begin{frame}
+	\frametitle{\secname}
+	\tableofcontents[sections={<1-5>}]
+\end{frame}
+  %\AtBeginSubsection[] {
+  %\frame<handout:0> {
+  %\frametitle{目录}
+  %\tableofcontents[current,currentsubsection,sections={<1-5>}]
+    %}
+    %\addtocounter{framenumber}{-1}  %目录页不计算页码
+  %}
+  
+\AtBeginSection[] {%在每一节前面加入目录显示当前节的目录结构
+	\begin{frame}
+		\frametitle{目录}
+		\tableofcontents[currentsection,currentsubsection,hideothersubsections,sectionstyle=show/shaded,]
+		\addtocounter{framenumber}{-1}  %目录页不计入页码
+	\end{frame}
+}
+
+
+
+\section{研究背景}
+\begin{frame}
+	\frametitle{\secname~ }
+	\begin{block}{液体燃料燃烧}
+		液体燃料在工业与民航中有着广泛的应用。
+	\end{block}
+	\begin{block}{低污染燃烧技术}
+		国际民航组织对航空发动机排放的要求越来越高，研究低污染燃烧技术是促进我国民航事业发展的关键。
+	\end{block}
+	\begin{block}{数值模拟}
+		计算流体力学的发展和广泛应用。
+	\end{block}
+\end{frame}
+\section{研究内容}
+\section{湍流两相燃烧的数学模型}
+\begin{frame}{亚网格湍流模型}
+  \begin{block}{Smagorinsky-Lilly模型}
+    基于涡粘假设
+  \end{block}
+  \begin{block}{动态亚网格模型}
+    通过可解尺度涡旋的局部特性来确定小尺度涡旋的模型系数
+  \end{block}
+\end{frame}
+\begin{frame}{湍流燃烧模型}
+稳态火焰面模型
+\end{frame}
+\begin{frame}
+	\frametitle{液相亚网格随机模型}
+	\begin{block}{运动方程}
+		$$dx_p=U_pdt$$
+	\[dU_p=\tau_p^{-1}( {\overline U}_g-U_p)dt+(C_0\frac{k_{sgs}}{\tau_t})^{1/2}dW_t\]
+	\end{block}
+\end{frame}
+\section{数值求解方法}
+\section{结果分析}
+\section{Q\&A}
+\begin{frame}{\secname~ }
+	\begin{center}
+ 		\huge {\kaishu 结束，谢谢}
+		
+		\huge \textit {Q\&A}
+	\end{center}
+\end{frame}
+\end{document}

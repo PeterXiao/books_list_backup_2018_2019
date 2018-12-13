@@ -1,0 +1,81 @@
+%!TEX program = xelatex
+
+\documentclass[10.5pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[hyperfootnotes=false, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{ctex}
+\usepackage{zhlipsum}
+\usepackage{lipsum}
+
+\graphicspath{{./figures/}}
+
+%%% HEADER & FOOTER %%%%%
+\pagestyle{myheadings}
+\markright{Header left\hfill Header right\hfill}
+
+%%%%% TITLE %%%%%
+\title{\LaTeX~Note}
+\author{Author——作者}
+\date{\today}
+
+%%%%% BODY %%%%%
+\begin{document}
+	
+	\maketitle
+	\lipsum[1-3]
+	
+	
+	\clearpage
+	
+	\tableofcontents
+	
+	\clearpage
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{First Section}
+	\label{sec:first}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\zhlipsum[1]
+	\zhlipsum[1]
+	\subsection{Sub Section}
+	\begin{itemize}
+		\item \lipsum[1]
+		\item \lipsum[1]
+		\item \lipsum[1]
+	\end{itemize}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Second Section}
+	\label{sec:second}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{itemize}
+		\item \lipsum[1]
+		\item \lipsum[1]
+	\end{itemize}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Third Section}
+	\label{sec:third}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{itemize}
+		\item \lipsum[1]
+	\end{itemize}
+	
+	
+	\clearpage
+	
+	
+	
+	
+\end{document}

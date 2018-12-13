@@ -1,0 +1,91 @@
+\usetheme{Singapore}
+
+%\usepackage{rotating}
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{amsthm}
+%\usepackage{mathrsfs}
+%\usepackage{amsfonts}
+%\usepackage{latexsym}
+%\usepackage{makeidx}
+%\usepackage{fancyhdr}
+%\usepackage{ae}
+%\usepackage[normalem]{ulem}
+%\usepackage{helvet}
+%\usepackage[style=long4colheader]{glossaries}
+%\usepackage[T1]{fontenc}
+%\usepackage{fontspec}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{layout} 
+
+%\usefonttheme{professionalfonts}
+\usefonttheme{structuresmallcapsserif}
+\usefonttheme{serif}
+%\definecolor{darkblue}{RGB}{51,51,179}
+
+%% Set page margins
+\setbeamersize{text margin left=15pt}
+\setbeamersize{text margin right=15pt}
+\oddsidemargin=-45pt 
+\textwidth=330pt
+
+%% Remove vertical shading in headline
+\AtBeginDocument {
+  {\usebeamercolor{section in head/foot}}
+  \pgfdeclareverticalshading{beamer@headfade}{\paperwidth}
+  {color(0cm)=(section in head/foot.bg);
+   color(1.25cm)=(section in head/foot.bg)}
+}
+
+%% Set section frame page (w/o ``Section 1'')
+\defbeamertemplate*{section page}{sectionpage}[1][]{%
+	\begin{centering}
+		{\usebeamerfont{section name}\usebeamercolor[fg]{section name}#1}
+		\vskip1em\par
+		\begin{beamercolorbox}[sep=12pt,center]{part title}
+			\usebeamerfont{section title}\insertsection\par
+		\end{beamercolorbox}
+	\end{centering}
+}
+
+%% Set overview page: section and subsection number
+\setbeamertemplate{section in toc}{\inserttocsectionnumber.~\inserttocsection}
+	%\setbeamertemplate{section in toc}[circle] [ball unnumbered] [square]
+\setbeamertemplate{subsection in toc}[ball unnumbered]
+
+%% Show figure/table cpation number
+\setbeamertemplate{caption}[numbered]
+
+%% Set footline page number
+\setbeamertemplate{navigation symbols}{
+	\usebeamerfont{footline}
+	\insertframenumber/\inserttotalframenumber
+	\vspace{10pt}
+} %if empty:get rid of navigation symbols
+
+%% Set beamer headline
+\setbeamertemplate{headline}{
+	\begin{beamercolorbox}{section in head/foot}
+		\insertsectionnavigationhorizontal{0.94\textwidth}{}{}
+	\end{beamercolorbox}
+} %\setbeamertemplate{headline}{ \insertnavigation{0.94\paperwidth}} %This includes subsection
+\addtoheadtemplate{\pgfuseshading{beamer@headfade}\vskip-1cm}{}
+
+%% Set font size and font family
+\setbeamerfont{frametitle}{size=\fontsize{12pt}{14pt},series=\mdseries}
+\setbeamerfont{section in toc}{size=\small,series=\bfseries}
+\setbeamerfont{subsection in toc}{size=\footnotesize}
+\setbeamerfont{structure}{family=\rmfamily,series=\mdseries}
+\setbeamerfont{normal text}{size=\small,series=\bfseries}
+
+%% Title page font
+\setbeamerfont{title}{size=\fontsize{13.5pt}{13.5pt}}
+\setbeamerfont{subtitle}{size=\fontsize{13pt}{13pt}}
+\setbeamerfont{author}{size=\fontsize{11pt}{11pt}}
+\setbeamerfont{institute}{size=\fontsize{10pt}{10pt}}
+\setbeamerfont{date}{size=\fontsize{10pt}{10pt}}
+
+%% Change itemize bullets shape
+\setbeamertemplate{itemize item}{\small \color{fg}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\tiny \color{fg}$\blacktriangleright$}

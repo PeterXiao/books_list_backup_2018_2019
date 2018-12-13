@@ -1,0 +1,111 @@
+% Package:     gridslides
+% Description: LaTeX package to create free form slides with blocks placed on a grid
+% File:        example.tex
+% Author:      Daniel Mendler <mail@daniel-mendler.de>
+% Version:     0.1.1
+% Date:        2017-11-28
+% License:     GPL2 or LPPL1.3 at your option
+% Homepage:    https://github.com/minad/gridslides
+\documentclass{gridslides}
+
+\usepackage{cmbright}
+
+\newcommand{\hcterm}{\text{H.c.}}
+\newcommand{\nodag}{{\phantom{\dag}}}
+\newcommand{\hc}{^\dag}
+\newcommand{\trans}{^\intercal}
+\newcommand{\nohc}{^\nodag}
+\newcommand{\OpH}{\ensuremath{\mathcal{H}}\xspace}
+\newcommand{\HH}{\ensuremath{\widehat{\OpH}}\xspace}
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}\xspace}
+
+\definecolor{bordercolor}{HTML}{23373b}
+\newcommand{\border}{
+  \block(0,0,32){\tikz\fill[bordercolor] (0,0) rectangle (128mm,2mm);}
+  \block(0,22,32){\tikz\fill[bordercolor] (0,0) rectangle (128mm,8mm);}
+}
+\newcommand{\logo}{\Large\textbf{\color{bordercolor}\TeX}}
+
+\author{Author}
+\title{Presentation Title}
+\date{\today}
+\institute{Institute~$\cdot$~University}
+
+\begin{style}
+  \border
+  \txt(28,1.5){\logo}
+  \block(1.5,2,26){\LARGE\theheadline}
+  \txt(1,22.8){\color{white}\theslide}
+  \txt(4,22.9){\color{white}\scriptsize\theauthor~$\cdot$~\thetitle}
+\end{style}
+
+\begin{document}
+
+\begin{rawslide}
+  \border
+  \txt(28,1.5){\logo}
+  \block(2,5,28){\LARGE\thetitle}
+  \txt(2,9.5){\theauthor~$\cdot$~\thedate}
+  \txt(2,11.7){\footnotesize\theinstitute}
+\end{rawslide}
+
+\begin{slide}{Overview}
+  \block(1.5,5,29){
+    \begin{enumerate}[1.]
+    \item Topological phases
+    \item 1D p-wave superconductor
+    \end{enumerate}
+  }
+\end{slide}
+
+\begin{slide}{Topological Phases}
+  \fig(3,4,12){qahe}
+  \fig(17,4,12){qshe}
+  \txt(6,11){Conducting edge channels $\longleftrightarrow$ Non-trivial bandstructure}
+
+  \txt<2->(1.5,12.5){QAHE bulk Hamiltonian $\HH(\vec{k}) = \vec{g}(\vec{k})\cdot\vec{\sigma}$}
+  \eq<2->(13,14.2){\vec{g}(k_x,k_y) = \left(\sin k_x, \sin k_y, \cos k_x + \cos k_y - M \right)\trans}
+
+  \only<3>{
+    \fig(0.5,15,16){skyrmion}
+    \eq(4,20){M=1}
+    \block(4,15,5){\tikz \node[fill=white,text=red!90!black,inner sep=0.5mm]
+      {non-trivial};}
+
+    \fig(15,16,16){trivial}
+    \eq(18,21){M=3}
+    \block(20,17.5,2.2){\tikz \node[fill=white,inner sep=0.5mm,text=blue!90!black]
+      {trivial};}
+  }
+\end{slide}
+
+\begin{slide}{1D p-wave superconductor}
+  \txt(1.5,11){Lattice}
+  \eq(6.5,10){\OpH = \sum_{i=1}^{n-1} \left [ t c_i\hc c_{i+1}\nohc + \Delta c\nohc_i c\nohc_{i+1} + \hcterm \right] - \mu \sum_{i=1}^n c_i\hc c_i\nohc}
+
+  \fig(2,4,12){ctrivial}
+  \fig(18,5.5,12){cnontrivial}
+
+  \block<2->(26,10.5,4){%
+    \tikz \node[draw=red,inner sep=1mm] {
+      \scriptsize Majorana operators
+      $\begin{aligned}
+        \gamma_j\nohc &= \frac{c_j\nohc + c_j\hc}{2}\\
+        \gamma_j' &= \frac{c_j\nohc - c_j\hc}{2 \imath}
+      \end{aligned}$
+    };
+  }
+
+  \only<3>{
+    \fig(3,13.5,9){band02}
+    \txt(5,13.5){t=0.2}
+
+    \fig(16,13.5,9){band08}
+    \txt(18,13.5){t=0.8}
+
+    \txt(4,20.5){Bulk}
+    \eq(9,20.3){\HH(k) = (2t \cos k - \mu)\tau_z - 2\Delta\sin k\, \tau_y\qquad\vec{c}_k\hc = \left( c_k\hc,\, c_{-k}\nohc\right)}
+  }
+\end{slide}
+
+\end{document}

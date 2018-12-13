@@ -1,0 +1,54 @@
+\RequirePackage{hyphsubst,ifpdf,ifxetex}
+%% -- Experimentelle Trennmuster aktivieren -- %%
+\HyphSubstLet{ngerman}{ngerman-x-latest}
+
+\documentclass[ngerman,fontsize=10pt,enlargefirstpage=on,parskip=full]{scrlttr2}
+\usepackage{babel}
+
+\LoadLetterOption{john-doe}
+
+\usepackage{blindtext}
+
+
+\begin{document}
+\begin{letter}{blub}
+%\showfields{test}
+
+% noch reinbauen
+\makeatletter
+\@setplength{sigbeforevskip}{2pt}
+\makeatother
+%
+\setkomavar{date}{\today}
+
+\setkomavar{toname}{Herrn Dr.\,Karl Mustermann}
+
+\setkomavar{toaddress}{Institut für Blindtext\\
+Blindtext Universität\\
+Musterstraße 123\\
+12345 Musterstadt}
+
+\setkomavar{subject}{Blindtext}
+
+\opening{Sehr geehrter Herr Dr.\,Karl Mustermann,}
+dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht.
+
+Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht.
+
+Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht.
+
+
+Mit besten Grüßen
+
+Karl Mustermann
+
+Hier geht der Blindtext noch ein bißchen weiter, damit man sieht, daß die zweite Seite ein bißchen anders aussieht als die erste. 
+
+dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht.
+dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht. Dies ist Blindtext. Er steht an der Stelle des realen Textes. Ist dieser verfügbar, wird er mit dem Blindtext getauscht.
+
+\closing{Mit besten Grüßen}
+\cc{Verteiler}
+\encl{Anlage-Verzeichnis}
+\end{letter}
+\end{document}

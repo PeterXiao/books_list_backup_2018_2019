@@ -1,0 +1,133 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Professional Newsletter Template
+% Structural Definitions File
+% Version 1.0 (09/03/14)
+%
+% Created by:
+% Vel (vel@latextemplates.com)
+% 
+% This file has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	REQUIRED PACKAGES
+%----------------------------------------------------------------------------------------
+
+\usepackage{graphicx} % Required for including images
+\usepackage{microtype} % Improved typography
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage{booktabs} % Required for nice horizontal rules in tables
+\usepackage{wrapfig} % Required for in-line images
+\usepackage{float} % Required for forcing figures not to float with the [H] parameter
+
+%------------------------------------------------
+% Fonts
+
+\usepackage{charter} % Use the Charter font as the main document font
+\usepackage{courier} % Use the Courier font for \texttt (monospaced) only
+\usepackage[T1]{fontenc} % Use T1 font encoding
+
+%------------------------------------------------
+% List Separation
+
+\usepackage{enumitem} % Required to customize the list environments
+\setlist{noitemsep,nolistsep} % Remove spacing before, after and within lists for a compact look
+
+%------------------------------------------------
+% Figure and Table Caption Styles
+
+\usepackage{caption} % Required for changing caption styles
+\captionsetup[table]{labelfont={bf,sf},labelsep=period,justification=justified} % Specify the table caption style
+\captionsetup[figure]{labelfont={sf,bf},labelsep=period,justification=justified, font=small} % Specify the figure caption style
+\setlength{\abovecaptionskip}{10pt} % Whitespace above captions
+
+%------------------------------------------------
+% Spacing Between Paragraphs
+
+\makeatletter
+\usepackage{parskip}
+\setlength{\parskip}{6pt}
+\newcommand{\@minipagerestore}{\setlength{\parskip}{6pt}}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	PAGE MARGINS AND SPACINGS
+%----------------------------------------------------------------------------------------
+
+\textwidth = 7 in % Text width
+\textheight = 10 in % Text height
+\oddsidemargin = -18pt % Left side margin on odd pages
+\evensidemargin = -18pt % Left side margin on even pages
+\topmargin = -36pt % Top margin
+\headheight = 0pt % Remove the header by setting its space to 0
+\headsep = 0pt % Remove the space between the header and top of the page
+\parskip = 4pt % Space between paragraph
+\parindent = 0.0in % Paragraph indentation
+\pagestyle{empty} % Disable page numbering
+
+%----------------------------------------------------------------------------------------
+%	COLORS
+%----------------------------------------------------------------------------------------
+
+\usepackage[dvipsnames,svgnames]{xcolor} % Required to specify custom colors
+
+\definecolor{altncolor}{rgb}{.8,0,0} % Dark red
+%\definecolor{altncolor}{rgb}{.2,.4,.8} % Dark blue
+%\definecolor{altncolor}{rgb}{.84,.16,.16} % Red
+
+\usepackage[colorlinks=true, linkcolor=altncolor, anchorcolor=altncolor, citecolor=altncolor, filecolor=altncolor, menucolor=altncolor, urlcolor=altncolor]{hyperref} % Use the color defined above for all links
+
+%----------------------------------------------------------------------------------------
+%	BOX STYLES
+%----------------------------------------------------------------------------------------
+
+\usepackage[framemethod=TikZ]{mdframed}% Required for creating boxes
+\mdfdefinestyle{sidebar}{
+    linecolor=black, % Outer line color
+    outerlinewidth=0.5pt, % Outer line width
+    roundcorner=0pt, % Amount of corner rounding
+    innertopmargin=10pt, % Top margin
+    innerbottommargin=10pt, % Bottom margin
+    innerrightmargin=10pt, % Right margin
+    innerleftmargin=10pt, % Left margin
+    backgroundcolor=white, % Box background color
+    frametitlebackgroundcolor=white, % Title background color
+    frametitlerule=false, % Title rule - true or false
+    frametitlerulecolor=white, % Title rule color
+    frametitlerulewidth=0.5pt, % Title rule width
+    frametitlefont=\Large, % Title heading font specification
+    font=\small
+}
+
+\mdfdefinestyle{intextbox}{
+    linecolor=black, % Outer line color
+    outerlinewidth=0.5pt, % Outer line width
+    roundcorner=10pt, % Amount of corner rounding
+    innertopmargin=7pt, % Top margin
+    innerbottommargin=7pt, % Bottom margin
+    innerrightmargin=7pt, % Right margin
+    innerleftmargin=7pt, % Left margin
+    backgroundcolor=white, % Box background color
+    frametitlebackgroundcolor=white, % Title background color
+    frametitlerule=false, % Title rule - true or false
+    frametitlerulecolor=white, % Title rule color
+    frametitlerulewidth=0.5pt, % Title rule width
+    frametitlefont=\Large % Title heading font specification
+}
+
+%----------------------------------------------------------------------------------------
+%	HEADING STYLE
+%----------------------------------------------------------------------------------------
+
+\newcommand{\heading}[2]{ % Define the \heading command
+\vspace{#2} % White space above the heading
+{\begin{center}\Large\textbf{#1}\end{center}} % The heading style
+\vspace{#2} % White space below the heading
+}
+
+\newcommand{\BackToContents}{\hyperlink{contents}{{\small Back to Contents}}} % Define a command for linking back to the contents of the newsletter

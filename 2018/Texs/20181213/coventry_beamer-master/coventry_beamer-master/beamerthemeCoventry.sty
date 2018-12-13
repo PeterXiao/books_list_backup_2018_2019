@@ -1,0 +1,60 @@
+% Copyright 2007 by Till Tantau
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\DeclareOptionBeamer{width}
+{\PassOptionsToPackage{width=#1}{beamerouterthemesidebar}}
+
+\DeclareOptionBeamer{hideothersubsections}
+{\PassOptionsToPackage{hideothersubsections=#1}{beamerouterthemesidebar}}
+
+\DeclareOptionBeamer{hideallsubsections}
+{\PassOptionsToPackage{hideallsubsections=#1}{beamerouterthemesidebar}}
+
+\ProcessOptionsBeamer
+
+
+
+\mode<presentation>
+
+\useoutertheme[height=0pt,left]{sidebar}
+
+\usecolortheme{seahorse}
+\setbeamercolor*{titlelike}{parent=structure}
+
+\useinnertheme{rectangles}
+\setbeamertemplate{frametitle}[default][right]
+
+\definecolor{covblue}{RGB}{0 114 198}
+
+\addtobeamertemplate{sidebar left}{}{{\hspace{0.15cm}\includegraphics[width=1.3cm]{cov_logo}}\vspace{0.4cm}}
+\setbeamercolor{sidebar}{bg=covblue}
+
+\setbeamercolor{author in sidebar}{bg=white,fg=white!20}
+\setbeamerfont{author in sidebar}{series=\itshape}
+
+\setbeamercolor{title in sidebar}{bg=white,fg=white}
+\setbeamerfont{title in sidebar}{series=\bfseries}
+
+\setbeamercolor{structure}{fg=covblue}
+\setbeamercolor{section in sidebar}{fg=white}
+\setbeamercolor{subsection in sidebar}{fg=white}
+
+\usepackage[T1]{fontenc}
+\usepackage[default, osfigures]{opensans}
+
+\usepackage{transparent}
+\usebackgroundtemplate{
+	\hspace*{0.6\paperwidth}
+	%\hspace*{0.01\paperwidth}
+	%{\transparent{0.8}\includegraphics[height=0.4\paperheight,trim=0 0 1.0cm 0.85cm]{cov_phoenix}}
+	{\transparent{0.08}\includegraphics[width=0.4\paperwidth,trim=0 0 1.32cm 0.85cm]{cov_phoenix}}
+}
+
+\mode
+<all>

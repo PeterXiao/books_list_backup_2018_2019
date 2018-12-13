@@ -1,0 +1,235 @@
+% Package:     gridslides
+% Description: LaTeX package to create free form slides with blocks placed on a grid
+% File:        gridslides.sty
+% Author:      Daniel Mendler <mail@daniel-mendler.de>
+% Version:     0.1.1
+% Date:        2017-11-28
+% License:     GPL2 or LPPL1.3 at your option
+% Homepage:    https://github.com/minad/gridslides
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{amsmath,amsthm,amssymb}
+\RequirePackage{mathtools}
+\RequirePackage[ngerman]{babel}
+\RequirePackage{braket}
+\RequirePackage{siunitx}
+\RequirePackage{xspace}
+\RequirePackage{dsfont}
+\RequirePackage{microtype}
+\RequirePackage{ragged2e}
+\RequirePackage{tikz}
+\RequirePackage[margin=0mm,paperwidth=128mm,paperheight=96mm]{geometry}
+\RequirePackage{xstring}
+\RequirePackage{enumerate}
+\RequirePackage{environ}
+\RequirePackage[pdfusetitle,bookmarksopen]{hyperref}
+\usetikzlibrary{calc}
+
+% support arrows in overlay
+\tikzstyle{every picture}+=[remember picture]
+
+\pagestyle{empty}
+\graphicspath{{figures/}}
+
+\newif\ifgridslides@grid
+%\gridslides@gridtrue
+\gridslides@gridfalse
+
+\newif\ifgridslides@boxes
+%\gridslides@boxestrue
+\gridslides@boxesfalse
+
+\ifgridslides@boxes%
+\tikzset{gridslides@box/.style={draw=blue}}
+\else
+\tikzset{gridslides@box/.style={}}
+\fi
+
+\def\gridslides@xoff{0}
+\def\gridslides@yoff{0}
+
+\long\def\gridslides@block(#1,#2,#3)#4{%
+  \let\oldxoff\gridslides@xoff%
+  \let\oldyoff\gridslides@yoff%
+  \pgfmathsetmacro\xoff{\gridslides@xoff+#1}%
+  \pgfmathsetmacro\yoff{\gridslides@yoff+#2}%
+  \global\let\gridslides@xoff\xoff%
+  \global\let\gridslides@yoff\yoff%
+  \begin{tikzpicture}[overlay,yscale=-1,shift=(current page.north west)]%
+    \node[gridslides@box,rectangle,anchor=north west,inner sep=0pt,text width=#3*4mm] at (4mm*\xoff,4mm*\yoff)%
+    {%
+      \begingroup%
+      #4%
+      \endgroup%
+    };%
+  \end{tikzpicture}%
+  \global\let\gridslides@xoff\oldxoff%
+  \global\let\gridslides@yoff\oldyoff%
+}
+
+\def\gridslides@fig(#1,#2,#3)#4{\gridslides@block(#1,#2,#3){\includegraphics[width=\textwidth]{#4}}}
+
+\long\def\gridslides@eq(#1,#2)#3{%
+  \gridslides@block(#1,#2,32){%
+    $\begin{aligned}#3\end{aligned}$%
+  }%
+}
+
+\long\def\gridslides@txt(#1,#2)#3{\gridslides@block(#1,#2,32){\mbox{#3}}}
+
+\newcounter{gridslides@totalsteps}
+\newcounter{gridslides@step}
+
+\newcommand{\gridslides@setsteps}[1]{%
+  \ifnum#1>\value{gridslides@totalsteps}%
+    \setcounter{gridslides@totalsteps}{#1}%
+  \fi%
+}
+
+\long\def\gridslides@from<#1->#2#3{%
+  \gridslides@setsteps{#1}%
+  \ifnum\value{gridslides@step}<#1%
+    #3%
+  \else%
+    #2%
+  \fi%
+ }
+
+\long\def\gridslides@only<#1-#2>#3#4{%
+  \gridslides@setsteps{#1}%
+  \gridslides@setsteps{#2}%
+  \ifnum\value{gridslides@step}<#1%
+    #4%
+  \else%
+    \ifnum\value{gridslides@step}>#2%
+      #4%
+    \else%
+      #3%
+    \fi%
+  \fi%
+}
+
+\long\def\alt<#1>#2#3{%
+  \IfSubStr{#1}{-}{%
+    \IfBeginWith{#1}{-}{%
+      \gridslides@only<1#1>{#2}{#3}%
+    }{%
+      \IfEndWith{#1}{-}{%
+        \gridslides@from<#1>{#2}{#3}%
+      }{%
+        \gridslides@only<#1>{#2}{#3}%
+      }%
+    }%
+  }{%
+    \gridslides@only<#1-#1>{#2}{#3}%
+  }%
+}
+
+\long\def\only<#1>#2{\alt<#1>{#2}{}}
+
+\long\def\gridslides@blockhelper#1<#2>(#3)#4{\only<#2>{#1(#3){#4}}}
+\def\gridslides@defblock#1{%
+  \long\expandafter\def\csname#1\endcsname{%
+    \@ifnextchar<{\gridslides@blockhelper{\csname gridslides@#1\endcsname}}{\csname gridslides@#1\endcsname}%
+  }%
+}
+
+\gridslides@defblock{block}
+\gridslides@defblock{fig}
+\gridslides@defblock{eq}
+\gridslides@defblock{txt}
+
+\long\def\gridslides@cmdhelper#1#2<#3>#4{\alt<#3>{#1{#4}}{#2{#4}}}
+\def\gridslides@cmd#1#2{%
+  \expandafter\let\csname gridslides@#1\expandafter\endcsname\csname#1\endcsname%
+  \long\expandafter\def\csname#1\endcsname{%
+    \@ifnextchar<{\gridslides@cmdhelper{\csname gridslides@#1\endcsname}{#2}}{\csname gridslides@#1\endcsname}%
+  }%
+}
+
+\newcommand{\rgb}[1]{\definecolor{gridslides@rgb}{HTML}{#1}\color{gridslides@rgb}}
+
+\gridslides@cmd{textbf}{\relax}
+\gridslides@cmd{textit}{\relax}
+\gridslides@cmd{emph}{\relax}
+\gridslides@cmd{underline}{\relax}
+\def\gridslides@ignore#1{}
+\gridslides@cmd{color}{\gridslides@ignore}
+\gridslides@cmd{rgb}{\gridslides@ignore}
+
+\newcounter{slide}
+\stepcounter{slide}
+
+\newcommand{\gridslides@page}[1]{%
+  \setcounter{gridslides@totalsteps}{1}%
+  \setcounter{gridslides@step}{0}%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
+  \loop\ifnum\value{gridslides@step}<\value{gridslides@totalsteps}%
+    \stepcounter{gridslides@step}%
+    \clearpage%
+    \begingroup%
+    #1%
+    \endgroup%
+  \repeat%
+  \stepcounter{slide}%
+}
+
+\newcommand{\bg}[1]{%
+  \fig(0,0,32){#1}%
+  \ifgridslides@grid%
+  \begin{tikzpicture}[overlay,yscale=-1,shift=(current page.north west)]%
+    \begin{scope}[x=4mm,y=4mm]%
+      \draw[gray,step=1,line width=0.1pt] (0,0) grid (32,24);%
+      \draw[red,step=8,line width=1pt] (0,0) grid (32,24);%
+    \end{scope}%
+  \end{tikzpicture}%
+  \fi%
+}
+
+\def\gridslides@style{}
+\def\theheadline{}
+
+\newcommand{\gridslides@slide}[2]{%
+  \gridslides@page{%
+    \global\def\theheadline{#1}%
+    \gridslides@style%
+    #2%
+    \ifnum\value{gridslides@step}=1%
+      \pdfbookmark[0]{\theheadline}{slide\theslide}%
+    \fi
+    \ifnum\value{gridslides@totalsteps}>1%
+      \pdfbookmark[1]{Step \thegridslides@step}{slide\theslide.step\thegridslides@step}%
+    \fi
+  }%
+}
+
+\NewEnviron{slide}[1]{\gridslides@slide{#1}{\BODY}}
+\NewEnviron{style}{\global\let\gridslides@style\BODY}
+\NewEnviron{rawslide}{\gridslides@page{\BODY}}
+
+\newcommand{\institute}[1]{\newcommand\@institute{#1}}
+\newcommand{\theauthor}{\@author}
+\newcommand{\thedate}{\@date}
+\newcommand{\thetitle}{\@title}
+\newcommand{\theinstitute}{\@institute}
+
+% undefine some commands from article
+\let\tableofcontents\gridslides@undefined
+\let\addcontentsline\gridslides@undefined
+\let\paragraph\gridslides@undefined
+\let\subparagraph\gridslides@undefined
+\let\chapter\gridslides@undefined
+\let\section\gridslides@undefined
+\let\subsection\gridslides@undefined
+\let\subsubsection\gridslides@undefined
+\let\maketitle\gridslides@undefined
+\let\figure\gridslides@undefined
+\let\table\gridslides@undefined
+\let\pagestyle\gridslides@undefined
+\let\footnote\gridslides@undefined
+\let\bf\gridslides@undefined
+\let\it\gridslides@undefined
+\let\cal\gridslides@undefined
+\let\tt\gridslides@undefined
+\let\listoffigures\gridslides@undefined
+\let\listoftables\gridslides@undefined

@@ -1,0 +1,554 @@
+\ProvidesPackage{master}
+
+% 这几个变量的用处看About-master.md
+\gdef\typetitle{1}% 0 1
+\gdef\englishtitle{0}% 0 1
+\gdef\disclaim{1}% 0 1
+\gdef\head{2}% 0 1 2 
+
+\gdef\zero{0}
+\gdef\one{1}
+\gdef\two{2}
+\gdef\three{3}
+
+\AtBeginDocument{
+    \hypersetup{
+        citecolor=green,
+        filecolor=black,
+        linkcolor=black,
+        urlcolor=black,
+        CJKbookmarks=true,
+        pdftitle={\@ctitle},
+        pdfauthor={\@cauthor},
+        pdfkeywords={\@ckeywords},
+        pdfcreator={LaTeX with hyperref package, using SYSU undergraduate Thesis LaTeX Template}
+    }
+}
+\pagestyle{fancy}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\zihao{-5}\thepage} % 页码位于页脚居中
+
+    \ifx \head \zero
+
+    \fancyhead[C]{\zihao{-5}\songti 
+        中山大学\ifthenelse{\equal{\degree}{\master}} {硕}{博}士学位论文}
+    \fi
+    \ifx \head \one
+    \fancyhead[C]{\zihao{-5}\songti\leftmark}
+    \fi
+    \ifx \head \two
+    \ifx \lang \sysucn
+    \fancyhead[L]{\zihao{-5}\songti \@ctitle}
+    \else
+    \fancyhead[L]{\zihao{-5}\songti \@etitle}
+    \fi
+    \fancyhead[R]{\zihao{-5}\leftmark}
+    \fi
+}
+
+% 中英文摘要页面样式
+\fancypagestyle{cAbstract}{
+    \ifx \head \zero
+
+    \fancyhead[C]{\zihao{-5}\songti 
+        中山大学\ifthenelse{\equal{\degree}{\master}} {硕}{博}士学位论文}
+        \fi
+    \ifx \head \one
+    \fancyhead[C]{\zihao{-5}\songti 摘要}
+    \fi
+    \ifx \head \two
+    \ifx \lang \sysucn
+    \fancyhead[L]{\zihao{-5}\songti \@ctitle}
+    \else
+    \fancyhead[L]{\zihao{-5}\songti \@etitle}
+    \fi
+    \fancyhead[R]{\zihao{-5}\songti 摘要}
+    \fi
+}
+
+
+\fancypagestyle{eAbstract}{
+    \ifx \head \zero
+    % 博士和硕士页眉只有中山大学硕士/博士学位论文
+    \fancyhead[C]{\zihao{-5}\songti 
+        中山大学\ifthenelse{\equal{\degree}{\master}} {硕}{博}士学位论文}
+    \fi
+    \ifx \head \one
+    \fancyhead[C]{\zihao{-5}\songti ABSTRACT}
+    \fi
+    \ifx \head \two
+    \ifx \lang \sysucn
+    \fancyhead[L]{\zihao{-5}\songti \@ctitle}
+    \else
+    \fancyhead[L]{\zihao{-5}\songti \@etitle}
+    \fi
+    \fancyhead[R]{\zihao{-5}\songti ABSTRACT}
+    \fi
+}
+
+\fancypagestyle{listoffiguretable}{
+    \ifx \head \zero
+    \fancyhead[C]{\zihao{-5}\songti 
+        中山大学\ifthenelse{\equal{\degree}{\master}} {硕}{博}士学位论文}
+    \fi
+    \ifx \head \one
+    \fancyhead[C]{\zihao{-5}\songti \leftmark}
+    \fi
+    \ifx \head \two
+    \ifx \lang \sysucn
+    \fancyhead[L]{\zihao{-5}\songti \@ctitle}
+    \else
+    \fancyhead[L]{\zihao{-5}\songti \@etitle}
+    \fi
+    \fancyhead[R]{\zihao{-5}\songti \leftmark}
+    \fi
+}
+
+% 博士和硕士目录标题:小三宋体加粗
+\renewcommand{\cfttoctitlefont}{\hfill\zihao{-3}\songti\textbf}
+\renewcommand{\cftlottitlefont}{\hfill\zihao{-3}\songti\textbf}
+\renewcommand{\cftloftitlefont}{\hfill\zihao{-3}\songti\textbf}
+
+% 博士和硕士章节标题其他内容: 小四号宋体
+\renewcommand{\cftchapfont}{\zihao{-4}\songti}
+\renewcommand{\cftchappagefont}{\zihao{-4}\songti}
+\renewcommand{\cftsecfont}{\zihao{-4}\songti}
+\renewcommand{\cftsecpagefont}{\zihao{-4}\songti}
+\renewcommand{\cftsubsecfont}{\zihao{-4}\songti}
+\renewcommand{\cftsubsecpagefont}{\zihao{-4}\songti}
+
+% 目录通用设置
+\renewcommand{\cfttabfont}{\zihao{-4}\songti}
+\renewcommand{\cfttabpagefont}{\zihao{-4}\songti}
+
+\renewcommand{\cftaftertoctitle}{\hfill}
+\renewcommand{\cftafterlottitle}{\hfill}
+\renewcommand{\cftafterloftitle}{\hfill}
+\renewcommand{\cftnodots}{\cftdotsep}     % 使用点指示页数
+
+\addtolength{\cftchapnumwidth}{3\ccwd}
+
+\renewcommand{\cftfigfont}{\zihao{-4}\songti}
+\renewcommand{\cftfigpagefont}{\zihao{-4}\songti}
+
+\renewcommand{\@biblabel}[1]{[#1]\hfill}
+
+% 相关信息宏定义
+\newcommand\ctitle[1]{\def\@ctitle{#1}}
+\newcommand\etitle[1]{\def\@etitle{#1}}
+\newcommand\covertitlefirst[1]{\def\@covertitlefirst{#1}}
+\newcommand\covertitlesecond[1]{\def\@covertitlesecond{#1}}
+\newcommand\eabstracttitlefirst[1]{\def\@eabstracttitlefirst{#1}} % 解决英文摘要页标题过长问题 (Issue 49&63)
+\newcommand\eabstracttitlesecond[1]{\def\@eabstracttitlesecond{#1}}
+\newcommand\cauthor[1]{\def\@cauthor{#1}} % 默认中文名为封面作者名字
+\newcommand\eauthor[1]{\def\@eauthor{#1}}
+\newcommand\studentid[1]{\def\@studentid{#1}}
+\newcommand\cschool[1]{\def\@cschool{#1}}
+\newcommand\cmajor[1]{\def\@cmajor{#1}}
+\newcommand\emajor[1]{\def\@emajor{#1}}
+\newcommand\cmentor[1]{\def\@cmentor{#1}}
+\newcommand\ementor[1]{\def\@ementor{#1}}
+\newcommand\ccity[1]{\def\@ccity{#1}}% 用于硕士博士论文中封面下面地址　
+
+\newcommand\etitlefirst[1]{\def\@etitlefirst{#1}}
+\newcommand\etitlesecond[1]{\def\@etitlesecond{#1}}
+
+\renewcommand\maketitle {
+    \ifx \typetitle \zero
+    \begin{titlepage}
+        \begin{center}
+        \makebox[0.1cm]{} \\
+        
+        \songti
+            \zihao{4} 中山大学\ifthenelse{\equal{\degree}{\master}}{硕}{博}士毕业论文
+            \vspace{\baselineskip}\\
+            \zihao{1}\textbf{\@ctitle}\\
+            \zihao{1}\textbf{\@etitle}
+            \vspace{\baselineskip}\\
+            {\fontsize{15}{10}\selectfont
+            \begin{tabular}{l}
+                \begin{tabular}{ll}
+                    专业名称:&\hspace{\ccwd}\@cmajor
+                    \vspace{16pt}\\
+                    申\hspace{0.5\ccwd}请\hspace{0.5\ccwd}人:&\hspace{\ccwd}\@cauthor
+                    \vspace{16pt}\\
+                    指导老师:&\hspace{\ccwd}\@cmentor
+                    \end{tabular}   
+                \\ \\ \\ \\
+			    \makebox[0.08cm]{} 答辩委员会(签名) \vspace{16pt}\\%0.08是由于表格的横线
+                \begin{tabular}{ll}
+                    主席:&\vspace{16pt}\\
+                    成员:&
+                    \end{tabular}
+            \end{tabular}
+            }
+            \vfill
+            \zihao{-3}
+            {\centering
+                \@ccity\hspace{\ccwd}中山大学\hspace{\ccwd}\@cschool\\
+                \ctexset{today=small}         % 汉字数字形式日期
+                \today      % 使用最后一次编译的日期, 实现日期的自动化
+            }
+        \end{center}
+        \end{titlepage}
+        \newclearpage
+    \fi
+
+    \ifx \typetitle \one
+    \begin{titlepage}
+    \makebox[0.1cm]{} \\
+    \begin{center}
+    \zihao{2}\textbf{\@ctitle}
+    \vskip 20pt
+    \zihao{3} （申请中山大学理学\ifthenelse{\equal{\degree}{\master}} {硕}{博}士学位论文）
+    \vskip 80pt
+
+    \begin{minipage}{0.8\textwidth}
+    \raggedright
+    \zihao{3} 培\hspace{\ccwd}养\hspace{\ccwd}单\hspace{\ccwd}位：\@cschool
+    \vskip 10pt
+    \zihao{3} 学\hspace{5\ccwd}科：\@cmajor
+    \vskip 10pt
+    \zihao{3} 申\hspace{2\ccwd}请\hspace{2\ccwd}人：\@cauthor
+    \vskip 10pt
+    \zihao{3} 指\hspace{\ccwd}导\hspace{\ccwd}教\hspace{\ccwd}师：\@cmentor
+    \end{minipage}
+
+    \vskip 80pt
+
+    \begin{minipage}{\textwidth}
+        \raggedright
+        \zihao{3} 论文答辩委员会主席：
+        \vskip 10pt
+        \zihao{3} 论文答辩委员会委员：
+    \end{minipage}
+
+    \vskip \stretch{1}
+        \zihao{3} \ctexset{today=big} \today    
+
+    \end{center}
+    \end{titlepage}
+    \newclearpage
+    \fi
+
+    \ifx \englishtitle \one
+    \thispagestyle{empty}
+    \begin{center}
+    \zihao{-1}\textbf{\@etitle}
+    \vskip 20pt
+    \normalfont\zihao{3} Dissertation submitted to
+    \vskip 3pt
+    \zihao{3} \textbf{Sun Yat-sen University}
+    \vskip 3pt
+    \zihao{3} in partial fulfillment of the requirement
+    \vskip 3pt
+    \zihao{3} for the degree of
+    \vskip 3pt
+    \zihao{3}\textbf{\ifthenelse{\equal{\degree}{\master}} {Master}{Doctor}\ of Science}
+    \vskip 40pt
+    \zihao{3} by
+    \vskip 3pt
+    \zihao{3}\textbf{\@eauthor}
+    \vskip 3pt
+    \zihao{3} in
+    \vskip 3pt
+    \zihao{3}\textbf{\@emajor}
+    \vskip 40pt
+
+    \begin{minipage}{\textwidth}
+        \raggedright
+        \normalfont\zihao{3} Dissertation Supervisor: \@ementor
+    \end{minipage}
+
+    \vskip \stretch{1}
+        \zihao{3}\textbf\etoday
+
+    \end{center}
+    \newclearpage
+    \fi
+    
+\newclearpage
+}
+
+\newcommand\makedisclaim{
+    \ctexset {
+        chapter = {
+            titleformat = {\zihao{-2}\fangsong\textbf},
+            beforeskip = {10pt},
+            afterskip = {40pt}
+        }
+    }
+    \input{docs/disclaim}
+    \thispagestyle{empty}
+    \newclearpage
+}
+
+% 摘要
+\newcommand\ckeywords[1]{\def\@ckeywords{#1}}
+\newcommand\ekeywords[1]{\def\@ekeywords{#1}}
+\newcommand\cabstract[1]{\def\@cabstract{#1}}
+\newcommand\eabstract[1]{\def\@eabstract{#1}}
+
+\newcommand\makecabstract{
+    \ctexset{
+        section = {
+            titleformat = {\zihao{4}\heiti},
+            beforeskip = {10pt},
+            afterskip = {20pt}
+        },
+        paragraph/format = {}
+    }
+
+    \addcontentsline{toc}{chapter}{摘\hspace{\ccwd}要}
+    \begin{center}
+    \zihao{3}
+    \mbox{ }\\
+    \textbf{\@ctitle} 
+    \vspace{\baselineskip}\\
+    \zihao{-3}
+    \begin{tabular}{l}
+    专\hspace{2\ccwd}业： \mbox{ }\@cmajor \\
+    \ifx \degree \doctor 
+    博\hspace{0.5\ccwd}士\hspace{0.5\ccwd}生：\mbox{ }\@cauthor \\
+    \fi
+    \ifx \degree \master 
+    硕\hspace{0.5\ccwd}士\hspace{0.5\ccwd}生：\mbox{ }\@cauthor \\
+    \fi
+    指导教师：\mbox{ }\@cmentor
+    \end{tabular}
+    \vspace{\baselineskip}\\
+    \end{center}
+    \begin{spacing}{1.5}
+    \begin{center}
+    \zihao{-2}\heiti\textbf{摘要}
+    \end{center}
+
+		\zihao{-4} \songti\@cabstract
+
+    \zihao{-4}\indent 关键词:\@ckeywords
+    \end{spacing}
+
+}
+
+% 英文摘要、关键字标题：小四号新罗马体(Time New Roman)加粗并加方括号
+% 英文摘要、关键字内容：小四号新罗马体(Time New Roman)
+\newcommand\makeeabstract{
+    \ctexset{
+        section = {
+            titleformat = {\zihao{4}\textbf},
+            beforeskip = {10pt},
+            afterskip = {20pt}
+        }
+    }
+
+    \addcontentsline{toc}{chapter}{ABSTRACT}
+
+    \begin{center}
+    \zihao{3}
+    \mbox{ }\\
+    \textbf{\@etitle} 
+    \vspace{\baselineskip}\\
+    \zihao{-4}
+    \begin{tabular}{ll}
+    Major:&\mbox{ }\@emajor \\
+    Name:&\mbox{ }\@eauthor \\
+    Supervisor:&\mbox{ }\@ementor
+    \end{tabular}
+    \vspace{\baselineskip}\\
+    \zihao{3} \heiti \textbf{ABSTRACT}
+    \end{center}
+    \begin{spacing}{1.5}
+    \zihao{5} \kaishu \@eabstract
+
+    \zihao{5}\kaishu\indent Key Words:\@ekeywords
+    \end{spacing}
+
+}
+
+\newcommand\makeabstract{
+    \setcounter{page}{1}
+    \makecabstract
+    \thispagestyle{cAbstract}
+    \newclearpage
+
+    \makeeabstract
+    \thispagestyle{eAbstract}
+    \newclearpage
+}
+\newcommand\maketableofcontents{
+    \pagestyle{plain}
+    \tableofcontents
+    \newclearpage
+}
+\newcommand\makelistoffiguretable{
+    \listoffigures
+    \listoftables
+    \thispagestyle{listoffiguretable}
+    \newclearpage
+}
+
+
+\renewcommand\mainmatter{
+    \@mainmattertrue
+    \pagenumbering{arabic}
+    \ctexset {
+        chapter = {
+            % fixskip 必须更新宏包才可以使用
+           	% fixskip = true,
+            % 设置目录章的格式设置，number如果添加\chinese{chapter}会变成第一章一，不知道为什么
+            name = {\ifx \lang \sysuen Chapter \else 第{\chinese{chapter}}章 \fi},
+            number = {
+                \ifx \lang \sysuen \arabic{chapter}\fi
+                },
+            % 章上方空一行,下方两行
+            beforeskip = {1\baselineskip},
+            afterskip = {2\baselineskip},
+            format = {\centering},
+            nameformat = {\zihao{-2}\heiti\textbf},
+            titleformat = {\zihao{-2}\heiti\textbf}
+        },
+        section = {
+            % fixskip = true,
+            beforeskip = {-3.5ex \@plus -1ex \@minus -.2ex},
+            afterskip = {1.5ex \@plus .2ex},
+            format = {\bfseries},
+            nameformat = {\zihao{-3}\heiti\textbf},
+            titleformat = {\zihao{-3}\heiti\textbf},
+            indent = {2\ccwd}
+        },
+        subsection = {
+            % fixskip = true,
+            beforeskip = {-2.5ex \@plus -1ex \@minus -.2ex},
+            afterskip = {1.0ex \@plus .2ex},
+            format = {\bfseries},
+            nameformat = {\zihao{-4}\heiti\textbf},
+            titleformat = {\zihao{-4}\heiti\textbf},
+            indent = {2\ccwd}
+        },
+        subsubsection = {
+            beforeskip = {-2ex \@plus -1ex \@minus -.2ex},
+            afterskip = {1.0ex \@plus .2ex},
+            format = {\bfseries},
+            nameformat = {\zihao{4}\heiti\textbf},
+            titleformat = {\zihao{4}\heiti\textbf},
+            indent = {2\ccwd}
+            % 按照中大规定的格式需要显示成a.b.c.d章，而不是(d)节
+            % number = {(\arabic{subsubsection})}
+        }
+    }
+
+    \zihao{-4}\songti \linespread{1.5}\selectfont
+    \pagestyle{plain}
+}
+
+
+% 参考文献
+% 标题小五号黑体加冒号
+% 内容小五号宋体
+\newcommand\makereferences{
+    \begingroup
+        \ctexset {
+            chapter = {
+                format = {\centering},
+                titleformat = {\zihao{-2}\heiti}
+            }
+        }
+
+        % 引用样式
+        %\bibliographystyle{bibtex-style/ieeetr}         % 国际标准样式
+        \bibliographystyle{bibtex-style/gbt7714-2005}    % 国标文后参考文献著录规则
+        %\bibliographystyle{bibtex-style/sysuthesis}     % 历史遗留模板
+        %\bibliographystyle{bibtex-style/sysuthesis2}     % 2017年由程建生师兄提供的模板
+        {\zihao{-5}\rmfamily\bibliography{main}}    % 引用文献列表
+    \endgroup
+}
+
+% 附录样式
+\renewcommand\appendix{\par
+    \@mainmattertrue
+
+    \pagestyle{plain}
+    \setcounter{chapter}{0}
+    \setcounter{section}{0}
+    \gdef\@chapapp{\appendixname}
+    \gdef\thechapter{\@Alph\c@chapter}
+    \gdef\CTEX@prechapter{\CTEX@preappendix}
+    \gdef\CTEX@thechapter{\CTEX@appendix@number}
+    \gdef\CTEX@postchapter{}
+    \ctexset {
+        chapter = {
+            format = {\centering},
+            nameformat = {\zihao{4}\heiti},
+            titleformat = {\zihao{4}\heiti},
+        },
+        section = {
+            format = {\centering},
+            nameformat = {\zihao{4}\heiti},
+            titleformat = {\zihao{4}\heiti}
+        },
+        subsection = {
+            format = {\centering},
+            nameformat = {\zihao{4}\heiti},
+            titleformat = {\zihao{4}\heiti}
+        }
+    }
+}
+
+
+%% 来自 2011 June, by "mxctor"<qiuhuining@gmail.com>
+%%
+%% labels in the publications
+%%
+\newcommand\Nchapter[1]{%
+  \if@mainmatter%
+    \@mainmatterfalse%
+    \chapter{#1}%
+    \@mainmattertrue%
+  \else
+    \chapter{#1}%
+  \fi}
+\def\SYSU@label@publications{发表文章目录}
+\newenvironment{publications}[1]
+     {\heiti\Nchapter{\SYSU@label@publications}%
+      \@mkboth{\MakeUppercase\SYSU@label@publications}
+              {\MakeUppercase\SYSU@label@publications}%
+      \list{\@biblabel{\@arabic\c@enumiv}}%
+           {\settowidth\labelwidth{\@biblabel{#1}}%
+            \leftmargin\labelwidth
+            \advance\leftmargin\labelsep
+            \@openbib@code
+            \usecounter{enumiv}%
+            \let\p@enumiv\@empty
+            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+      \sloppy
+      \clubpenalty4000
+      \@clubpenalty \clubpenalty
+      \widowpenalty4000%
+      \sfcode`\.\@m}
+     {\def\@noitemerr
+       {\@latex@warning{Empty `publications' environment}}%
+      \endlist}
+
+%%
+%% labels in the resume
+%%
+\def\SYSU@label@resume{个人简历}
+\newenvironment{resume}
+  {\Nchapter{\SYSU@label@resume}}
+  {}
+\newenvironment{resumesection}[1]
+  {{\noindent\normalfont\textbf{#1}}
+   \list{}{\labelwidth\z@
+           \leftmargin 2\ccwd}
+   \item\relax}
+  {\endlist}
+\newenvironment{resumelist}[1]
+  {{\noindent\normalfont\textbf{#1}}
+   \list{}{\labelwidth\z@
+           \leftmargin 4\ccwd
+           \itemindent -2\ccwd
+           \listparindent\itemindent}
+   \item\relax}
+  {\endlist}

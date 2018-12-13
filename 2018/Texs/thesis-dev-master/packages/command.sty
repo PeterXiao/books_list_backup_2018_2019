@@ -1,0 +1,117 @@
+% 定义以及一些文本命令，比如破折号和定义打印版，电子版的变量
+
+\ProvidesPackage{command}
+
+\SetupKeyvalOptions{
+  family=include,
+  prefix=include@,
+  setkeys=\kvsetkeys
+  }
+\DeclareBoolOption[false]{print}
+\ProcessKeyvalOptions*\relax
+
+%% Copyright (C) 2009 Alexander Huang <loligo@sohu.com>.
+\def\SYSU@underline[#1]#2{%
+  \CTEXunderline{\hbox to #1{\hfill#2\hfill}}}
+\def\SYSUunderline{\@ifnextchar[\SYSU@underline\CTEXunderline}
+
+\def\captionce{%
+   \ifx\@captype\@undefined
+     \@latex@error{\noexpand\captionce outside float}\@ehd
+     \expandafter\@gobble
+   \else
+     \refstepcounter\@captype
+     \expandafter\@firstofone
+   \fi
+   {\@dblarg{\@captionce\@captype}}%
+}
+\long\def\@captionce#1[#2]#3#4{%
+  \par
+  \addcontentsline{\csname ext@#1\endcsname}{#1}%
+    {\protect\numberline{\csname the#1\endcsname}{\ignorespaces #2}}%
+  \begingroup
+    \@parboxrestore
+    \if@minipage
+      \@setminipage
+    \fi
+    %\normalsize
+	\@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\vskip-24\p@
+	\@makecaption{\csname fnum@#1english\endcsname}{\ignorespaces #4}\par
+  \endgroup}
+
+\newcommand{\sysuspace}{\hspace{\ccwd}}
+% 提供破折号的命令
+\newcommand{\pozhehao}{\kern0.3ex\rule[0.8ex]{2em}{0.1ex}\kern0.3ex}
+% 斜体加粗
+\newcommand\mybold[1]{\textit{\textbf{#1}}}
+% 绝对值
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+
+% 定义英文日期格式
+\newcommand\etoday{
+  \hspace{0.5\ccwd} \monthname[\the\month]\hspace{2\ccwd} \nth{\the\day}{\hspace{1\ccwd}} \the\year
+}
+
+% 定义中文日期格式
+\def\ctoday{\number\year~年~\number\month~月~\number\day~日}
+
+%% 来自 2011 June, by "mxctor"<qiuhuining@gmail.com>
+
+\newcommand{\argmax}[2]{\operatorname{arg\,}\underset{#1}{\operatorname{max}} \, #2 }
+\newcommand{\argmin}[2]{\operatorname{arg\,}\underset{#1}{\operatorname{min}} \, #2 }
+\newcommand{\varmax}[2]{\underset{#1}{\operatorname{max}} \, #2 }
+\newcommand{\varmin}[2]{\underset{#1}{\operatorname{min}} \, #2 }
+
+\newcommand{\fncmax}[2]{\underset{#1}{\operatorname{max}} \, #2 }
+\newcommand{\fncmin}[2]{\underset{#1}{\operatorname{min}} \, #2 }
+
+
+%%
+%%  abbr. for frequent sysmbols
+%%
+
+\newcommand{\xxFnorm}[1]{\|{#1}\|_F}
+\newcommand{\xxFnormSqr}[1]{\|{#1}\|_F^2}
+\newcommand{\xxFprod}[2]{\left<{#1},{#2}\right>_F}
+\newcommand{\xxOpVec}[1]{\mathop{vec}\left(#1\right)}
+\newcommand{\xxLprod}[2]{\left<{#1},{#2}\right>_2}
+\newcommand{\xxLprodVec}[2]{\xxOpVec{#1}^T\xxOpVec{#2}}
+
+\newcommand{\xxTensor}[1]{{{~\times_{#1}~}}}
+
+\newcommand{\xxBracketY}[1]{{\left( {#1} \right)}}
+\newcommand{\xxBracketF}[1]{{\left[ {#1} \right]}}
+\newcommand{\xxBracketH}[1]{{\left\{ {#1} \right\}}}
+\newcommand{\xxVec}[1]{{\mathbf{#1}}}
+\newcommand{\xxMat}[1]{{\mathbf{#1}}}
+
+\ifinclude@print
+\def\@printtwoside{1} % 设置文章为双面打印格式（添加多余空白页保证每个表格、章节开头为奇数页面）
+\else
+\def\@printtwoside{0} % 设置文章为电子版格式（不添加多余空白页）
+\fi
+% Insert a TRUE blank page which has no header or footer
+\let\origdoublepage\cleardoublepage
+\newcommand{\clearemptydoublepage}{
+    \clearpage{
+        \pagestyle{empty}
+        \origdoublepage
+    }
+}
+% 定义了一种新的clearpage方式，允许一个变量切换电子版及双面打印版
+\newcommand{\newclearpage}{
+    \if\@printtwoside1
+        \clearemptydoublepage
+    \else
+        \clearpage
+    \fi
+}
+
+% 单双页不同页边距
+% \oddsidemargin 1.5 true cm
+% \if@twoside
+%   \evensidemargin 0 true cm
+% \else
+%   \evensidemargin 1.5 true cm
+% \fi

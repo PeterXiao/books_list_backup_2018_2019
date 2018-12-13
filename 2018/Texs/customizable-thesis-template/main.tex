@@ -1,0 +1,329 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% File: main.tex
+%% Author: John Liaperdos (ioannis.liaperdos@gmail.com)
+%% Last update: March 31, 2017
+%% Description: Provides an example of a PhD Thesis 
+%% using the teipel-thesis-en pdfLaTeX class.
+%%
+%% Character encoding: UTF-8
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%
+% 1. use the "modern" or "classic" option to switch between 
+% a modern or classic font, respectively.
+%
+% 2. add/remove the "hyperref" option to enable/disable hyperlinks:
+% (remember to remove auxiliary files after adding/removing 
+% the "hyperref" option).
+%
+% 3. add/remove the "printer" option to typeset a printer-friendly 
+% (grayscale)/color version of the thesis.
+%
+% 4. use the "watermark" option to indicate a draft copy of the thesis
+%
+% 5. use the "histinit" option to enable "historiated initials".
+% (If used, all chapter initials declared by the \InitialCharacter{}
+% macro are enlarged. If ommitted, arguments of \InitialCharacter{}
+% are typeset as normal text.)
+%
+% 6. use the "plain" option to disable tikz graphics in title page
+% and part/chapter headers (might help to avoid compilation timeouts).
+% Note that "plain" disables CD label and CD cover creation.
+%
+% 7. use the "noindex" option to (hopefully) avoid compilation timeouts
+% when compiling online (disables index generation - note that "\indexGR",
+% "\index" invocations need not be removed when toggling this option).
+%
+% 8. use the "frontispiece" option to typeset a frontispiece at the back of the cover page
+%
+% 9. use the "letter" option for a US letter page layout, instead of A4
+%
+% 10. use the "minitoc" option to load and properly initialize the "minitoc" package, 
+% that allows typesetting individual tables of contents per chapter.
+% (remember to remove auxiliary files after adding/removing 
+% the "minitoc" option).
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+	\documentclass[modern,hyperref,watermark,histinit,frontispiece,minitoc]{teipel-thesis-en}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% UNIVERSITY INFO 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% University Name
+%
+	\UniversityName{University of Something}
+%
+% School Name
+%
+	\SchoolName{The Graduate School}
+%
+% Department Name
+%
+	\DepartmentName{Some Department}
+%
+% Location
+%
+	\UniversityLocation{Old York}
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% THESIS INFO 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%% -------------------------------------------------------------------
+% Thesis Type
+%
+	\ThesisType{PhD Thesis}
+%
+%% -------------------------------------------------------------------
+% Thesis Title 
+%
+% To force line breaks in title, use "\\".
+% If different line break locations are to be used for the cover page and the inner title page (page 3) 
+% repeat the cover page title as an optional argument of the \title macro, including line breaks.
+%
+% Examples:
+% 1. Automatic title line breaks in cover page and inner title page: 
+%	    \title{This is my title}
+% 2. Title breaking after ''my'' in both cover page and inner title page:
+%	    \title{This is my \\ title}
+% 3. Title breaking after ''my'' in cover page, and after ''is'' in inner title page:
+%	    \title[This is my \\ title]{This is \\ my title}
+%
+	\title{My Thesis Title}
+%%
+%
+%% -------------------------------------------------------------------
+%% Thesis subtitle (optional)
+%
+% If no subtitle is required, set argument to blank, or comment-out the \subtitle macro.
+%
+% Example:
+%%	\subtitle{This is my subtitle}
+	\subtitle{This is my subtitle}
+%
+%% -------------------------------------------------------------------
+%
+%% Author name
+%
+% For more than one authors, separate with ",".
+% Example:
+%	\authorName{Albert Einstein, George W. Bush} 
+	\authorName{Albert Einstein} 
+%
+%% -------------------------------------------------------------------
+%
+%% Supervisor's name
+% 
+	\supervisor{George Washington}
+%
+%% -------------------------------------------------------------------
+%% Supervisor's title
+%
+	\supervisorTitle{Professor}
+%
+%
+%% -------------------------------------------------------------------
+%% Place and date of publication
+%
+	\thesisPlaceDate{New York, February 2015}
+%
+%% -------------------------------------------------------------------
+%% Place and date in acknowledgements (if applicable).
+%
+	\ackPlaceDate{New York, May 2020}
+%
+%% -------------------------------------------------------------------
+%% Approval information
+%
+	\examinationDate{November 22, 2010}
+	\approvalStatement{Approved by ...}
+%
+%% -------------------------------------------------------------------
+%% Copyright Year
+%
+	\copyrightYear{2030}
+%
+%% -------------------------------------------------------------------
+%% Name of first examiner
+%
+	\firstExaminer{Professor A}
+%
+%% -------------------------------------------------------------------
+%% Title of first examiner
+%
+	\firstExaminerTitle{Professor}
+%
+%% -------------------------------------------------------------------
+%% Name of second examiner
+%
+	\secondExaminer{Professor B}
+%
+%% -------------------------------------------------------------------
+%% Title of second examiner
+%
+	\secondExaminerTitle{Professor}
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% THESIS COLORS: 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Color for cover and chapters
+	\chaptercolor{brown!85!magenta}
+%%
+%% Color for appendices
+	\appendixcolor{brown!60!orange}
+%%
+%% hyperlink color (ignored if the "hyperref" option is omitted)
+    	\hyperlinkcolor{blue}
+%%
+%% Thesis title foreground color in cover page (ignored if the "plain" option is used)
+    	\titlecolor{white}
+%%
+%% Thesis title background color in cover page (ignored if the "plain" option is used)
+    	\titlebackgroundcolor{brown!85!magenta}  
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% COVER PAGE IMAGE: 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Cover page image (optional)
+%% If no cover page image is required, set argument to blank, or comment-out the \coverpageimage macro.
+%%
+%% Syntax:
+%%          \coverpageimage{scale factor}{path to cover page image}
+%%      or
+%%          \coverpageimage[tikz]{scale factor}{TikZ commands}
+%%          (commands may include \usetikzlibrary statements, etc.)
+%%      
+%% Examples:
+%%      - Use the image in "figures/rdf.png" scaled by 0.8 (=80%):
+%%          \coverpageimage{0.8}{figures/rdf.png}
+%%      - Use a TikZ drawing scaled by 0.5 (=50%):
+%%          \coverpageimage[tikz]{0.5}{
+%%              \draw[thick, magenta] \foreach \x in {18,90,...,306} {
+%%                  (\x:4) node{} -- (\x+72:4)
+%%                  (\x:4) -- (\x:3) node{}
+%%                  (\x:3) -- (\x+15:2) node{}
+%%                  (\x:3) -- (\x-15:2) node{}
+%%                  (\x+15:2) -- (\x+144-15:2)
+%%                  (\x-15:2) -- (\x+144+15:2)
+%%              };
+%%          }
+%%
+     \coverpageimage{0.8}{figures/rdf.png}
+%%
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% MISCELLANEOUS SETTINGS: 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+% Path to University Logo (all supported formats are allowed)
+	\UniversityLogoPath{logo/teikal_logo.eps}
+%
+% Path to University Logo (grayscale version to be used with the `printer' option)
+	\UniversityBWLogoPath{logo/teikal_logo_BW.eps}
+%
+% Scalefactor for University logos (1 for 100%)
+	\LogoScaleFactor{0.9}
+% Draft Indication (watermark text to be used with the `watermark' option)
+	\draftIndication{--- DRAFT COPY v.2.1. ---}
+%
+% Frontispiece settings (ignored if the `frontispiece' option is omitted)
+%	Syntax: \setFrontispiece[scale factor]{path to frontispiece image}{frontispiece image legend}
+	\setFrontispiece[0.8]{figures/aesop.png}{Aesop}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% add custom hyphenation rules here
+%\hyphenation{} 
+%
+%%%%
+%
+%
+%%%%
+\begin{document}
+%
+\maketitle
+
+\beginfrontmatter
+	
+% Abstract (content in `abstract.tex')
+	\include{abstract}
+% Dedication
+	\thesisDedication{to my parents}
+% Acknowledgements (content in `acknowledgements.tex')
+	\include{acknowledgements}
+% Table of Contents
+	\tableofcontents
+% List of Figures
+	\listoffigures
+% List of Illustrations
+	\listofillustrations
+% List of Tables
+	\listoftables
+% List of Algorithms
+	\listofalgorithms
+% Preface (content in `preface.tex') 
+	\include{preface}
+	
+\beginmainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% INCLUDE YOUR CHAPTERS/SECTIONS HERE
+%%
+% Introduction
+	\include{intro}
+% Parts/Chapters
+	\part{Part A}
+	\include{chap2}
+    \part{Part B} 
+	\include{chap3}
+    \part{Part C}
+	\include{chap4}
+	\include{chap5}
+% Appendices
+	\appendices
+	\include{appA}
+	\include{appB}
+	\include{appC}
+	\include{appD}
+	\include{appE}
+	\include{appF}    
+% Bibliography/References (BiBTeX items in `references.bib')
+	\bibliography{IEEEabrv,references}
+% Abbreviations (content in `abbreviations.tex') 
+	\includeabbreviations{abbreviations}
+% Glossary (content in `glossary.tex') 
+	\includeglossary{glossary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Index
+	\printindices
+%
+%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%
+
+%% Create CD labels:
+
+	\definecdlabeloffsets{0}{-0.65}{0}{0.55} % upper label x offset [cm] (default=0) /  upper label y offset [cm] (default=0) /  lower label x offset [cm] (default=0) /  lower  label y offset [cm] (default=0) -- For Q-Connect KF01579 labels use the following offset values: {0}{-0.65}{0}{0.55}
+
+	\createcdlabel{This is my PhD \\ Thesis Title}{My Name}{October}{2014}{8} % thesis title / author name / month / year / title area width in cm (recommended value: 8) 
+
+%%
+%% Create CD case covers:
+
+	\createcdcover{This is my PhD \\ Thesis Title}{My Name}{October}{2014}{10} % thesis title / author name / month / year / title area width in cm (recommended value: 10) 
+
+%%
+%
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

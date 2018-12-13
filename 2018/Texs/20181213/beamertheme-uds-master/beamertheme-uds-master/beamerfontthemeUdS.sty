@@ -1,0 +1,37 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Beamer font theme for Saarland University
+%
+% Author: Rudolf Siegel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{ifxetex,ifluatex}
+\ifluatex 
+  \RequirePackage{fontspec}
+\else 
+  \ifxetex 
+    \RequirePackage{fontspec}
+  \else 
+    \RequirePackage[T1]{fontenc}
+    \RequirePackage{PTSans} 
+  \fi 
+\fi
+
+\ProvidesPackage{beamerfontthemeUdS}[2017/06/19 v 0.1]
+
+\mode<presentation>
+
+%% Font for titlelike: Verdana
+\ifluatex 
+  \setsansfont{Verdana}
+\else 
+  \ifxetex 
+    \setsansfont{Verdana}
+  \else 
+  \fi 
+\fi
+
+\mode<all>
+
+\endinput

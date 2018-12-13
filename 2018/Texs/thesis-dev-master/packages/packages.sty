@@ -1,0 +1,82 @@
+\ProvidesPackage{packages}
+% 宏包的引用
+
+
+\RequirePackage{fontspec}
+
+\RequirePackage{ifthen}%条件判断的宏包
+\RequirePackage{kvoptions}% 控制模板选项宏包
+\RequirePackage[margin=1in,headsep=.2in, headheight=2in]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{booktabs}
+\RequirePackage{calc}
+\RequirePackage{graphicx}
+\RequirePackage[figureposition=below,tableposition=above,labelsep=space]{caption}
+\RequirePackage[font=footnotesize]{subcaption}
+\RequirePackage{amsmath,amssymb,amsthm}
+\RequirePackage{listings}
+\RequirePackage{longtable}
+\RequirePackage[section]{placeins}
+\RequirePackage{enumitem}
+\RequirePackage{bbm}
+\RequirePackage{bm}
+\RequirePackage[notlof,notlot,nottoc,numbib]{tocbibind} %table of content
+\RequirePackage{tocloft}
+\RequirePackage{wrapfig}
+\RequirePackage{colortbl}
+\RequirePackage{xcolor}
+\RequirePackage{array}
+\RequirePackage{makecell}
+\RequirePackage[bottom, perpage]{footmisc}
+\RequirePackage{setspace}
+\RequirePackage{datetime}
+\RequirePackage{nth}
+\RequirePackage{times}%times宏包会将缺省字体设置为 Times New Roman
+\RequirePackage{tikz}
+\RequirePackage{pdfpages}
+% package for mathematical plot
+\RequirePackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% 引入调整段落整体宽度的宏包
+\RequirePackage{changepage}
+% 参考文献引用标记格式：右上角，带方括号
+% 其中修改了natbib的多文献引用设置
+% sort&compress 排列合并在一起, [1-5](引用多篇文献合在一起) comma 逗号分隔多个引用 colon: (default) 引号分隔多个引用 
+\RequirePackage[square,sort&compress, super, comma]{natbib}
+
+\RequirePackage[clearempty,indentafter]{titlesec} 
+\RequirePackage{interfaces-titlesec} %% 有编号的格式
+
+%% 这是由于英文字体加粗不了 所以自己添加字体 包括加粗字体 斜体等
+%% 下载　http://ow3kig4i4.bkt.clouddn.com/sysuthesis/fonts.zip
+%% 解压，根目录有 fonts 文件夹, 里面有timesbd.ttf，timesi.ttf　timesbi.ttf　等字体
+%% windows 打开 powershell 
+%% cd .\Desktop\ 
+%% mkdir fonts
+%% cp  C:\Windows\Fonts\times*.ttf  .\fonts\
+%% cp C:\Windows\Fonts\arial*.ttf  .\fonts\
+%% cp C:\Windows\Fonts\cour*.ttf .\fonts\
+%% 设置英文字体
+% \setmainfont[
+% Path=fonts/,
+% BoldFont=timesbd.ttf,
+% ItalicFont=timesi.ttf,
+% BoldItalicFont=timesbi.ttf
+% ]{times.ttf}
+% % Arial
+% \setsansfont[
+% Path=fonts/,
+% BoldFont=arialbd.ttf,
+% ItalicFont=ariali.ttf,
+% BoldItalicFont=arialbi.ttf
+% ]{arial.ttf}
+% % Courier New
+% \setmonofont[
+% Path=fonts/,
+% BoldFont=courbd.ttf,
+% ItalicFont=couri.ttf,
+% BoldItalicFont=courbi.ttf
+% ]{cour.ttf}
+
+\endinput

@@ -1,0 +1,112 @@
+\documentclass{beamer}
+
+\usepackage{ctex}
+
+\useoutertheme[footline=authorinstitutetitle]{miniframes}
+\useinnertheme{rectangles}
+
+\xdefinecolor{xjtured}{RGB}{200,22,30}
+\xdefinecolor{xjturedbak}{RGB}{184,0,46}
+\xdefinecolor{xjtublue}{RGB}{0,78,151}
+\xdefinecolor{xjtubluebak}{RGB}{0,46,230}
+\xdefinecolor{xjtugrey}{RGB}{220,220,221}
+\xdefinecolor{xjtugreybak}{RGB}{92,54,9}
+
+\setbeamercolor{structure}{bg=xjtublue}
+\setbeamercolor{title}{fg=white}
+\setbeamercolor{section in head/foot}{fg=white,bg=xjtublue}
+\setbeamercolor{subsection in head/foot}{fg=white,bg=xjtubluebak}
+\setbeamercolor{frametitle}{fg=xjtublue,bg=xjtugrey}
+\setbeamercolor{author in head/foot}{fg=white,bg=xjtublue}
+\setbeamercolor{title in head/foot}{fg=white,bg=xjtublue}
+\setbeamercolor{block title}{fg=white,bg=xjtubluebak}
+\setbeamercolor{block body}{bg=block title.bg!15!white}
+\setbeamercolor{block title example}{fg=white,bg=green}
+\setbeamercolor{block body example}{bg=block title example.bg!15!white}
+\setbeamercolor{block title alerted}{fg=white,bg=red}
+\setbeamercolor{block body alerted}{bg=block title alerted.bg!15!white}
+\setbeamercolor{item projected}{bg=xjtublue}
+\setbeamercolor{subitem projected}{bg=xjtublue}
+
+\setbeamertemplate{enumerate subitem}[circle]
+\setbeamertemplate{itemize subitem}[circle]
+
+\setbeamertemplate{footline} 
+{%
+  \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm]{author in head/foot}%
+    \insertshortauthor%
+    \hfill%
+    \insertshortinstitute%
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,%
+    leftskip=.3cm,rightskip=.3cm]{title in head/foot}%
+    {\insertshorttitle}%
+    \hfill%
+    {\insertframenumber / \inserttotalframenumber}
+  \end{beamercolorbox}%
+}
+
+\logo{\includegraphics[height=10cm]{figures/a3_3jdxhgray.png}}
+
+\begin{document}
+
+\title{TEST}
+\author{DX}
+\institute{XJTU}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents %  [pausesections]
+\end{frame}
+
+\section{first section}
+\begin{frame}
+  \frametitle{1}
+  \begin{itemize}
+    \item Your answer is correct.
+    \begin{itemize}
+      \item subitem 1
+    \end{itemize}
+    \item hello world!
+  \end{itemize}
+\end{frame}
+
+\section{second section}
+\subsection{first subsection}
+\begin{frame}
+  \frametitle{2.1}
+  \begin{block}{block}
+    block information
+  \end{block}
+  \begin{alertblock}{alertblock}
+    alertblock information
+  \end{alertblock}
+  \begin{exampleblock}{exampleblock}
+    exampleblock information
+  \end{exampleblock}
+\end{frame}
+
+\subsection{second subsection}
+\begin{frame}
+  \frametitle{2.2}
+  \begin{enumerate}
+    \item yo're right
+    \begin{enumerate}
+      \item subitem 1
+      \item subitem 2
+    \end{enumerate}
+    \item hello
+  \end{enumerate}
+\end{frame}
+
+\section{third section}
+\begin{frame}
+  \frametitle{3}
+  test information
+\end{frame}
+
+\end{document} 

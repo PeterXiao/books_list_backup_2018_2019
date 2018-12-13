@@ -1,0 +1,59 @@
+\documentclass[b5paper,landscape]{article}
+
+\usepackage{ctex}
+\usepackage{tikz}
+\usetikzlibrary{mindmap,trees}
+\usepackage{verbatim}
+\usepackage[text={176mm,250mm},left=1cm,right=1cm,vmarginratio=1:1]{geometry}
+
+\begin{document}	
+\begin{figure}[t]
+	\thispagestyle{empty}
+    \centering
+\begin{tikzpicture}[scale=1.1]
+\path[mindmap,concept color=red!70,text=white] node[concept] {\Huge{记忆}}
+      [clockwise from=0]
+      child[concept color=blue!70,text=black] {node[concept] {\Large {工作记忆}}
+   	  [clockwise from=60]
+	child [concept color=green!60] { node[concept] {\large{逻辑推理}}}
+	child [concept color=green!60] { node[concept] {\large{心理旋转}}}
+	child [concept color=green!60] { node[concept] {\large{心算}}}
+	%child { node[concept] {...} }
+}
+child[concept color=blue!70,text=black] {node[concept] {\Large {错误记忆}}
+	[clockwise from=60]
+	child [concept color=green!60]{ node[concept] {\large{易受暗示}}}
+	child [concept color=green!60]{ node[concept] {\large{错位}}}
+	child [concept color=green!60]{ node[concept] {\large{重构}}}
+	child [concept color=green!60]{ node[concept] {\large{偏差}}}
+	child [concept color=green!60]{ node[concept] {\large{持久}}}
+}
+child[concept color=blue!70,text=black]  {node[concept] {\Large{闪光灯记忆}}
+	[clockwise from=-60]
+	child [concept color=green!60]{ node[concept] {\large{持久易激活}}}
+	child [concept color=green!60]{ node[concept] {\large{情境信息}}}
+	child [concept color=green!60]{ node[concept] {\large{情感体验}}}
+}
+child[concept color=blue!70,text=black] {node[concept] {\Large {前瞻记忆}}
+	[clockwise from=-120]
+	child [concept color=green!60]{ node[concept] {\large{纠错的有效性}}}
+	child [concept color=green!60]{ node[concept] {\large{多因素兼顾}}}
+	child [concept color=green!60]{ node[concept] {\large{计划达成水平}}}
+}
+child[concept color=blue!70,text=black] {node[concept] {\Large {内隐记忆}}
+    [clockwise from=240]
+    child [concept color=green!60] { node[concept] {\large{合情推理}}}
+    child [concept color=green!60] { node[concept] {\large{猜想}}}
+    child [concept color=green!60] { node[concept] {\large{灵感}}}
+    child [concept color=green!60] { node[concept] {\large{操作体验}}}
+}
+child[concept color=blue!70,text=black] {node[concept] {\Large{长时记忆}}
+    [clockwise from=120]
+    child [concept color=green!60] { node[concept] {\large{技巧方法}}}
+    child [concept color=green!60] { node[concept] {\large{图形阵列}}}
+    child [concept color=green!60] { node[concept] {\large{公式定理}}}
+    child [concept color=green!60] { node[concept] {\large{口诀}}}
+};
+\end{tikzpicture}
+\end{figure}
+\end{document}

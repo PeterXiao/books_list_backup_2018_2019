@@ -1,0 +1,41 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: USTB-Thesis.aux
+A level-1 auxiliary file: contents/0-1.aux
+A level-1 auxiliary file: contents/0-2.aux
+A level-1 auxiliary file: contents/0-3.aux
+A level-1 auxiliary file: contents/1.aux
+A level-1 auxiliary file: contents/2.aux
+A level-1 auxiliary file: contents/3.aux
+A level-1 auxiliary file: contents/4.aux
+A level-1 auxiliary file: contents/5.aux
+A level-1 auxiliary file: contents/6.aux
+A level-1 auxiliary file: contents/7.aux
+A level-1 auxiliary file: contents/8.aux
+The style file: bstutf8.bst
+A level-1 auxiliary file: contents/9.aux
+Database file #1: ckwx.bib
+Warning--I didn't find a database entry for "["
+-- BUPTThesis.bst version 1.0 Beta 1 (2009/05/31) by Yu Zhang.
+-- http://code.google.com/p/buptthesis/
+-- See the "userguide.pdf" manual for usage information.
+Warning--The author in eurare2014 is missing.
+Warning--There is month but no year in eurare2014
+Warning--all relevant fields are empty in eurare2014
+Warning--The editor in bosecker1986bacterial is missing.
+Warning--empty editor in bosecker1986bacterial
+Warning--empty editor in solymar1997technical
+Warning--empty booktitle in solymar1997technical
+Warning--empty pages in bruckard2013smelting
+Warning--empty pages in peng2011method
+Warning--empty pages in yongkang1995study
+Warning--there's a address but no publisher in ober2016mineral
+Warning--there's a address but no publisher in Brian2011mineral
+`editor' is a missing field, not a string, for entry irvine2005scandia
+while executing---line 2530 of file bstutf8.bst
+Warning--empty pages in Recovery1989
+Warning--there's a address but no publisher in ASTMstandard2014
+Warning--empty pages in gamaletsos2016role
+Warning--empty pages in davris2016selective
+Warning--empty pages in zhao2016development
+
+Done.
+(There was 1 error message)

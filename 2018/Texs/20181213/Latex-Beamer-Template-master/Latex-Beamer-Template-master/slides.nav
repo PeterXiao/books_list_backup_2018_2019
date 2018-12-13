@@ -1,0 +1,66 @@
+\beamer@endinputifotherversion {3.14pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\sectionentry {1}{目录}{2}{目录}{0}}
+\headcommand {\beamer@sectionpages {1}{1}}
+\headcommand {\beamer@subsectionpages {1}{1}}
+\headcommand {\slideentry {1}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {2}{引言}{3}{引言}{0}}
+\headcommand {\beamer@sectionpages {2}{2}}
+\headcommand {\beamer@subsectionpages {2}{2}}
+\headcommand {\slideentry {2}{0}{3}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{4}{研究背景}}\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\slideentry {2}{1}{1}{4/5}{研究背景}{0}}
+\headcommand {\beamer@framepages {4}{5}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{6}{主要工作}}\headcommand {\beamer@subsectionpages {4}{5}}
+\headcommand {\slideentry {2}{2}{1}{6/8}{主要工作}{0}}
+\headcommand {\beamer@framepages {6}{8}}
+\headcommand {\slideentry {2}{2}{2}{9/9}{主要工作}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {2}{2}{3}{10/13}{主要工作}{0}}
+\headcommand {\beamer@framepages {10}{13}}
+\headcommand {\sectionentry {3}{System Design}{14}{System Design}{0}}
+\headcommand {\beamer@sectionpages {3}{13}}
+\headcommand {\beamer@subsectionpages {6}{13}}
+\headcommand {\slideentry {3}{0}{4}{14/14}{}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{15}{System Architecture}}\headcommand {\beamer@subsectionpages {14}{14}}
+\headcommand {\slideentry {3}{1}{1}{15/18}{System Architecture}{0}}
+\headcommand {\beamer@framepages {15}{18}}
+\headcommand {\slideentry {3}{1}{2}{19/21}{System Architecture}{0}}
+\headcommand {\beamer@framepages {19}{21}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{22}{Demo}}\headcommand {\beamer@subsectionpages {15}{21}}
+\headcommand {\slideentry {3}{2}{1}{22/22}{Demo}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\sectionentry {4}{Recap}{23}{Recap}{0}}
+\headcommand {\beamer@sectionpages {14}{22}}
+\headcommand {\beamer@subsectionpages {22}{22}}
+\headcommand {\slideentry {4}{0}{2}{23/23}{}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{24}{Ongoing Study}}\headcommand {\beamer@subsectionpages {23}{23}}
+\headcommand {\slideentry {4}{1}{1}{24/28}{Ongoing Study}{0}}
+\headcommand {\beamer@framepages {24}{28}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{29}{研究方法与数据集特征}}\headcommand {\beamer@subsectionpages {24}{28}}
+\headcommand {\slideentry {4}{2}{1}{29/32}{研究方法与数据集特征}{0}}
+\headcommand {\beamer@framepages {29}{32}}
+\headcommand {\slideentry {4}{2}{2}{33/42}{研究方法与数据集特征}{0}}
+\headcommand {\beamer@framepages {33}{42}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{43}{算法}}\headcommand {\beamer@subsectionpages {29}{42}}
+\headcommand {\slideentry {4}{3}{1}{43/53}{算法}{0}}
+\headcommand {\beamer@framepages {43}{53}}
+\headcommand {\slideentry {4}{3}{2}{54/54}{算法}{0}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{55}{Future Work}}\headcommand {\beamer@subsectionpages {43}{54}}
+\headcommand {\slideentry {4}{4}{1}{55/57}{Future Work}{0}}
+\headcommand {\beamer@framepages {55}{57}}
+\headcommand {\slideentry {4}{4}{2}{58/58}{Future Work}{0}}
+\headcommand {\beamer@framepages {58}{58}}
+\headcommand {\slideentry {4}{4}{3}{59/59}{Future Work}{0}}
+\headcommand {\beamer@framepages {59}{59}}
+\headcommand {\beamer@partpages {1}{59}}
+\headcommand {\beamer@subsectionpages {55}{59}}
+\headcommand {\beamer@sectionpages {23}{59}}
+\headcommand {\beamer@documentpages {59}}
+\headcommand {\def \inserttotalframenumber {20}}

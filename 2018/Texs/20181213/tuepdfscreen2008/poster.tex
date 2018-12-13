@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[a4,winuk,themeblue]{tuepdfscreen2008}
+\usepackage[english]{babel}
+\usepackage{amsmath}      % not required in every poster, only those which use amsmath commands (like \DeclareMathOperator)
+\usepackage{mathtime}     % This package is not required, it loads Mathtime fonts for mathematical formulas which I prefer.
+\setstatustext{Stochastic Operations Research}       % This text is placed in the upper left corner of the poster and can be left empty
+\titlelogo[height=2.8cm]{eurandomlogo}               % You can use this command to insert one logo.
+
+%\titleright{\textbf{Author} author contact information}      % You can use this command INSTEAD OF the \titlelogo command
+                                                              % to insert text in the upper right part of the poster (or e.g. multiple logos)
+
+\DeclareMathOperator{\argmax}{argmax}                        % Only required for one specific formula in this poster
+
+\begin{document}
+\begin{slidetop}
+\slidetitle[Sem Borst, Seva Shneer and Peter van de Ven]{Instability of MaxWeight Scheduling}
+\begin{multicols}{2}
+\section*{MaxWeight scheduling}
+We consider a wireless link shared by a number of flows. The system operates in a time-slotted fashion, and in each time slot exactly one flow can be scheduled for transmission. The feasible transmission rates for the flows vary over time as a result of fading. In each time slot, a random number of new flows enter the system. Each such flow generates a finite amount of traffic, and exits the system once all its traffic has been processed, see Figure~\ref{fig:overview}.
+
+\begin{center}
+\includegraphics[width=0.6\linewidth]{System_overview}
+\figcaption{Overview of the system. \label{fig:overview}}
+\end{center}
+
+The system is a variant of the model considered in Tassiulas and Ephremides~\cite{TE93}, where it is assumed that the number of flows stays fixed over time, and all flows have a continuous influx of traffic. It can be shown that in this case, so-called {\em MaxWeight} scheduling provides maximum stability, i.e. it achieves stability whenever feasible to do so at all. When using this scheduling rule, in each slot the server selects the flow as follows:
+\[
+\color{tuedarkblue}
+i^* = \argmax R_i Q_i,
+\]
+where $R_i$ denotes the transmission rate, and $Q_i$ denotes the backlog of flow $i$. This is different from MaxRate scheduling for example, where only the transmission rate is used to select the flow to be served.
+
+However, MaxWeight scheduling fails when applied to the dynamic setting under consideration. In contrast to the standard scenario with a fixed number of flows, the instability no longer manifests itself in the form of a few flows with large backlogs, but rather as an excessive number of flows with relatively small backlogs. Because the strategy takes backlog into account, it will give priority to newly arrived flows, so it does not benefit from the service rate variation - the phenomenon that allows the selection of the highest of multiple transmission rates - as it would have when treating all flows equally.
+
+In contrast we consider a strategy close to MaxRate scheduling, and show that this {\em does} provide maximum stability. This is done through the Foster-Lyapunov criterion, using the following Lyapunov function:
+\[
+\color{tuedarkblue}
+L(t) = \sum_{i = 1}^K  N_i(t) {\mathbb E}\{\lceil i/R^{\max} \rceil\},
+\]
+where $N_i$ is the number of flows with a backlog of $i$~bits, $B$ denotes the number of bits for each flow, and $R^{\max}$ the maximum feasible transmission rate.
+
+The difference can also be seen in Figure~\ref{fig:graph}, which shows the evolution of the system over time under both strategies.
+
+\begin{center}
+\includegraphics[width=\linewidth]{graph_unstable2}
+\figcaption{Number of bits in the system plotted against time for MaxWeight and MaxRate scheduling.\label{fig:graph}}
+\end{center}
+
+\begin{thebibliography}{99}
+\bibitem{TE93}
+L. Tassiulas, A. Ephremides (1993).
+Dynamic server allocation to parallel queues with randomly varying
+connectivity.
+{\it IEEE Trans.\ Inf.\ Theory} {\bf 30},
+466--478.
+\end{thebibliography}
+\end{multicols}
+\end{slidetop}
+
+\end{document}
+

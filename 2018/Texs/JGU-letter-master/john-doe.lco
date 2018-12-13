@@ -1,0 +1,63 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Letter Class Option of John Doe at University Mainz
+%
+ 
+\ProvidesFile{john-doe.lco}[%
+  2010/25/04 v0.9 personal letter-class-option]
+ 
+% We need Letter Class Option jgu:
+\LoadLetterOption{design/jgu}
+ 
+% Personalization
+
+\setkomavar{backaddresstext}{Fachbereich, Institut oder dies ist nur Blindtext}
+
+\setkomavar{degree}{Titel}
+\setkomavar{fromname}{Vorname Name}
+\setkomavar{role}{Funktionsbeschreibung}
+
+\setkomavar{department}{Fachbereich\\Dies ist Blindtext}
+\setkomavar{institute}{Institut f\"ur Blindtext}
+
+\setkomavar{streetname}{Musterstra\ss e}
+\setkomavar{streetnumber}{Hausnummer}
+\setkomavar{plz}{Postleitzahl} % default: 55099
+%\setkomavar{place}{Ort} % default: Mainz
+
+\setkomavar{signature}{%\includegraphics*{<sign_as_picture>}
+  \\Karl Mustermann
+  %\\\small(Subtitel)
+}
+
+\setkomavar{phone}{+49\,6131~39--12345}
+\setkomavar{fax}{+49\,6131~39--12345}
+\setkomavar{mobile}{+49\,123~1234567}
+\setkomavar{email}{k.mustermann@uni-mainz.de}
+\setkomavar{internet}{www.uni-mainz.de/url}
+
+\setkomavar{infoI}{(Info-Bereich 1)}
+\setkomavar{yourref}[Ihre Zeichen/Nachricht]{Text}
+\setkomavar{myref}[Unsere Zeichen/Nachricht]{Text}
+\setkomavar{office}{Sekreteriat}
+\setkomavar{delivery}{Lieferadresse}
+\setkomavar{building}{Dienstgebäude}
+
+\setkomavar{infoII}{(Info-Bereich 2)}
+\setkomavar{infolines}{%
+  Anfahrtsskizze\\[\baselineskip]%
+  Zitate, Quellen, Fußnoten\\[\baselineskip]%
+  Zweit-Absender\\[\baselineskip]%
+  Vertretungen\\[\baselineskip]%
+  Mitgliedschaften\\[\baselineskip]%
+  Hinweise (z.\,B.\ Kongress)\\[\baselineskip]%
+  Bildunterschrift\\[\baselineskip]%
+  Twitter, YouTube, Flickr\\[\baselineskip]%
+  \dots
+}  
+
+\endinput
+%
+%  End of Letter Class Option john-doe
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,234 @@
+\documentclass[a4paper]{article}            % Mind the a4paper option!
+\usepackage[winuk,themeblue,noinnovation]{tuepdfscreen2008}        % winuk is the package option that displays the "Mathematics and Computer Science" logo
+                                            % Other department options are:
+                                            % ele, eleuk, bmt, bmtuk, bwk, bwkuk, id, iduk, chem, chemuk, tm, tmuk, phys, physuk, win, winuk, wtb, wtbuk
+                                            % Options for handouts: handouts2, handouts3, handouts4, handouts6 and handouts8.
+\usepackage[english]{babel}
+
+\title{TU/ePDFScreen 2008\\\huge Presentations and Posters}                  % Title for title page
+\author{Marko Boon ({marko@win.tue.nl})}  % Subtitle for title page
+\date{January 2008}  % status bar text for title page
+%\titlelogo{mylogo}                                     % Uncomment this line to insert your own logo
+\titlebackgroundimage[bb=0 0 1554 1828]{texlion.jpg}          % Background image for title page. The [bb=0 0 1554 1828] option specifies the size of
+                                                              % the image, which is 1554 x 1828 pixels at 72 dpi. This option is usually not required,
+                                                              % but it is only necessary if you have a JPG or PNG image AND want to LaTeX
+                                                              % (instead of PDFLaTeX) your document.
+\setstatustext{Marko Boon, January 2008}    % Status bar text for all pages except the title page.
+
+\begin{document}
+
+\begin{titleslide}
+% You can put a sub-subtitle here if you like
+\end{titleslide}
+
+\begin{slidetop}
+\tableofcontents
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{Introduction}        % The \slidetitletoc command creates a slide title AND adds it to the table of contents
+                                    % The \slidetitlesection command does the same, but adds a section number
+
+TU/ePDFScreen is a \LaTeX\ package that you can use to create presentations, without having to use Powerpoint. TU/ePDFScreen is based on PDFScreen, which uses techniques to create interactive PDF documents, suitable for full screen viewing. The TU/ePDFScreen package is also suitable for making posters or transparent slides (see the \hyperlink{A4}{a4} option). TU/ePDFScreen 2008 works with PDF\LaTeX only. \LaTeX\ might also work, but only if special care is taken regarding images (JPG and PNG images support is worse).
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{TU/e corporate identity}
+
+TU/ePDFScreen uses the official TU/e corporate identity that was introduced in June 2008. More information about the corporate identity can be found on the \href{http://w3.tue.nl/en/services/cec/corporate_communicatie/corporate_identity/}{following web page}. The next slides show all features of TU/e PDFScreen.
+
+Please notice that two formats for presentations exist. One format is suitable for presentations with more text (e.g. scientific presentation). This page has this scientific layout. The last page of this presentation shows the ``popular'' layout.
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{TU/e corporate identity}      % The \slidetitle command creates a slide title without adding it to the table of contents
+\section*{Theme colours}
+
+You can choose from five official theme colours by specifying one of these package options: {\color{tuecyan}themered},
+{\color{tuecyan}themecyan},
+{\color{tuecyan}themeorange},
+{\color{tuecyan}themegreen}, or {\color{tuecyan}themeblue}. The red theme is the default choice, but for this presentation the blue theme is used. Open the \LaTeX\ source file of this presentation for more information. This source file can usually be found at the following location:
+
+\bigskip
+Windows XP:\\
+\verb|C:\Documents and Settings\All Users\Application Data\|
+\verb|MiKTeX\2.7\examples\presentatie\|
+
+\bigskip
+Windows Vista:\\ \verb|C:\ProgramData\MiKTeX\2.7\examples\presentatie\|
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{TU/e corporate identity}      % The \slidetitle command creates a slide title without adding it to the table of contents
+
+\section*{Title page}
+
+The title page looks completely different than all other pages. First you specify the title, the author and optionally the date.
+You can use another company's logo using the \verb|\titlelogo{...}| command. You can choose your own background image using the
+\verb|\titlebackgroundimage{...}| command. This image can be in any format that is supported by PDF\LaTeX, so PDF, PNG or JPG. The best result is obtained if the width of the image is about 85\% of the height.
+
+Use the command \verb|\setstatustext{...}| to specify footer text for all pages except the title page.
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{TU/e corporate identity}      % The \slidetitle command creates a slide title without adding it to the table of contents
+\slidepictureright[bb=0 0 324 434]{tueimg1.jpg}               % The [bb=0 0 324 434] option specifies the size of
+                                                              % the image, which is 324 x 434 pixels at 72 dpi. This option is usually not required,
+                                                              % but it is only necessary if you have a JPG or PNG image AND want to LaTeX
+                                                              % (instead of PDFLaTeX) your document.
+
+
+\begin{minipage}{12cm}   % 12cm is the width of the minipage in which the text is placed. You have to adjust this length manually depending on the width of your picture
+\section*{Page with text and picture}
+
+This slide shows how to put both text and an image next to each other in one slide. Unfortunately you have to use a \verb|minipage| to specify the width of the text next to the image.
+
+The next slide shows a slide which is filled completely with one picture. To obtain the best results, make sure that the aspect ratio of your picture is approximately 2 : 1 (width : height).
+\end{minipage}
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{Page with only one picture}
+\slidepictureleft[bb=0 0 872 434]{tueimg2.jpg}                % The [bb=0 0 872 434] option specifies the size of
+                                                              % the image, which is 872 x 434 pixels at 72 dpi. This option is usually not required,
+                                                              % but it is only necessary if you have a JPG or PNG image AND want to LaTeX
+                                                              % (instead of PDFLaTeX) your document.
+
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{TU/e corporate identity}
+\section*{Subtitle}
+
+\begin{itemize}
+\item and an itemised list
+\item please note that the font is very small
+\item you can choose larger fonts
+\begin{itemize}
+\item by using the \verb|largefonts|
+\item or \verb|hugefonts| option
+\end{itemize}
+\end{itemize}
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitle{TU/e corporate identity}
+\section*{Colours}
+
+The following colours from the TU/e palette are defined:
+
+\bigskip
+\newcommand{\cb}[1]{\colorbox{#1}{\parbox[b][1cm][c]{3.2cm}{#1}}}
+\setlength{\fboxsep}{2mm}
+\begin{tabular}{cccc}
+\cb{tuewarmred} & \cb{tuecyan}  & \cb{tuered}  & \cb{tuepms300} \\[5mm]
+\cb{tuepms226} & \cb{tuepms253}  & \colorbox{tuedarkblue}{\parbox[b][1cm][c]{3.2cm}{\color{white}tuedarkblue}}  & \cb{tueorange} \\[5mm]
+\cb{tueyellow} & \cb{tuepms396}  & \cb{tuelightgreen}  & \cb{tuegreen} \\[5mm]
+\cb{tuepms3135} & && \\
+\end{tabular}
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{Pictures, movies and sounds}
+\section*{Pictures}
+
+Since TU/ePDFScreen works with PDF\LaTeX, the following file formats are supported:
+\begin{itemize}
+\item JPG
+\item PNG
+\item PDF (scalable)
+\end{itemize}
+
+EPS images can be converted to PDF with the EPS2PDF icon on your desktop. If you don't have this icon, you can run the \verb|epstopdf| command manually from any (MS-DOS or Unix) prompt.
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{Pictures, movies and sounds}
+\section*{Movies and sounds}
+
+\newlength{\parlength}
+\setlength{\parlength}{\textwidth}
+\addtolength{\parlength}{-4.3cm}
+\begin{minipage}[t]{\parlength}
+It is possible to add movies to your TU/ePDFScreen presentation. Please note that the appropriate player has to be installed on the computer that will show the presentation. Usually Windows Media Player (for AVI) or QuickTime (for MOV) have to be installed.
+\end{minipage}%
+\hfill
+\movie{4cm}{3cm}{neutrophil.avi}
+
+\verb|\movie{width}{height}{filename}|\\
+
+\begin{itemize}
+\item currently only AVI and MOV files are supported.
+\item the movie will not be embedded in the PDF file, so don't forget to distribute it with your presentation!
+\item you can use this command to embed sounds in your presentation.
+\end{itemize}
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{Slides and handouts}
+
+Since TU/ePDFScreen is written specifically for PDF\LaTeX, you have to use Adobe Acrobat (Reader) for both viewing and printing your slides. For printing you can use the keyboard shortcut CTRL+P.
+
+If you have pages in your presentation that you don't want to print, you should put them in a {\em screen} environment:
+
+\verb|\begin{screen}| $\ldots$ {\it some code} $\ldots$ \verb|\end{screen}|
+
+This will omit the code (which can include several slides) in the PDF file, when the \textsf{print} or \textsf{handouts} option is used.
+This means that the page numbers on the printed slides will be different from the page numbers of the presentation.
+
+You can use the {\em handouts, handouts2, \ldots} commands to put multiple slides on one A4 page. If you run \LaTeX\ instead of PDF\LaTeX, the {\em handouts2} option will be chosen automatically, but it is recommended to use PDF\LaTeX\ and specify the {\em handouts2} option.
+\end{slidetop}
+
+\begin{screen}
+\newpage
+\pagedissolve{Wipe /Di 0}
+\end{screen}
+
+\begin{slidetop}
+\slidetitletoc{Revealing slides in multiple steps}
+\begin{itemize}
+\item It is possible to reveal a slide in multiple steps.
+\pause
+\item Just put a \verb|\pause| command whenever you want a break. After running PDF\LaTeX\ you still will not notice anything in the resulting PDF file. You have to run a postprocessor called {\em AddPause}, which is located in your MiKTeX Start Menu. This program will bring up an Open File dialog so you can select your PDF file. AddPause will add the breaks and generate another PDF file without the break effects (which you can use for handouts).
+
+\pause
+AddPause uses PPower4, a Java program written by Klaus Guntermann. This means that you need Java, which can be downloaded from \href{http://java.com}{java.com}.
+\end{itemize}
+\end{slidetop}
+
+\begin{slidetop}
+\slidetitletoc{Font Size}
+
+The default font size is rather small and not recommended! In order to use larger fonts, two package options have been created. Use one of the following two commands to load the package with large/huge fonts:
+
+\begin{verbatim}
+\usepackage[largefonts]{tuepdfscreen2008}
+\usepackage[hugefonts]{tuepdfscreen2008}
+\end{verbatim}
+
+The best readability is obtained with the {\em hugefonts} option which corresponds to approximately 28pt fonts in Powerpoint. But most users might prefer the {\em largefonts} option which corresponds to 26pt fonts in Powerpoint.
+\end{slidetop}
+
+
+\makeatletter
+\@officialtrue
+\makeatother
+\begin{slidetop}
+\slidetitletoc{Official TU/e corporate identity}
+% This vspace and the minipage are only necessary because the switch to the official style does not change the margins of the document.
+% If you layout your whole document in the official style, you won't need these commands.
+\vspace*{1.3cm}\hspace*{-3mm}
+\begin{minipage}{16cm}
+
+The TU/e Powerpoint template also defines a style for non-scientific, more popular presentations (usually with more images and less text).
+This slide uses the more ``popular'' template. If you use the preamble
+
+\begin{verbatim}
+\usepackage[official]{tuepdfscreen2008}
+\end{verbatim}
+
+your slides will look like this one.
+\end{minipage}
+
+\end{slidetop}
+\end{document}

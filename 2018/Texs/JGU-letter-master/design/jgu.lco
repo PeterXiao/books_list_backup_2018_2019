@@ -1,0 +1,391 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Letter Class Option to define letter head and foot
+%  of University Mainz, Germany
+%
+%  Author: Stefan Mayer, mail: mayer at uni minus mainz dot de
+% 
+ 
+\ProvidesFile{jgu.lco}[%
+  2010/25/04 v0.9a jgu letter-class-option]
+ 
+\@ifclassloaded{scrlttr2}{}{%
+  \GenericWarning{%
+    (jgu.lco)\@spaces\@spaces\@spaces\@spaces\@spaces\@spaces%
+  }{%
+    Letter-class-option jgu Warning:\space
+    This letter class option file was made\MessageBreak
+    only to be used with KOMA-Script letter\MessageBreak
+    class `scrlttr2'. Use with other classes\MessageBreak
+    may result in a lot of errors\@gobble
+  }%
+}
+
+% change font into frutiger
+\renewcommand{\sfdefault}{pfr} % be aware: ligature bug!
+\renewcommand{\familydefault}{\sfdefault}
+
+% encoding and stuff
+\defaulthyphenchar=127 % Bindestrich wird trennbar
+\usepackage[T1]{fontenc}
+\usepackage{selinput} 
+\SelectInputMappings{%
+  adieresis={ä},%
+  germandbls={ß},%
+  Euro={€},%
+}
+\usepackage{microtype}
+
+% Load graphicx package.
+% NOTE: You may use \PassOptionsToPackage or set global
+%       options, if you have to pass options to it.
+\RequirePackage{graphicx}
+
+% Load eso-pic package.
+% NOTE: You may use \PassOptionsToPackage or set global
+%       options, if you have to pass options to it.
+\RequirePackage{eso-pic}
+
+% Load ifthen package.
+% NOTE: You may use \PassOptionsToPackage or set global
+%       options, if you have to pass options to it.
+\RequirePackage{ifthen}
+
+% set parskip to full line
+\KOMAoptions{parskip=full}
+
+% set subject titled
+\KOMAoptions{subject=titled}
+
+% change date to numerical
+\KOMAoptions{numericaldate=on}
+
+% Path to logo and file name 
+\providecommand{\jogulogo}{logo/JGU-Logo_farbe_cmyk} % is in the subdirectory ``logo''
+
+% University name
+\providecommand{\jgu}{Johannes Gutenberg-Universit\"at Mainz (JGU)}
+
+% load color definitions
+\LoadLetterOption{design/jgu-colors}
+
+% load date definition
+\LoadLetterOption{design/jgu_date}
+
+% load subject definition
+\LoadLetterOption{design/jgu_subject}
+
+% font size of the back-address
+\setkomafont{backaddress}{%
+  \fontsize{7}{9}\mc%
+}
+
+% font size of the addressee
+\setkomafont{addressee}{%
+  \fontsize{10}{13}\mc\selectfont%
+}
+
+% font of the subject
+\setkomafont{subject}{%
+  \fontsize{10}{15}\mc%
+}
+
+% font of the body text
+\AtBeginLetter{\fontsize{10}{15}\mc}%
+
+% some generic commands and definitions 
+\newcommand{\useVarIfDef}[2]{\ifkomavarempty{#1}{}{\usekomavar{#1}#2}}
+\newcommand{\mc}{\fontseries{mc}\selectfont}
+\newcommand{\bc}{\fontseries{bc}\selectfont}
+\AtBeginLetter{\removereffields}%
+\AtEndLetter{\label{lastpage}}%
+\renewcommand*{\cc}[1]{%
+  \immediate\write\@auxout{%
+    \string\AtBeginLetter{\string\setkomavar{ccopy}{#1}}%
+  }%
+}
+\renewcommand*{\encl}[1]{%
+  \immediate\write\@auxout{%
+    \string\AtBeginLetter{\string\setkomavar{enclosure}{#1}}%
+  }%
+}
+
+% Set some variable, which are always the same
+\setkomavar{backaddress}{%
+  \begin{minipage}[c]{6mm}%
+    \includegraphics*[width=\linewidth,clip,trim=78.35 55 71.35 35.4]%
+      {\jogulogo}
+  \end{minipage}\hspace{2.25mm}%
+  \begin{minipage}[c]{20cm}%
+    \useVarIfDef{backaddresstext}{\\}
+    \jgu\ \ifkomavarempty{plz}{55099}{\usekomavar{plz}} %
+    	\ifkomavarempty{place}{Mainz}{\usekomavar{place}}%
+  \end{minipage}%
+}
+\KOMAoptions{backaddress=plain,pagenumber=off}
+\setkomavar{place}{Mainz}
+\setkomavar{fromlogo}{\includegraphics*[width=6.5cm]{\jogulogo}}
+% NOTE: You also need the .eps and/or .png to
+%       use this.
+
+
+% position of the foldmarks
+\@setplength{tfoldmarkvpos}{105mm}
+\@setplength{mfoldmarkvpos}{\z@} % disabled
+\@setplength{bfoldmarkvpos}{\z@} % disabled
+\@setplength{foldmarkhpos}{5mm}
+\@setplength{tfoldmarklength}{5mm}
+\@setplength{pfoldmarklength}{5mm}
+\@setplength{foldmarkthickness}{0.25pt}
+  
+ 
+
+% Define some new variable:
+\newkomavar{backaddresstext}
+
+\newkomavar{department}
+\newkomavar{institute}
+
+\newkomavar{degree}
+\newkomavar{role}
+
+\newkomavar{streetname}
+\newkomavar{streetnumber}
+\newkomavar{street}
+  \setkomavar{street}{\usekomavar{streetname}~\usekomavar{streetnumber}}
+\newkomavar{plz}
+
+\newkomavar*[Tel.]{phone}
+\newkomavar*[Fax]{fax}
+\newkomavar*[Mobil]{mobile}
+\newkomavar{email}
+\newkomavar{internet}
+
+\newkomavar{infoI}
+\newkomavar{office}
+\newkomavar{delivery}
+\newkomavar{building}
+
+\newkomavar{infoII}
+\newkomavar{infolines}
+\newkomavar*[Verteiler:]{ccopy}
+\newkomavar*[Anlage(n):]{enclosure}
+
+% change subject name
+\setkomavar*{subject}{Betreff\usekomavar{subjectseparator}}
+ 
+
+% set some lengths due to corporate design
+\@setplength{backaddrheight}{6mm} % DIN: 5mm
+\@setplength{toaddrhpos}{25mm}    % DIN: 20mm
+\@setplength{toaddrvpos}{47.5mm}    % DIN: 45mm
+\@setplength{toaddrheight}{41.5mm}  % DIN: 45mm
+\@setplength{toaddrindent}{0pt}   % DIN: \z@
+\setlength{\textwidth}{125.25mm}
+\setlength{\headheight}{23mm}
+\@setplength{firstheadvpos}{0pt}%
+\@setplength{firstheadwidth}{\paperwidth}%
+\@setplength{firstfootvpos}{\paperheight}%
+\@addtoplength[-]{firstfootvpos}{5mm}%
+\@setplength{firstfootwidth}{\paperwidth}%
+\@setplength{refvpos}{86mm}%
+\@newplength{infocolwidth}%
+\@setplength{infocolwidth}{40.8mm}%
+%\@addtoplength[-]{infocolwidth}{4mm}%
+\@newplength{infoivpos}%
+\@setplength{infoivpos}{138.25mm}%
+\@newplength{infoiivpos}%
+\@setplength{infoiivpos}{194.75mm}%
+
+% NOTE: this is not consistent
+%       with DIN 676
+\setlength{\oddsidemargin}{\useplength{toaddrhpos}}%
+\addtolength{\oddsidemargin}{-1in}%
+%
+% Dafuer sorgen, dass die Verschiebung auch nach Satzspiegelneuberechnungen
+% erhalten bleibt (siehe C.7. Modifikationen, letzter Absatz)
+\l@addto@macro{\@typearea@end}{%
+  \setlength{\oddsidemargin}{\useplength{toaddrhpos}}%
+  \addtolength{\oddsidemargin}{-1in}%
+}
+\ifx\AtBeginDocument\@notprerr
+  \KOMAoptions{DIV=last}%
+\else
+  \AtBeginDocument{%
+    \g@addto@macro{\@typearea@end}{%
+      \setlength{\oddsidemargin}{\useplength{toaddrhpos}}%
+      \addtolength{\oddsidemargin}{-1in}%
+    }%
+  }%
+\fi
+
+
+%
+%
+% first page
+%
+\AddToShipoutPicture{%
+\unitlength=1mm%
+  \put(120,253){\usekomavar{fromlogo}}%  % A4: 210 x 297 [mm]
+}
+
+\firsthead{%
+  \fontsize{7.5}{9}\sffamily\mc%
+  \hspace*{\fill}%
+  \begin{picture}(0,0)%
+    \put(0,0){%
+      \parbox[t]{\useplength{infocolwidth}}{%
+        \raggedright%
+        \vspace{\useplength{toaddrvpos}}%
+        \vspace{.75\baselineskip}%
+        {\color{jgu-gray-text}%
+          \useVarIfDef{department}{%
+                \par%
+                \vspace{\baselineskip}%
+          }%          
+          \useVarIfDef{institute}{%
+                \par%
+                \vspace{\baselineskip}%
+          }%
+        }%
+        {\bc\useVarIfDef{degree}{\\}}%
+        {\bc\usekomavar{fromname}}\\%
+        \useVarIfDef{role}{%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \jgu%
+        \par%
+        \vspace{\baselineskip}%
+        \ifkomavarempty{streetname}{}{%
+          \ifkomavarempty{streetnumber}{}{%
+                \usekomavar{street}\\%
+          }%	
+        }%
+        D-%
+        \ifkomavarempty{plz}{55099}{%
+          \usekomavar{plz}%
+        }~%
+        \ifkomavarempty{place}{Mainz}{%
+          \usekomavar{place}%
+        }%
+        \par%
+        \vspace{\baselineskip}%
+        \ifkomavarempty{phone}{}{%
+          {\bc\color{jgu-gray-text}\usekomavar*{phone}}~~\usekomavar{phone}\\%
+        }%
+        \ifkomavarempty{fax}{}{%
+          {\bc\color{jgu-gray-text}\usekomavar*{fax}}~~\usekomavar{fax}\\%
+        }%
+        \ifkomavarempty{mobile}{}{%
+          {\bc\color{jgu-gray-text}\usekomavar*{mobile}}~~\usekomavar{mobile}\\%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \useVarIfDef{email}{%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \ifkomavarempty{internet}{www.uni-mainz.de}{%
+          \usekomavar{internet}%
+        }%
+      }%
+    }%
+    %
+    \put(0,0){%
+      \parbox[t][\headheight][t]{\useplength{infocolwidth}}{%
+        \raggedright%
+        \vspace{\useplength{infoivpos}}%
+        %
+        \useVarIfDef{infoI}{%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \ifkomavarempty{yourref}{}{%
+          \usekomavar*{yourref}~\usekomavar{yourref}%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \ifkomavarempty{myref}{}{%
+          \usekomavar*{myref}~\usekomavar{myref}%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \useVarIfDef{office}{%
+          \par%
+          \vspace{\baselineskip}%          
+        }%
+        \useVarIfDef{delivery}{%
+          \par%
+          \vspace{\baselineskip}%          
+        }%
+        \useVarIfDef{building}{%
+        }%
+      }%
+    }%
+    %
+    \put(0,0){%
+      \parbox[t][\headheight][t]{\useplength{infocolwidth}}{%
+        \raggedright%
+        \vspace{\useplength{infoiivpos}}%
+        %
+        \useVarIfDef{infoII}{%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \ifkomavarempty{enclosure}{}{%
+          \usekomavar*{enclosure}~\usekomavar{enclosure}%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \ifkomavarempty{ccopy}{}{%
+          \usekomavar*{ccopy}~\usekomavar{ccopy}%
+          \par%
+          \vspace{\baselineskip}%
+        }%
+        \useVarIfDef{infolines}{%
+        }%
+      }%
+    }%
+    \put(0,0){%
+      \parbox[t][\headheight][t]{\useplength{infocolwidth}}{%
+        \raggedright%
+        \vspace{\useplength{toaddrvpos}}%
+        \vspace{.75\baselineskip}%
+        \hspace*{-4mm}\rule{.25pt}{240mm}
+      }%
+    }%
+  \end{picture}%
+  {\@addtoplength{infocolwidth}{10mm}%
+  \hspace*{\useplength{infocolwidth}}}%
+}%
+\firstfoot{}%
+
+
+%
+%
+% next page
+%
+\nexthead{
+  \fontsize{10}{15}\mc%
+  %\ifthenelse{\pageref{lastpage}<2}{}{
+  	\put(0,39.5){Seite~\thepage /\pageref{lastpage}}
+  %}%
+}%
+
+%
+%
+% pagestyle
+%
+\pagestyle{headings}%
+
+\endinput
+%
+%  End of Letter Class Option jgu
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% T O D O
+%
+% - engish transalation
+% - create language switch

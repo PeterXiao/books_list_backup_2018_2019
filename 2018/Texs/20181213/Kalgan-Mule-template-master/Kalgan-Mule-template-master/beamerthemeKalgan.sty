@@ -1,0 +1,70 @@
+%% beamerthemeKalgan.sty
+  %% Copyright 2012 Kartik Prabhu <kartikprabhu00@gmail.com>
+  %
+  % This work may be distributed and/or modified under the
+  % conditions of the LaTeX Project Public License, either version 1.3
+  % of this license or (at your option) any later version.
+  % The latest version of this license is in
+  %   http://www.latex-project.org/lppl.txt
+  % and version 1.3 or later is part of all distributions of LaTeX
+  % version 2005/12/01 or later.
+  %
+  % Or see the file LPPL-license for more details.
+  % 
+  
+
+\ProvidesPackageRCS $Header: /cvsroot/latex-beamer/latex-beamer/themes/theme/beamerthemeKalgan.sty,v 1.11 2007/01/28 20:48:30 tantau Exp $
+
+
+%passes optional options to other packages
+
+\DeclareOptionBeamer{hideothersubsections}{\PassOptionsToPackage{hideothersubsections=#1}{beamerouterthemesidebar}}
+\DeclareOptionBeamer{hideallsubsections}{\PassOptionsToPackage{hideallsubsections=#1}{beamerouterthemesidebar}}
+
+\DeclareOptionBeamer{width}{\PassOptionsToPackage{width=#1}{beamerouterthemesidebar}}
+\DeclareOptionBeamer{left}{\PassOptionsToPackage{left}{beamerouterthemesidebar}}
+\DeclareOptionBeamer{right}{\PassOptionsToPackage{right}{beamerouterthemesidebar}}
+
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\usecolortheme{mule} %use the mule colour theme
+
+\useoutertheme{sidebar} %put a sidebar
+\useinnertheme{rounded}	%makes round boxes
+\useinnertheme{circles} %uses circles for bullets
+
+
+\setbeamertemplate{footline}[frame number]{} %sets frame numbers in the footer
+\setbeamertemplate{navigation symbols}{} %hides navigation symbols
+
+\setbeamerfont{title}{size=\Huge,series=\bfseries}
+\setbeamerfont{author}{size=\Large}
+\setbeamercolor*{frametitle}{parent=palette primary}
+\setbeamerfont{block title}{size={},series=\bfseries}
+
+\setbeamertemplate{frametitle} %sets the look of the title on each frame
+{
+\begin{flushleft}	%left align title
+\textbf{\underline{\insertframetitle}}	% underline title
+\par
+\end{flushleft}
+}
+
+
+\setbeamerfont{section number projected}{family=\rmfamily,series=\bfseries,size=\scriptsize}
+
+
+\setbeamertemplate{bibliography item}[triangle] %sets triangles for bibliography bullets
+
+\setbeamerfont{date in head/foot}{size=\tiny} %sets date to look small if needed
+
+
+\mode<all>
+
+
+%%% Local Variables: 
+%%% TeX-master: "~/texmf/tex/latex/beamer/test/test.tex"
+%%% End: 

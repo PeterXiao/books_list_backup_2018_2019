@@ -1,0 +1,69 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Letter Class Option to redefine
+%  the subject due to Corporate Design
+%  of University Mainz, Germany
+%
+
+\ProvidesFile{jgu-subject.lco}[%
+  2010/25/04 v0.9a jgu-subject letter-class-option]%
+
+\@ifclassloaded{scrlttr2}{}{%
+  \GenericWarning{%
+    (infoblck.lco)\@spaces\@spaces\@spaces\@spaces\@spaces\@spaces%
+  }{%
+    Letter-class-option jgu Warning:\space
+    This letter class option file was made\MessageBreak
+    only to be used with KOMA-Script letter\MessageBreak
+    class `scrlttr2'. Use with other classes\MessageBreak
+    may result in a lot of errors\@gobble
+  }%
+}
+
+\renewcommand*{\@subjfield}{{%
+    \setparsizes{\z@}{\z@}{\z@ plus 1fil}\par@updaterelative
+    \ifkomavarempty{subject}{%
+      \typeout{Subject: no}%
+    }{%
+      \ifx\raggedsubject\@empty
+        \ifdim\useplength{subjectvpos}=\z@
+          \if@subjafter%
+            \typeout{Subject: after opening}%
+            \let\raggedsubject\centering%
+          \else
+            \typeout{Subject: before opening}%
+            \def\raggedsubject{\noindent\@hangfrom}%
+          \fi
+        \else
+          \typeout{Subject: at absolute vertical position}%
+          \def\raggedsubject{\noindent\@hangfrom}%
+        \fi
+      \fi
+      \ifdim\useplength{subjectvpos}=\z@
+        \vskip\useplength{subjectbeforevskip}%
+        \begingroup
+      \else
+        \move@topt\vskip\useplength{subjectvpos}%
+        \expandafter\vb@t@z\expandafter{%
+      \fi
+      \usekomafont{subject}%
+      \raggedsubject{\if@subj \subject@format{\strut\ignorespaces
+          \usekomavar*{subject}}\fi}%
+      \subject@format{\strut\ignorespaces\usekomavar{subject}}%
+      \hspace*{\fill}\usekomavar*{date}:~\usekomavar{date}%  % inserted
+      \par
+      \ifdim\useplength{subjectvpos}=\z@
+        \endgroup
+        \vskip\useplength{subjectaftervskip}%
+      \else
+        }%
+        \vskip-\useplength{subjectvpos}\move@frompt
+      \fi
+    }%
+  }%
+}
+
+\endinput
+%  End of Letter Class Option jgu-subject
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

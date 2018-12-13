@@ -1,0 +1,35 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Letter Class Option to define colors
+%  of University Mainz, Germany
+%
+ 
+\ProvidesFile{jgu-colors.lco}[%
+  2010/25/04 v1.0 jgu-colors letter-class-option]%
+
+\@ifclassloaded{scrlttr2}{}{%
+  \GenericWarning{%
+    (infoblck.lco)\@spaces\@spaces\@spaces\@spaces\@spaces\@spaces%
+  }{%
+    Letter-class-option jgu Warning:\space
+    This letter class option file was made\MessageBreak
+    only to be used with KOMA-Script letter\MessageBreak
+    class `scrlttr2'. Use with other classes\MessageBreak
+    may result in a lot of errors\@gobble
+  }%
+}
+
+% Load xcolor package.
+% NOTE: You may use \PassOptionsToPackage or set global
+%       options, if you have to pass options to it.
+\RequirePackage{xcolor}
+
+% color definitions
+\xdefinecolor{jgu-red}{cmyk}{0,1,.8,.2}               %{RGB}{193,0,42}      % "Uni-Rot"
+\xdefinecolor{jgu-gray}{cmyk}{0,0,0,.12}              %{RGB}{235,235,235}   % "Uni-Grau"
+\xdefinecolor{jgu-gray-text}{cmyk}{0,0,0,.55}                               % "Text-Grau"
+
+\endinput
+%  End of Letter Class Option jgu-colors
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

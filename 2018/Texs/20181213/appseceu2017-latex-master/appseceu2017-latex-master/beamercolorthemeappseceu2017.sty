@@ -1,0 +1,70 @@
+%% Copyright (C) 2017 Achim D. Brucker, https://www.brucker.ch
+%%
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%   OR
+%%   The 2-clause BSD-style license.
+%%
+%%   SPDX-License-Identifier: LPPL-1.0+ OR BSD-2-Clause
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beamercolorthemeappseceu2017}
+     [2017/04/28 v0.0  LaTeX presentation class mimicking the design of the OWASP AppSecEU 2017 PowerPoint template.]
+
+\mode<presentation>
+  
+  \setbeamercolor{background canvas}{fg=lhBlack,bg=lhWhite}
+
+  \setbeamercolor{structure}{fg=owaspOrange}
+  \setbeamercolor{footer}{fg=lhWhite, bg=lhDarkGray}
+  \setbeamercolor{part title}{parent=footer}
+  
+  \setbeamercolor{alerted text}{fg=owaspOrange}
+  
+  \setbeamercolor{title}{fg=lhWhite}
+  \setbeamercolor{subtitle}{fg=lhWhite}
+  \setbeamercolor{frametitle}{fg=owaspOrange}
+  \setbeamercolor{framesubtitle}{fg=owaspBlue}
+  \setbeamercolor{author}{fg=lhWhite}
+  \setbeamercolor{institute}{fg=lhWhite}
+  \setbeamercolor{date}{fg=lhWhite}
+  % \setbeamercolor{titleframe}{fg=lhBlack,bg=lhWhite}
+  \setbeamercolor{titleframe}{bg=lhBlack}
+  \setbeamercolor{titlerule}{bg=owaspOrange,fg=lhWhite}
+
+  \setbeamercolor*{palette primary}{fg=lhDarkGray,bg=lhWhite}
+  \setbeamercolor*{palette secondary}{fg=lhWhite,bg=lhDarkGray}
+  \setbeamercolor*{palette tertiary}{fg=lhWhite,bg=lhLightGray}
+  \setbeamercolor*{palette quaternary}{fg=lhWhite,bg=lhBlack}
+
+  \setbeamercolor{titlelike}{parent=palette primary}
+  
+  \setbeamercolor*{separation line}{}
+  \setbeamercolor*{fine separation line}{}
+
+  \setbeamercolor{block title}{use=structure,fg=owaspOrange,bg=lhDarkGray}
+  \setbeamercolor{block title alerted}{use=alerted text,fg=lhWhite,bg=owaspOrange}
+  \setbeamercolor{block title example}{use=example text,fg=lhWhite,bg=lhDarkGray}
+
+  \setbeamercolor{block body}{parent=normal text,use=block title,bg=lhLightGray}
+  \setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!10!bg}
+  \setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!10!bg}
+
+  \setbeamercolor{item}{parent=local structure,fg=owaspOrange,bg=lhDarkGray}
+  \setbeamercolor{subitem}{parent=item, fg=lhDarkGray}
+  \setbeamercolor{subsubitem}{parent=subitem,fg=lhLightGray}
+
+  \setbeamercolor{kicker}{use=structure,bg=lhLightGray}
+ 
+  \setbeamercolor{title}{fg=lhWhite}
+  \setbeamercolor{subtitle}{fg=lhWhite}
+  \setbeamercolor{author}{fg=lhWhite}
+  \setbeamercolor{institute}{fg=lhWhite}
+  \setbeamercolor{date}{fg=lhWhite}
+  \setbeamercolor{titleframe}{bg=lhBlack}
+
+\mode
+<all>
+

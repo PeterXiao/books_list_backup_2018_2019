@@ -1,0 +1,97 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  Letter Class Option to redefine
+%  the date due to Corporate Design
+%  of University Mainz, Germany
+%
+
+\ProvidesFile{jgu-date.lco}[%
+  2010/25/04 v0.9a jgu-date letter-class-option]%
+
+\@ifclassloaded{scrlttr2}{}{%
+  \GenericWarning{%
+    (infoblck.lco)\@spaces\@spaces\@spaces\@spaces\@spaces\@spaces%
+  }{%
+    Letter-class-option jgu Warning:\space
+    This letter class option file was made\MessageBreak
+    only to be used with KOMA-Script letter\MessageBreak
+    class `scrlttr2'. Use with other classes\MessageBreak
+    may result in a lot of errors\@gobble
+  }%
+}
+
+\renewcommand*{\@datefield}{{%
+    \setparsizes{\z@}{\z@}{\z@ plus 1fil}\par@updaterelative
+    \ifdim\useplength{refwidth}=\z@
+      \if@refwide
+        \@setplength{refwidth}{\paperwidth}%
+        \ifdim \useplength{toaddrhpos}>\z@
+          \@setplength{refhpos}{\useplength{toaddrhpos}}%
+        \else
+          \@setplength[-]{refhpos}{\useplength{toaddrhpos}}%
+        \fi
+        \@addtoplength[-2]{refwidth}{\useplength{refhpos}}%
+      \else
+        \@setplength{refwidth}{\textwidth}%
+        \@setplength{refhpos}{\oddsidemargin}%
+        \@addtoplength{refhpos}{1in}%
+      \fi
+    \else\ifdim\useplength{refhpos}=\z@
+        \begingroup
+          \setlength\@tempdima{\textwidth}%
+          \addtolengthplength[-]{\@tempdima}{refwidth}%
+          \setlength\@tempdimb{\oddsidemargin}%
+          \addtolength\@tempdimb{1in}%
+          \setlength{\@tempdimc}{\paperwidth}%
+          \addtolength{\@tempdimc}{-\textwidth}%
+          \divide\@tempdimb by 32768\relax
+          \divide\@tempdimc by 32768\relax
+          \ifdim\@tempdimc=\z@\else
+            \multiply\@tempdima by\@tempdimb
+            \divide\@tempdima by\@tempdimc
+          \fi
+          \edef\@tempa{\noexpand\endgroup
+            \noexpand\@setplength{refhpos}{\the\@tempdima}}%
+        \@tempa
+    \fi\fi
+    \@tempswafalse
+    \move@topt\vskip\useplength{refvpos}%
+    \rlap{\noindent\move@topl\hskip\useplength{refhpos}%
+      \vbox{\hsize\useplength{refwidth}%
+        \noindent\@set@reffields%
+        \if@tempswa
+          \setbox0\hbox{\usekomafont{refname}\strutbox}%
+          \ifdim\ht0>\ht\strutbox
+            \ClassWarningNoLine{scrlttr}{%
+              Font element `refname' should not be larger than
+              \string\normalsize!}%
+          \fi
+          \setbox0\hbox{\usekomafont{refvalue}\strutbox}%
+          \ifdim\ht0>\ht\strutbox
+            \ClassWarningNoLine{scrlttr}{%
+              Font element `refvalue' should not be larger than
+              \string\normalsize!}%
+          \fi
+        \fi
+        \ifkomavarempty{date}{%
+          \if@tempswa
+            \typeout{Reference line(s): with fields but without date}%
+          \else
+            \typeout{Reference line(s): no}%
+            \aftergroup\aftergroup\aftergroup\@tempswatrue
+          \fi
+          }{%
+            \typeout{Reference line in sidebar}%
+            \@tempswatrue
+          }%
+        }%
+      }%
+    \if@tempswa\vskip-\baselineskip\fi
+    \vskip\useplength{refaftervskip}%
+  }%
+}
+
+\endinput
+%  End of Letter Class Option jgu-date
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

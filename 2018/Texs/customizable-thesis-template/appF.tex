@@ -1,0 +1,110 @@
+\chapter{Algorithms}
+\noindent Algorithms are typeset using the \texttt{algorithm2e} package.
+\\[1cm]
+Code for floating algorithms:
+\begin{verbatim}
+  \begin{algorithm}[tb]
+      \caption{A floating algorithm}
+      \begin{algorithm2e}[H]
+        \uIf{if condition}{
+            something if \;
+            solved \;
+        }
+        \uElseIf{elseif condition}{
+            something elseif \;
+        }
+        \Else{
+            something else \;
+        }
+     \end{algorithm2e}
+  \end{algorithm}
+\end{verbatim}
+
+\begin{algorithm}[tb]
+	\caption{A floating algorithm}
+    \begin{algorithm2e}[H]
+      \uIf{if condition}{
+          something if \;
+          solved \;
+      }
+      \uElseIf{elseif condition}{
+          something elseif \;
+      }
+      \Else{
+          something else \;
+      }
+  \end{algorithm2e}
+\end{algorithm}
+  
+  \newpage
+  
+  \noindent For inline algorithms use the "H" option for both \texttt{algorithm} and \texttt{algorithm2e} environments:
+\begin{verbatim}
+  \begin{algorithm}[H]
+      \caption{An "inline" algorithm}
+      \begin{algorithm2e}[H]
+        \uIf{if condition}{
+            something if \;
+            solved \;
+        }
+        \uElseIf{elseif condition}{
+            something elseif \;
+        }
+        \Else{
+            something else \;
+        }
+     \end{algorithm2e}
+  \end{algorithm}
+\end{verbatim}
+
+  \begin{algorithm}[H]
+      \caption{An "inline" algorithm}
+      \begin{algorithm2e}[H]
+        \uIf{if condition}{
+            something if \;
+            solved \;
+        }
+        \uElseIf{elseif condition}{
+            something elseif \;
+        }
+        \Else{
+            something else \;
+        }
+    \end{algorithm2e}
+  \end{algorithm}
+  
+  (and the paragraph continues here ...)
+  
+  \newpage
+  \noindent Of course one might prefer a plain inline presentation:
+  \begin{verbatim}
+    \begin{algorithm2e}[H]
+        \uIf{if condition}{
+            something if \;
+            solved \;
+        }
+        \uElseIf{elseif condition}{
+            something elseif \;
+        }
+        \Else{
+            something else \;
+        }
+    \end{algorithm2e}
+\end{verbatim}
+
+Text starts here ...
+
+     \begin{algorithm2e}[H]
+        \uIf{if condition}{
+            something if \;
+            solved \;
+        }
+        \uElseIf{elseif condition}{
+            something elseif \;
+        }
+        \Else{
+            something else \;
+        }
+    \end{algorithm2e}
+
+... and continues here.

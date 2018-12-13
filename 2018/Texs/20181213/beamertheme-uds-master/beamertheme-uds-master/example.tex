@@ -1,0 +1,109 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Example presentation UdS theme
+%
+% Rudolf Siegel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document class
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{polyglossia}
+\usepackage{fontspec}
+\usepackage{microtype}
+\usepackage{hyperref}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Header // Title
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author[Mustermann]{Max Mustermann}
+\title{\LaTeX-Beispielpräsentation}
+\subtitle{Template Universität des Saarlandes}
+\institute[UdS]{Universität des Saarlandes}
+\date[12.10.2017]{12. Oktober 2017}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Formating options
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetheme[footlinetext={Beispielpräsentation Universität des Saarlandes}]{UdS}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Inhalt}
+  \tableofcontents
+\end{frame}
+
+% Section
+\section{Beispielframe}
+
+\begin{frame}{Beispielframe}
+  \begin{itemize}
+    \item Dies ist eine Beispielpräsentation
+  \end{itemize}
+\end{frame}
+
+\section{Hinweise}
+
+\begin{frame}{Template-Optionen}
+
+  Dieses Template bietet verschiedene Optionen (siehe README):
+	
+	\begin{itemize}
+    \item \texttt{udsicon}: Zeige Icon der Universität des Saarlandes in der
+      Titelleiste
+    \item \texttt{footline}: Zeige/Verberge die Fußleiste
+    \item \texttt{footlinetext}: Welcher Text wird in der Mitte der Fussleiste
+      gezeigt?
+    \item \texttt{titlepagehead}: Zeige/Verberge die Titelleiste auf der
+      Titelseite
+    \item \texttt{titlepagepic}: Zeige/Verberge Bild auf der Titelseite
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Ein längerer Titel}{mit einem Untertitel}
+  \begin{enumerate}
+    \item eins \ldots 
+    \item \ldots zwei
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Kleiner Test}
+
+  \begin{block}{Normaler Block}
+    Beispieltext
+  \end{block}
+
+  \begin{exampleblock}{Beispiel-Block}
+    Beispieltext
+  \end{exampleblock}
+
+  \begin{alertblock}{Alert-Block}
+    Beispieltext
+  \end{alertblock}
+
+\end{frame}
+
+\end{document}

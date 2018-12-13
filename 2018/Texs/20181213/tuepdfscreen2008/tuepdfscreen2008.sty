@@ -1,0 +1,2031 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% TU/ePDFScreen is based on pdfscreen, but lots
+%% of modifications have been made.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\NeedsTeXFormat{LaTeX2e}
+\def\fileversion{v.2.0}\def\filedate{2007/04/19}
+\ProvidesPackage{tuepdfscreen2008}
+          [\filedate\space\fileversion\space  screen PDF design (CVR)]
+\RequirePackage{graphicx}
+\RequirePackage{caption}
+\RequirePackage{comment}
+\RequirePackage{ifthen}
+\RequirePackage{pgfpages}
+\RequirePackage{ifpdf}
+\RequirePackage{multicol}
+\RequirePackage[absolute, overlay]{textpos}
+% Set the unit size for textpos package
+\setlength{\TPHorizModule}{1cm}
+\setlength{\TPVertModule}{\TPHorizModule}
+\newlength{\titleheight}
+\newlength{\titlewidth}
+\newcounter{panel}
+\newif\if@afour    \@afourfalse
+\newif\if@official    \@officialfalse
+\newif\if@innovation \@innovationtrue
+\newif\if@tue      \@tuetrue
+\newif\if@uvt      \@uvtfalse
+\newif\if@standard      \@standardfalse
+\newif\if@whitebg      \@whitebgfalse
+\newif\if@handouts    \@handoutsfalse
+\newif\if@bottombuttons \@bottombuttonsfalse
+\newif\if@pagenumbering \@pagenumberingfalse
+\newif\if@screen    \@screenfalse
+\newif\if@print     \@printfalse
+\newif\if@sidebar   \@sidebarfalse
+\newif\if@samepage  \@samepagefalse
+\newif\if@nocfg     \@nocfgfalse
+\newif\if@orange    \@orangefalse
+\newif\if@bluelace  \@bluelacefalse
+\newif\if@chocolate \@chocolatefalse
+\newif\if@palegreen \@palegreenfalse
+\newif\if@blue      \@bluefalse
+\newif\if@gray      \@grayfalse
+\newif\if@default   \@defaultfalse
+\newif\if@paneltoc  \@paneltocfalse
+\newif\if@code      \@codefalse
+%%%% Added by Marko
+\newif\if@largefonts     \@largefontsfalse
+\newif\if@hugefonts     \@hugefontsfalse
+\newif\if@parskip   \@parskiptrue
+\newif\if@parindent   \@parindenttrue
+\newif\if@dvips     \@dvipsfalse
+\newcounter{driver} \newcounter{scheme}
+\DeclareOption{pdftex}{\setcounter{driver}{0}}
+%\DeclareOption{dvips}{\setcounter{driver}{1}}
+%%%% Changed by Marko
+\newcommand{\dept}{none}
+\newcommand{\statustext}{}
+\newcommand{\titlebgimage}{}
+\newcommand{\titlelogos}{}
+\newcommand{\titlerighttext}{}
+\newcommand{\titlebgimagebb}{}
+\newcommand{\titlelogo}[2][]{\renewcommand{\titlelogos}[1][#2]{\includegraphics[height=2cm,#1]{##1}}}
+\newcommand{\titleright}[1]{\renewcommand{\titlerighttext}{#1}}
+\newcommand{\titlebackgroundimage}[2][]{\renewcommand{\titlebgimage}[1][#2]{\includegraphics[height=8.85cm,#1]{##1}}}
+\newcommand{\setstatustext}[1]{\renewcommand{\statustext}{#1}}
+\DeclareOption{dvips}{\setcounter{driver}{1}\@dvipstrue\@whitebgtrue\@handoutstrue\renewcommand{\spp}{2}}
+%\DeclareOption{dvipsone}{\setcounter{driver}{2}}
+%\DeclareOption{dvipdf}{\setcounter{driver}{3}}
+%\DeclareOption{dvipdfm}{\setcounter{driver}{4}}
+%\DeclareOption{dviwindo}{\setcounter{driver}{5}}
+%\DeclareOption{ps2pdf}{\setcounter{driver}{6}}
+%\DeclareOption{vtex}{\setcounter{driver}{7}}
+\DeclareOption{nocfg}{\@nocfgtrue}
+\DeclareOption{article}{\relax}
+\DeclareOption{amsart}{\relax}
+\DeclareOption{book}{\relax}
+\DeclareOption{amsbook}{\relax}
+\DeclareOption{sidebar}{\setcounter{panel}{1}}
+%\DeclareOption{absconsamepage}{\relax}
+%\DeclareOption{bluelace}{\setcounter{scheme}{1}}
+%\DeclareOption{chocolate}{\setcounter{scheme}{2}}
+%\DeclareOption{palegreen}{\setcounter{scheme}{3}}
+%\DeclareOption{orange}{\setcounter{scheme}{4}}
+%\DeclareOption{gray}{\setcounter{scheme}{5}}
+%\DeclareOption{blue}{\setcounter{scheme}{0}}
+\DeclareOption{panelleft}{\setcounter{panel}{1}}
+\DeclareOption{leftpanel}{\setcounter{panel}{1}}
+\DeclareOption{panelright}{\setcounter{panel}{2}}
+\DeclareOption{rightpanel}{\setcounter{panel}{2}}
+\DeclareOption{nopanel}{\setcounter{panel}{0}}
+\DeclareOption{print}{\@printtrue\@screenfalse\@handoutsfalse\renewcommand{\spp}{1}}
+\DeclareOption{screen}{\@screentrue\@printfalse}
+\DeclareOption{sidebar}{\setcounter{panel}{1}}
+\DeclareOption{nopanel}{\setcounter{panel}{0}}
+\DeclareOption{default}{\@defaulttrue}
+\DeclareOption{paneltoc}{\@paneltoctrue}
+\DeclareOption{code}{\@codetrue}
+%%%%%% Lines below Added by Marko
+\DeclareOption{a4}{\@afourtrue\@officialtrue\setlength{\columnsep}{7mm}\captionsetup{font={footnotesize,it}}}
+\DeclareOption{official}{\@officialtrue}
+\DeclareOption{noinnovation}{\@innovationfalse}
+\DeclareOption{tue}{\@tuetrue \@uvtfalse \@standardfalse}
+\DeclareOption{uvt}{\@tuefalse \@uvttrue \@standardfalse}
+\DeclareOption{standard}{\@tuefalse \@uvtfalse \@standardtrue}
+\DeclareOption{whitebg}{\@whitebgtrue}
+\DeclareOption{parindent}{\@parindenttrue}
+\DeclareOption{parskip}{\@parskiptrue}
+\DeclareOption{noparindent}{\@parindentfalse}
+\DeclareOption{noparskip}{\@parskipfalse}
+\DeclareOption{largefonts}{\@largefontstrue}
+\DeclareOption{hugefonts}{\@hugefontstrue}
+\DeclareOption{ele}{\renewcommand{\dept}{ele}}
+\DeclareOption{eleuk}{\renewcommand{\dept}{eleuk}}
+\DeclareOption{win}{\renewcommand{\dept}{win}}
+\DeclareOption{winuk}{\renewcommand{\dept}{winuk}}
+\DeclareOption{bmt}{\renewcommand{\dept}{bmt}}
+\DeclareOption{bmtuk}{\renewcommand{\dept}{bmtuk}}
+\DeclareOption{bwk}{\renewcommand{\dept}{bwk}}
+\DeclareOption{bwkuk}{\renewcommand{\dept}{bwkuk}}
+\DeclareOption{id}{\renewcommand{\dept}{id}}
+\DeclareOption{iduk}{\renewcommand{\dept}{iduk}}
+\DeclareOption{chem}{\renewcommand{\dept}{chem}}
+\DeclareOption{chemuk}{\renewcommand{\dept}{chemuk}}
+\DeclareOption{tm}{\renewcommand{\dept}{tm}}
+\DeclareOption{tmuk}{\renewcommand{\dept}{tmuk}}
+\DeclareOption{phys}{\renewcommand{\dept}{phys}}
+\DeclareOption{physuk}{\renewcommand{\dept}{physuk}}
+\DeclareOption{wtb}{\renewcommand{\dept}{wtb}}
+\DeclareOption{wtbuk}{\renewcommand{\dept}{wtbuk}}
+\DeclareOption{themered}{\definecolor{themecolor}{rgb}{0.839,0.000,0.290}}
+\DeclareOption{themecyan}{\definecolor{themecolor}{rgb}{0.000,0.635,0.871}}
+\DeclareOption{themeblue}{\definecolor{themecolor}{rgb}{0.000,0.400,0.800}}
+\DeclareOption{themegreen}{\definecolor{themecolor}{rgb}{0.518,0.824,0.000}}
+\DeclareOption{themeorange}{\definecolor{themecolor}{rgb}{1.000,0.604,0.000}}
+
+%%%%%
+%
+% Multiple pages on one sheet
+%
+%%%%%
+
+\newcommand{\spp}{1}
+
+\DeclareOption{handouts2}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{2}}
+\DeclareOption{handouts3}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{3}}
+\DeclareOption{handouts4}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{4}}
+\DeclareOption{handouts6}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{6}}
+\DeclareOption{handouts}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{1}}
+\DeclareOption{handout}{\@whitebgtrue\@handoutstrue\renewcommand{\spp}{1}}
+\DeclareOption{colorbg}{\@whitebgfalse}
+
+\pgfpagesdeclarelayout{2 on 1 corrected}
+{
+  \edef\pgfpageoptionheight{\the\paperwidth} % landscaped by default
+  \edef\pgfpageoptionwidth{\the\paperheight}
+  \def\pgfpageoptionborder{0pt}
+  \def\pgfpageoptionfirstshipout{1}
+}
+{
+  \pgfpagesphysicalpageoptions
+  {%
+    logical pages=2,%
+    physical height=\pgfpageoptionheight,%
+    physical width=\pgfpageoptionwidth,%
+    current logical shipout=\pgfpageoptionfirstshipout%
+  }
+  \ifdim\paperheight<\paperwidth\relax
+    % put side-by-side
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{25\pgfphysicalwidth}{.5\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.5\pgfphysicalheight}%
+    }%
+  \else
+    % stack on top of one another
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.75\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.5\pgfphysicalwidth}{.6\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.75\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.5\pgfphysicalwidth}{.1\pgfphysicalheight}%
+    }%
+  \fi
+}
+\pgfpagesdeclarelayout{3 on 1}
+{
+  \edef\pgfpageoptionheight{\the\paperwidth} % landscaped by default
+  \edef\pgfpageoptionwidth{\the\paperheight}
+  \def\pgfpageoptionborder{0pt}
+  \def\pgfpageoptionfirstshipout{1}
+}
+{
+  \pgfpagesphysicalpageoptions
+  {%
+    logical pages=3,%
+    physical height=\pgfpageoptionheight,%
+    physical width=\pgfpageoptionwidth,%
+    current logical shipout=\pgfpageoptionfirstshipout%
+  }
+  \ifdim\paperheight<\paperwidth\relax
+    % put side-by-side
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.33\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.1667\pgfphysicalwidth}{.5\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.33\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.5\pgfphysicalwidth}{.5\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{3}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.33\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.8333\pgfphysicalwidth}{.5\pgfphysicalheight}%
+    }%
+  \else
+    % stack on top of one another
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.4\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{3}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.05\pgfphysicalheight}%
+    }%
+  \fi
+}
+
+\pgfpagesdeclarelayout{6 on 1}
+{
+  \edef\pgfpageoptionheight{\the\paperwidth} % landscaped by default
+  \edef\pgfpageoptionwidth{\the\paperheight}
+  \def\pgfpageoptionborder{0pt}
+  \def\pgfpageoptionfirstshipout{1}
+}
+{
+  \pgfpagesphysicalpageoptions
+  {%
+    logical pages=6,%
+    physical height=\pgfpageoptionheight,%
+    physical width=\pgfpageoptionwidth,%
+    current logical shipout=\pgfpageoptionfirstshipout%
+  }
+  \ifdim\paperheight<\paperwidth\relax
+    % put side-by-side
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.1667\pgfphysicalwidth}{.25\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{3}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.5\pgfphysicalwidth}{.25\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{5}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.8333\pgfphysicalwidth}{.25\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.1667\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{4}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.5\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{6}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.8333\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+  \else
+    % stack on top of one another
+    \pgfpageslogicalpageoptions{1}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{3}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.4\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{5}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.05\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{2}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.75\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{4}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.4\pgfphysicalheight}%
+    }%
+    \pgfpageslogicalpageoptions{6}
+    {%
+      border shrink=\pgfpageoptionborder,%
+      resized width=0.5\pgfphysicalwidth,%
+      resized height=\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.05\pgfphysicalheight}%
+    }%
+  \fi
+}
+\def\PDFSCR@Warning#1{\PackageWarning{pdfscreen}{#1}}
+\def\PDFSCR@Info#1{\PackageInfo{pdfscreen}{#1}}
+\def\PDFSCR@WarningNoLine#1{\PackageWarningNoLine{pdfscreen}{#1}}
+\def\PDFSCR@langwarn#1{%
+\PackageWarningNoLine{pdfscreen}{Sorry, language `#1'
+            not supported\MessageBreak
+            in this version.
+            English strings are used instead.\MessageBreak
+            However you can give all the strings in the *.cfg%
+            \MessageBreak
+            file which will eventually be read by the package.
+            \MessageBreak\MessageBreak
+            If you can suggest translations for
+            this language,\MessageBreak
+            please mail them to the author of this package}}
+\@onlypreamble\PDFSCR@langwarn
+  \def\paneltitlepagename#1{\gdef\@Paneltitlepagename{#1}}
+  \def\panlabstractname#1{\gdef\@Panelabstractname{#1}}
+  \def\panelcontentsname#1{\gdef\@Panelcontentsname{#1}}
+  \def\panelhomepagename#1{\gdef\@Panelhomepagename{#1}}
+  \def\panelgobackname#1{\gdef\@Panelgobackname{#1}}
+  \def\panelclosename#1{\gdef\@Panelclosename{#1}}
+  \def\panelquitname#1{\gdef\@Panelquitname{#1}}
+  \def\panelpagename#1{\gdef\@Panelpagename{#1}}
+  \def\panelofname#1{\gdef\@Panelofname{#1}}
+  \let\@Paneltitlepagename\@empty \let\@Panelabstractname\@empty
+  \let\@Panelcontentsname\@empty  \let\@Panelhomepagename\@empty
+  \let\@Panelgobackname\@empty    \let\@Panelgobackname\@empty
+  \let\@Panelquitname\@empty      \let\@Panelclosename\@empty
+  \let\@Panelpagename\@empty      \let\@Panelofname\@empty
+\DeclareOption{english}{%
+  \paneltitlepagename{Title Page}
+  \panlabstractname{Abstract}
+  \panelcontentsname{Contents}
+  \panelhomepagename{Home Page}
+  \panelgobackname{Go Back}
+  \panelclosename{Close}
+  \panelquitname{Quit}
+  \panelpagename{Page}
+  \panelofname{of}
+  }
+\DeclareOption{french}{%
+  \paneltitlepagename{Page de Titre}
+  \panlabstractname{R\'esum\'e}
+  \panelcontentsname{Sommaire}
+  \panelhomepagename{ Page d\'accueil}
+  \panelgobackname{Retour}
+  \panelclosename{Fermer}
+  \panelquitname{Quitter}
+  \panelpagename{Page}
+  \panelofname{de}
+  }
+\DeclareOption{dutch}{
+  \paneltitlepagename{Titel Pagina}
+  \panlabstractname{Samenvatting}
+  \panelcontentsname{Inhoudsopgave}
+  \panelhomepagename{Startpagina}
+  \panelgobackname{Ga terug}
+  \panelclosename{Sluiten}
+  \panelquitname{Be\"eindigen}
+  \panelpagename{Pagina}
+  \panelofname{van}
+  }
+\DeclareOption{czech}{%
+  \paneltitlepagename{Tituln\'{\i} strana}
+  \panlabstractname{Abstrakt}
+  \panelcontentsname{Obsah}
+  \panelhomepagename{\'Uvodn\'{\i} strana}
+  \panelgobackname{Zp\v{e}t}
+  \panelclosename{Zav\v{r}\'{\i}t}
+  \panelquitname{Konec}
+  \panelpagename{Strana}
+  \panelofname{z}
+  }
+\DeclareOption{norsk}{%
+  \paneltitlepagename{Forside}
+  \panlabstractname{Sammendrag}
+  \panelcontentsname{Innhold}
+  \panelhomepagename{Hjemmeside}
+  \panelgobackname{G\aa\ tilbake}
+  \panelclosename{Lukk}
+  \panelquitname{Avslutt}
+  \panelpagename{Side}
+  \panelofname{av}
+  }
+\DeclareOption{nynorsk}{%
+  \paneltitlepagename{Forside}
+  \panlabstractname{Samandrag}
+  \panelcontentsname{Innhald}
+  \panelhomepagename{Heimeside}
+  \panelgobackname{G\aa\ tilbake}
+  \panelclosename{Lat att}
+  \panelquitname{Avslutt}
+  \panelpagename{Side}
+  \panelofname{av}
+  }
+\DeclareOption{slovak}{%
+  \paneltitlepagename{Tituln\'a strana}
+  \panlabstractname{Abstrakt}
+  \panelcontentsname{Obsah}
+  \panelhomepagename{Domovsk\'a str\'anka}
+  \panelgobackname{Sp\"a\v t}
+  \panelclosename{Zatvori\v t}
+  \panelquitname{Koniec}
+  \panelpagename{Strana}
+  \panelofname{z}
+  }
+\DeclareOption{portuges}{%
+  \paneltitlepagename{P\'agina de Rosto}
+  \panlabstractname{Sum\'ario}
+  \panelcontentsname{\'Indice Geral}
+  \panelhomepagename{Homepage}
+  \panelgobackname{Voltar}
+  \panelclosename{Fechar}
+  \panelquitname{Desistir}
+  \panelpagename{P\'agina}
+  \panelofname{de}
+  }
+\DeclareOption{spanish}{%
+  \paneltitlepagename{P\'agina de Abertura}
+  \panlabstractname{Resumen}
+  \panelcontentsname{Contenido}
+  \panelhomepagename{P\'agina www}
+  \panelgobackname{Regresar}
+  \panelclosename{Cerrar}
+  \panelquitname{Abandonar}
+  \panelpagename{P\'agina}
+  \panelofname{de}
+  }
+\DeclareOption{swedish}{%
+  \paneltitlepagename{F\"ors\"attsblad}
+  \panlabstractname{Sammanfattning}
+  \panelcontentsname{Inneh\aa{}ll}
+  \panelhomepagename{Hemsida}
+  \panelgobackname{Tillbaka}
+  \panelclosename{St\"ang}
+  \panelquitname{Avsluta}
+  \panelpagename{Sida}
+  \panelofname{av}
+  }
+\DeclareOption{danish}{%
+  \paneltitlepagename{Forside}
+  \panlabstractname{Resum\'e}
+  \panelcontentsname{Indhold}
+  \panelhomepagename{Hjemmeside}
+  \panelgobackname{G\aa\ tilbage}
+  \panelclosename{Luk}
+  \panelquitname{Afslut}
+  \panelpagename{Side}
+  \panelofname{af}
+  }
+\DeclareOption{polish}{%
+  \paneltitlepagename{Strona tytu\l owa}
+  \panlabstractname{Streszczenie}
+  \panelcontentsname{Spis tre\'sci}
+  \panelhomepagename{Strona g\l \'owna}
+  \panelgobackname{Powr\'ot}
+  \panelclosename{Zamknij}
+  \panelquitname{Koniec}
+  \panelpagename{Strona}
+  \panelofname{z}
+  }
+\DeclareOption{russian}{%
+  \paneltitlepagename{\cyr\CYRT\cyri\cyrt\cyru\cyrl\cyrsftsn\cyrn\cyra\cyrya{}
+    \cyrs\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyra}
+  \panlabstractname{\cyr\CYRA\cyrn\cyrn\cyro\cyrt\cyra\cyrc\cyri\cyrya}
+  \panelcontentsname{\cyr\CYRS\cyro\cyrd\cyre\cyrr\cyrzh\cyra\cyrn\cyri\cyre}
+  \panelhomepagename{Home Page}
+  \panelgobackname{\cyr\CYRN\cyra\cyrz\cyra\cyrd}
+  \panelclosename{\cyr\CYRZ\cyra\cyrk\cyrr\cyrery\cyrt\cyrsftsn}
+  \panelquitname{\cyr\CYRV\cyrery\cyrh\cyro\cyrd}
+  \panelpagename{\cyr\CYRS\cyrt\cyrr\cyra\cyrn\cyri\cyrc\cyra}
+  \panelofname{\cyr\cyri\cyrz}
+  }
+\DeclareOption{german}{%
+  \paneltitlepagename{Titelseite}
+  \panlabstractname{Zusammenfassung}
+  \panelcontentsname{Inhalt}
+  \panelhomepagename{Startseite}
+  \panelgobackname{Zur\"uck}
+  \panelclosename{Schlie\ss en}
+  \panelquitname{Beenden}
+  \panelpagename{Seite}
+  \panelofname{von}
+  }
+\DeclareOption{slovene}{%
+  \paneltitlepagename{Naslovnica}
+  \panlabstractname{Povzetek}
+  \panelcontentsname{Kazalo}
+  \panelhomepagename{Spletna stran}
+  \panelgobackname{Nazaj}
+  \panelclosename{Zapri}
+  \panelquitname{Kon\v{c}aj}
+  \panelpagename{Stran}
+  \panelofname{od}
+  }
+\DeclareOption{catalan}{%
+  \paneltitlepagename{Inici}
+  \panlabstractname{Resum}
+  \panelcontentsname{Contingut}
+  \panelhomepagename{Plana personal}
+  \panelgobackname{Tornar}
+  \panelclosename{Tancar}
+  \panelquitname{Sortir}
+  \panelpagename{P\`agina}
+  \panelofname{de}
+  }
+\DeclareOption{american}{\ExecuteOptions{english}}
+\DeclareOption{austrian}{\PDFSCR@langwarn{austrian}\ExecuteOptions{english}}
+\DeclareOption{brazil}{\ExecuteOptions{portuges}}
+\DeclareOption{breton}{\PDFSCR@langwarn{breton}\ExecuteOptions{english}}
+\DeclareOption{croatian}{\PDFSCR@langwarn{croatian}\ExecuteOptions{english}}
+\DeclareOption{esperanto}{\PDFSCR@langwarn{esperanto}\ExecuteOptions{english}}
+\DeclareOption{finnish}{\PDFSCR@langwarn{finnish}\ExecuteOptions{english}}
+\DeclareOption{galician}{\PDFSCR@langwarn{galician}\ExecuteOptions{english}}
+\DeclareOption{italian}{\PDFSCR@langwarn{italian}\ExecuteOptions{english}}
+\DeclareOption{magyar}{\PDFSCR@langwarn{magyar}\ExecuteOptions{english}}
+\DeclareOption{romanian}{\PDFSCR@langwarn{romanian}\ExecuteOptions{english}}
+\DeclareOption{turkish}{\PDFSCR@langwarn{turkish}\ExecuteOptions{english}}
+\DeclareOption{francais}{\typeout{******Please use `french' instead of `francais'*****}%
+   \ExecuteOptions{french}}
+\DeclareOption{germanb}{\typeout{******Please use `german' instead of `germanb'******}%
+   \ExecuteOptions{german}}
+\ExecuteOptions{english,tue,themered,screen,noparindent,parskip,default}
+
+%%
+%% Added by Marko, to fix bug that WinEdt hangs completely when pressing LaTeX without dvips option
+%%
+\ifpdf
+      \ExecuteOptions{pdftex}
+\else
+      \ExecuteOptions{dvips}
+\fi
+
+\ProcessOptions
+
+% Added by Marko:
+\newlength\screenwidth
+\newlength\screenheight
+\setlength{\screenwidth}{\paperwidth}
+\setlength{\screenheight}{\paperheight}
+
+%
+% Multiple pages on one sheet
+%
+\ifthenelse{\equal{\spp}{2}}{\pgfpagesuselayout{2 on 1 corrected}[a4paper,border shrink=5mm]}{}
+\ifthenelse{\equal{\spp}{3}}{\pgfpagesuselayout{3 on 1}[a4paper,border shrink=5mm]}{}
+\ifthenelse{\equal{\spp}{4}}{\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm]}{}
+\ifthenelse{\equal{\spp}{6}}{\pgfpagesuselayout{6 on 1}[a4paper,border shrink=5mm]}{}
+
+
+
+\newif\if@@bb
+\newif\if@@tb
+\def\@@bbuttons{\if@@bb\@@buttons\fi}
+\def\@@tbuttons{\if@@tb\@@buttons\fi}
+
+%%%
+% Added by Marko to enable use of captions without figure or table environment
+%%%
+\newcommand{\figcaption}[1]{\captionof{figure}{#1}}
+\newcommand{\tablecaption}[1]{\captionof{table}{#1}}
+
+
+%******** Screen options starts here *****************
+\if@screen
+\RequirePackage{calc,color}
+\RequirePackage{hyperref}
+\if@dvips
+  \newcommand{\pause}{\relax}
+  \newcommand{\pauselevel}[1]{\relax}
+\else
+  \RequirePackage[nomarkers]{pause}
+\fi
+
+\hypersetup{pagebackref,pdfpagemode=none,colorlinks,%
+             pdfmenubar=false,%
+             pdftoolbar=false,%
+             pdffitwindow=true,pdfcenterwindow=true,%
+             pdfwindowui=false,menucolor=menucolor,%
+             pdfview=Fit,pdfstartview=Fit,backref}
+\includecomment{screen}
+\if@handouts
+  \excludecomment{screen}
+\fi
+\excludecomment{print}
+\def\ScreenLastPage{100}
+\let\emblema\@gobble
+\let\emblemb\@gobble
+\let\affname\@gobble
+\let\divname\@gobble
+\let\urlid\@gobble
+\let\emailid\@gobble
+\let\@emblema\@empty
+\let\@urlid\@empty
+\let\@emailid\@empty
+\let\@affname\@empty
+\let\@divname\@empty
+  \definecolor{coxcolor}{rgb}{1,.937,.835}
+  \definecolor{boxcolor}{rgb}{.001,0,.502}
+  \definecolor{bboxcolor}{rgb}{.9,.941,.902}
+  \definecolor{rcolor}{rgb}{.439,.502,.565}
+  \definecolor{olivedrab}{rgb}{.42,.557,.137}
+  \definecolor{fcolor}{rgb}{0,1,1}
+  \definecolor{orange}{rgb}{1,.549,0}
+  \definecolor{orange1}{rgb}{1,.5,0}
+  \definecolor{menucolor}{rgb}{1,.25,0}
+  \definecolor{paleblue}{rgb}{0,0,0.1}
+\if@default
+  \definecolor{panelbackground}{rgb}{.455,.832,.979}
+  \definecolor{logobackground}{rgb}{.35,.73,.87}
+  \definecolor{buttonbackground}{rgb}{0,.624,.820}
+  \definecolor{buttonshadow}{rgb}{.001,0,.502}
+  \definecolor{section0}{rgb}{0,.5,.1}
+  \definecolor{section1}{rgb}{0,.5,1}
+  \definecolor{section2}{rgb}{0,.5,.7}
+  \definecolor{section3}{rgb}{0,.5,.4}
+  \definecolor{section4}{rgb}{.4,.5,.2}
+  \definecolor{section5}{rgb}{.5,.5,.3}
+\fi
+%
+%-------------- Button macros -------------
+%
+\@ifundefined{@PDFbox}{\newbox\@PDFbox}{}
+\@ifundefined{@tempdimc}{\newdimen\@tempdimc}{}
+\newdimen\shadowsize
+\shadowsize 1pt
+\def\shadowbox{\PDFBox\@shadowbox}
+\def\@shadowbox#1{%
+  \setbox\@PDFbox\hbox{\fbox{#1}}%
+  \leavevmode\vbox{%
+    \offinterlineskip
+    \dimen@=\shadowsize
+    \advance\dimen@ .5\fboxrule
+    \hbox{\copy\@PDFbox\kern-.5\fboxrule\lower\shadowsize\hbox{%
+      \vrule \@height\ht\@PDFbox \@depth\dp\@PDFbox \@width\dimen@}}%
+    \vskip-\dimen@
+    \moveright\shadowsize\vbox{%
+      \hrule \@width\wd\@PDFbox \@height\dimen@}}}
+\newtoks\do@PDFBox
+\def\PDFBox#1{%
+  \do@PDFBox{#1}%
+  \afterassignment\begin@PDFBox
+  \setbox\@PDFbox=\hbox}
+\def\begin@PDFBox{\aftergroup\end@PDFBox}
+\def\end@PDFBox{\the\do@PDFBox{\box\@PDFbox}}%
+%
+  \definecolor{buttondisable}{gray}{.7}
+  \definecolor{Gray}{rgb}{.895,.93,.916}
+  \def\FBlack{\ifnum\thepage=1\color{buttondisable}\else\Black\fi}
+  \def\LBlack{\ifnum\thepage=\number\ScreenLastPage\color{buttondisable}%
+      \else\Black\fi}
+  \def\ContPage{2}
+  \def\DBlack{\ifnum\thepage=\number\ContPage\color{buttondisable}%
+      \else\Black\fi}
+  \def\Black{\color{black}}
+    \def\contentsname{\protect\hypertarget{contents}{\@Panelcontentsname}
+      \immediate\write\@auxout{\string\gdef\string\ContPage{\thepage}}}
+    \def\abstractname{\protect\hypertarget{abstract}{\@Panelabstractname}}
+    \def\emailid#1{\def\@emailid{mailto:#1}}
+    \def\urlid#1{\def\@urlid{http://#1}}
+    \def\markboth#1#2{\gdef\lmark{#1}\gdef\rmark{#2}}
+    \def\emblema#1{\def\@emblema{#1}}
+    \def\@grerr{\phantom{XXXXXXXX}}
+    \def\affname#1{\def\@affname{#1}}
+    \def\@afferr{Name of Organization}
+    \def\@diverr{Name of Division}
+    \def\divname#1{\def\@divname{#1}}
+    \newlength\panelwidth
+    \ifnum\thepanel>0%
+     \setlength\panelwidth{.15\screenwidth}%%.25
+      \ifdim\panelwidth<1in\setlength\panelwidth{1in}\fi\else
+     \setlength\panelwidth{0pt}
+    \fi
+  \fboxsep0pt\fboxrule.2pt
+  \RequirePackage{amssymb,amsbsy}
+  \def\btl{\ensuremath{\blacktriangleleft}}
+  \def\rtl{\ensuremath{\blacktriangleright}}
+\def\panelfont{\fontsize{7pt}{7pt}\itshape\selectfont}
+\def\st{\hbox{\vrule height10pt depth5pt width\z@}\panelfont}
+\def\addButton#1#2{\begingroup\normalsfcodes\fboxsep0pt\fboxrule.4pt\shadowsize.4pt%
+       \sffamily\color{white}\shadowbox{\colorbox{buttonbackground}%
+       {\hbox to #1{\hfil\Black\st#2\hfil}}\color{buttonshadow}}\endgroup}
+%
+%------------ Panel macros ----------------
+%
+\def\paneloverlay#1{\gdef\@paneloverlay{#1}}
+\def\paneloverlayempty{\let\@paneloverlay\@empty}
+\let\@paneloverlay\@empty
+\def\@panel{%
+     \begingroup\normalsfcodes%
+     \ifx\@paneloverlay\@empty%
+      \colorbox{panelbackground}{\panel}%
+     \else%
+      \vbox to\z@{\hbox to\z@{\includegraphics[width=\panelwidth,%%
+        height=\screenheight]{\@paneloverlay}%
+      \hspace{-\panelwidth}\hfill}\vspace{-\screenheight}\vfill}%
+     \panel\fi%
+  \endgroup}%
+\def\panel{%
+       \begin{minipage}[t][\screenheight][c]{\panelwidth}%
+       \normalsfcodes%
+       \centering%
+        \null\vspace*{12pt}\vfill%
+        \ifx\@emblema\@empty\relax\else%
+        \@@logo{\@emblema}\par\vfill\fi%
+     \if@paneltoc%
+      \@panel@toc\par\vfill\else\relax\fi%
+       \color{blue}%
+   \NavigationPanel%
+   \par\vfill
+   \null\vspace*{1pt}
+   \end{minipage}%
+}
+
+\def\imageButton#1#2#3{\includegraphics[width=#1,height=#2]{#3}}
+\newdimen\buttonwidth\newdimen\smallbuttonwidth
+\setlength\buttonwidth{.7\panelwidth}
+\setlength\smallbuttonwidth{.35\panelwidth}
+\addtolength{\smallbuttonwidth}{-1.2pt}
+\def\NavigationPanel{\normalsfcodes%
+     \href{\@urlid}{\addButton{\buttonwidth}{\@Panelhomepagename}}\\ \pfill
+     \Acrobatmenu{FirstPage}{\addButton{\buttonwidth}{\FBlack\@Paneltitlepagename}}\\\pfill
+     \if@paneltoc\relax\else%
+      \hyperlink{contents}{\addButton{\buttonwidth}{\DBlack\@Panelcontentsname}}\\\pfill\fi
+     \Acrobatmenu{FirstPage}{\addButton{\smallbuttonwidth}{\FBlack\scalebox{.8}[1.4]{\btl\btl}}}\hspace*{-2pt}
+     \Acrobatmenu{LastPage}{\addButton{\smallbuttonwidth}{\LBlack\scalebox{.8}[1.4]{\rtl\rtl}}}\\\pfill
+     \Acrobatmenu{PrevPage}{\addButton{\smallbuttonwidth}{\FBlack\scalebox{.8}[1.4]{\btl}}}\hspace*{-2pt}
+     \Acrobatmenu{NextPage}{\addButton{\smallbuttonwidth}{\LBlack\scalebox{.8}[1.4]{\rtl}}}\\\pfill
+     \Acrobatmenu{GoToPage}{\addButton{\buttonwidth}{\@Panelpagename\space
+       \textcolor{red}{\thepage}\space\@Panelofname\space
+       \textcolor{red}{\ScreenLastPage}}}\\\pfill
+     \Acrobatmenu{GoBack}{\addButton{\buttonwidth}{\@Panelgobackname}}\\\pfill
+     \Acrobatmenu{FullScreen}{\addButton{\buttonwidth}{Full Screen}}\\\pfill
+     \Acrobatmenu{Close}{\addButton{\buttonwidth}{\@Panelclosename}}\\\pfill
+     \Acrobatmenu{Quit}{\addButton{\buttonwidth}{\@Panelquitname}}\\
+}
+\def\pfill{\vfill}
+%
+%-------------- Verbatim fix -------------
+%
+
+% dps begin
+\newdimen\@PDFspaceleft
+\def\@PDFpagespace{%
+  \ifdim\pagetotal=0pt
+     \@PDFspaceleft=\vsize
+   \else
+     \@PDFspaceleft=\pagegoal
+     \advance\@PDFspaceleft by-\pagetotal
+ \fi}
+\let\@PDFverbatim\verbatim
+\let\@PDFendverbatim\endverbatim
+\AtBeginDocument{%
+   \def\verbatim{\begingroup\setbox0=\vbox\bgroup
+         \hsize=\linewidth%
+         \@PDFverbatim}
+   \def\endverbatim{\@PDFendverbatim\egroup
+    \@PDFpagespace\ifdim\@PDFspaceleft>\ht0
+       \else
+        \setbox1=\vsplit0 to\@PDFspaceleft
+        \unvbox1 \penalty\@M
+       \fi
+    \ifvoid0\else\unvbox0\fi
+    \endgroup\normalcolor}
+  \def\@verb{\@vobeyspaces \frenchspacing\@sverb}
+}
+
+% dps end
+\if@code
+\def\verbatim@font{%
+  \normalfont \ttfamily
+  \color{section1}
+  \catcode`\<=\active
+  \catcode`\>=\active
+}
+\begingroup
+  \catcode`\<=\active
+  \catcode`\>=\active
+  \gdef<{\@ifnextchar<\@lt\@meta}
+  \gdef>{\@ifnextchar>\@gt\@gtr@err}
+  \gdef\@meta#1>{\@PDFm{#1}}
+  \gdef\@lt<{\char`\<}
+  \gdef\@gt>{\char`\>}
+\endgroup
+\def\@gtr@err{%
+   \PDFSCR@Warning{%
+      Isolated \protect>\MessageBreak%
+      In this document class, \protect<...\protect>\MessageBreak
+      is used to indicate a parameter.\MessageBreak
+      I've just found a \protect> on its own.\MessageBreak
+      Perhaps you meant to type \protect>\protect>?
+   }%
+}
+\def\verbatim@nolig@list{\do\`\do\,\do\'\do\-}
+\def\@PDFm#1{\mbox{\color{red}$\langle$\it#1\/$\rangle$}}
+\def\arg#1{{\color{section0}{\tt\string{}\@PDFm{#1}{\tt\string}}}}
+\def\@PDFM#1{\mbox{\color{red}\it#1\/}}
+\def\Arg#1{{\color{section0}{\tt\string{}\@PDFM{#1}{\tt\string}}}}
+\def\oarg#1{{\color{section0}{\tt[}\@PDFm{#1}{\tt]}}}
+\def\Oarg#1{{\color{section0}{\tt[}\@PDFM{#1}{\tt]}}}
+ \definecolor{wheat}{rgb}{.96, .87, .70}
+ \definecolor{oldlace}{rgb}{.992, .96187, .902}
+ \definecolor{snow}{rgb}{1, .98, .98}
+ \definecolor{ghostwhite}{rgb}{.973, .973, 1}
+ \definecolor{cornsilk}{rgb}{1, .973, .863}
+ \definecolor{honeydew}{rgb}{.941, 1, .941}
+ \definecolor{lavenderdark}{rgb}{.8, .8, .9529411}
+ \definecolor{lavender}{rgb}{.902, .902, .980}
+ \definecolor{lightblue}{rgb}{.8, .8, .95}
+ \definecolor{lightgray}{rgb}{.827, .827, .827}
+ \definecolor{lightsteelblue}{rgb}{.690, .769, .871}
+ \definecolor{lightturquoise}{rgb}{.686, .933, .933}
+ \definecolor{darkgreen}{rgb}{.0, .392, .0}
+ \definecolor{yellowgreen}{rgb}{.604, .804, .196}
+ \definecolor{vlightblue}{rgb}{.88, .85, .95}
+ \definecolor{khaki}{rgb}{.741, .718, .42}
+\@ifundefined{rowcolor}{}{\arrayrulecolor{section1}}
+\definecolor{tabcolor}{rgb}{.973, .973, 1}
+\@ifundefined{decl}{%
+\newenvironment{decl}[1][]%
+    {\par\small\addvspace{1.5ex plus .5ex minus .5ex}%
+     \vskip -\parskip
+     \noindent\hspace{-\leftmarginii}%
+     \bgroup\begin{tabular}{|>{\columncolor{tabcolor}}l|}\hline\\[-6pt]
+      \ignorespaces}%
+    {\\[3pt]\hline\end{tabular}\egroup\par%
+     \vspace{1.5ex}\ignorespacesafterend\noindent}}{}
+\RequirePackage{shortvrb}
+\MakeShortVerb{\|}
+\fi %---------- end of \if@code option ----------
+%
+%-------------- end of Verbatim fix -------------
+%
+%-------------- Layout macros -------------------
+%
+  \newdimen\@Leftmargin   \@Leftmargin=0cm
+  \newdimen\@Rightmargin  \@Rightmargin=0cm
+  \newdimen\@Topmargin    \@Topmargin=0in
+  \newdimen\@Bottommargin \@Bottommargin=0in
+  %
+%%%%%% Changed by Marko
+%\if@dvips
+%  \relax
+%\else
+  \setlength\headheight{0pt}
+  \setlength\headsep   {0pt}
+  \setlength\footskip  {0pt}
+  \hoffset=0pt
+  \voffset=0pt
+%\fi
+\pagestyle{empty}
+%
+  \def\InitLayout{
+    \setlength{\textwidth}{\screenwidth}
+    \addtolength{\textwidth}{-\@Leftmargin}
+    \addtolength{\textwidth}{-\@Rightmargin}
+    \setlength{\textheight}{\screenheight}
+    \addtolength{\textheight}{-\@Topmargin}
+    \addtolength{\textheight}{-\@Bottommargin}
+    \addtolength{\textheight}{-\headheight}
+    \addtolength{\textheight}{-\headsep}
+    \addtolength{\textheight}{-\footskip}
+    \setlength{\oddsidemargin}{\@Leftmargin}
+%%%% added by Marko
+%    \if@dvips
+%    \relax
+%    \else
+      \addtolength{\oddsidemargin}{-1in}
+%    \fi
+    \setlength{\evensidemargin}{\@Leftmargin}%{\@Rightmargin}
+%    \if@dvips
+%      \relax
+%    \else
+      \addtolength{\evensidemargin}{-1in}
+%    \fi
+    \setlength{\topmargin}{\@Topmargin}
+%    \if@dvips
+%      \relax
+%    \else
+      \addtolength{\topmargin}{-1in}
+%    \fi
+  }
+  \def\marginsize#1#2#3#4{
+    \@Leftmargin=#1
+    \@Rightmargin=#2
+    \@Topmargin=#3
+    \@Bottommargin=#4
+    \InitLayout
+  }
+\newdimen\Textmarginright
+\newdimen\Textmarginleft
+\newdimen\Textmargintop
+\newdimen\Textmarginbottom
+\newdimen\marginright
+\newdimen\marginleft
+\newdimen\margintop
+\newdimen\marginbottom
+\newdimen\panelheight
+\newdimen\LLX
+\newdimen\LLY
+\newdimen\URX
+\newdimen\URY
+\newdimen\calfactor
+\setlength\calfactor{0pt}
+\def\margins#1#2#3#4{%
+    \marginleft=#1
+    \marginright=#2
+    \margintop=#3
+    \marginbottom=#4
+}
+\def\screensize#1#2{%
+\ifthenelse{\equal{\spp}{1}}{\paperheight=#1%
+    \paperwidth=#2}{}
+    \screenheight=#1%
+    \screenwidth=#2
+    \InitLayout
+\ifcase\thepanel
+  \setlength\Textmarginright{\marginright}
+  \setlength\Textmarginleft{\marginleft}
+  \setlength\Textmargintop{\margintop}
+  \setlength\Textmarginbottom{\marginbottom}
+  \setlength\LLX{\calfactor}
+  \setlength\LLY{\calfactor}
+  \setlength\overlaywidth{\screenwidth}
+  \setlength\URX{\overlaywidth-2\calfactor}
+  \setlength\URY{\screenheight-2\calfactor}
+  \PDFSCR@Info{no panel options loaded}
+\or%ifnum\thepanel=1
+  \setlength\Textmarginright{\marginright}
+  \setlength\Textmarginleft{\panelwidth}
+  \addtolength\Textmarginleft{\marginleft}
+  \setlength\Textmargintop{\margintop}
+  \setlength\Textmarginbottom{\marginbottom}
+  \setlength\LLX{\panelwidth+\calfactor}
+  \setlength\LLY{\calfactor}
+  \setlength\overlaywidth{\screenwidth}
+  \addtolength\overlaywidth{-\panelwidth}
+  \setlength\URX{\overlaywidth-2\calfactor}
+  \setlength\URY{\screenheight-2\calfactor}
+  \PDFSCR@Info{left panel options loaded}
+\or%ifnum\thepanel=2
+  \setlength\Textmarginleft{\marginleft}
+  \setlength\Textmarginright{\panelwidth}
+  \addtolength\Textmarginright{\marginright}
+  \setlength\Textmargintop{\margintop}
+  \setlength\Textmarginbottom{\marginbottom}
+  \setlength\LLX{\calfactor}
+  \setlength\LLY{\calfactor}
+  \setlength\overlaywidth{\screenwidth}
+  \addtolength\overlaywidth{-\panelwidth}
+  \setlength\URX{\overlaywidth-2\calfactor}
+  \setlength\URY{\screenheight-2\calfactor}
+  \PDFSCR@Info{right panel options loaded}
+\or\PDFSCR@Warning{Panel specification is undefined}
+\fi
+\marginsize{\Textmarginleft}{\Textmarginright}
+           {\Textmargintop}{\Textmarginbottom}
+\InitLayout
+\PDFSCR@Info{LLX=\the\LLX \MessageBreak
+  LLY=\the\LLY \MessageBreak
+  URX=\the\URX \MessageBreak
+  URY=\the\URY \MessageBreak
+  panelwidth=\the\panelwidth \MessageBreak
+  overlaywidth=\the\overlaywidth \MessageBreak
+  textwidth=\the\textwidth \MessageBreak
+  textheight=\the\textheight \MessageBreak
+  screenwidth=\the\screenwidth \MessageBreak
+  screenheight=\the\screenheight \MessageBreak
+  calfactor=\the\calfactor \MessageBreak
+  Panel=\thepanel}
+}
+%
+% ------------------ overlaying of images or colors --------
+%
+\let\@PDFSout@Hook\@empty
+\newcommand{\PDFSout}{\g@addto@macro\@PDFSout@Hook}
+\newcommand{\@PDFSout@Out}{%
+   \afterassignment\@PDFSout@Test
+   \global\setbox\@cclv= %
+   }
+\newcommand{\@PDFSout@Test}{%
+   \ifvoid\@cclv\relax
+      \aftergroup\@PDFSout@Output
+   \else
+      \@PDFSout@Output
+   \fi%
+   }
+\newcommand{\@PDFSout@Output}{%
+   \@PDFSout@Hook%
+   \@PDFSout@Org@Out\box\@cclv%
+   }
+\newcommand{\@PDFSout@Org@Out}{}
+\newcommand*{\@PDFSout@Init}{%
+   \let\@PDFSout@Org@Out\shipout
+   \let\shipout\@PDFSout@Out
+   }
+\AtBeginDocument{\@PDFSout@Init}
+\newcommand{\@Overlay@Hook}{}
+\newcommand{\AddToOverlay}{\g@addto@macro\@Overlay@Hook}
+\newcommand{\ClearOverlay}{\let\@Overlay@Hook\@empty}
+\newcommand{\@Overlay}{%
+  \ifx\@Overlay@Hook\@empty
+  \else
+    \bgroup
+      \@tempdima=1in
+      \@tempcnta=\@tempdima
+      \@tempcntb=-\@tempdima
+      \advance\@tempcntb\screenheight
+      \global\setbox\@cclv\vbox{%
+      \vbox{\let\protect\relax%
+        \unitlength=1sp%
+        \pictur@(0,0)(\@tempcnta,\@tempcntb)%
+          \@Overlay@Hook%
+        \endpicture}%
+        \box\@cclv%
+      }%
+    \egroup
+  \fi
+}
+\PDFSout{\@Overlay}
+%------------------- end of overlaying macros --------------
+%
+%------------------- Panel TOC macros ----------------------
+%
+\if@paneltoc
+\PDFSCR@Info{Panel TOC options loaded}
+\RequirePackage{truncate}
+\newcounter{NUM}[page]
+\def\numberline#1{}
+\def\ST{\hbox{\vrule height8pt depth3pt width\z@}\scriptsize\itshape}
+\def\scrShadowButton#1#2{\begingroup\fboxsep0pt\fboxrule.6pt\shadowsize.1pt%
+       \sffamily\color{white}\shadowbox{\colorbox{buttonbackground}%
+       {\hbox to #1{\color{fgcolor}\ST#2\hfill}}\color{buttonshadow}}\endgroup}
+\def\scrNormalButton#1#2{\begingroup\sffamily\color{white}%
+         \noindent{\colorbox{panelbackground}%
+       {\hbox to #1{\color{fgcolor}\ST\hfill#2\hfill}}}\endgroup}
+\def\@@secHead{chapter}
+\long\def\contentsline#1#2#3#4{\def\@@cHead{#1}%
+   \ifx\@@cHead\@@secHead\stepcounter{NUM}%
+   \ifnum\thepanel@section=\theNUM%
+   {\definecolor{panelbackground}{gray}{.3}%
+    \definecolor{fgcolor}{gray}{1}%
+    \hyperlink{#4}{\,\scrNormalButton{.975\panelwidth}{\truncate{.9\panelwidth}{#2}}}%
+   }\par\vskip1truept%
+   \else
+%%%%% Colors changed by Marko
+   {\definecolor{panelbackground}{rgb}{.35,.48,.58}%%
+    \definecolor{fgcolor}{rgb}{1.0,1.0,1.0}%
+    \hyperlink{#4}{\,\scrNormalButton{.975\panelwidth}{\truncate{.9\panelwidth}{#2}}}%
+   }\par\vskip1truept%
+   \fi
+   \fi}
+
+ \newcounter{@TOC}
+ \def\PDF@@TOC{\stepcounter{@TOC}\ifnum\the@TOC>1\relax%
+      \else\tableofcontents\fi}
+\def\@panel@toc{\vbox\bgroup\rightskip0pt plus 1fill
+    \hbadness 10000
+    \InputIfFileExists{\jobname.toc}%
+        {\PDFSCR@Info{TOC file read}}%
+        {\PDFSCR@Warning{TOC file not available}%
+        \AtEndDocument{\PDF@@TOC}}%
+       \egroup}
+\fi% --- end of paneltoc option ---
+
+\def\overlay#1{\gdef\@overlay{#1}}
+\def\overlayempty{\let\@overlay\@empty}
+\let\@overlay\@empty
+\def\backgroundcolor#1{\gdef\@backgroundcolor{#1}}
+\backgroundcolor{lightcyan}
+\definecolor{lightcyan}{rgb}{.895,.93,.916}
+\newdimen\overlayheight
+\newdimen\overlaywidth
+\newcommand{\drawbackground}{%
+  \ifthenelse{\equal{\@overlay}{tuedepartmentbackground}}{%
+    \begin{pgfpicture}{0cm}{0cm}{\the\screenwidth}{\the\screenheight}
+                                % Do some clipping first
+                                % Very annoying otherwise with psnup
+        \fontsize{12}{12}\selectfont
+
+        \ifthenelse{\equal{\dept}{ele}}{\renewcommand{\dept}{/e}}{}
+        \ifthenelse{\equal{\dept}{eleuk}}{\renewcommand{\dept}{/\bfseries e}}{}
+        \ifthenelse{\equal{\dept}{win}}{\renewcommand{\dept}{/k}}{}
+        \ifthenelse{\equal{\dept}{winuk}}{\renewcommand{\dept}{/\fontfamily{zmb}\selectfont\bfseries\,department of mathematics and computer science}}{}
+        \ifthenelse{\equal{\dept}{bmt}}{\renewcommand{\dept}{/mh\fontsize{4.5}{5pt}\selectfont j}}{}
+        \ifthenelse{\equal{\dept}{bmtuk}}{\renewcommand{\dept}{/\bfseries mh\fontsize{4.5}{5pt}\selectfont j}}{}
+        \ifthenelse{\equal{\dept}{bwk}}{\renewcommand{/\dept}{b}}{}
+        \ifthenelse{\equal{\dept}{bwkuk}}{\renewcommand{\dept}{/\bfseries b}}{}
+        \ifthenelse{\equal{\dept}{id}}{\renewcommand{\dept}{/d}}{}
+        \ifthenelse{\equal{\dept}{iduk}}{\renewcommand{\dept}{/\bfseries d}}{}
+        \ifthenelse{\equal{\dept}{chem}}{\renewcommand{\dept}{/s}}{}
+        \ifthenelse{\equal{\dept}{chemuk}}{\renewcommand{\dept}{/\bfseries s}}{}
+        \ifthenelse{\equal{\dept}{tm}}{\renewcommand{\dept}{/t}}{}
+        \ifthenelse{\equal{\dept}{tmuk}}{\renewcommand{\dept}{/\bfseries t}}{}
+        \ifthenelse{\equal{\dept}{phys}}{\renewcommand{\dept}{/n}}{}
+        \ifthenelse{\equal{\dept}{physuk}}{\renewcommand{\dept}{/\bfseries n}}{}
+        \ifthenelse{\equal{\dept}{wtb}}{\renewcommand{\dept}{/w}}{}
+        \ifthenelse{\equal{\dept}{wtbuk}}{\renewcommand{\dept}{/\bfseries w}}{}
+
+        \ifthenelse{\equal{\dept}{none}}{\renewcommand{\dept}{}}{}
+
+        \if@afour  % Poster
+          % Logo
+          \ifthenelse{\equal{\titlelogos}{}}{%
+            \ifthenelse{\equal{\titlerighttext}{}}{%
+              \relax
+            }
+            {
+            \pgftext[at=\pgfpoint{\the\screenwidth-60mm}{\the\screenheight-25mm},left,top]{%
+              \parbox[t]{52mm}{%
+              \raggedright\color{black}\fontfamily{zmb}\fontsize{8}{12}\selectfont\rmfamily%
+              \titlerighttext%
+              }
+            }%
+            }%
+          }
+          {  % Logo
+            \pgftext[at=\pgfpoint{\the\screenwidth-36mm}{\the\screenheight-41mm},center,center]{\titlelogos}%
+          }
+
+          \pgfsetcolor{themecolor}
+          % red surface at top of the slide
+          \pgfpathmoveto{\pgfpoint{5mm}{\the\screenheight-60mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-72.8mm}{\the\screenheight-60mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-61.6mm}{\the\screenheight-21mm}}
+          \pgfpathlineto{\pgfpoint{5mm}{\the\screenheight-21mm}}
+          \pgfusepath{fill}
+
+          % horizontal line
+          \pgfsetcolor{tuered}
+          \pgfpathmoveto{\pgfpoint{5mm}{\the\screenheight-21mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-5mm}{\the\screenheight-21mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-5mm}{\the\screenheight-21.05mm}}
+          \pgfpathlineto{\pgfpoint{5mm}{\the\screenheight-21.05mm}}
+          \pgfusepath{fill}
+          % TU/e logo
+          \pgftext[at=\pgfpoint{\the\screenwidth-5mm}{\the\screenheight-5mm},right,top]{%
+            \includegraphics[height=16mm]{tuelogo}%
+          }
+
+          % Department
+          \pgfsetcolor{tuedarkblue}
+          \pgfpathmoveto{\pgfpoint{5mm}{5mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-5mm}{5mm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-5mm}{17.7mm}}
+          \pgfpathlineto{\pgfpoint{5mm}{17.7mm}}
+          \pgfusepath{fill}
+          \pgftext[at=\pgfpoint{9mm}{11mm},left,center]{%
+            \color{white}\fontsize{10}{10}\fontfamily{zlo}\selectfont
+            \dept
+          }
+
+          % Upper line (status line)
+          \pgftext[at=\pgfpoint{10mm}{\the\screenheight-13mm},left,center]{%
+            \color{tuedarkblue}\fontfamily{zmb}\fontsize{10}{10}\selectfont%
+            \statustext
+          }%
+
+
+        \else     % Slide show
+          % white surface right of diagonal line
+          \pgfsetcolor{white}
+          \pgfpathmoveto{\pgfpoint{\the\screenwidth-5.13cm}{0cm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-0.64cm}{\the\screenheight}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth}{0cm}}
+          \pgfusepath{fill}
+
+          \pgfsetcolor{themecolor}
+          % red surface at top of the slide
+          \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-4cm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-2.25cm}{\the\screenheight-4cm}}
+          \pgfpathlineto{\pgfpoint{\the\screenwidth-1.13cm}{\the\screenheight}}
+          \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight}}
+          \pgfusepath{fill}
+
+          \if@official
+            \pgfsetcolor{white}
+            \pgfpathrectangle{\pgfpoint{0cm}{0cm}}{\pgfpoint{\the\screenwidth}{\the\screenheight-3cm}}
+            \pgfusepath{fill}
+              % horizontal line
+              \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-3cm}}
+              \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-3cm}}
+              \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-2.99cm}}
+              \pgfpathlineto{\pgfpoint{0}{\the\screenheight-2.99cm}}
+              \pgfusepath{fill}              % TU/e logo
+              \pgftext[at=\pgfpoint{\the\screenwidth-0.8cm}{0.9cm},right,base]{%
+                \includegraphics[height=0.9cm]{tuelogo}
+              }
+              \pgfsetcolor{tuedarkblue}
+              % red surface at top of the slide
+              \pgfpathmoveto{\pgfpoint{\the\screenwidth-3.95cm-0.258cm}{0cm}}
+              \pgfpathlineto{\pgfpoint{\the\screenwidth}{0cm}}
+              \pgfpathlineto{\pgfpoint{\the\screenwidth}{0.9cm}}
+              \pgfpathlineto{\pgfpoint{\the\screenwidth-3.95cm}{0.9cm}}
+              \pgfusepath{fill}
+          \else
+            \pgfsetcolor{white}
+            \pgfpathrectangle{\pgfpoint{0cm}{0cm}}{\pgfpoint{\the\screenwidth}{\the\screenheight-1.8cm}}
+            \pgfusepath{fill}
+            % horizontal line
+            \pgfsetcolor{themecolor}
+  %          \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-1.8cm}}
+  %          \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-1.8cm}}
+  %          \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-1.79cm}}
+  %          \pgfpathlineto{\pgfpoint{0}{\the\screenheight-1.79cm}}
+  %          \pgfusepath{fill}
+            % page number
+            \if@afour
+              \relax
+            \else
+              \ifnum\thepage=1\relax\else
+                \pgftext[at=\pgfpoint{\the\screenwidth-0.3cm}{\the\screenheight-1.6cm},right,base]{\thepage/\ScreenLastPage}%
+              \fi
+              % TU/e logo
+              \pgftext[at=\pgfpoint{\the\screenwidth-0.3cm}{0.3cm},right,base]{%
+                \includegraphics[height=0.9cm]{tuelogo}
+              }
+            \fi
+          \fi
+
+          \if@official
+%            % diagonal line
+%            \pgfsetcolor{tuered}
+%            \pgfpathmoveto{\pgfpoint{\the\screenwidth-5.13cm}{0cm}}
+%            \pgfpathlineto{\pgfpoint{\the\screenwidth-0.64cm}{\the\screenheight}}
+%            \pgfpathlineto{\pgfpoint{\the\screenwidth-0.62cm}{\the\screenheight}}
+%            \pgfpathlineto{\pgfpoint{\the\screenwidth-5.11cm}{0cm}}
+%            \pgfusepath{fill}
+            % page number
+            \ifnum\thepage=1\relax\else
+              \pgftext[at=\pgfpoint{\the\screenwidth-3.85cm}{0.3cm},left,base]{\begin{minipage}{3.6cm}\color{white}\small \@date \hfill PAGE \thepage\end{minipage}}%
+            \fi
+          \fi
+
+          \pgftext[at=\pgfpoint{0.4cm}{0.4cm},left,base]{%
+            \color{tuedarkblue}\fontfamily{zlo}\selectfont%
+             \small%
+             \dept
+            \hspace{2cm}\color{tuered}\fontfamily{zmb}\selectfont\statustext
+            }%
+          \pgfsetcolor{black}
+          \pgfpathrectangle{\pgfpoint{0cm}{0cm}}{\pgfpoint{\the\screenwidth}{\the\screenheight}}
+          \pgfusepath{stroke}
+    \fi
+    \end{pgfpicture}%
+  }
+  {\includegraphics[width=\overlaywidth,height=\screenheight]{\@overlay}%
+  }%
+}
+
+\newcommand{\drawtitlebackground}{%
+  \ifthenelse{\equal{\@overlay}{tuedepartmentbackground}}{%
+    \begin{pgfpicture}{0cm}{0cm}{\the\screenwidth}{\the\screenheight}
+                                % Do some clipping first
+                                % Very annoying otherwise with psnup
+%\pgftext[at=\pgfpoint{0cm}{0cm},left,base]{\includegraphics[width=\overlaywidth,height=\screenheight]{tuebg20082.png}}%
+%        \pgfsetcolor{white}
+%        \pgfpathrectangle{\pgfpoint{0cm}{0cm}}{\pgfpoint{\the\screenwidth}{\the\screenheight}}
+%        \pgfusepath{fill}
+        \if@whitebg
+          \relax
+        \else
+          \relax
+        \fi
+
+        \normalsize\selectfont
+        % white surface right of diagonal line
+        \pgfsetcolor{white}
+        \pgfpathmoveto{\pgfpoint{\the\screenwidth-9cm}{0cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-4.51cm}{\the\screenheight}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{0cm}}
+        \pgfusepath{fill}
+
+        % Logo
+        \ifthenelse{\equal{\titlelogos}{}}{%
+          \relax
+        }
+        {
+          \pgftext[at=\pgfpoint{\the\screenwidth/2}{\the\screenheight-1.6cm},center,center]{\titlelogos}%
+        }
+
+        % Background image
+        \ifthenelse{\equal{\titlebgimage}{}}{%
+        \pgfsetcolor{themecolor}
+        \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight-3.15cm}}
+        \pgfusepath{fill}
+        \pgfsetcolor{tuedarkblue}
+        % surface left of main image
+        \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-7.51cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-5.1cm}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight-3.15cm}}
+        \pgfusepath{fill}
+        }{
+        \pgftext[at=\pgfpoint{\the\screenwidth}{\the\screenheight-12cm},right,base]{\titlebgimage}%
+        \pgfsetcolor{themecolor}
+        % surface left of main image
+        \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-7.51cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-5.08cm}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight-3.15cm}}
+        \pgfusepath{fill}
+        }
+
+
+
+        % diagonal line
+        \pgfsetcolor{tuered}
+        \pgfpathmoveto{\pgfpoint{\the\screenwidth-8.6cm}{0cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-4.21cm}{\the\screenheight}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-4.19cm}{\the\screenheight}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth-8.58cm}{0cm}}
+        \pgfusepath{fill}
+        % lower horizontal line
+        \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-12cm}}
+        \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight-12cm}}
+        \pgfusepath{fill}
+        % upper horizontal line
+        \pgfpathmoveto{\pgfpoint{0cm}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{\the\screenwidth}{\the\screenheight-3.15cm}}
+        \pgfpathlineto{\pgfpoint{0cm}{\the\screenheight-3.15cm}}
+        \pgfusepath{fill}
+
+        % TU/e slogan: Where innovation starts
+        \if@innovation
+          \pgftext[at=\pgfpoint{\the\screenwidth-4cm}{0.6cm},right,top]{\color{tuedarkblue}\normalfont\normalsize\large\selectfont\bfseries Where innovation starts}%
+        \fi
+
+        % Title
+        \pgftext[at=\pgfpoint{1cm}{\the\screenheight-5cm},left,top]{\color{white}\normalfont\fontsize{32}{32}\selectfont\bfseries%
+        \begin{minipage}[b]{13cm}
+        \raggedright
+        \@title
+
+        \mbox{}\\[0.2cm]
+        \fontsize{16}{16}\selectfont\mdseries
+        \@author
+        \end{minipage}
+        }%
+
+        % page number
+        \ifnum\thepage=1\relax\else
+        \pgftext[at=\pgfpoint{\the\screenwidth-1.2cm}{\the\screenheight-3.8cm},left,base]{\thepage}%
+        \fi
+        % TU/e logo
+        \pgftext[at=\pgfpoint{\the\screenwidth-10.44cm}{\the\screenheight-12.5cm},left,top]{%
+          \includegraphics[height=1.8cm]{tuelogo}
+        }
+
+        \pgftext[at=\pgfpoint{0.7cm}{0.7cm},left,base]{%
+          \color{tuered}\@date}%
+        \pgfsetcolor{black}
+        \pgfpathrectangle{\pgfpoint{0cm}{0cm}}{\pgfpoint{\the\screenwidth}{\the\screenheight}}
+        \pgfusepath{stroke}
+
+    \end{pgfpicture}%
+  }
+  {\includegraphics[width=\overlaywidth,height=\screenheight]{\@overlay}%
+  }%
+}
+
+
+\AddToOverlay{%
+   \setlength{\@tempdima}{0pt}
+   \setlength{\@tempdimb}{\screenwidth-2\@tempdima}
+   \setlength{\@tempdimc}{\screenheight-2\@tempdima}
+   \setlength{\unitlength}{1pt}\thinlines%
+   \ifx\@overlay\@empty%
+     \put(\strip@pt\LLX,\strip@pt\LLY){%
+     \colorbox{\@backgroundcolor}{%
+       \color{white}\makebox(\strip@pt\URX,\strip@pt\URY)%
+       {}}}
+   \else
+%%%%% Added by Marko
+%      \if@dvips
+%        \relax
+%      \else
+        \ifnum\thepanel=1
+         \put(\strip@pt\@tempdima,\strip@pt\@tempdima){%
+          \makebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc)[cr]%
+          {\drawbackground}}%
+        \else
+        \ifnum\thepanel=2
+         \put(\strip@pt\@tempdima,\strip@pt\@tempdima){%
+          \makebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc)[cl]%
+          {\drawbackground}}%
+        \else
+        \ifnum\thepanel=3
+         \put(\strip@pt\@tempdima,\strip@pt\@tempdima){%
+          \makebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc)[cc]%
+          {\drawbackground}}%
+        \else
+         \put(\strip@pt\@tempdima,\strip@pt\@tempdima){%
+          \makebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc)[cc]%
+          {\drawtitlebackground}}%
+        \fi\fi\fi
+%      \fi
+   \fi%
+  }%
+\AddToOverlay{%
+%%%%% Added by Marko
+%  \if@dvips
+%     \relax
+%  \else
+    \setlength{\@tempdima}{0mm}%
+    \setlength{\@tempdimb}{\screenwidth-2\@tempdima}%
+    \setlength{\@tempdimc}{\screenheight-2\@tempdima}%
+    \setlength{\unitlength}{1pt}\thinlines%
+     \put(\strip@pt\@tempdima,\strip@pt\@tempdima){%
+      \framebox(\strip@pt\@tempdimb,\strip@pt\@tempdimc)%
+      {\relax\@@@PANEL\relax}}%
+%  \fi
+}
+
+%
+\def\@@@PANEL{\ifnum\thepanel=1\@panel\hfill\else%
+       \ifnum\thepanel=2\hfill\@panel\else%
+       \ifnum\thepanel=0\relax%
+       \fi\fi\fi}%
+%
+\def\@logo#1{%
+       \global\setbox0=\hbox{\includegraphics{#1}}%
+       \ifdim\ht0>\wd0%
+        \includegraphics[height=.75in]{#1}%
+        \else%
+       \ifdim\wd0>\ht0%
+        \includegraphics[width=.75in]{#1}%
+        \else%
+       \ifdim\wd0=\ht0%%
+        \includegraphics[width=.75in]{#1}%
+       \fi\fi\fi
+}
+\let\@@logo\@logo
+\def\ps@plain{}
+\def\ps@empty{}
+\def\ps@firstpage{}
+\def\ps@headings{}
+\def\ps@myheadings{}
+\def\ps@title{}
+
+\AtEndDocument{%
+   \clearpage   \addtocounter{page}{-1}%
+   \immediate\write\@auxout{\string\gdef\string\ScreenLastPage{\arabic{page}}}%
+   \addtocounter{page}{1}}
+
+%------------------- Section counter coloring ----------------------
+
+\let\old@secnumber\@secnumber
+  \def\@secnumber{\protect\textcolor{section\thesection@level}{\old@secnumber}}%
+  \def\@seccntformat#1{\protect\textcolor{section\thesection@level}%
+     {\expandafter\upshape\csname the#1\endcsname.}\quad}%
+  \def\@secnumfont{\protect\textcolor{section\thesection@level}}%\mdseries}
+  \def\abstractname{\protect\textcolor{blue}{\@Panelabstractname}}
+  \let\o@title\@title
+  \def\@title{\protect\color{orange}\o@title}
+
+  \def\Sectionformat#1#2{%
+   \ifcase#2%
+        {\protect\textcolor{section0}{#1}}%level 0 chapter        { }
+    \or {\protect\textcolor{section1}{#1}}%level 1 section        { }
+    \or {\protect\textcolor{section2}{#1}}%level 2 subsection     { }
+    \or {\protect\textcolor{section3}{#1}}%level 3 subsubsection  { }
+    \or {\protect\textcolor{section4}{#1}}%level 4 paragraph      { }
+    \or {\protect\textcolor{section5}{#1}}%level 5 subparagraph   { }
+   \fi
+  }
+
+  \let\scr@section\section
+  \newcounter{panel@section}
+  \def\section{\clearpage\stepcounter{panel@section}\scr@section}
+ \def\@linkcolor{red}
+ \def\@anchorcolor{section0}
+ \def\@citecolor{orange}
+ \def\@filecolor{cyan}
+ \def\@urlcolor{magenta}
+ \def\@menucolor{section2}
+ \def\@pagecolor{red}
+ \setcounter{tocdepth}{4}
+ \setcounter{secnumdepth}{4}
+\ifnum\thedriver=0
+ \def\pagedissolve#1{%
+     \edef\@@processme{%
+     \pdfpageattr{%
+        /Trans << /S /#1\space >>%
+      }}%
+     \@@processme
+    }%
+ \def\autopagedissolve#1#2{%
+     \edef\@@processme{%
+     \pdfpageattr{%
+        /Trans << /S /#1\space >> /Dur #2%
+      }}%
+     \@@processme
+    }%
+\else
+ \def\pagedissolve#1{}
+ \def\autopagedissolve#1#2{}
+\fi
+\if@nocfg
+  \relax
+\else
+  \if@tue
+    \IfFileExists{tuepdfscreen2008.cfg}{\input tuepdfscreen2008.cfg}{}
+  \else
+    \if@uvt
+      \IfFileExists{uvtpdfscreen.cfg}{\input uvtpdfscreen.cfg}{}
+    \else
+      \IfFileExists{standardpdfscreen.cfg}{\input standardpdfscreen.cfg}{}
+    \fi
+  \fi
+\fi
+\newcounter{slide}
+\newcounter{slideoverlay}
+\newcommand{\slidetuedefinitions}{%
+  \newcommand{\slidetitlesection}[1]{
+    \addtocounter{section}{1}
+    \slidetitle{\addcontentsline{toc}{section}{\thesection\quad ##1}{\thesection\quad ##1}}
+  }
+  \newcommand*{\slidetitletoc}[1]{
+    \slidetitle{\addcontentsline{toc}{section}{##1}{##1}}
+  }
+  \newcommand{\slidetitle}[2][]{
+%  \pause\pauselevel{=1}
+  \if@afour
+    \setlength{\titleheight}{25mm}
+    \setlength{\titlewidth}{131mm}
+  \else
+    \if@official
+      \setlength{\titleheight}{3cm}
+      \setlength{\titlewidth}{17cm}
+    \else
+      \setlength{\titleheight}{1.8cm}
+        \setlength{\titlewidth}{17cm}
+    \fi
+  \fi
+  \begin{textblock*}{\titlewidth}[0, 1](10.1mm, \titleheight-5mm)
+    \if@afour
+    \begin{minipage}[t]{\titlewidth}
+        % The \pause\pauselevel{=1} command below are required because this slide title is shown last.
+        % This resets the pause level to 1, which is the level that is initially displayed.
+        % Please notice that the location of this command HAS TO BE inside the textblock
+        \pause\pauselevel{=1}\normalfont\fontsize{25}{29}\sffamily\bfseries\selectfont\color{white}\raggedright##2
+
+        \medskip
+        \normalfont\fontsize{10}{14}\sffamily\selectfont\color{white}\raggedright##1
+    \end{minipage}
+    \else
+    \begin{minipage}[b]{\titlewidth}
+        % The \pause\pauselevel{=1} command below are required because this slide title is shown last.
+        % This resets the pause level to 1, which is the level that is initially displayed.
+        % Please notice that the location of this command HAS TO BE inside the textblock
+        \pause\pauselevel{=1}\normalfont\fontsize{32}{32}\sffamily\bfseries\selectfont\color{white}\raggedright##2
+    \end{minipage}
+    \fi
+  \end{textblock*}
+  }%
+  \newcommand{\slidepictureleft}[2][]{
+    \begin{textblock*}{\the\screenwidth}[0, 0](0cm, \titleheight+0.1mm)
+      {\includegraphics[width=\titlewidth,##1]{##2}}%
+    \end{textblock*}
+  }%
+  \newcommand{\slidepictureright}[2][]{
+    \begin{textblock*}{\the\screenwidth}[0, 0](0cm, \titleheight+0.1mm)
+    {\hfill\includegraphics[height=9.5cm,##1]{##2}}%
+    \end{textblock*}
+  }%
+}%
+\newcommand{\slidefontdefinitions}{%
+ \newcommand\realnormalsize{%
+   \@setfontsize\realnormalsize\@xiipt{14.5}%
+   \abovedisplayskip 12\p@ \@plus3\p@ \@minus7\p@%
+   \abovedisplayshortskip \z@ \@plus3\p@%
+   \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@%
+   \belowdisplayskip \abovedisplayskip%
+   }%
+ \newcommand\realsmall{%
+   \@setfontsize\realsmall\@xipt{13.6}%
+   \abovedisplayskip 11\p@ \@plus3\p@ \@minus6\p@%
+   \abovedisplayshortskip \z@ \@plus3\p@%
+   \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@%
+   }%
+ \newcommand\realfootnotesize{%
+   \@setfontsize\realfootnotesize\@xpt\@xiipt%
+   \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@%
+   \abovedisplayshortskip \z@ \@plus3\p@%
+   \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+   }%%
+ \newcommand\realscriptsize{\@setfontsize\realscriptsize\@viiipt{9.5}}%
+ \newcommand\realtiny{\@setfontsize\realtiny\@vipt\@viipt}%
+ \newcommand\reallarge{\@setfontsize\reallarge\@xivpt{18}}%
+ \newcommand\realLarge{\@setfontsize\realLarge\@xviipt{22}}%
+ \newcommand\realLARGE{\@setfontsize\realLARGE\@xxpt{25}}%
+ \newcommand\realhuge{\@setfontsize\realhuge\@xxvpt{30}}%
+ \let\realHuge=\realhuge%
+\if@afour
+  \relax
+\else
+ \if@largefonts%
+   \renewcommand\normalsize{%
+      \@setfontsize\normalsize{20}{24}%
+      \abovedisplayskip 14\p@ \@plus3\p@ \@minus7\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 7.5\p@ \@plus3.5\p@ \@minus3\p@%
+      \belowdisplayskip \abovedisplayskip%
+      }%
+   \normalsize%
+   \renewcommand\small{%
+      \@setfontsize\small{16}{18}%
+      \abovedisplayskip 16\p@ \@plus3\p@ \@minus6\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@%
+   }%
+   \renewcommand\footnotesize{%
+      \@setfontsize\footnotesize{15}{16}%
+      \abovedisplayskip 15\p@ \@plus2\p@ \@minus5\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+   }%
+   \renewcommand\scriptsize{\@setfontsize\scriptsize{13}{15}}%
+   \renewcommand\tiny{\@setfontsize\tiny{11}{11}}%
+   \renewcommand\large{\@setfontsize\large{24}{26}}%
+   \renewcommand\Large{\@setfontsize\Large{28}{28}}%
+   \renewcommand\LARGE{\@setfontsize\LARGE{32}{36}}%
+   \renewcommand\huge{\@setfontsize\huge{36}{40}}%
+ \else
+ \if@hugefonts%
+   \renewcommand\normalsize{%
+      \@setfontsize\normalsize{24}{28}%
+      \abovedisplayskip 14\p@ \@plus3\p@ \@minus7\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 7.5\p@ \@plus3.5\p@ \@minus3\p@%
+      \belowdisplayskip \abovedisplayskip%
+      }%
+   \normalsize%
+   \renewcommand\small{%
+      \@setfontsize\small{20}{22}%
+      \abovedisplayskip 20\p@ \@plus3\p@ \@minus6\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@%
+   }%
+   \renewcommand\footnotesize{%
+      \@setfontsize\footnotesize{18}{19}%
+      \abovedisplayskip 18\p@ \@plus2\p@ \@minus5\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+   }%
+   \renewcommand\scriptsize{\@setfontsize\scriptsize{15}{15}}%
+   \renewcommand\tiny{\@setfontsize\tiny{13.5}{13.5}}%
+   \renewcommand\large{\@setfontsize\large{28}{30}}%
+   \renewcommand\Large{\@setfontsize\Large{32}{32}}%
+   \renewcommand\LARGE{\@setfontsize\LARGE{36}{40}}%
+   \renewcommand\huge{\@setfontsize\huge{40}{48}}%
+ \else
+   \renewcommand\normalsize{%
+      \@setfontsize\normalsize{16}{19.2}%
+      \abovedisplayskip 14\p@ \@plus3\p@ \@minus7\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 7.5\p@ \@plus3.5\p@ \@minus3\p@%
+      \belowdisplayskip \abovedisplayskip%
+      }%
+   \normalsize%
+   \renewcommand\small{%
+      \@setfontsize\small{13}{14.5}%
+      \abovedisplayskip 13\p@ \@plus3\p@ \@minus6\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6.5\p@ \@plus3.5\p@ \@minus3\p@%
+   }%
+   \renewcommand\footnotesize{%
+      \@setfontsize\footnotesize\@xiipt{14}%
+      \abovedisplayskip 12\p@ \@plus2\p@ \@minus5\p@%
+      \abovedisplayshortskip \z@ \@plus3\p@%
+      \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@%
+   }%
+   \renewcommand\scriptsize{\@setfontsize\scriptsize\@xpt{11.2}}%
+   \renewcommand\tiny{\@setfontsize\tiny\@ixpt{10.2}}%
+   \renewcommand\large{\@setfontsize\large{17.28}{22}}%
+   \renewcommand\Large{\@setfontsize\Large\@xxvpt{30}}%
+   \renewcommand\LARGE{\@setfontsize\LARGE{30}{36}}%
+   \renewcommand\huge{\@setfontsize\huge{40}{48}}%
+ \fi
+\fi
+ \fi
+ \let\Huge=\huge%
+}
+\newenvironment{titleslide}{%
+  \setcounter{panel}{4}%
+  \stepcounter{slide}%
+  \stepcounter{slideoverlay}%
+  \ifnum\theslideoverlay=11\setcounter{slideoverlay}{1}
+  \fi
+  \noindent\begin{minipage}[c][\textheight][c]{\textwidth}
+  \slidefontdefinitions
+  \color{white}
+}
+{\end{minipage}\newpage}
+\newenvironment{slide}{%
+  \setcounter{panel}{3}%
+  \stepcounter{slide}%
+  \stepcounter{slideoverlay}%
+  \ifnum\theslideoverlay=11\setcounter{slideoverlay}{1}%
+  \fi%
+\slidetuedefinitions
+  \noindent\begin{minipage}[c][\textheight][c]{\textwidth}%
+\slidefontdefinitions%
+}%
+{\end{minipage}\newpage}
+
+\newenvironment{slidetop}{%
+  \setcounter{panel}{3}%
+  \stepcounter{slide}%
+  \stepcounter{slideoverlay}%
+  \ifnum\theslideoverlay=11\setcounter{slideoverlay}{1}%
+  \fi%
+\slidetuedefinitions
+  \noindent\begin{minipage}[t][\textheight-2ex][t]{\textwidth}%
+\slidefontdefinitions%
+}%
+{\end{minipage}\newpage}
+%
+
+
+\long\def\buttonbox#1{%
+  \leavevmode
+  \setbox\@tempboxa\hbox{%
+    \color@begingroup
+      \kern\fboxsep{#1}\kern\fboxsep
+    \color@endgroup}%
+  \@buttonframeb@x\relax}
+%
+\def\@buttonframeb@x#1{\begingroup%
+  \@tempdima\fboxrule
+  \advance\@tempdima\fboxsep
+  \advance\@tempdima\dp\@tempboxa
+  \hbox{%
+    \lower\@tempdima\hbox{%
+      \vbox{%
+        \color{white}\hrule\@height\fboxrule\relax
+        \hbox{%
+          \color{white}\vrule\@width\fboxrule\relax
+          #1%
+          \vbox{%
+            \vskip\fboxsep
+            \box\@tempboxa
+            \vskip\fboxsep}%
+          #1%
+          \color{black}\vrule\@width\fboxrule\relax}%
+          \color{black}\hrule\@height\fboxrule\relax}%
+                          }%
+        }%
+\endgroup}
+%
+\def\@pdfcreator{LaTeX with hyperref and pdfscreen}
+%%
+%% a lot changed by Marko here!!!
+%%
+\def\bottombuttons{
+  \@bottombuttonstrue
+  \bottombuttonsorpagenumbering
+}
+\def\pagenumbering{
+  \@pagenumberingtrue
+  \bottombuttonsorpagenumbering
+}
+\def\bottombuttonsorpagenumbering{\@@bbtrue%
+  \AddToOverlay{%
+   \setlength{\unitlength}{1pt}\thinlines%
+    \put(0,0){\makebox(\strip@pt\screenwidth,24)[cb]%
+     {\@@bbuttons}
+  }
+ }
+}
+\def\shorttitle#1{\gdef\@shorttitle{#1}}
+\let\@shorttitle\@empty
+%%
+%% Button shape, changed by Marko
+%%
+% \def\@battrib{\color{white}$\bullet$\sffamily\footnotesize\itshape}
+\def\@battrib{\color{black}}
+\def\@vattrib{\color{section1}\sffamily\footnotesize\itshape}
+%%%%%% A bug? if not commentary an errormessage will be thrown. Changed by Marko.
+\def\@@buttons{\ifx\@shorttitle\@empty\relax\else%
+       \quad{\@vattrib\@shorttitle}\fi
+%%
+%% New bottom buttons and other location, changed by Marko
+%%
+%       \hfill%
+\color{pagenumbercolor}
+\if@dvips
+  \relax
+\else
+   \if@bottombuttons
+       \qquad
+       \Acrobatmenu{FirstPage} {\@battrib\color{navigationbuttoncolor} $\blacktriangleleft\!\!\blacktriangleleft$ }
+       \Acrobatmenu{PrevPage}  {\@battrib\color{navigationbuttoncolor} $\blacktriangleleft$ }
+       \Acrobatmenu{GoBack}    {\@battrib\color{navigationbuttoncolor} $\blacktriangle$ }
+       \Acrobatmenu{NextPage}  {\@battrib\color{navigationbuttoncolor} $\blacktriangleright$ }
+       \Acrobatmenu{LastPage}  {\@battrib\color{navigationbuttoncolor} $\blacktriangleright\!\!\blacktriangleright$ }
+       \hfill
+   \fi
+\fi
+   \if@pagenumbering
+          \hfill
+          \Large\thepage/\ScreenLastPage
+          \quad{}\vspace*{6pt}
+   \else
+          \quad{}\vspace*{8pt}
+   \fi
+%\if@dvips
+%  \vspace{-4cm}
+%\fi
+%       \Acrobatmenu{FirstPage} {\@battrib First }
+%       \Acrobatmenu{PrevPage}  {\@battrib Prev }
+%       \Acrobatmenu{NextPage}  {\@battrib Next }
+%       \Acrobatmenu{LastPage}  {\@battrib Last }
+%       \Acrobatmenu{GoBack}    {\@battrib Go Back }
+%       \Acrobatmenu{FullScreen}{\@battrib Full Screen }
+%       \Acrobatmenu{Close}     {\@battrib Close }
+%       \Acrobatmenu{Quit}      {\@battrib Quit }
+%\quad{}\vspace*{1.5pt}
+}
+\def\nobottombuttons{\@@bbfalse}
+\def\nopagenumbering{\@pagenumberingfalse}
+\def\notopbuttons{\@@tbfalse}
+\def\topbuttons{\@@tbtrue%
+ \AddToOverlay{%
+  \setlength{\unitlength}{1pt}\thinlines%
+   \put(0,0){\makebox(\strip@pt\screenwidth,\strip@pt\screenheight)[ct]%
+     {\@@tbuttons}
+    }
+  }
+}
+\newcounter{overlay}
+\def\changeoverlay{\def\section{\clearpage\change\scr@section}}%
+ \def\change{\stepcounter{overlay}
+  \ifnum\c@overlay>10\setcounter{overlay}{1}\fi
+   \overlay{overlay\theoverlay}
+}
+%
+\define@key{PDF}{Movie}{\pdf@addtoks{#1}{Movie}}
+\define@key{PDF}{Activation}{\pdf@addtoks{#1}{A}}
+\if@dvips
+  \newcommand\movie[3]{}
+  \newcommand\moviewithcontrols[3]{}
+\else
+  \newcommand{\movie}[3]{% args: width, height, movie
+  \parbox[t][#2][t]{#1}{
+\pdfannot width #1 height -#2 depth 0pt%
+{/Subtype /Movie%
+/Title (#3)%
+/Movie << /F (#3) /Poster true >>%
+/A << /Mode /Open >>}%  replace /Open  by /Repeat   to play the movie in loops
+\rule{#1}{0pt}\rule{0pt}{#2}%
+}%
+}%
+\newcommand{\moviewithcontrols}[3]{% args: width, height, movie
+\parbox[t][#2][t]{#1}{
+\pdfannot width #1 height -#2 depth 0pt%
+{/Subtype /Movie%
+/Title (#3)%
+/Movie << /F (#3) /Poster true >>%
+/A << /Mode /Open /ShowControls true>>}%  replace /Open  by /Repeat   to play the movie in loops
+\rule{#1}{0pt}\rule{0pt}{#2}%
+}%
+}%
+\fi
+%
+% TU/e box
+%
+\newcommand{\tuebox}[1]{\shadowbox{\setlength{\fboxsep}{2mm}\colorbox{tuered}{\color{white}\def\@urlcolor{tuecyan}#1\def\@urlcolor{tuecyan}}}}
+%
+\fi%--This \fi corresponds to \if@screen
+%
+%-------- Screen options end here ------------------
+%
+%
+%-------- Print options start here -----------------
+%
+\if@print
+\RequirePackage{color}
+\RequirePackage{amssymb}
+\RequirePackage{graphicx}
+%%%%%%% Changed by Marko to enable dvips option in combination with print
+\if@dvips
+  \RequirePackage[dvips,bookmarksopen,colorlinks]{hyperref}
+\else
+  \RequirePackage[pdftex,bookmarksopen,colorlinks]{hyperref}
+\fi
+%%
+\RequirePackage{a4wide}
+% Redefine typical screen commands
+\def\bottombuttons{\relax}
+\def\pagenumbering{\relax}
+\def\bottombuttonsorpagenumbering{\relax}
+\newcommand\movie[3]{}
+%%%% Copied from tuepdfscreen.cfg, changed by Marko
+\if@tue
+  \RequirePackage[T1]{fontenc}
+  \renewcommand{\sfdefault}{phv}
+  \renewcommand{\rmdefault}{zsc}
+  \renewcommand{\ttdefault}{pcr}
+\else
+  \if@uvt
+    \RequirePackage[T1]{fontenc}
+    \renewcommand{\sfdefault}{phv}
+    \renewcommand{\rmdefault}{phv}
+  \else
+    \RequirePackage[T1]{fontenc}
+    \renewcommand{\sfdefault}{phv}
+    \renewcommand{\rmdefault}{phv}
+  \fi
+\fi
+\def\pagedissolve#1{}
+\let\pause\relax
+\def\pauselevel#1{}
+\let\overlay\@gobble
+\let\paneloverlay\@gobble
+\let\emblema\@gobble
+\let\emblemb\@gobble
+\let\urlid\@gobble
+\let\emailid\@gobble
+\def\screensize#1#2{}
+\includecomment{print}
+\excludecomment{screen}
+ \def\@linkcolor{black}
+ \def\@anchorcolor{black}
+ \def\@citecolor{black}
+ \def\@filecolor{black}
+ \def\@urlcolor{black}
+ \def\@menucolor{black}
+ \def\@pagecolor{black}
+ \def\margins#1#2#3#4{}
+ \newenvironment{slide}{}{}
+ \newenvironment{slidetop}{}{}
+ \newenvironment{titleslide}{\maketitle}{}
+ \newcommand{\slidetitle}[1]{}
+ \newcommand{\slidepictureright}[1]{\includegraphics[width=5cm]{#1}}
+ \newcommand{\slidepictureleft}[1]{\includegraphics[width=\textwidth]{#1}}
+ \let\overlayempty\relax
+ \let\paneloverlayempty\relax
+ \let\topbuttons\relax
+ \let\notopbuttons\relax
+ \let\bottombuttons\relax
+ \let\nobottombuttons\relax
+ \let\changeoverlay\relax
+ \newcommand{\tuebox}[1]{\fbox{\setlength{\fboxsep}{2mm}{\color{black}#1}}}
+\fi
+\endinput
+%%
+%% End of file pdfscreen.sty
+%%

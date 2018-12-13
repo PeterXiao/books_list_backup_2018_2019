@@ -1,0 +1,209 @@
+\documentclass[10pt,aspectratio=32]{beamer}
+\usepackage{sgp940}
+
+\title{\LaTeX \ Beamer Sample: Singapore-940}
+\subtitle{sgp940 v1.0}
+\vspace{1.5cm}
+\author{Donglei Zhang \and Chang Liu}
+\institute{The Chinese University of Hong Kong}
+\date{\today}
+
+\begin{document}
+\AtBeginSection[]{\frame{\sectionpage}} %insert section title pages (new frames)
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Overview} 
+	\vspace{-0.7cm}
+	\tableofcontents  
+\end{frame}
+
+\section{Intro}
+\subsection{Background}
+\begin{frame}
+\frametitle{Bullet Points}
+\vspace{-0.3cm}
+
+\begin{itemize}
+	\item Most engineers are lazy ... and that is often a good thing
+	\begin{itemize}
+		\item (\textit{lazy} $=$ \textit{to do things in the most efficient way})
+	\end{itemize}
+	\item Engineers are terrible story tellers ... they prefer content to form
+	\item Readers are lazy ... need self contained and easy to read material
+	\item \LaTeX{} can help
+\end{itemize}
+
+ \end{frame}
+ 
+ 
+\section{Motivation}
+\begin{frame}
+	\frametitle{Paragraphs of Text}
+	\vspace{-0.8cm}
+	Sed iaculis dapibus gravida. Morbi sed tortor erat, nec interdum arcu. Sed id lorem lectus. Quisque viverra augue id sem ornare non aliquam nibh tristique. Aenean in ligula nisl. Nulla sed tellus ipsum. Donec vestibulum ligula non lorem vulputate fermentum accumsan neque mollis.\\~\\
+	
+	Sed diam enim, sagittis nec condimentum sit amet, ullamcorper sit amet libero. Aliquam vel dui orci, a porta odio. Nullam id suscipit ipsum. Aenean lobortis commodo sem, ut commodo leo gravida vitae. Pellentesque vehicula ante iaculis arcu pretium rutrum eget sit amet purus. Integer ornare nulla quis neque ultrices lobortis. Vestibulum ultrices tincidunt libero, quis commodo erat ullamcorper id.
+\end{frame}
+ 
+ 
+ 
+\section{Model}
+
+
+\begin{frame}[fragile] % Need to use the fragile option when verbatim is used in the slide
+\frametitle{Verbatim}
+\begin{example}[Theorem Slide Code]
+\begin{verbatim}
+\begin{frame}
+\frametitle{Theorem}
+\begin{theorem}[Mass--energy equivalence]
+$E = mc^2$
+\end{theorem}
+\end{frame}\end{verbatim}
+\end{example}
+\end{frame}
+ 
+ 
+\begin{frame}
+	\frametitle{\TeX{}}
+	\begin{columns}
+		\begin{column}{4cm}
+			\begin{figure}
+				\includegraphics[height=3cm]{cuba_logo}
+			\end{figure}
+			\begin{center}
+				\tiny
+				Department of Decision Sciences and\
+				Managerial Economics \\
+				The Chinese University of Hong Kong \\
+			\end{center}
+		\end{column}
+		\begin{column}{6cm}
+			\begin{itemize}
+				\item \TeX{} was created by Donald Knuth in 1978
+				\item A typesetting macro language and compiler:
+				\begin{itemize}
+					\item Readable mathematics
+					\item Better hyphenation
+					\item Optimized justification
+					\item Font management tools
+					\item Cross-compatibility
+				\end{itemize}
+				\item Code -- Compile -- Visualize
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+ 
+ 
+ 
+\section{Data and Method}
+
+\begin{frame}
+ \frametitle{Figure}
+ \vspace{-0.3cm}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.3\textwidth]{cuba_logo}
+		\caption{CUHK Business School}	
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Editors and Compilers}
+	\begin{itemize}
+		\item To install in your machine
+		\begin{itemize}
+			\item Check \texttt{latex-project.org}
+		\end{itemize}
+		\item In the cloud
+		\begin{itemize}
+			\item ShareLatex : \texttt{www.sharelatex.com}
+			\item Overleaf : \texttt{www.overleaf.com}
+		\end{itemize}
+	\end{itemize}
+	\vskip 1cm
+	\begin{block}{Please give me Mb of space on Overleaf}
+		https://www.overleaf.com/signup?ref=d1806010dac8
+	\end{block}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Multiple Columns}
+	\begin{columns}[c] 
+		\column{.45\textwidth} % Left column and width
+		\textbf{Heading}
+		\begin{enumerate}
+			\item Statement
+			\item Explanation
+			\item Example
+		\end{enumerate}
+		\column{.5\textwidth} % Right column and width
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lectus nisl, ultricies in feugiat rutrum, porttitor sit amet augue. Aliquam ut tortor mauris. Sed volutpat ante purus, quis accumsan dolor.
+	\end{columns}
+\end{frame}
+
+
+
+\section{Conclusion}
+
+\begin{frame}
+\frametitle{Table and Equation}
+\vspace{-0.3cm}
+	\begin{table}
+		\begin{tabular}{l l l}
+			\toprule
+			\textbf{Treatments} & \textbf{Response 1} & \textbf{Response 2}\\
+			\midrule
+			Treatment 1 & 0.0003262 & 0.562 \\
+			Treatment 2 & 0.0015681 & 0.910 \\
+			Treatment 3 & 0.0009271 & 0.296 \\
+			\bottomrule
+		\end{tabular}
+		\caption{Table caption}
+	\end{table}
+
+\begin{equation} % use equation* to remove equation number
+\label{eq:matrix_transpose}
+\left[
+\begin{array}{ccc}
+a_{11} & \cdots & a_{1n} \\
+\vdots & \ddots & \vdots \\
+a_{n1} & \cdots & a_{nn}
+\end{array}
+\right]^T
+= 
+\left[
+\begin{array}{ccc}
+a_{11} & \cdots & a_{n1} \\
+\vdots & \ddots & \vdots \\
+a_{1n} & \cdots & a_{nn}
+\end{array}
+\right]
+\end{equation}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{References}
+	\footnotesize{
+		\begin{thebibliography}{99} % Beamer does not support BibTeX so references must be inserted manually as below
+			\bibitem[Smith, 2012]{p1} John Smith (2012)
+			\newblock Title of the publication
+			\newblock \emph{Journal Name} 12(3), 45 -- 678.
+		\end{thebibliography}
+	}
+\end{frame}
+
+
+\begin{frame}
+ 	\titlepage
+\end{frame}
+
+\end{document}

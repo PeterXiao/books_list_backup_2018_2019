@@ -1,0 +1,48 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Beamer color theme for Saarland University
+%
+% Author: Rudolf Siegel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{beamercolorthemeUdS}[2017/06/19 v 0.1]
+
+
+% Defines layout of Presentation
+\mode<presentation>
+
+% Define colours
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Define colour for text on normal slides
+\definecolor{mybgNT}{RGB}{242,242,242}
+\definecolor{myfgNT}{RGB}{69,69,69}
+\setbeamercolor{normal text}{fg=myfgNT,bg=mybgNT}
+
+% Define colour for title and alike
+\definecolor{mybgTitlelike}{RGB}{217,217,217}
+\definecolor{myfgTitlelike}{RGB}{64,64,64}
+\setbeamercolor{titlelike}{fg=myfgTitlelike,bg=mybgTitlelike}
+\setbeamercolor{structure}{fg=myfgTitlelike}
+
+% Define colour for background and foreground (text) in the footline area
+\definecolor{mybgFootline}{RGB}{191,191,191}
+\definecolor{myfgFootline}{RGB}{127,127,127}
+\setbeamercolor{footline}{fg=myfgFootline,bg=mybgFootline}
+
+% Define colour in header and footer section
+\setbeamercolor{date in head/foot}{fg=myfgFootline}
+
+% Define colours for blocks
+\setbeamercolor{block title}{use=normal text,fg=normal text.fg,bg=normal text.fg!20!bg}
+\setbeamercolor{block body}{parent=normal text,use=block title,bg=block title.bg!50!bg}
+\setbeamercolor{block title alerted}{use=alerted text,fg=alerted text.fg,bg=alerted text.fg!20!bg}
+\setbeamercolor{block body alerted}{parent=normal text,use=block title alerted,bg=block title alerted.bg!50!bg}
+\setbeamercolor{block title example}{use=example text,fg=example text.fg,bg=example text.fg!20!bg}
+\setbeamercolor{block body example}{parent=normal text,use=block title example,bg=block title example.bg!50!bg}
+
+
+\endinput
+
+\mode<all>

@@ -1,0 +1,179 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Beamer outer theme for Saarland University
+%
+% Author: Rudolf Siegel
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{tikz}
+\ProvidesPackage{beamerouterthemeUdS}[2017/06/19 v 0.1]
+
+\mode<presentation>
+
+% General adaptions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Remove navigation symbols
+\setbeamertemplate{navigation symbols}{}
+
+
+% Headline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifbeamer@theme@udsicon
+\beamer@theme@udsicontrue
+
+\DeclareOptionBeamer{udsicon}[true]{\csname beamer@theme@udsicon#1\endcsname}
+\ProcessOptionsBeamer
+
+\defbeamertemplate*{frametitle}{UdS theme}
+{
+  % upper separation line
+  %\begin{beamercolorbox}{upper separation line head}
+  %  \usebeamerfont{upper separation line foot}
+  %\end{beamercolorbox}
+
+  % headline
+  \ifnum\thepage=1
+    \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+      \begin{tikzpicture}
+        \useasboundingbox[fill=bg] (0cm, 0.15cm) rectangle(\paperwidth, 1.6cm);
+        \draw[color=fg] (1.8cm, 0.15cm) -- (1.8cm, 1.6cm); % TODO: color a6a6a6
+        \node[anchor=west,fg] at (3.9cm, 0.8cm)
+          {{\includegraphics[height=1.0cm]{logoUdScomplete.pdf}}};
+        \shade[left color=black,right color=bg] (0.0cm, 0.0cm) rectangle(\paperwidth, .15cm);
+      \end{tikzpicture}
+    \end{beamercolorbox}
+  \else
+  \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
+    \begin{tikzpicture}
+      \useasboundingbox[fill=bg] (0cm, 0.15cm) rectangle(\paperwidth, 1.6cm);
+      \draw[color=fg] (1.8cm, 0.15cm) -- (1.8cm, 1.6cm); % TODO: color a6a6a6
+      \ifx\insertframesubtitle\@empty{
+        \node[anchor=west,fg] at (2.0cm, 0.8cm) {\usebeamerfont{frametitle}\insertframetitle};
+      }\else{
+        \node[anchor=west,fg] at (2.0cm, 1.0cm) {\usebeamerfont{frametitle}\insertframetitle};
+        \node[anchor=west,fg] at (2.0cm, 0.4cm) {\usebeamerfont{framesubtitle}\insertframesubtitle};
+      }\fi
+      \ifbeamer@theme@udsicon
+        \node[anchor=south east] at ([yshift=0.2cm]current page.south east) 
+          {\includegraphics[height=1.0cm]{logoUdS}};
+      \else
+      \fi
+      \shade[left color=black,right color=bg] (0.0cm, 0.0cm) rectangle(\paperwidth, .15cm);
+    \end{tikzpicture}
+  \end{beamercolorbox}
+  \fi
+
+  % lower separation line
+  %\begin{beamercolorbox}{lower separation line head}
+  %\end{beamercolorbox}
+}
+
+
+% Footline
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifbeamer@theme@footline
+\beamer@theme@footlinetrue
+
+\DeclareOptionBeamer{footline}[true]{\csname beamer@theme@footline#1\endcsname}
+\DeclareOptionBeamer{footlinetext}{\def\beamer@theme@footlinetext{#1}}
+\ExecuteOptionsBeamer{footlinetext=}
+\ProcessOptionsBeamer
+
+\defbeamertemplate*{footline}{UdS theme}[1]{
+
+  % footline requested?
+  \ifbeamer@theme@footline
+
+  % upper separation line (shade)
+  %\begin{beamercolorbox}{upper separation line foot}
+  %\end{beamercolorbox}
+
+  % footline
+  \begin{beamercolorbox}{footline}
+    \begin{tikzpicture}
+      \useasboundingbox[fill=bg] (0, 0) rectangle(\paperwidth, 0.6cm);
+      \draw[color=fg] (1.8cm, 0.0cm) -- (1.8cm, 0.6cm);
+      \draw[color=fg] ([xshift=-1.8cm]current page.south east) -- 
+        ([xshift=-1.8cm,yshift=0.6cm]current page.south east);
+      \shade[left color=black,right color=bg] (0.0cm, 0.6cm) rectangle(\paperwidth, .75cm);
+      % print framenumber
+      \node[fg] at ([xshift=-0.9cm,yshift=0.3cm]current page.south east) 
+        {\insertframenumber{} / \inserttotalframenumber};
+      % print text
+      \node[anchor=west, fg] at (2.0cm, 0.3cm) {\beamer@theme@footlinetext};
+      % print date
+      \begin{beamercolorbox}{date in head/foot}
+        \usebeamerfont{date in head/foot}
+        \node[fg] at (0.9cm, 0.3cm) {\insertshortdate};
+      \end{beamercolorbox}
+    \end{tikzpicture}
+  \end{beamercolorbox}
+
+  % lower separation line
+  %\begin{beamercolorbox}{lower separation line foot}
+  %\end{beamercolorbox}
+
+  \else
+  \fi
+}
+
+
+% Title page
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifbeamer@theme@titlepagehead
+\beamer@theme@titlepageheadtrue
+\newif\ifbeamer@theme@titlepagepic
+\beamer@theme@titlepagepictrue
+
+\DeclareOptionBeamer{titlepagehead}[true]{\csname beamer@theme@titlepagehead#1\endcsname}
+\DeclareOptionBeamer{titlepagepic}[true]{\csname beamer@theme@titlepagepic#1\endcsname}
+\ProcessOptionsBeamer
+
+\setbeamertemplate{background}
+{
+  \ifbeamer@theme@titlepagepic
+  \begin{tikzpicture}
+    \useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+    \ifnum\thepage=1
+      \node[anchor=south] at (1.5cm, 0.6cm) {\includegraphics[width=3cm]{front-picture}};
+    \fi
+  \end{tikzpicture}
+  \else
+  \fi
+}
+
+\defbeamertemplate*{title page}{UdS theme}
+{
+  % frametitle on titlepage requested?
+  \ifbeamer@theme@titlepagehead
+    \frametitle{~}
+  \else
+  \fi
+
+  \vfill
+
+  \hspace{3cm}\parbox{7cm}{\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle}
+  \ifx\insertsubtitle\@empty
+  \else
+    \vskip2ex
+    \hspace{3cm}\parbox{7cm}{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}
+  \fi
+
+  \vfill
+
+  \hspace{3cm}\parbox{7cm}{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor}
+
+  \vfill
+
+  \hspace{3cm}\parbox{7cm}{\raggedright\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute}
+}
+
+
+\endinput
+
+\mode<all>
