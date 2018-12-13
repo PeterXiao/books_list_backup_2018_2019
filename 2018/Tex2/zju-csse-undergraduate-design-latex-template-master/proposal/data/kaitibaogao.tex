@@ -1,0 +1,37 @@
+\chapter*{``\zjutitlec'' 开题报告}
+
+\section{项目背景}
+
+\cite{article1}
+
+\section{目标和任务}
+
+\section{可行性分析}
+
+\section{初步技术方案和关键技术考虑}
+
+\section{预期工作结果}
+
+\section{进度计划}
+
+本项目的整体计划如下表所示：
+
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+日期 & 主要工作 \\ \hline
+2017-01-01 \textasciitilde\ 2017-02-01 & 开始 \\ \hline
+\end{tabular}
+\caption{项目进度计划}
+\label{table:schedule}
+\end{table}
+
+\bibliographystyle{data/gbt7714-2005}
+{
+\renewcommand{\chapter}[2]{\section*{#2}\addcontentsline{toc}{section}{#2}}
+\bibliography{data/kaitibaogao}
+}
+
+% 按文章长度需要启用
+\ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}

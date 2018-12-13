@@ -1,0 +1,14 @@
+// Place your key bindings in this file to overwrite the defaults
+[
+    {
+				"command": "latex-workshop.recipes",
+				"key": "ctrl+alt+n",
+				"when": "editorTextFocus"
+    },
+    
+    {
+				"command": "latex-workshop.wordcount",
+				"key": "ctrl+alt+c",
+				"when": "editorTextFocus"
+	},
+]

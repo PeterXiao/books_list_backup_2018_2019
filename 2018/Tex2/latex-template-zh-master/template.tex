@@ -1,0 +1,53 @@
+\documentclass[12pt, UTF8, heading = false, scheme = plain]{ctexart}
+    \usepackage{styles/zhtypo}
+
+    \title{LaTeX 介绍}
+    \author{维基百科}
+    \date{\today}
+
+    \begin{document}
+    \pagestyle{empty} % 取消页码
+
+    \clearpage\maketitle
+    \thispagestyle{empty} % 去除首页页码
+
+    文字形式写作LaTeX，是一种基于TEX的排版系统，由美国计算机科学家莱斯利·兰伯特在20世纪80年代初期开发，利用这种格式系统的处理，即使用户没有排版和程序设计的知识也可以充分发挥由TEX所提供的强大功能，不必一一亲自去设计或校对，能在几天，甚至几小时内生成很多具有书籍品质的印刷品。对于生成复杂表格和数学公式，这一点表现得尤为突出。因此它非常适用于生成高印刷质量的科技和数学、化学类文档。这个系统同样适用于生成从简单的信件到完整书籍的所有其他种类的文档。
+    LATEX使用TEX作为它的格式化引擎。
+
+    \section{排版系统}
+    LaTeX遵循呈现与内容分离的设计理念，以便作者可以专注于他们正在编写的内容，而不必同时注视其外观。在准备LaTeX文档时，作者指定的逻辑结构使用简单的，熟悉的概念，如章（chapter），节（section），表（table），图（figure）等，并让LaTeX系统负责这些结构的格式和布局。因此，它鼓励从内容中分离布局，同时仍然允许在需要时进行手动排版调整。这个概念类似于许多文字处理器允许全局定义整个文档的样式或使用层叠样式表来定义HTML的机制。LaTeX系统是一种标记语言，并且可以处理排版和渲染。
+
+    \section{汉化}
+        \subsection{CCT}
+        最早支持简体中文的TEX是CCT，这个是中国科学院数学与系统科学研究院的张林波研究员编写。最初，由于计算机内存以及运算速度等方面的限制，需要将匹配CCT格式的.ctx文件预处理之后再使用LaTeX编译，生成的.dvi文件需要后处理。
+
+        在最新版的CCT中，用cct.sty代替了原来的预处理程序，与CJK结合，直接使用.tex文件，而不必再使用.ctx文件，可以用LaTeX直接编译，不再需要后处理.dvi文件。
+
+        \subsection{CJK}
+        让LATEX支持中文的另一种方法是使用CJK宏包，由德国人Werner Lemberg编写。这个宏包不仅仅支持繁简体中文、日文、朝鲜文等东亚语言，而且它也是一个多种语言支持包，另外还支持几十种其他不同的语言。
+
+        \subsection{中文套装}
+        现在简体中文用户使用的最广泛的TEX发行版是在Microsoft Windows平台下的CTeX中文套装，它也是最早的支持中文TEX的软件套装。
+        hooklee制作的ChinaTeX发行版也非常不错，它集成了与TEX有关的许多软件，大大减小了初学者的安装配置困难。
+        最有特色的是将TEX有关的命令都集成在WinTeX编辑器的按钮中，鼠标一点，即可编译。
+
+        \subsection{cwTEX}
+        繁体中文的用户可以使用cwTEX或PUTEX。cwTEX排版系统由吴聪敏（国立台湾大学经济学系教授）、吴聪慧、翁鸿翎共同发展，cwTEX可以在MSDOS、Windows、Linux、FreeBSD等系统上执行，全部软件（含使用使用手册PDF文件及5套中文字体）可自网站上免费下载。
+
+        \subsection{ChiTEX}
+        原作者为中央大学数学系陈弘毅。适用于Big5及GB内码之中文。此一Unix版可用于装有teTEX的GNU/Linux，FreeBSD，Solaris，与SunOS系统。
+
+        \subsection{PUTEX}
+        PUTEX由台中市沙鹿区静宜大学资讯管理系蔡奇伟教授发展，是国家科学委员会八十六年度（1997）计划的成果（国家科学委员会计划编号：NSC-86-2213-E-126-005）。PUTEX以Christian Schenk先生的MiKTeX系统为基础，改写D. E. Knuth教授TEX程序的源代码，使之能够直接排版中文，并支持TrueType中文字体。PUTEX最大的特色就是可以直接采用安装在Microsoft Windows操作系统中的中文字体。
+
+        \subsection{LATEX在MS Office中的支持}
+        MS Office的域指令EQ支持部分类LATEX的格式，经测试可用于MS Office Word 2000、2002、2003、2007和2010。
+
+        \subsection{XELATEX}
+        为了支持Unicode和现代字体，XELATEX被开发出来，其直接使用本地计算机中安装的字体的方法，大大降低了使用LATEX的难度。从效果看，生成的PDF文件与dvi文件相差不大。
+
+    \section{趣味应用}
+    由于LATEX是通过语法来排版的，任何想得到的东西，像是乐谱、棋谱（可动态）、化学结构式、电路图及物理学中的费曼图等等都可以先定义规则，然后再以简单的语法排版出来。
+    而那些规则也往往早有人写出对应的宏包，所以用户只需要弄懂他的语法就可以了。
+
+    \end{document}

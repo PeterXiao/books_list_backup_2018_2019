@@ -1,0 +1,20 @@
+{
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "xelatex",
+      "tools": [
+        "xelatex"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex",
+      "command": "xelatex",
+      "args": [
+        "-output-directory=./output",
+        "%DOC%"
+      ],
+    }
+  ],
+}

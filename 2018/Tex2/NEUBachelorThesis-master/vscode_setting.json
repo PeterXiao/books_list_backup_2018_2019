@@ -1,0 +1,99 @@
+{
+    "editor.wordWrap": "on",
+    "latex-workshop.view.pdf.viewer": "tab",
+    "latex-workshop.latex.recipes": [
+        {
+          "name": "xelatex -> bibtex -> xelatex*2",
+          "tools": [
+            "xelatex",
+            "bibtex",
+            "xelatex",
+            "xelatex"
+          ]
+        },
+        {
+          "name": "xelatex",
+          "tools": [
+            "xelatex"
+          ]
+        },
+        {
+          "name": "bibtex",
+          "tools": [
+            "bibtex"
+          ]
+        },
+        
+        {
+          "name": "latexmk",
+          "tools": [
+            "latexmk"
+          ]
+        },
+        {
+          "name": "pdflatex -> bibtex -> pdflatex*2",
+          "tools": [
+            "pdflatex",
+            "bibtex",
+            "pdflatex",
+            "pdflatex"
+          ]
+        }
+      ],
+    
+      // Define LaTeX compiling tools to be used in recipes.
+      // Each tool is labeled by its `name`. When invoked, `command` is spawned with arguments defined in `args`. Typically no spaces should appear in each argument unless in paths.
+      // Placeholder `%DOC%`, `%DOCFILE`, and `%DIR%` is available. For details, please visit https://github.com/James-Yu/LaTeX-Workshop#recipe.
+      "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+              "-synctex=1",
+              "-interaction=nonstopmode",
+              "-file-line-error",
+              "%DOC%"
+            ]
+          },
+        {
+          "name": "xelatex",
+          "command": "xelatex",
+          "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "-pdf",
+            "%DOC%"
+          ]
+        },
+ 
+        {
+          "name": "latexmk",
+          "command": "latexmk",
+          "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "-pdf",
+            "%DOC%"
+          ]
+        },
+        {
+          "name": "pdflatex",
+          "command": "pdflatex",
+          "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "%DOC%"
+          ]
+        },
+        {
+          "name": "bibtex",
+          "command": "bibtex",
+          "args": [
+            "%DOCFILE%"
+          ]
+        }
+      ],
+}

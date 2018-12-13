@@ -1,0 +1,113 @@
+\documentclass[twoside,numberorder]{csbachelor}
+
+%==============================================================
+%==============================================================
+
+\usepackage{url}
+\usepackage{subfigure}
+
+% 张海：其他引用
+\usepackage[hidelinks]{hyperref}
+\setlength{\LTpre}{1em}
+\setlength{\LTpost}{1em}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows,backgrounds,fit,shapes}
+\tikzstyle{layer} = [draw, dashed]
+\tikzstyle{block} = [draw, rectangle, minimum height=2em]
+\tikzset{>=latex}
+
+% 一些全局工具的定义
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%==============================================================
+%==============================================================
+
+\begin{document}
+
+%==============================================================
+%==============================================================
+
+  % 论文题目：{中文}{英文}
+  \zjutitle{标题}
+           {Title}
+  % 作者：{中文姓名}{英文}{学号}
+  \zjuauthor{姓名}{Name}{313XXXXXXXX}
+  % 指导教师：{导师中文名}{导师英文名}
+  \zjumentor{导师姓名}{Supervisor name}
+  % 个人信息：{年级}{专业名称}
+  \zjuinfo{2013级}{计算机科学与技术}{Computer Science and Technology}
+  % 学院信息：{学院中文}{学院英文}
+  \zjucollege{计算机科学与技术学院}{College of Computer Science and Technology}
+  % 日期：{提交日期}{Submitted Date}
+  \zjudate{2017 年 6 月 5 日}{June 5, 2017}
+
+%==============================================================
+
+  {
+    \pagestyle{empty}
+
+    \include{data/cover-zh}
+    \cleardoublepage
+    \include{data/cover-en}
+    \cleardoublepage
+
+    \include{data/agreement}
+    \cleardoublepage
+  }
+
+  {
+    \frontmatter
+
+    \pagestyle{frontmatter}
+    \makeatletter
+      \let\ps@plain\ps@frontmatter
+    \makeatother
+
+    \include{data/abstract-zh}
+    \include{data/abstract-en}
+
+    \tableofcontents
+    \newpage
+    \thispagestyle{empty}
+  }
+
+  {
+    \mainmatter
+
+    \pagestyle{mainmatter}
+    \makeatletter
+      \let\ps@plain\ps@mainmatter
+    \makeatother
+
+    \include{data/chapter-1}
+    \cleardoublepage
+    \include{data/chapter-2}
+    \cleardoublepage
+    \include{data/chapter-3}
+    \cleardoublepage
+    \include{data/chapter-4}
+    \cleardoublepage
+
+    \renewcommand{\thechapter}{}
+    \include{data/bibliography}
+    \cleardoublepage
+
+    \include{data/acknowledgment}
+    \cleardoublepage
+  }
+
+  {
+    \backmatter
+
+    \pagestyle{empty}
+
+    \include{data/assignment}
+    \cleardoublepage
+
+    \include{data/assessment}
+    \cleardoublepage
+  }
+
+\end{document}

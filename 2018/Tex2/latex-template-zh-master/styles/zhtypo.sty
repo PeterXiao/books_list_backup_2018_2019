@@ -1,0 +1,19 @@
+\ProvidesPackage{zhtypo}
+\usepackage{fontspec,xunicode,xltxtra}
+\defaultfontfeatures{Mapping=tex-text} %如果没有它，会有一些 tex 特殊字符无法正常使用，比如连字符。
+
+% 中文断行(line break for Chinese)
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+
+% 行间距
+\linespread{1.5}
+% 段间距
+\setlength{\parskip}{0.5\baselineskip}
+
+% 首行不缩进
+\setlength{\parindent}{0pt}
+
+\newcommand\fontnamedongqing{Hiragino Sans GB} % Mac 冬青简体
+% 如果你电脑上没有 Hiragino Sans GB 可替换成你想要的字体
+\setmainfont{\fontnamedongqing} % 设置默认字体

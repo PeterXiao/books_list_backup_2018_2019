@@ -1,0 +1,49 @@
+{
+\renewcommand{\baselinestretch}{1.25}\selectfont
+
+{
+  \titleformat{\chapter}[block]{\erhao\songti\bfseries\filcenter}{}{0em}{}{}
+  \chapter{本科毕业设计外文翻译}
+}
+
+{
+  \setlength{\parindent}{0em}
+
+  文献原文：
+
+  A. Bravo, C. Delta. How to translate a sample paper. 2017. \par
+}
+
+\vspace{2em}
+
+{
+  \renewcommand{\cleardoublepage}{}
+  \renewcommand{\clearpage}{}
+  \titleformat{\chapter}[block]{\sanhao\songti\bfseries\filcenter}{}{0em}{}{}
+  \chapter*{外文翻译标题}
+}
+
+\section*{摘要}
+
+\section{前言}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\linewidth,keepaspectratio]{data/waiwenfanyi/placeholder.png}
+\caption{Placeholder}
+\label{figure:placeholder}
+\end{figure}
+
+图~\ref{figure:placeholder}
+
+手动引用~1 {[}1{]}
+
+\section{参考文献}
+
+\begin{itemize}
+\item [{[}1{]}] A. Baker, C. Dog. How to make a sample reference. 1938.
+\end{itemize}
+}
+
+% 按文章长度需要启用
+%\ifthenelse{\equal{\zjuside}{T}}{\newpage\mbox{}\thispagestyle{empty}}{}

@@ -1,0 +1,102 @@
+\documentclass[oneside,open=right,headings=optiontohead]{book}
+\renewcommand{\baselinestretch}{1.0}  %行間距倍率
+\columnsep 7mm
+%\renewcommand\thepage{}
+\usepackage{setspace}
+
+
+\usepackage[
+a4paper=true,
+%CJKbookmarks,
+unicode=true,
+bookmarksnumbered,
+bookmarksopen,
+hyperfigures=true,
+hyperindex=true,
+pdfpagelayout = SinglePage,
+%pdfpagelayout = TwoPageRight,
+pdfpagelabels = true,
+pdfstartview = FitV,
+colorlinks,
+pdfborder=001,
+linkcolor=black,
+anchorcolor=black,
+citecolor=black,
+pdftitle={明朝那些事儿},
+pdfauthor={当年明月},
+pdfsubject={明朝那些事儿（全七卷）},
+pdfkeywords={本书主要讲述的是从1344年到1644年这三百年间关于明朝的一些事情，以史料为基础，以年代和具体人物为主线，并加入了小说的笔法，对明朝十七帝和其他王公权贵和小人物的命运进行全景展示，尤其对官场政治、战争、帝王心术着墨最多，并加入对当时政治经济制度、人伦道德的演义。},
+pdfcreator={https://m-mono.github.io}
+]{hyperref}
+
+%\setcounter{tocdepth}{2}
+%\usepackage{titlesec} %用于取消标题编号 \caption*{abc}
+%\titleformat{\part}{\centering\Huge\textbf}{第\,\thepart\,部}{3em}{}
+%\titleformat{\chapter}{\centering\huge\textbf}{第\,\thechapter\,章}{2em}{}
+%\titleformat{\section}{\centering\LARGE}{第\,\thesection\,节}{2em}{}
+
+\usepackage{graphics,graphicx,pdfpages}
+\usepackage{caption} %用于取消标题编号 \caption*{abc}
+
+%自动加注拼音
+\usepackage{xpinyin}
+\xpinyinsetup{format={\color{PinYinColor}}}
+%手动加注外语及日语振假名
+\usepackage{ruby}
+\renewcommand\rubysize{0.4} %匹配 xpinyin 默认标注字体大小
+\renewcommand\rubysep{-0.3em} %匹配 xpinyin 默认标注高度
+
+\usepackage{xeCJK}
+\usepackage{indentfirst}
+\setlength{\parindent}{2.0em}
+
+%正文字体
+% for use package "fontawesome" under MacTeX 2017
+\usepackage{fontspec}
+\defaultfontfeatures{Extension = .otf}% adds .otf to end of path when font loaded without ext parameter e.g.
+\setCJKmainfont[Path=Fonts/,
+BoldFont={SourceHanSerifSC-Bold.otf},
+ItalicFont={SourceHanSerifSC-Regular.otf},
+BoldItalicFont={SourceHanSerifSC-Bold.otf},
+SlantedFont={SourceHanSerifSC-Regular.otf},
+BoldSlantedFont={SourceHanSerifSC-Bold.otf},
+SmallCapsFont={SourceHanSerifSC-Regular.otf}
+]{SourceHanSerifSC-Regular.otf}
+\setCJKsansfont[Path=Fonts/]{SourceHanSansSC-Regular.otf}
+\setCJKmonofont[Path=Fonts/]{SourceHanSansSC-Regular.otf}
+\setmainfont[Path=Fonts/]{SourceHanSerifSC-Regular.otf}
+\setsansfont[Path=Fonts/]{SourceHanSansSC-Regular.otf}
+\setmonofont[Path=Fonts/]{SourceHanSansSC-Regular.otf}
+% Icon 字体
+%\newfontfamily{\FA}[Path=Fonts/]{FontAwesome.otf}
+\usepackage{fontawesome5}
+
+% 頁面及文字顏色
+\usepackage{xcolor}
+\definecolor{TEXTColor}{RGB}{50,50,50} % TEXT Color
+\definecolor{PinYinColor}{RGB}{180,180,180} % TEXT Color
+\definecolor{NOTEXTColor}{RGB}{0,0,0} % No TEXT Color
+\definecolor{BGColor}{RGB}{240,240,240} % BG Color
+\definecolor{Gray}{RGB}{246,246,246}
+
+\usepackage{qrcode}
+\usepackage{multicol}
+
+\makeindex
+\renewcommand{\contentsname}{{明朝那些事儿}}
+\usepackage{fancyhdr} % 設置頁眉頁腳
+\pagestyle{fancy}
+\addtolength{\headwidth}{\marginparsep}
+\addtolength{\headwidth}{\marginparwidth}
+\fancyhf{} % 清空當前設置
+\renewcommand{\headrulewidth}{0pt}  %頁眉線寬，設為0可以去頁眉線
+\renewcommand{\footrulewidth}{0pt}  %頁眉線寬，設為0可以去頁眉線
+
+\usepackage{tikz} %加水印用
+\usepackage{eso-pic} %加水印用
+
+\newcommand\YM{
+	\put(210,314){
+		\begin{tikzpicture}[remember picture,overlay]
+		\node [rotate=0,scale=0.7,text opacity=0.6] {{\tiny \faQuoteRight\ }{\thepage}}; %中括号内是旋转角度，字体大小
+		\end{tikzpicture}}}

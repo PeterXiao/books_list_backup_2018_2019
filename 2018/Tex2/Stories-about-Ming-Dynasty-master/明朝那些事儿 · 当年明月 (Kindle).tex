@@ -1,0 +1,65 @@
+% !TeX root
+% !TEX encoding = UTF-8 Unicode
+% !TeX program = xelatex -synctex=1 -interaction=nonstopmode --output-driver="xdvipdfmx -q -E -V 7" %.tex
+
+\input{./Layouts/Preamble_Kindle}
+
+\usepackage[papersize={9cm,12.2cm}]{geometry} % Kindle Format
+\geometry{left=1.0cm,right=1.0cm,top=2cm,bottom=0.8cm,foot=4cm}
+\newcommand{\Icon}{\fontsize{300pt}{\baselineskip}\selectfont}
+
+\newcounter{paracolNo}
+\newcounter{kindle}
+\setcounter{paracolNo}{1}
+\setcounter{kindle}{1}
+
+\begin{document}
+	\frontmatter
+	\begin{figure}[ht]
+		\begin{center}
+			\includepdf[width=\paperwidth, height=\paperheight]{./Images/Frontmatter.jpg}
+		\end{center}
+	\end{figure}
+	\begin{center}
+		\phantom {placeholder}
+		\vspace{40mm}
+		\begin{figure}[!h]
+			\includegraphics[width=8cm]{./Images/Title.png} %http://www.diyiziti.com
+		\end{figure}
+	\end{center}
+	\newpage
+	\begin{center}
+		\phantom {placeholder}
+		\vspace{1cm}
+		{\Huge \textbf{明朝那些事儿}}\\
+		\vspace{1cm}
+		{\Large \textbf{当年明月}}
+	\end{center}
+	\newpage
+	{\color{TEXTColor}
+		\ifnum\theparacolNo=2
+		\begin{multicols}{\theparacolNo}
+		\fi
+			\tableofcontents
+		\ifnum\theparacolNo=2
+			\end{multicols}
+		\fi
+		\newpage
+		\mainmatter
+		\include{./Chapters/00}
+		\include{./Chapters/01}
+		\include{./Chapters/02}
+		\include{./Chapters/03}
+		\include{./Chapters/04}
+		\include{./Chapters/05}
+		\include{./Chapters/06}
+		\include{./Chapters/07}
+		\include{./Chapters/010}
+		\backmatter
+		{\color{TEXTColor}
+			\begin{figure}[ht]
+				\begin{center}
+					\includepdf[height=\paperheight]{./Images/Backmatter.jpg}
+				\end{center}
+			\end{figure}
+		\end{document}
