@@ -1,0 +1,409 @@
+\documentclass[]{report}
+
+
+% Title Page
+\title{}
+\author{}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+\end{document}          
+
+
+\documentclass{minimalist}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.8in]{geometry}
+
+\begin{document}
+	
+	\thispagestyle{empty}
+	\name{曹~宇}{tsaoyu@gmail.com}
+	
+	\horizontalline
+	
+	%=============== 无填充段悬挂综述 =============
+	\bareheader{研究方向}
+	\hangindent=2em
+	可再生能源与机器人交叉学科，主要关注机器人长期自主运行过程中的可再生能源供应，以及自适应行为控制策略。可再生能源为机器人提供不间断续航能力，自适应控制增强其复杂环境下适应能力。
+	
+	%=============== 点填充段三栏 ================
+	\fillheader{教育背景}
+	\begin{tabular}{c|ll}
+		2016-01 至   2019-03  & \multicolumn{2}{l}{{\heiti 英国南安普顿大学} ~{\it 博士}、Lloyds 学者 } \\
+		& 课题：新能源机器人~&导师团队 Nicholas Townsend, Mingyi Tan \\
+		2014-09 至   2015-11      &  \multicolumn{2}{l}{{\heiti 英国南安普顿大学} 轮机工程~{\it 科学硕士（一等荣誉学位）}} \\
+		& 论文：仿生水下无人深潜器概念设计& 论文导师 Gabriel Weymouth \\
+		2010-09 至   2014-06      &  \multicolumn{2}{l}{{\heiti 武汉理工大学} 船舶与海洋工程~{\it 工学学士}}\\
+		& 论文：船舶动力定位系统的设计与仿真 ~& 论文导师：徐海翔 \\
+		2011-09 至   2014-06      &  \multicolumn{2}{l}{{\heiti 武汉大学} 英语语言文学~{\it 文学学士} }\\
+	\end{tabular}
+	
+	%=============== 点填充段自适应双栏 ================
+	\fillheader{科研经历}
+	\begin{tabularx}{\textwidth}{cX}
+		2016 至   2019   &{\heiti 博士课题：} { 混合新能源机器人的长时间全自持能源系统设计与自适应管理}\\
+		& \begin{itemize}[noitemsep,topsep=-15pt]
+			\item 提出适用于移动装置的太阳能与风能混合能源俘获系统模型，建立了基于历史气象数据驱动的动态模拟仿真平台，首次实现移动平台上的新能源装置的建模与仿真
+			\item 结合风光互补特性提出基于遗传算法的新能源机器人能量系统优化设计方法，所设计的系统能够为机器人提供长达数月，横跨数千公里的不间断能源供应
+			\item 针对能源供应中的不确定性，提出了强化学习自适应能源管理策略，深度神经网络根据历史气象数据进行无监督学习，提高了未知环境中能源供应可靠性
+		\end{itemize} \\
+		2016 至   2019   &{\heiti 交叉课题：} {全自主无人风帆船舶自主导航路径规划和控制系统设计}\\
+		& \begin{itemize}[noitemsep, topsep=-15pt]
+			\item 设计无人帆船的欠驱动航迹规划方法，并使用ROS平台编写相关主控程序，实现帆船在各种风向状态下的自动导航功能：定点巡航，虚拟锚定，三角形航行，区域搜索
+			\item 使用计算机视觉方法通过背景分离实现目标色彩与形状实时监测，
+			识别航道障碍物并完成帆船航行中的动态避障，解决了欠驱系统时滞情况下的避障问题
+			\item 提出基于机器学习的无人帆船行为控制方法，通过尝试不同的转向策略学习出在复杂海况下的操纵方法，实现了在不规则波浪干扰下的自适应控制
+			\item 参与国际赛事的组织以及规则修订工作，倡议了跨太平洋无人帆船挑战
+		\end{itemize} \\
+	\end{tabularx}
+	
+	%=============== 带编号列举 ================
+	
+	\fillheader{科研成果}
+	\begin{enumerate}[itemsep=2pt]
+		\item \underline{Y.Cao}, N.C.Townsend, and M.Tan (under review) {\it Deep reinforcement learning based adaptive power management strategy for self-sustained mobile robots}, Journal of Application of Artificial Intelligence
+		
+		\item \underline{Y.Cao}, N.C.Townsend, and M.Tan (under review) {\it Optimal design of wind-PV hybrid renewable energy system for moving platforms}, Journal of Renewable Energy.
+		
+		\item S. Lemaire, \underline{Y.Cao}, T.Kluyer, et.al (2018) {\it Adaptive probabilistic tack manoeuvre for sailing vessels}, International Robotics Sailing Conference, United Kingdom
+		
+		\item \underline{Y.Cao}, N.C.Townsend, and M.Tan (2017) {\it  Hybrid renewable energy system for ocean going platforms}, OCEANS’17 MTS/IEEE, Aberdeen, United Kingdom. 
+		
+		\item \underline{Y.Cao}, (software) Dynamic Data Driven Hybrid Renewable Energy ($D^3HRE$) design and simulation framework, {\tt doi/10.5281/zenodo.1219669}
+		
+		\item \underline{Y.Cao}, (software) PyResis, A Python based  empirical ship  resistance and propulsion power estimation program,  {\tt doi/10.5281/zenodo.1219655}
+		
+		编写的 D$^3$HRE, PyResis, RLenergy, PyVisilibity 等专业学术软件总下载量超过一万次
+		
+	\end{enumerate}
+	
+	
+	\fillheader{荣誉奖励}
+	\begin{tabular}{cllll}
+		2018-09 & {\heiti 世界无人帆船锦标赛} &  {\it 世界冠军·迷你级} & 赛事组委，主程序 & 英国 \\
+		2017-09 & {\heiti 世界无人帆船锦标赛} &   {\it 世界冠军·迷你级} & 领队 & 挪威 \\
+		2016-09 & {\heiti 世界无人帆船锦标赛} &   {\it 世界冠军·迷你级} & 控制组 & 葡萄牙 \\
+		2016-06 & \textsf{HydroContest} &   {\it 竞速组第四名} & 机电组 &瑞士 \\
+		2015-10 & {\heiti 劳埃德船级社} &   {\it 博士奖学金} & & 英国 \\
+		2013-09 & {\heiti 武汉理工大学} &   {\it 二等奖学金} & & 中国 \\
+		2012-06 & {\heiti 武汉理工大学} &   {\it 三好学生} & & 中国 \\
+	\end{tabular}
+	
+	
+	\fillheader{教学经验}
+	\begin{tabular}{lll}
+		{\heiti 海洋机器人} & 研究生课程 &  助教\\
+		{\heiti Python 科学与工程实践编程} & 本科生课程 &  助教\\
+		{\heiti Solidworks 三维工程建模与课程设计} & 本科生课程 &  助教\\
+	\end{tabular}
+	
+	\fillheader{特邀讲座}
+	\begin{tabular}{clll}
+		2018 & {\heiti 无人帆船锦标赛冬令营} & 主讲 & 浙江大学 \\
+		2017 & {\heiti 混合新能源机器人的未来} & 嘉宾 & 英国普利茅斯大学 \\
+	\end{tabular}
+	
+	%=============== 无编号列举 ================
+	
+	\fillheader{专业技能}
+	\begin{itemize}[noitemsep]
+		\item 编程语言：Python, C++, Mathematica, MATLAB
+		\item 开发框架：Linux, ROS, Gazebo, TensorFlow, PyTorch, pandas
+		\item 计算平台：Iridis5 超级计算机，Raspberry Pi 嵌入式系统，GPU 计算
+	\end{itemize}
+	
+\end{document}
+
+\documentclass[a4paper,10pt]{article}
+
+
+% ---------------------------------------------------------------------------- %
+% Packages
+% ---------------------------------------------------------------------------- %
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[a4paper,height=250mm,width=150mm]{geometry}
+\usepackage[affil-it]{authblk}
+\usepackage{sectsty}
+\usepackage{lmodern}
+\fontfamily{lmr}\selectfont
+\subsectionfont{\fontsize{11}{12}\selectfont}
+
+
+% ---------------------------------------------------------------------------- %
+% Macros
+% ---------------------------------------------------------------------------- %
+\def\code#1{\texttt{#1}}
+
+
+% ---------------------------------------------------------------------------- %
+% Title Setup
+% ---------------------------------------------------------------------------- %
+\title{Versuch 5 -- Analyse von Zweipunkt-Regelungen}
+\author{Raphael Frey}
+\affil{FHNW -- Hochschule f\"ur Technik\\ Studiengang EIT\\ Grundlagenlabor 4}
+
+
+
+% **************************************************************************** %
+% Content
+% **************************************************************************** %
+\begin{document}
+
+% ---------------------------------------------------------------------------- %
+\maketitle
+% ---------------------------------------------------------------------------- %
+
+In  diesem  Versuch werden  schaltende  Regler  betrachtet. Dies sind  Regler,
+welche  lediglich   eine  diskrete,   endliche  Anzahl   Ausgangswerte  kennen
+(\"ublicherweise zwei  oder drei). Beispiele daf\"ur sind  Bimetallschalter in
+B\"ugeleisen mit  Stellungen \code{ein}  und \code{aus} oder  Klimaanlagen mit
+den  Zust\"anden \code{k\"uhlen},  \code{heizen} und  \code{ausgeschaltet}. Es
+gibt sowohl simple Implementationen (z.B. der erw\"ahnte Bimetallschalter) wie
+auch kompliziertere Ausf\"uhrungen, welche auf Halbleitertechnologie beruhen.
+
+Die grosse St\"arke von schaltenden  Reglern ist ihr geringer Energieverbrauch
+im Vergleich den schaltbaren Leistungen. Es k\"onnen problemlos Leistungen von
+mehreren Kilowatt geschaltet  werden bei vernachl\"assigbarem Energieverbrauch
+des  Schalters selbst,  womit beinahe  100\% Effizienz  erreicht werden  (beim
+Schalten;  nat\"urlich  macht dies  keine  Aussage  \"uber die  Effizienz  des
+restlichen Systems).
+
+S\"amtliche  schaltenden  Regler  weisen   eine  Hysterese  auf: Es  existiert
+keine  singul\"are Schwelle,  welche  jeweils  einen Schaltvorgang  ausl\"ost.
+Die  Schaltvorg\"ange  in  die  verschiedenen Richtungen  haben  jeweils  eine
+unterschiedliche  Ausl\"oseschwelle. Dies   verhindert  ein   Oszillieren  des
+Reglers um eine Schaltschwelle. Je enger die  Hysterese ist, um so h\"oher ist
+die Schaltfrequenz des Reglers.
+
+Mit  einer   geeigneten  R\"uckf\"uhrung  k\"onnen  mit   schaltenden  Reglern
+auch  PD-   und  PID-Regler  nachgebildet  werden. Dabei   wird  zus\"atzliche
+zum   Ausgang   des   Gesamtsystems   noch  der   Reglerausgang   selbst   auf
+den  Reglereingang   zur\"uckgef\"uhrt  (zur  Erinnerung: In   einem  normalen
+linearen  Regelkreis   wird  lediglich   der  Ausgang  des   gesamten  Systems
+auf  den   Reglereingang  zur\"uckgef\"uhrt,   nicht  aber  der   Ausgang  des
+Reglers  selbst).   Das  Feedback  orientiert sich  dabei  ungef\"ahr  an  der
+Umkehrfunktion  des  PD-  bzw. PID-Reglers   (ist  aber  nicht  unbedingt  die
+exakte  reziproke  Funktion). Andere  Regler  als  PD-  und  PID-Regler  haben
+\"Ubertragungsfunktionen, deren Umkehrungen nicht realisierbar sind, daher ist
+die  Emulation  von  kontinuierlichen  Reglern nur  bei  diesen  zwei  Reglern
+m\"oglich.
+
+% ---------------------------------------------------------------------------- %
+% \section{Ziele}
+% \label{sec:ziele}
+% ---------------------------------------------------------------------------- %
+
+\vspace{1em}
+
+Genau dies wird  in diesem Versuch getan: Ausgangspunkt  ist eine PT4-Strecke,
+welche  mit einem  Schaltregler und  geeigneter R\"uckf\"uhrung  zur Emulation
+eines PD- und PID-Reglers geregelt werden soll.
+
+Vorbereitend  wird  der  Frequenzgang   und  die  Schrittantwort  der  Strecke
+bestimmt. Es handelt sich um eine eher langsame Strecke mit einer Anstiegszeit
+$T_g$ von ungef\"ahr 20 Sekunden und Tiefpasscharakteristik.
+
+\vspace{1em}
+In  den folgenden  Versuchen ist  als Eingangssignal  jeweils ein  Schritt mit
+variierendem Ausschlag benutzt worden, sofern nicht anders angemerkt.
+
+
+% ---------------------------------------------------------------------------- %
+% \section{Ablauf}
+% \label{sec:ablauf}
+% ---------------------------------------------------------------------------- %
+
+\vspace{1em}
+
+Es  wird zuerst  der  (emulierte) PD-Regler  untersucht. Der hier  betrachtete
+Regler (ein  Relais) erzeugt an seinem  Ausgang einen Wert von  2, die Strecke
+selbst hat eine  Verst\"arkung von 5. Somit kann am  Ausgang des Schaltkreises
+maximal ein Wert von 10 erzeugt werden.
+
+Liegt das Eingangssignal  sch\"on in der Mitte zwischen null  und zehn, ergibt
+sich ein  passables Ausgangsverhalten; wie  von Kombinationen aus  Reglern und
+Strecken  ohne einen  Integrator  zu erwarten  bleibt  jedoch eine  Abweichung
+zwischen Sollwert und Istwert.
+
+Verschiebt man den Zielwert gegen die  obere bzw. untere Grenze des am Ausgang
+erzeugbaren  Bereichs, ergeben  sich  eher  unerw\"unschte Verhalten: Ist  der
+Sollwert tief,  \"uberschwingt der Ausgang  zuerst sehr stark auf  beinahe das
+Doppelte  des Zielwerts,  um sich  anschliessend mit  einem bleibenden  Fehler
+unter  dem  Sollwert zu  stabilisieren. Setzt  man  den  Zielwert zu  hoch  an
+(z.B. 9), erreicht der  Ausgang den Sollwert gar nie und  stabilisiert sich im
+Dauerbetrieb ebenfalls unter dem Sollwert.
+
+Im  stabilen Betrieb  ist die  Hysterese  sehr gut  zu beobachten: Der  Regler
+schaltet sich  periodisch mit der Schaltfrequenz  ein und aus; es  ergibt sich
+ein PWM-Verhalten  mit entsprechendem  Rippel am  Ausgang.  Ist  die Hysterese
+sehr langsam, ergibt  sich ein tieffrequenter Rippel mit  grosser Amplitude am
+Ausgang. Erh\"oht man die Schaltfrequenz (bzw. verringert man die Breite $x_H$
+der Hysterese), reduziert sich die Amplitude des Rippels bei einer Zunahme der
+Frequenz.
+
+\vspace{1em}
+
+Der  emulierte PID-Regler  unterscheidet  sich durch  die R\"uckf\"uhrung  vom
+emulierten PD-Regler; diese ist nun noch um das einem Integrator entsprechende
+Glied  erg\"anzt. Der  verbleibende  Fehler  auf  dem  Ausgang  ist  somit  im
+Durchschnitt  null,  der Ausgang  oszilliert  mit  der Schaltfrequenz  um  den
+Sollwert.
+
+Beim  PID-Regler  werden  vor  allem   das  Verhalten  der  Schaltfrequenz  in
+Abh\"angigkeit  des Verh\"altnisses  $\frac{w}{y_{E}}$ zwischen  Sollwert und
+erreichbarem Ausgangswert und der Breite $x_{H}$ der Hysterese betrachtet.
+
+Variiert man das Verh\"altnis $\frac{w}{y_{E}}$ zwischen null und eins, ergibt
+sich  ungef\"ahr  eine  umgekehre parabolische  Beziehung: Die  Schaltfrequenz
+$f_{S}$ ist  maximal in der Mitte  zwischen 0 und $y_{E}$,  und reduziert sich
+beim Annh\"ahern  an die  obere respektive untere  Grenze. Es ergibt  sich ein
+Arbeitsbereich, innerhalb  dessen der Regelkreis  optimal funktioniert. Dieser
+Arbeitsbereich umfasst ungef\"ahr den Mittelwert  zwischen null und $y_E$ $\pm
+30\%$,  also  etwa 70\%  dieses  Bereichs,  zentriert  um den  Mittelwert  des
+erzeugbaren Ausgangssignals.
+
+Variiert man  statt des  Verh\"altnisses $\frac{w}{y_{E}}$ die  Breite $x_{E}$
+der Hysterese, zeigt sich eine Beziehung mit $e^{-x}$-Charakter: Je schm\"aler
+die  Hysterese,  um  so  h\"oher die  Schaltfrequenz  $f_{S}$. Der  eingehende
+Schritt  ist  bei  diesem  Versuch  auf die  Mitte  zwischen  null  und  $y_E$
+eingestellt (also die Mitte des Arbeitsbereichs).
+
+Gibt man  statt eines Schrittes ein  anderes Signal auf den  Eingang, kann man
+weitere interessante Beobachtungen machen. Ein  Sinus am Eingang \"uberfordert
+den Regler vollkommen. Dies ist leicht nachvollziehbar, wenn man bedenkt, dass
+ein hier  verwendete Schaltregler  (ein Relais) keine  negativen Ausgangswerte
+liefern  kann;   somit  liegen  die  negativen   Bereiche  einer  harmonischen
+Schwingung ausserhalb seines erreichbaren Wertebereichs.
+
+Letztlich ist  noch das  Verhalten des  Regelkreises ohne  R\"uckf\"uhrung des
+Reglerausgangs auf den Reglereingang betrachtet worden. Es stellt sich heraus,
+dass  diese zus\"atzliche  R\"uckf\"uhrung essentiell  ist. Ohne sie  wird das
+System unbrauchbar. Es verbleibt ein sehr  grosser Rippel auf dem Ausgang, der
+Regler kann den Ausgang \"uberhaupt nicht stabilisieren.
+
+\vspace{1em}
+
+Zusammenfassend stechen f\"ur mich folgende Punkte heraus:
+\begin{itemize}
+    \item
+        Schaltregler  k\"onnen   kosteng\"unstig  enorm   hohe   Wirkungsgrade
+        erzielen  (deshalb  zum  Beispiel  auch  die  Verwendung  in  modernen
+        Schaltnetzteilen in PCs).
+    \item
+        Es  wird  immer ein  Rippel  auf  dem Ausgangssignal  verbleiben. Eine
+        engere  Hysterese  erh\"oht  die   Schaltfrequenz  und  reduziert  die
+        Amplitude  des Rippels,  kann diesen  aber nie  ganz zum  Verschwinden
+        bringen.
+    \item
+        Nicht   alle   Eingangssignale   eignen   sich   f\"ur   Schaltregler;
+        insbesondere  Signale  mit  negativen   Anteilen  k\"onnen  von  einem
+        Regelkreis,  der  auf  einem   Schaltregler  aufbaut,  nicht  sinnvoll
+        verarbeitet werden. Entweder  muss ein  anderer Reglertyp  zum Einsatz
+        kommen, oder der Eingang muss zuerst gleichgerichtet werden (ebenfalls
+        siehe PC-Netzteile).
+    \item
+        Auf Schaltreglern  basierende Regelkreise haben  einen Arbeitsbereich,
+        in dem sie optimal funktionieren,  und ausserhalb dessen ihr Verhalten
+        unerw\"unschte Charakteristiken aufweist (z.B. grosser Rippel, starkes
+        \"Uberschwingen, Schaltfrequenz zu klein).
+    \item
+        Die Schaltfrequenz  h\"ang sowohl  vom Verh\"altnis des  Sollwerts zum
+        maximal erzeugbaren Ausgang wie auch von der Breite der Hysterese ab.
+    \item
+        Eine  R\"uckf\"uhrung  des   \emph{Regler}ausgangs  (zus\"atzlich  zum
+        \emph{System}ausgang) auf den Reglereingang ist notwendig. H\"angt man
+        dieses  Feedback ab  und f\"uhrt  nur noch  den Systemausgang  auf den
+        Reglereingang zur\"uck, funktioniert der Regelkreis nicht mehr.
+\end{itemize}
+
+\end{document}
+
+
+%!TEX program = xelatex
+
+\documentclass[10.5pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[hyperfootnotes=false, colorlinks=true, linkcolor=blue]{hyperref}
+\usepackage{ctex}
+\usepackage{zhlipsum}
+\usepackage{lipsum}
+
+\graphicspath{{./figures/}}
+
+%%% HEADER & FOOTER %%%%%
+\pagestyle{myheadings}
+\markright{Header left\hfill Header right\hfill}
+
+%%%%% TITLE %%%%%
+\title{\LaTeX~Note}
+\author{Author——作者}
+\date{\today}
+
+%%%%% BODY %%%%%
+\begin{document}
+
+\maketitle
+\lipsum[1-3]
+
+
+\clearpage
+
+\tableofcontents
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{First Section}
+\label{sec:first}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\zhlipsum[1]
+\zhlipsum[1]
+\subsection{Sub Section}
+\begin{itemize}
+    \item \lipsum[1]
+    \item \lipsum[1]
+    \item \lipsum[1]
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Second Section}
+\label{sec:second}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+    \item \lipsum[1]
+    \item \lipsum[1]
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Third Section}
+\label{sec:third}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+    \item \lipsum[1]
+\end{itemize}
+
+
+\clearpage
+
+
+
+
+\end{document}

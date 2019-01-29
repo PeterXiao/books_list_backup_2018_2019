@@ -1,0 +1,133 @@
+\documentclass{beamer}
+
+\setbeamercolor{framesubtitle}{fg=black}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{navigation symbols}{fg=white, bg=white}
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamerfont{framesubtitle}{series=\bfseries, size=\large}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{section in toc}{series=\bfseries}
+\setbeamerfont{subsection in toc}{series=\bfseries}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamertemplate{frametitle}[default][right]
+\setbeamertemplate{section in toc shaded}[default][50]
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{subsection in toc shaded}[default][50]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\addtobeamertemplate{footline}{%
+    \hfill\usebeamertemplate***{navigation symbols}
+    \hspace*{1em}\par\vspace{1pt}
+}{}
+
+\usepackage[UTF8]{ctex}
+\usepackage[sort&compress]{natbib}
+\usepackage{graphicx}
+
+\AtBeginSection[]
+{%
+    \begin{frame}<beamer>
+    \frametitle{目录}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\AtBeginSubsection[]
+{%
+    \begin{frame}<beamer>
+    \frametitle{目录}
+    \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\title{标题}
+\author{学生：姓名 \\ 导师：姓名}
+\institute{院系}
+\date{\today}
+
+\begin{document}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/title.png}
+}
+
+\frame{\titlepage}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/content.png}
+}
+
+\begin{frame}
+    \frametitle{目录}
+    \tableofcontents[subsubsectionstyle=hide]
+\end{frame}
+
+\section{第一章节}
+
+\begin{frame}
+    \frametitle{正标题}
+    \framesubtitle{副标题}
+    \begin{itemize}
+        \item 英文参考文献\cite{test-en}
+        \item 中文参考文献\cite{test-zh}
+        \item 脚注1\footnote{脚注1内容}
+        \item 脚注2\footnote{脚注2内容}
+    \end{itemize}
+\end{frame}
+
+\subsection{第一小节}
+
+\begin{frame}
+    \frametitle{第一章节}
+    \framesubtitle{第一小节}
+\end{frame}
+
+\subsection{第二小节}
+
+\begin{frame}
+    \frametitle{第一章节}
+    \framesubtitle{第二小节}
+\end{frame}
+
+\section{第二章节}
+
+\begin{frame}
+    \frametitle{正标题}
+    \begin{columns}
+        \column{.5\textwidth}
+        \begin{itemize}
+            \item 第一栏
+            \item 这是一个列表
+        \end{itemize}
+        \column{.5\textwidth}
+        第二栏\\
+        这是普通正文\\
+        也可以是图片或者表格
+    \end{columns}
+\end{frame}
+
+\section{参考文献}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{参考文献}
+    \small
+    \bibliographystyle{plain}
+    \bibliography{slide}
+\end{frame}
+
+\section*{}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/title.png}
+}
+
+\begin{frame}
+    \centering
+    \Huge 谢谢！\\
+    请老师批评指正
+\end{frame}
+
+\end{document}

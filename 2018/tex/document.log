@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.12.12)  16 JAN 2019 09:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6880 64-bit) (preloaded format=pdflatex 2018.12.12)  24 JAN 2019 15:00
 entering extended mode
 **./document.tex
 (document.tex
@@ -19,7 +19,8 @@ File: size10.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) (document.aux)
+)
+No file document.aux.
 \openout1 = `document.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
@@ -38,14 +39,13 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <7> on input line 3.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 3.
-
 [1
 
 {C:/Users/Office/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
 (document.aux) ) 
 Here is how much of TeX's memory you used:
- 204 strings out of 492969
- 2262 string characters out of 3135843
+ 202 strings out of 492969
+ 2204 string characters out of 3135843
  58742 words of memory out of 3000000
  4165 multiletter control sequences out of 15000+200000
  3640 words of font info for 14 fonts, out of 3000000 for 9000

@@ -1,0 +1,135 @@
+\documentclass{beamer}
+
+\setbeamercolor{framesubtitle}{fg=black}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{navigation symbols}{fg=white, bg=white}
+\setbeamercolor{section in toc}{fg=black}
+\setbeamercolor{title}{fg=black}
+\setbeamerfont{framesubtitle}{series=\bfseries, size=\large}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{section in toc}{series=\bfseries}
+\setbeamerfont{subsection in toc}{series=\bfseries}
+\setbeamerfont{title}{series=\bfseries}
+\setbeamertemplate{frametitle}[default][right]
+\setbeamertemplate{section in toc shaded}[default][50]
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{sidebar right}{}
+\setbeamertemplate{subsection in toc shaded}[default][50]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\addtobeamertemplate{footline}{%
+    \hfill\usebeamertemplate***{navigation symbols}
+    \hspace*{1em}\par\vspace{1pt}
+}{}
+
+\usepackage[UTF8]{ctex}
+\usepackage[sort&compress]{natbib}
+\usepackage{graphicx}
+\usepackage{verbatim}
+
+\AtBeginSection[]
+{%
+    \begin{frame}<beamer>
+    \frametitle{目录}
+    \tableofcontents[currentsection]
+    \end{frame}
+}
+
+\AtBeginSubsection[]
+{%
+    \begin{frame}<beamer>
+    \frametitle{目录}
+    \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\title{Tomcat 配置 性能调优与基准测试}
+\author{author：xiaoyulong }
+\institute{Aomi}
+\date{\today}
+
+\begin{document}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/title.png}
+}
+
+\frame{\titlepage}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/content.png}
+}
+
+\begin{frame}
+    \frametitle{目录}
+    \tableofcontents[subsubsectionstyle=hide]
+\end{frame}
+
+\section{Tomcat 配置}
+
+\begin{frame}
+    \frametitle{正标题}
+    \framesubtitle{副标题}
+    \begin{itemize}
+        \item https://events.static.linuxfound.org/sites/events/files/slides/TomcatCon2017.pdf\cite{test-en}
+        \item 中文参考文献\cite{test-zh}
+        \item 脚注1\footnote{脚注1内容}
+        \item 脚注2\footnote{脚注2内容}
+    \end{itemize}
+\end{frame}
+
+\subsection{Tomcat 配置}
+
+\begin{frame}
+    \frametitle{Tomcat 配置}
+    \framesubtitle{tomcat 启动参数}
+\end{frame}
+
+\subsection{第二小节}
+
+\begin{frame}
+    \frametitle{Tomcat 配置}
+    \framesubtitle{Connecters 配置}
+\end{frame}
+
+\section{性能调优与基准测试}
+%\begin{comment}
+\begin{frame}
+    \frametitle{正标题}
+    \begin{columns}
+        \column{.5\textwidth}
+        \begin{itemize}
+            \item 第一栏
+            \item 这是一个列表
+        \end{itemize}
+        \column{.5\textwidth}
+        第二栏\\
+        这是普通正文\\
+        也可以是图片或者表格
+    \end{columns}
+\end{frame}
+%\end{comment}
+
+\section{参考文献}
+
+\begin{frame}[allowframebreaks]
+    \frametitle{参考文献}
+    \small
+    \bibliographystyle{plain}
+    \bibliography{slide}
+\end{frame}
+
+\section*{}
+
+\usebackgroundtemplate{%
+    \includegraphics[width=\paperwidth,height=\paperheight]{img/title.png}
+}
+
+\begin{frame}
+    \centering
+    \Huge Q \& A
+         
+\end{frame}
+
+\end{document}
