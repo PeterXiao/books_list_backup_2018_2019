@@ -86,9 +86,7 @@ pingtai
 
 數據與孤寂
 
-110L3-9135J-M807A-08ARK-84V7L
-=================
-110L3-9135J-M807A-08ARK-84V7L
+
 
 -Xmx640M -Xms640M -Xmn192M -XX:MaxMetaspaceSize=128M -XX:MetaspaceSize=128M -XX:+UseParallelGC -XX:+UseAdaptiveSizePolicy -XX:MaxGCPauseMillis=100
 -Xms512m -Xmx512m -XX:PermSize=64M -XX:MaxPermSize=128m
