@@ -22,7 +22,7 @@ some blog coding thinking or rethinking
 ## 运维
 
 + [运维](https://github.com/PeterXiao/blog/blob/master/2019/3/files/%E8%BF%90%E7%BB%B4%E5%B7%A5%E4%BD%9C.xmind)
-
++ [Linux](https://github.com/PeterXiao/blog/tree/master/2019/3/files/linux)
 ## 软件生命周期管理 software life cycle management
 
 
