@@ -2,6 +2,8 @@
 some blog coding thinking or rethinking
 # 哲学书籍 方法论
 
+# 学习方法
++ [抢救你的学习力](https://github.com/PeterXiao/blog/tree/master/2019/3/files/%E6%8A%A2%E6%95%91%E4%BD%A0%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%8A%9B)
 
 # 软件开发与测试
 + [App Store最新审核指南.xmind](https://github.com/PeterXiao/blog/blob/master/2019/3/files/App%20Store%E6%9C%80%E6%96%B0%E5%AE%A1%E6%A0%B8%E6%8C%87%E5%8D%97.xmind)
