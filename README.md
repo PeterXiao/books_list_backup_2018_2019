@@ -1,6 +1,7 @@
 # blog
 some blog coding thinking or rethinking
 
++ [App Store最新审核指南.xmind](https://github.com/PeterXiao/blog/blob/master/2019/3/files/App%20Store%E6%9C%80%E6%96%B0%E5%AE%A1%E6%A0%B8%E6%8C%87%E5%8D%97.xmind)
 
 + [#如何实现高可用](https://github.com/PeterXiao/blog/blob/master/2019/3/3.3.md)
 + [计算机安全使用](https://github.com/PeterXiao/blog/blob/master/2019/3/files/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E4%BD%BF%E7%94%A8.xmind)
