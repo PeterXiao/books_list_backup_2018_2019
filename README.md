@@ -3,6 +3,16 @@ some blog coding thinking or rethinking
 
 + [App Store最新审核指南.xmind](https://github.com/PeterXiao/blog/blob/master/2019/3/files/App%20Store%E6%9C%80%E6%96%B0%E5%AE%A1%E6%A0%B8%E6%8C%87%E5%8D%97.xmind)
 
+# 软件开发与测试
+
+## 软件开发
+
+## 软件测试
+
+## 运维
+
+## 软件生命周期管理 software life cycle management
+
 + [#如何实现高可用](https://github.com/PeterXiao/blog/blob/master/2019/3/3.3.md)
 + [计算机安全使用](https://github.com/PeterXiao/blog/blob/master/2019/3/files/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%AE%89%E5%85%A8%E4%BD%BF%E7%94%A8.xmind)
 + [需要出的安全规范](https://github.com/PeterXiao/blog/blob/master/2019/3/files/%E9%9C%80%E8%A6%81%E5%87%BA%E7%9A%84%E5%AE%89%E5%85%A8%E8%A7%84%E8%8C%830.01.xmind)
