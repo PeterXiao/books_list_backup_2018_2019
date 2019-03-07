@@ -15,7 +15,7 @@ some blog coding thinking or rethinking
 + []()
 ## 软件测试
 + [我眼中的软件测试](https://github.com/PeterXiao/blog/blob/master/2019/3/files/%E6%88%91%E7%9C%BC%E4%B8%AD%E7%9A%84%E6%B5%8B%E8%AF%95.xmind)
-+ []()
++ [移动测试与性能测试](https://github.com/PeterXiao/blog/tree/master/2019/3/files/%E6%B5%8B%E8%AF%95)
 
 ## 运维
 
