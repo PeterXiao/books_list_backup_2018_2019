@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="t20"
+  id="myeclipse.1400228245578"
+  context-root="/t20"
+  j2ee-spec="5.0"
+  archive="t20.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="wait_notify_size5"
+  id="myeclipse.1425089970593"
+  context-root="/test6"
+  j2ee-spec="5.0"
+  archive="wait_notify_size5.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

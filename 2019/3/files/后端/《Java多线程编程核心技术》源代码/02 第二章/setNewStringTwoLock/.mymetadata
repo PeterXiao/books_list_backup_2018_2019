@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="setNewStringTwoLock"
+  id="myeclipse.1422431481640"
+  context-root="/test5"
+  j2ee-spec="5.0"
+  archive="setNewStringTwoLock.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
