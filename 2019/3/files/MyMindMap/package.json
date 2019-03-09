@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "fs-filesysteminfo": "^1.0.6"
+  }
+}
