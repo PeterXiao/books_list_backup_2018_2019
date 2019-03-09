@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .left, .right {
+            width: 300px;
+        }
+
+        .left {
+            background: lawngreen;
+        }
+
+        .right {
+            background: red;
+        }
+
+        .center {
+            background: cornflowerblue;
+        }
+
+        .wrap > div {
+            min-height: 100px;
+            text-align: left;
+            line-height: 100px;
+        }
+
+        .layout {
+            margin-top: 20px;
+        }
+
+        .layout.float .wrap .left {
+            float: left;
+        }
+
+        .layout.float .wrap .right {
+            float: right;
+        }
+
+        .layout.float .wrap .center {
+            margin: 0 300px;
+        }
+
+        .layout.float .wrap:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .layout.position .wrap {
+            position: relative;
+        }
+
+        .layout.position .wrap > div {
+            position: absolute;
+            top: 0;
+        }
+
+        .layout.position .wrap .left {
+            left: 0;
+        }
+
+        .layout.position .wrap .right {
+            right: 0;
+        }
+
+        .layout.position .wrap .center {
+            left: 300px;
+            right: 300px;
+        }
+
+        .layout.flex {
+            margin-top: 140px;
+        }
+
+        .layout.flex .wrap {
+            display: flex;
+        }
+
+        .layout.flex .wrap .center {
+            flex: 1;
+        }
+
+        .layout.table .wrap {
+            display: table;
+            width: 100%;
+        }
+
+        .layout.table .wrap > div {
+            display: table-cell;
+        }
+
+        .layout.grid > .wrap {
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+        }
+
+        .layout.margin > .wrap div {
+            float: left;
+        }
+
+        .clearfix:after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+        .layout.margin .center {
+            width: 100%;
+        }
+
+        .layout.margin > .wrap {
+            padding: 0 300px; /*考虑兼容性，使用该方案*/
+        }
+
+        .layout.margin .left {
+            margin-left: -100%;
+            position: relative; /*考虑兼容性，使用该方案*/
+            left: -300px; /*考虑兼容性，使用该方案*/
+        }
+
+        .layout.margin .right {
+            margin-left: -300px;
+            position: relative; /*考虑兼容性，使用该方案*/
+            right: -300px; /*考虑兼容性，使用该方案*/
+        }
+
+        .layout.margin-inner > .wrap > div {
+            float: left;
+        }
+
+        .layout.margin-inner > .wrap > .center {
+            width: 100%;
+        }
+
+        .layout.margin-inner > .wrap > .left {
+            margin-left: -100%;
+        }
+
+        .layout.margin-inner > .wrap > .right {
+            margin-left: -300px;
+        }
+
+        .layout.margin-inner > .wrap > .center > .inner {
+            margin: 0 300px;
+        }
+
+        .layout.margin-change > .wrap > div {
+            float: left;
+        }
+
+        .layout.margin-change > .wrap > .center {
+            width: 100%;
+            padding: 0 300px;
+            box-sizing: border-box;
+        }
+
+        .layout.margin-change > .wrap > .left {
+            margin-left: -100%;
+        }
+
+        .layout.margin-change > .wrap > .right {
+            margin-left: -300px;
+        }
+
+
+    </style>
+</head>
+<body>
+<section class="layout float">
+    <article class="wrap">
+        <div class="left">左</div>
+        <div class="right">右</div>
+        <div class="center">1、纯浮动方案-中</div>
+    </article>
+</section>
+
+<section class="layout position">
+    <article class="wrap">
+        <div class="left">左</div>
+        <div class="center">2、绝对定位方案-中</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout flex">
+    <article class="wrap">
+        <div class="left">左</div>
+        <div class="center">3、flex方案-中</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout table">
+    <article class="wrap">
+        <div class="left">左</div>
+        <div class="center">4、table方案-中</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout grid">
+    <article class="wrap">
+        <div class="left">左</div>
+        <div class="center">5、grid方案-中</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout margin">
+    <article class="wrap clearfix">
+        <div class="center">6、圣杯布局方案-中</div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout margin-inner">
+    <article class="wrap clearfix">
+        <div class="center">
+            <div class="inner">7、双飞翼布局方案-中</div>
+        </div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    </article>
+</section>
+<section class="layout margin-change">
+    <article class="wrap clearfix">
+        <div class="center">8、圣杯布局变体方案-中</div>
+        <div class="left">左</div>
+        <div class="right">右</div>
+    </article>
+</section>
+
+</body>
+</html>

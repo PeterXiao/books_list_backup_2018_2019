@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        header, article, footer {
+            border: 1px solid red;
+            box-sizing: border-box;
+        }
+
+        header, footer {
+            height: 50px;
+        }
+
+        .flex {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .flex > article {
+            flex: 1;
+
+        }
+
+        .grid {
+            display: grid;
+            grid-template-rows: 50px 1fr 50px;
+            min-height: 100%;
+        }
+        .grid>footer{
+            grid-row: 3/4 ;
+        }
+
+        .calc > article {
+            min-height: calc(100vh - 100px);
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        .absolute {
+            min-height: 100%;
+            position: relative;
+        }
+
+        .absolute > article {
+            padding-bottom: 50px;
+        }
+
+        .absolute > footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            left: 0;
+        }
+
+        .margin {
+            height: 100%;
+        }
+
+        .margin-wrap {
+            min-height: 100%;
+        }
+
+        .margin > .margin-wrap > article {
+            padding-bottom: 50px;
+        }
+
+        .margin > footer {
+            margin: -50px 0 0 0;
+        }
+
+        .margin-push {
+            height: 100%;
+        }
+
+        .margin-push > .margin-push-wrap {
+            margin: 0 0 -50px 0;
+            min-height: 100%;
+        }
+
+        .margin-push > .margin-push-wrap > .push {
+            height: 50px;
+        }
+
+        .table {
+            height: 100%;
+        }
+
+        .table > .table-wrap {
+            display: table;
+            width: 100%;
+            height: 100%;
+        }
+
+      .table > .table-wrap > footer {
+            display: table-row;
+            height: 1px;
+        }
+
+
+    </style>
+</head>
+<body>
+<!--   一、flex方法   -->
+<!--<section class="flex">-->
+<!--<header>头部 flex</header>-->
+<!--<article>主要 flex</article>-->
+<!--<footer>底部 flex</footer>-->
+<!--</section>-->
+<!--二、 grid方法-->
+<section class="grid">
+<header>头部 grid</header>
+<article>主要 grid</article>
+<footer>底部 grid</footer>
+</section>
+
+<!--三、 calc方法  -->
+<!--<section class="calc">-->
+<!--<header>头部 calc</header>-->
+<!--<article>主要 calc</article>-->
+<!--<footer>底部 calc</footer>-->
+<!--</section>-->
+
+
+<!--四、 absolute方法  -->
+<!--<section class="absolute">-->
+<!--<header>头部 absolute</header>-->
+<!--<article>主要 absolute</article>-->
+<!--<footer>底部 absolute</footer>-->
+<!--</section>-->
+
+<!--五、 负margin方法  -->
+<!--<section class="margin">-->
+<!--<div class="margin-wrap">-->
+<!--<header>头部 负margin</header>-->
+<!--<article>主要 负margin</article>-->
+<!--</div>-->
+<!--<footer>底部 负margin</footer>-->
+<!--</section>-->
+
+<!--六、 负margin+新增元素方法   -->
+<!--如果不想新增元素div.push 也可以使用::after的方式来替代-->
+<!--该方法是由 Ryan Fait想出来的，不过很可惜他 英年早逝了 愿他在天堂一切安好
+说来也巧，今天正好是他去世3周年纪念日（真的很巧。。。ryanfait.net）  -->
+
+<!--<section class="margin-push">-->
+<!--<div class="margin-push-wrap">-->
+<!--<header>头部 负margin加新增元素法</header>-->
+<!--<article>主要 负margin加新增元素法</article>-->
+<!--<div class="push"></div>-->
+<!--</div>-->
+<!--<footer>底部 负margin加新增元素法</footer>-->
+<!--</section>-->
+
+<!--七、 table方法  -->
+<!--<section class="table">-->
+    <!--<div class="table-wrap">-->
+        <!--<header>头部 负margin加新增元素法</header>-->
+        <!--<article>主要 负margin加新增元素法</article>-->
+        <!--<footer>底部 负margin加新增元素法</footer>-->
+    <!--</div>-->
+<!--</section>-->
+</body>
+</html>

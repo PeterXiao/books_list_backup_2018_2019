@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*.router-link-active {*/
+        /*color: red;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<script src="./vue.js"></script>
+<script src="./vue-router.js"></script>
+<!--<div id="myFirstRouter">-->
+<!--<p>我的第一个vue-router实例</p>-->
+<!--<p>-->
+<!--<router-link to="/jianshu">-->
+<!--点击显示我是简书-->
+<!--</router-link>-->
+
+<!--<router-link to="/github">-->
+<!--点击显示我是github-->
+<!--</router-link>-->
+<!--</p>-->
+<!--<router-view></router-view>-->
+<!--</div>-->
+
+
+<!--<div id="dongtaiRouter-example">-->
+<!--<p>动态路由例子 </p>-->
+<!--<router-link to="/user/lc">-->
+<!--点击显示lc-->
+<!--</router-link>-->
+<!--<router-link to="/user/lg">-->
+<!--点击显示lg-->
+<!--</router-link>-->
+
+<!--<router-view></router-view>-->
+<!--</div>-->
+
+<!--<div id="qiantao-router">-->
+<!--<p>嵌套路由例子</p>-->
+<!--<div>-->
+<!--<router-link to="/user/lg">-->
+<!--点击我去用户lg主页面-->
+<!--</router-link>-->
+<!--<router-link to="/user/lg/xingge">-->
+<!--点击我去性格页面-->
+<!--</router-link>-->
+<!--<router-link to="/user/lg/xingqv">-->
+<!--点击我去兴趣页面-->
+<!--</router-link>-->
+<!--<router-link to="/user/lg/nengli">-->
+<!--点击我去能力页面-->
+<!--</router-link>-->
+<!--</div>-->
+<!--<router-view></router-view>-->
+<!--</div>-->
+
+
+<!--<div id="named-router-example">-->
+<!--命名路由例子-->
+<!--<router-link-->
+<!--v-bind:to="{ name:'user',params:{userId: 666}}">-->
+<!--点我进入用户id为666-->
+<!--</router-link>-->
+<!--<router-view></router-view>-->
+<!--</div>-->
+
+
+<div id="named-view-router">
+    <p>命名视图--路由</p>
+    <ul>
+        <li>
+            <router-link to="/">
+               “/”--- 点击展示顺序
+            </router-link>
+        </li>
+        <li>
+            <router-link to="/second">
+                "/second"--- 点击展示反序
+            </router-link>
+        </li>
+    </ul>
+    <router-view></router-view>
+    <router-view name="a"></router-view>
+    <router-view name="b"></router-view>
+</div>
+
+
+
+
+
+
+
+
+<!--<div id="redirect-router">-->
+    <!--<p>重定向例子</p>-->
+    <!--<router-link to="/a">点击重定向至b</router-link>-->
+    <!--<router-link to="/b">点击至b</router-link>-->
+    <!--<router-view></router-view>-->
+<!--</div>-->
+
+
+
+
+
+
+
+<!--<div id="alias-router">-->
+    <!--<p>路由别名例子</p>-->
+    <!--<router-link to="/a">点击去a</router-link>-->
+    <!--<router-link to="/b">点击a的别名b</router-link>-->
+    <!--<router-view></router-view>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+
+<script>
+    ////    定义组件
+    //const jianshuZujian = {template: '<div> 我是简书 </div>'};
+    //const githubZujian = {template: '<div> 我是github </div>'};
+    ////    定义路由
+    //const allRoutes=[
+    //    { path:'/jianshu',component:jianshuZujian },
+    //    { path:'/github',component:githubZujian }
+    //
+    //];
+    ////创建路由实例
+    //const  router =new  VueRouter({
+    //    routes: allRoutes
+    //});
+    ////    挂载
+    //const  myFirstRouter=new Vue({
+    //    router
+    //}).$mount('#myFirstRouter');
+
+
+    //    const userZujian = {
+    //        template: '<div> 我是user {{$route.params.id}} </div>'
+    //    };
+    //    const userRouter = [
+    //        // 动态路由路径 以冒号开头
+    //        {path: '/user/:id', component: userZujian}
+    //    ];
+    //
+    //    const router = new VueRouter({
+    //        routes: userRouter
+    //    });
+    //
+    //    var dongtaiRouterexample = new Vue({
+    //        router
+    //    }).$mount("#dongtaiRouter-example");
+
+    //    const userZujian = {
+    //        template: '<div>  <p>这里永远会显示 用户id： {{$route.params.id}}</p> <router-view></router-view> </div>'
+    //    };
+    //
+    //    const xinggeComp = {
+    //        template: "<div>他的MBTI性格类型：ISFJ</div>"
+    //    };
+    //    const xingqvComp = {
+    //        template: '<div> 他的兴趣：写代码 看书 </div>'
+    //    };
+    //    const nengliComp = {
+    //        template: '<div> 他的能力：英语四级，计算机二级 </div>'
+    //    };
+    //    const shouyeComp = {
+    //        template: '<div>这是lg的首页</div>'
+    //    };
+    //
+    //    const userRouter = [
+    //        {
+    //            path: '/user/:id', component: userZujian,
+    //            children: [{path: 'xingge', component: xinggeComp},
+    //                {path: 'xingqv', component: xingqvComp},
+    //                {path: 'nengli', component: nengliComp},
+    //                {path: '', component: shouyeComp}]
+    //        }
+    //
+    //    ];
+    //
+    //    const routerLast = new VueRouter({
+    //        routes: userRouter
+    //    });
+    //
+    //    const qiantaoRouterExample = new Vue({
+    //        router: routerLast
+    //        //如果想此处简写为router ,则前面定义的routerLast名字应
+    //        // 更改为router，否则会报错：Cannot read property 'matched' of undefined"
+    //    }).$mount("#qiantao-router")
+
+//    1、定义组件
+//        var namedrouterComp={
+//            template:"<div> " +
+//                 "用户id为 {{$route.params.userId}} " +
+//                    "</div>"
+//        };
+//        //2、定义及创建路由
+//        var namedrouter=new VueRouter({
+//            routes:[{
+//                    name:'user',
+//                    path:'/user/:userId',
+//                    component:namedrouterComp}]
+//        });
+//        //3、挂载
+//        var namedrouterExample=new Vue({
+//            router:namedrouter
+//        }).$mount("#named-router-example")
+
+    var zujianComp1 = {
+        template: '<div>我是组件模版1</div>'
+    };
+    var zujianComp2 = {
+        template: '<div>我是组件模版2</div>'
+    };
+    var zujianComp3 = {
+        template: '<div>我是组件模版3</div>'
+    };
+    var router = new VueRouter({
+        mode: 'history',
+        routes: [
+            {   path: '/',
+                components: {
+                    default: zujianComp1,
+                    a: zujianComp2,
+                    b: zujianComp3
+                }
+            },
+            {   path: '/second',
+                components: {
+                    default: zujianComp3,
+                    a: zujianComp2,
+                    b: zujianComp1
+                }
+            }
+        ]
+    });
+    var namedViewRouter = new Vue({
+        router:router,
+        el: "#named-view-router"
+    });
+
+
+
+
+
+//
+//    var aComp={
+//        template:"<h5>我是/b页面中的h5</h5>"
+//    };
+//    var notFindComp={
+//        template:"<h5> 抱歉，你所访问的资源不存在 </h5>"
+//    };
+//    var router=new VueRouter({
+//        mode:'history',
+//        routes:[
+//            {path:'/a',redirect:'/b'},
+//            {path:'/b',component:aComp},
+//            {path:'*',component:notFindComp}
+//        ]
+//    });
+//    var redirectrouter=new Vue({
+//        router
+//    }).$mount("#redirect-router");
+
+
+
+
+//    var aComp={
+//        template:"<h5>我是a页面中的h5</h5>"
+//    };
+//    var router=new VueRouter({
+//        routes:[
+//            {path:'/a',component:aComp,alias:'/b'}
+//        ]
+//    });
+//
+//    var aliasrouter=new Vue({
+//        router
+//    }).$mount("#alias-router");
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue hello</title>
+    <style>
+        .active {
+            color: red;
+        }
+
+        .text-danger {
+            font-size: 20px;
+        }
+
+        .static {
+            font-style: italic;
+        }
+
+        .classkey1 {
+            color: blue;
+            font-style: italic;
+        }
+
+        .classkey2 {
+            background-color: #d8d8d8;
+        }
+
+        body {
+            margin-bottom: 200px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="app">
+    {{message}}
+</div>
+<div id="app2">
+    <span v-bind:title="message">
+        鼠标悬停几秒查看此处动态绑定的提示信息
+    </span>
+</div>
+<div id="app3">
+    <p v-if="cansee">你可以看见我</p>
+</div>
+<div id="app4">
+    <ol>
+        <li v-for="todo in todos">
+            {{todo.text}}
+        </li>
+    </ol>
+</div>
+
+
+<div id="app5">
+    <p>{{ message | capitalize }}</p>
+    <button v-on:click="changeMessage"></button>
+</div>
+
+
+<div id="app6">
+    <p>{{message}}</p>
+    <input type="text" v-model="message">
+</div>
+
+
+<div id="example">
+    <my-component></my-component>
+</div>
+
+<!--<a v-bind:href="url"></a>-->
+<!--<a :href="url"></a>-->
+
+<a id="app7" @click="doSomeThing"> {{message}} </a>
+<!--<a @click="doSomeThing"></a>-->
+
+
+<div id="jisuanshuxing">
+    <p>原始信息:{{message}}</p>
+    <p>转换后信息:{{reversedMessage}}</p>
+</div>
+
+<div id="demo">{{ fullname }}</div>
+
+
+
+
+
+
+
+<div id="watch-example">
+    <p>
+        Ask a yes/no question:
+        <input type="text" v-model="question">
+    </p>
+    <p>
+        {{answer}}
+    </p>
+</div>
+
+
+
+
+
+
+
+<div id="watch-example2">
+    <p>
+        问一个是或否的问题:
+        <input type="text" v-model="question">
+    </p>
+    <p>
+        {{answer}}
+    </p>
+</div>
+
+
+
+
+
+<div id="html-class-obj" v-bind:class="{active:isActive}">
+    {{message}}
+
+</div>
+
+
+<div id="html-class-obj1" class="static"
+     v-bind:class="{active:isActive,'text-danger':hasError}">
+    {{message}}
+
+</div>
+
+
+<div id="html-class-obj2"
+     v-bind:class="classObject">
+    {{message}}
+
+</div>
+
+
+<div id="html-class-obj3"
+     v-bind:class="classObject">
+    {{message}}
+
+</div>
+
+
+<div id="class-arry" v-bind:class="[arry1,arry2]">
+    {{message}}
+</div>
+
+
+<div id="class-arry-3yuan"
+     v-bind:class="[arry1 ? arry1Yes : '',arry2]">
+    {{message}}
+</div>
+
+
+
+
+
+
+
+<div id="bangdingClass-zujian">
+    <zujian-bangdingclass
+            v-bind:class="{active:isActive}">
+
+    </zujian-bangdingclass>
+</div>
+
+
+
+
+
+
+<div id="style-obj"
+     v-bind:style="{
+     color:activeColor,
+     fontSize:fontSize+'px'
+     }">
+    {{message}}
+</div>
+
+
+<div id="style-obj1"
+     v-bind:style='styleObj1'>
+    {{message}}
+
+</div>
+
+
+<div id="style-arry"
+     v-bind:style='[basic,advance]'>
+    {{message}}
+
+</div>
+
+
+<div id="v-if-template-key">
+   <template v-if="loginType==='usename'">
+       <label for="usename"></label>
+       <input type="text" id="usename"
+              placeholder="请输入用户名"
+              key="username-input">
+   </template>
+    <template v-else="loginType==='emailname'">
+        <label for="emailname"></label>
+        <input type="text" id="emailname"
+               placeholder="请输入邮箱名"
+               key="emailname-input">
+    </template>
+    <button v-on:click="changeLoginType">
+        目前是{{loginType}}登录 点击切换登录方式
+    </button>
+</div>
+
+
+
+<ul id="v-for">
+    <li v-for="item in items">
+        {{item.message}}
+    </li>
+</ul>
+
+
+<ul id="v-for-index">
+    <li v-for="(item, index) of items">
+        {{parentMessage}} - {{item.message}}-- 项位数是{{index}}
+    </li>
+</ul>
+
+
+<ul id="v-for-obj">
+    <li v-for="(value,key,index) in object">
+        {{index}}- {{key}} - {{value}}
+    </li>
+</ul>
+
+
+<div id="zhengshudiedai">
+    <span v-for="n in 10"> {{message}}  {{n}}</span>
+</div>
+
+
+<div id="v-if-template">
+    <template v-if="isOK">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+</div>
+
+
+<div>
+    <ul id="v-for-template">
+        <template v-for="item in items">
+            <li> {{item.message}}</li>
+        </template>
+    </ul>
+</div>
+
+
+<ul id="v-for-and-v-if">
+    <template v-for="todo in todos" v-if="!todo.isComplete">
+        <li> {{todo.thing}}</li>
+    </template>
+</ul>
+
+<div id="todolist">
+    <input type="text"
+           v-on:keyup.enter="addnewtodo"
+           v-model="value"
+           placeholder="请输入代办事项" >
+    <ul>
+        <template v-for="(todo,index) in todos">
+      <li> {{index}}-- {{todo}} </li>
+            <button v-on:click="removetodo(index)">
+                X
+            </button>
+        </template>
+    </ul>
+</div>
+
+
+<div id="todolist-zujian-v-for">
+    <input type="text"
+           v-on:keyup.enter="addtodo"
+           placeholder="请输入代办事项"
+           v-model="inputValue">
+    <ul>
+        <li is="all-list-zujian"
+            v-for="(item,index) in items"
+            v-bind:title="item"
+            v-on:removelist="items.splice(index,1)">
+        </li>
+    </ul>
+</div>
+
+
+
+
+<ul id="v-for-key">
+    <template v-for="todo in todos">
+        <li> {{todo.thing}}</li>
+    </template>
+</ul>
+
+
+
+
+
+
+<div id="guolvshujv-computed">
+    <ul>
+        <li v-for="number in fuheNumbers"> {{number}}
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+<div id="guolvshujv-methods">
+    <ul>
+        <li v-for="number in fuheNumbers(numbers)">
+            {{number}}
+        </li>
+    </ul>
+</div>
+
+
+
+
+
+
+<div id="jiantingshijian">
+    <button v-on:click="counter+=1">增加1</button>
+    {{counter}}
+</div>
+
+
+<div id="fangfashijianchuliqi">
+    <button v-on:click="greet">点我弹窗</button>
+</div>
+
+
+<div id="neilianchuliqi">
+    <button v-on:click="say('hi')">点我说hi</button>
+    <button v-on:click="say('点我干啥')">点我说“点我干啥”</button>
+</div>
+
+
+<div id="neilianchuliqi-yuansheng">
+    <button type="submit" v-on:click="warn('出错了，不能提交了',$event)">
+        点我提交
+    </button>
+</div>
+
+
+<div id="biaodankongjian">
+    <input type="text" v-model="message">
+    <p> {{message}} </p>
+</div>
+
+
+<div id="duohang">
+    <p style="white-space: pre">你输入的信息是: {{message}}</p>
+    <textarea v-model="message" name="noname"></textarea>
+</div>
+
+
+<div id="fuxuankuang">
+    <input type="checkbox" id="fxk" v-model="checked">
+    <label for="fxk"> {{checked}}</label>
+</div>
+
+
+<div id="duogefuxuankuang">
+    <input type="checkbox" value="张三" v-model="allChecked" id="input1">
+    <label for="input1">1</label>
+    <input type="checkbox" value="李四" v-model="allChecked" id="input2">
+    <label for="input2">2</label>
+    <input type="checkbox" value="王五" v-model="allChecked" id="input3">
+    <label for="input3">3</label>
+    <p>{{allChecked}}</p>
+</div>
+
+
+<div id="danxuananniu">
+    <input type="radio" value="男" v-model="picked1" id="danxuannan">
+    <label for="danxuannan">男性 </label>
+    <input type="radio" value="女" v-model="picked1" id="danxuannv">
+    <label for="danxuannv">女性</label>
+    <p> 你选择的是::::: {{picked1}}</p>
+</div>
+
+
+<div id="duoxuanliebiao">
+    <select name="selectname" id="selectnameID" v-model="selected" multiple>
+        <option value="baidu.com">百度</option>
+        <option value="google.com">谷歌</option>
+        <option value="sougou.com">souguo</option>
+        <option value="360.com">360</option>
+    </select>
+    <p>你选择的是 {{selected}}</p>
+</div>
+
+
+<div id="dongtaixuanxiang">
+    <select v-model="selected" name="selectname" id="dongtaixuanxiangSelect">
+        <option v-for="option in options" v-bind:value="option.value">
+            {{option.text}}
+        </option>
+    </select>
+    <p>你选择的是 {{selected}}</p>
+</div>
+
+
+<div id="bind-value-checkbox">
+    <input type="checkbox"
+           v-model="toggle"
+           v-bind:true-value="y"
+           v-bind:false-value="n">
+    <p>{{toggle}}</p>
+</div>
+
+
+<div id="bind-value-radio">
+    <input type="radio" v-model="pick" v-bind:value="yes">
+    <input type="radio" v-model="pick" v-bind:value="no">
+    <p>{{pick}}</p>
+</div>
+
+
+<div id="bind-value-select">
+    <select name="selectname" id="bind-value-selectID" v-model="selected">
+        <option v-bind:value="{百度拼音:'baidu'}">百度</option>
+        <option v-bind:value="{谷歌拼音:'google'}">谷歌</option>
+    </select>
+    <p> {{selected}}</p>
+</div>
+
+
+<div id="xiushifu-lazy">
+    <input v-model.lazy="message">
+    <p>{{message}}</p>
+</div>
+
+
+<div id="xiushifu-number">
+    <input type="number" v-model.number="message">
+    <p>{{message}}</p>
+</div>
+
+
+<div id="xiushifu-trim">
+    <input v-model.trim="message">
+    <p>{{message}}</p>
+</div>
+
+
+<div id="zujianQuanjv">
+    <my-component></my-component>
+    我是组件
+</div>
+
+
+<div id="zujianjvbu">
+    <my-component2></my-component2>
+</div>
+
+
+<div id="dataNotFunction">
+    <my-componentnotfunc></my-componentnotfunc>
+</div>
+
+
+<div id="dataIsFunction1">
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+    <simple-counter></simple-counter>
+</div>
+
+
+<div id="prop-chuangdi">
+    <child my-message="html不能识别大小写，此处应使用小写加 短杠的写法">
+
+    </child>
+</div>
+
+
+<div id="prop-bind">
+    <input type="text" v-model="parentMsg">
+    <br>
+    <child-show-input v-bind:my-msg="parentMsg">
+    </child-show-input>
+</div>
+
+
+<div id="prop-bind-quanjv">
+    <input type="text" v-model="parentMsgQuanjv">
+    <br>
+    <child-show-input-quanjv v-bind:my-msg-quanjv="parentMsgQuanjv">
+    </child-show-input-quanjv>
+</div>
+
+
+<div id="feiZiMianLiang">
+    <comp v-bind:some-prop="666"></comp>
+</div>
+
+
+<div id="jvbushujv">
+    <shiyongjvbushujv initial-counter="initial-counter属性的值"></shiyongjvbushujv>
+</div>
+
+
+<div id="child-do-return">
+    <child-do-return-comp size="sizE-valuEF"></child-do-return-comp>
+</div>
+
+
+<div id="add-event-by-self">
+    <p> {{total}} </p>
+    <button-self v-on:lisen-add-self-and-broth="changeTotal"></button-self>
+    <button-self v-on:lisen-add-self-and-broth="changeTotal"></button-self>
+</div>
+
+
+<div id="bangdingyuansheng">
+    我是绑定原生事件
+    <self-comp-origin v-on:click.native="nativeEvent"></self-comp-origin>
+</div>
+
+
+<div id="custom-event-input">
+    <custom-input></custom-input>
+</div>
+
+
+<div id="prop-example">
+    <father-prop v-bind:prop-must-number="isNumber"
+                 v-bind:prop-must-up0="up0">
+
+    </father-prop>
+</div>
+
+
+
+
+
+
+
+
+
+<div id="use-ref-example-parent">
+    <zujian-ref></zujian-ref>
+    <p> ref用法测试-----我是原生DOM </p>
+</div>
+
+<!--ref在外面的组件上-->
+<div id="ref-outside-component" v-on:click="consoleRef">
+    <component-father ref="outsideComponentRef">
+    </component-father>
+    <p>ref在外面的组件上</p>
+</div>
+
+<!--ref在外面的元素上-->
+<div id="ref-outside-dom" v-on:click="consoleRef" >
+    <component-father>
+    </component-father>
+    <p  ref="outsideDomRef">ref在外面的元素上</p>
+</div>
+
+
+<!--ref在里面的元素上--局部注册-->
+<div id="ref-inside-dom">
+    <component-father>
+    </component-father>
+    <p>ref在里面的元素上--局部注册</p>
+</div>
+
+<!--ref在里面的元素上--全局注册-->
+<div id="ref-inside-dom-all">
+    <ref-inside-dom-quanjv></ref-inside-dom-quanjv>
+</div>
+
+<div id="not-father-and-child">
+    <broth1></broth1>
+    <broth2></broth2>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
+<!--<script src="https://cdn.rawgit.com/chrisvfritz/5f0a639590d6e648933416f90ba7ae4e/raw/98739fb8ac6779cb2da11aaa9ab6032e52f3be00/currency-validator.js"></script>-->
+
+<script src="./vue.js"></script>
+<script src="./currency-validator.js"></script>
+<div id="self-event-input-component">
+    <currency-input
+            label="Price"
+            v-model="price"
+    ></currency-input>
+    <currency-input
+            label="Shipping"
+            v-model="shipping"
+    ></currency-input>
+    <currency-input
+            label="Handling"
+            v-model="handling"
+    ></currency-input>
+    <currency-input
+            label="Discount"
+            v-model="discount"
+    ></currency-input>
+    <p>Total: ${{ total }}</p>
+</div>
+
+
+<div id="danjia-shuliang-youhui">
+    <jisuanzujian v-model="huafei" label="话费">
+    </jisuanzujian>
+    <jisuanzujian v-model="dianfei" label="电费">
+    </jisuanzujian>
+    <jisuanzujian v-model="shuifei" label="水费">
+    </jisuanzujian>
+    <p> 合计（元）： {{total}}</p>
+</div>
+
+
+
+<div id="xiushifu-sync-yuanli">
+    <sync-zujian v-bind:zujianprops="oldKey"
+                 v-on:updatekey:zujianprops="newKey => oldKey=newKey">
+    </sync-zujian>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="prop-sync-example">
+<input type="text" v-model="parentMsg">
+<br>
+<prop-sync-child v-bind:message.sync="parentMsg">
+</prop-sync-child>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="not-fatherChild">
+    <broth1></broth1>
+    <broth2></broth2>
+</div>
+
+
+
+
+
+
+
+
+<div id="singleSlot">
+    <h4>我是父组件的标题</h4>
+    <single-slot>
+        <!--<p>这是一些初始内容</p>-->
+        <!--<p>这是更多的初始内容</p>-->
+    </single-slot>
+</div>
+
+
+<div id="jv-ming-slot">
+    <jv-ming-slot-zujian>
+        <h3 slot="h3yes">
+        1我是父组件中的h3-有slot属性-能被显示
+        </h3>
+        <h4>
+        2我是父组件中的h4
+        --我无slot属性--
+        当子组件模板中有slot无具名标签时
+        我可以显示，否则则显示不了
+        </h4>
+        <p slot="pyes">
+        4我是父组件中的p-有slot属性-能被显示
+        </p>
+        <h5>
+            3我是父组件中的h5
+            --我无slot属性--
+            当子组件模板中有slot无具名标签时
+            我可以显示，否则则显示不了
+        </h5>
+    </jv-ming-slot-zujian>
+</div>
+
+
+
+
+<div id="jvMingSlot">
+    <father-zujian-slot>
+        <h5 slot="header">我可能是标题</h5>
+        <p>我可能是内容</p>
+        <p>更多内容。。。。</p>
+        <h6 slot="footer">我可能是底部</h6>
+    </father-zujian-slot>
+</div>
+
+
+
+
+<div id="parentZuoYongYuChaChao">
+    <child>
+        <template scope="props">
+            <span>我是来自父组件</span>
+            <span>{{props.text}}</span>
+        </template>
+    </child>
+</div>
+
+
+
+<div id="zuoyongyuchacao">
+    <p>作用域插槽范例</p>
+    <father-comp>
+        <template scope="props">
+            <p> 我是父组件中的p </p>
+            <h4 > 我是父组件中的h4，
+            后面将显示子组件slot里的text的值:
+                {{props.text}}
+            </h4>
+        </template>
+    </father-comp>
+</div>
+
+
+<!--<div id="lieBiaoZuJianZuoYongYuChaCao">-->
+    <!--<lie-biao-zu-jian v-bind:items="items">-->
+        <!--<template  scope="props" slot="item">-->
+            <!--<li class="xiangYao">{{props.text}}</li>-->
+        <!--</template>-->
+    <!--</lie-biao-zu-jian>-->
+<!--</div>-->
+
+
+<div id="zuoyongyuchacaoLiebiao">
+<my-awesome-list >
+<template  scope="props">
+    <!--<li class="my-fancy-item">-->
+        <!--{{ props.text }}-->
+    <!--</li>-->
+</template>
+</my-awesome-list>
+</div>
+
+
+
+
+
+
+<div id="dongTaiZuJian">
+    <component v-bind:is="showCurrent">
+    </component>
+</div>
+
+
+
+
+
+
+
+
+<div id="bangding-zujian-duixiangshang">
+    <component v-bind:is="showZujianDuixiang">
+    </component>
+</div>
+
+
+
+
+
+<div id="keep-alive-example" include="a,b">
+    <keep-alive>
+        <component v-bind:is="showMe"></component>
+    </keep-alive>
+</div>
+
+
+
+
+
+
+<div id="bainXieKeFuYongZuJian">
+    <p> 一、编写可复用组件</p>
+    <kefuyongzujian
+            :shuxing1="shuXingZhi1"
+            @event-a="doThis"
+    >
+        <img slot="icon" src="./图片.png">
+        <p slot="eWaiNeiRong">4我是额外内容</p>
+    </kefuyongzujian>
+</div>
+
+
+
+<div id="async-zujian-example">
+    <async-zujian>
+    </async-zujian>
+</div>
+
+<div id="not-inline-template-example">
+    <not-inline-template>
+        <p slot="showP"> 我是父组件中的p，我不是内联模板  </p>
+        <div> 我是父组件中的div，我不是内联模板  </div>
+    </not-inline-template>
+</div>
+
+
+
+<div id="inline-template-example">
+    <inline-template-zujian inline-template >
+        <div>
+        <p > 我是父组件中的p，我是内联模板  </p>
+        <div> 我是父组件中的div，我是内联模板  </div>
+        </div>
+    </inline-template-zujian>
+</div>
+
+
+
+
+
+
+
+
+<script type="text/x-template" id="x-template-example">
+    <h4> 我是x-template里的h4</h4>
+</script>
+
+<div id="test-x-template">
+    <x-template-zujian></x-template-zujian>
+</div>
+
+
+<div id="stopSettimeout">
+<button id="showNum" v-on:click="showCount" >  开始计数 </button>
+
+<button id="stopNum" v-on:click="stopCount"> 停止 </button>
+</div>
+
+
+<script>
+    var demo= new Vue({
+    el:"#stopSettimeout",
+    data:{
+       showCountClock:null 
+    },  
+    methods:{
+
+        showCount:function(){
+            var i=0;         
+            this.showCountClock=setInterval(function(){
+                console.log(i+=1) ;
+            },1000);
+        },
+        stopCount:function(){
+            clearInterval(this.showCountClock)
+        }
+
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+<!--<script src="https://unpkg.com/axios@0.12.0/dist/axios.min.js"></script>-->
+<!--<script src="https://unpkg.com/lodash@4.13.1/lodash.min.js"></script>-->
+<script src="./axios.min.js"></script>
+<script src="./lodash.min.js"></script>
+<script>
+
+
+    Vue.component("my-component", {
+        template: "<li>你好呀 我是组件</li>"
+    });
+
+    new Vue({
+        el: "#example"
+    });
+
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            message: "测试暴露的实例属性"
+        }
+    });
+
+
+    var app2 = new Vue({
+        el: "#app2",
+        data: {
+            message: "页面加载于" + new Date()
+        }
+    });
+
+    var app3 = new Vue({
+        el: "#app3",
+        data: {
+            cansee: true
+        }
+    });
+    var app4 = new Vue({
+        el: "#app4",
+        data: {
+            todos: [
+                {"text": "我是谁"},
+                {"text": "我是从哪里来"},
+                {"text": "我要到哪里去"}
+            ]
+        }
+    });
+    var app5 = new Vue({
+        el: "#app5",
+        data: {
+            message: "daaaaa"
+        },
+        methods: {
+            changeMessage: function () {
+                this.message = this.message.split("").reverse().join("")
+            }
+        },
+        filters: {
+            capitalize: function (value) {
+                if (!value) return "";
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1)
+            }
+        }
+    });
+
+
+    var app6 = new Vue({
+        el: "#app6",
+        data: {
+            message: "我是老的信息"
+
+        }
+    });
+    var app7 = new Vue({
+        el: "#app7",
+        data: {
+            message: "我是链接"
+        },
+        methods: {
+            doSomeThing: function () {
+                console.log("111111");
+            }
+        }
+
+    });
+
+
+
+
+
+    var jisuanshuxing = new Vue({
+        el: "#jisuanshuxing",
+        data: {
+            message: "计算属性"
+        },
+        computed: {
+            reversedMessage: function () {
+                return this.message.split("").reverse().join("")
+            }
+        }
+    });
+
+
+
+
+
+
+    //    var vm = new Vue({
+    //        el: '#demo',
+    //        data: {
+    //            firstName: 'Foo',
+    //            lastName: 'Bar',
+    //            fullName: 'Foo Bar'
+    //        },
+    //        watch: {
+    //            firstName: function (val) {
+    //                this.fullName = val + ' ' + this.lastName
+    //            },
+    //            lastName: function (val) {
+    //                this.fullName = this.firstName + ' ' + val
+    //            }
+    //        }
+    //    })
+
+    var getAndset = new Vue({
+        el: "#demo",
+        data: {
+            firstname: "Foo",
+            lastname: "Bar"
+        },
+        computed: {
+            fullname: {
+                get: function () {
+                    return this.firstname + " " + this.lastname
+
+                },
+                set: function (newValue) {
+                    var names = newValue.split(" ");
+                    this.firstname = names[0];
+                    this.lastname = names[names.length - 1];
+
+                }
+            }
+        }
+    });
+
+    var watchExampleVM = new Vue({
+        el: "#watch-example",
+        data: {
+            question: "",
+            answer: "我不能给你答案，直到你问了问题以后"
+        },
+        watch: {
+            //如果question改变就运行这个函数
+            question: function (newQuestion) {
+                this.answer = "正在等待您停止输入";
+                this.getAnswer();
+            }
+        },
+        methods: {
+            getAnswer: _.debounce(function () {
+                var vm = this;
+                if (this.question.indexOf('？') === -1) {
+                    vm.answer = "问题都需要带“？”号";
+                    return;
+                }
+                vm.answer = "正在思考";
+                axios.get("https://yesno.wtf/api")
+                    .then(
+                        function (response) {
+                            vm.answer = _.capitalize(response.data.answer)
+                        })
+                    .catch(
+                        function (error) {
+                            vm.answer = "错误，未连接到api" + error
+                        })
+            }, 500)
+        }
+    });
+
+    var watchexample2=new Vue({
+        el:"#watch-example2",
+        data:{
+            question:'',
+            answer:"我不能给你答案直到你输入问题"
+        },
+        watch:{
+            question:function () {
+                this.answer="正在等待你输入问题";
+                 this.getAnswer() ;
+            }
+        },
+        methods:{
+            // _.debounce 是一个通过 lodash 限制操作频率的函数。
+            getAnswer:_.debounce(function () {
+                var vm=this;
+                if (this.question.indexOf("？")=== -1){
+                    vm.answer="缺少 “？”号" ;
+                    return ;
+                }
+                vm.answer="正在思考...";
+                axios.get("https://yesno.wtf/api")
+                    .then(function (response) {
+                        vm.answer=response.data.answer
+                    }).catch(function (error) {
+                    vm.answer="无法连接至api"+error
+                })
+
+            },500)
+        }
+    });
+
+    var htmlClassObj = new Vue({
+        el: "#html-class-obj",
+        data: {
+            message: "我是信息",
+            isActive: true
+        }
+    });
+
+
+    var htmlClassObj1 = new Vue({
+        el: "#html-class-obj1",
+        data: {
+            message: "同时使用多个属性，且本来就有class",
+            isActive: true,
+            hasError: true
+        }
+    });
+
+
+    var htmlClassObj2 = new Vue({
+        el: "#html-class-obj2",
+        data: {
+            message: "使用对象的方式",
+            classObject: {
+                active: true,
+                "text-danger": true
+            }
+
+        }
+    });
+
+
+    var htmlClassObj3 = new Vue({
+        el: "#html-class-obj3",
+        data: {
+            message: "绑定计算属性",
+            isActive: true,
+            error: null
+        },
+        computed: {
+            classObject: function () {
+                return {
+                    active: this.isActive && !this.error,
+                    "text-danger": this.error && this.error.type === "fatal"
+                }
+            }
+        }
+    });
+
+
+    var classArry = new Vue({
+        el: "#class-arry",
+        data: {
+            message: "使用class 数组的方式",
+            arry1: "classkey1",
+            arry2: "classkey2"
+        }
+    });
+
+
+    var classArry2 = new Vue({
+        el: "#class-arry-3yuan",
+        data: {
+            message: "使用class 数组 三元表达式 方式",
+            arry1: true,
+            arry2: "classkey2",
+            arry1Yes: "classkey1"
+        }
+    });
+
+
+
+
+
+    Vue.component("zujian-bangdingclass",{
+      template:"<p class='active10 active20'>" +
+                   "绑定class 组件的例子" +
+                "</p>"
+    });
+
+    var bangdingClassZujian=new Vue({
+        el:"#bangdingClass-zujian",
+        data:{
+            isActive:true
+        }
+    });
+
+
+
+
+
+
+
+
+
+    var styleObj = new Vue({
+        el: "#style-obj",
+        data: {
+            message: "内联样式绑定---对象法",
+            activeColor: 'green',
+            fontSize: '10px'
+
+        }
+    });
+
+    var styleObj1 = new Vue({
+        el: "#style-obj1",
+        data: {
+            message: "样式对象式--绑定内联样式",
+            styleObj1: {
+                color: 'green',
+                fontSize: '10px'
+            }
+        }
+    });
+
+
+    var styleArry = new Vue({
+        el: "#style-arry",
+        data: {
+            message: "数组语法--绑定内联样式",
+            basic: {
+                color: 'green',
+                fontSize: '10px'
+            },
+            advance: {
+                fontStyle: "italic",
+                transform: 'rotate(20deg)',
+                border: '1px solid red'
+            }
+
+        }
+    });
+
+    var viftemplatekey=new Vue({
+        el:"#v-if-template-key",
+        data:{
+            loginType: "emailname"
+        },
+        methods:{
+            changeLoginType:function () {
+                console.log(this.loginType);
+                if (this.loginType === "usename"){
+                    this.loginType = "emailname"
+                }else if (this.loginType === "emailname"){
+                    this.loginType = "usename"
+                }
+            }
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+    var vForExp = new Vue({
+        el: "#v-for",
+        data: {
+            items: [
+                {message: "我是第一个列表"},
+                {message: "我是第二个列表"},
+                {message: "我是第三个列表"}
+            ]
+        }
+    });
+
+
+    var vForIndexExp = new Vue({
+        el: "#v-for-index",
+        data: {
+            parentMessage: "我们都属于ul的子元素",
+            items: [
+                {message: "我是第一个列表"},
+                {message: "我是第二个列表"},
+                {message: "我是第三个列表"}
+            ]
+        }
+    });
+
+
+    var vForObjExp = new Vue({
+        el: "#v-for-obj",
+        data: {
+            object: {
+                "名字": "翠花",
+                "性别": "女"
+            }
+        }
+    });
+
+
+    var zhengshudiedai = new Vue({
+        el: "#zhengshudiedai",
+        data: {
+            message: "哈"
+        }
+    });
+
+    var vIfTemplate = new Vue({
+        el: "#v-if-template",
+        data: {
+            message: "哈",
+            isOK: 1
+        }
+    });
+
+
+    var vForTemplate = new Vue({
+        el: "#v-for-template",
+        data: {
+            items: [
+                {message: "谷歌a"},
+                {message: "谷歌s"},
+                {message: "谷歌d"},
+                {message: "谷歌f"}
+            ]
+        }
+    });
+
+    var vForAndVif = new Vue({
+        el: "#v-for-and-v-if",
+        data: {
+            todos: [
+                {thing: "学习数据结构与算法", isComplete: 0},
+                {thing: "学习vue", isComplete: 1},
+                {thing: "学习angular", isComplete: 0},
+                {thing: "学习express", isComplete: 1}
+            ]
+        }
+    });
+
+var todolist=new Vue({
+    el:"#todolist",
+    data:{
+        todos:[],
+        value:""
+    },
+    methods:{
+        addnewtodo:function () {
+          this.todos.push(this.value);
+            this.value='';
+        },
+        removetodo:function (num) {
+            this.todos.splice(num,1)
+        }
+
+    }
+});
+
+Vue.component("all-list-zujian",{
+    template: ` <li>{{ title }}<button v-on:click="$emit('removelist')">X</button> </li>`,
+    props:["title"]
+});
+
+var todolistzujianvfor=new Vue({
+    el:"#todolist-zujian-v-for",
+    methods:{
+        addtodo:function () {
+            this.items.push(this.inputValue);
+            this.inputValue='';
+        }
+    },
+    data:{
+        items:[],
+        inputValue:""
+
+    }
+});
+
+
+
+
+
+
+
+    var vForKey = new Vue({
+        el: "#v-for-key",
+        data: {
+            todos: [
+                {thing: "1学习数据结构与算法"},
+                {thing: "2学习vue"},
+                {thing: "3学习angular"},
+                {thing: "4学习express"}
+            ]
+        }
+    });
+
+var guolvshujv=new Vue({
+    el:"#guolvshujv-computed",
+    data:{
+        numbers:[1,2,3,4,5]
+    },
+    computed:{
+        fuheNumbers:function () {
+            return this.numbers.filter(function (num){
+                return num%2===0
+            })
+        }
+    }
+});
+
+
+var guolvshujv=new Vue({
+    el:"#guolvshujv-methods",
+    data:{
+        numbers:[1,2,3,4,5,6]
+    },
+    methods:{
+        fuheNumbers:function (numbers) {
+            return numbers.filter(function (number){
+                return number%3===0;
+            })
+        }
+    }
+});
+
+
+
+
+    var jiantingshijian = new Vue({
+        el: "#jiantingshijian",
+        data: {
+            counter: 0
+        }
+    });
+
+
+    var fangfashijianchuliqi = new Vue({
+        el: "#fangfashijianchuliqi",
+        data: {
+            name: "我是vue"
+        },
+        methods: {
+            greet: function (event) {
+                alert(this.name);
+                alert(event.target.tagName)
+            }
+        }
+    });
+
+
+    var neilianchuliqi = new Vue({
+        el: "#neilianchuliqi",
+        data: {
+            name: "我是vue"
+        },
+        methods: {
+            say: function (message) {
+                alert(message);
+            }
+        }
+    });
+
+
+    var neilianchuliqiYuansheng = new Vue({
+        el: "#neilianchuliqi-yuansheng",
+        data: {
+            name: "我是vue"
+        },
+        methods: {
+            warn: function (message, event) {
+                if (event) {
+                    event.preventDefault();
+                    alert(message);
+                }
+            }
+        }
+    });
+
+
+    var biaodankongjian = new Vue({
+        el: "#biaodankongjian",
+        data: {
+            message: "你好，我是vue"
+        }
+    });
+
+
+    var duohang = new Vue({
+        el: "#duohang",
+        data: {
+            message: "你好，我是多行文字"
+        }
+    });
+
+
+    var fuxuankuang = new Vue({
+        el: "#fuxuankuang",
+        data: {
+            checked: ""
+        }
+    });
+
+
+    var duogefuxuankuang = new Vue({
+        el: "#duogefuxuankuang",
+        data: {
+            allChecked: []
+        }
+    });
+
+
+    var danxuananniu = new Vue({
+        el: "#danxuananniu",
+        data: {
+            picked1: ""
+        }
+    });
+
+
+    var duoxuanliebiao = new Vue({
+        el: "#duoxuanliebiao",
+        data: {
+            selected: []
+        }
+    });
+
+
+    var dongtaixuanxiang = new Vue({
+        el: "#dongtaixuanxiang",
+        data: {
+            selected: "",
+            options: [
+                {value: "baidu.com", text: "百度"},
+                {value: "google.com", text: "谷歌"},
+                {value: "sougou.com", text: "搜狗"}
+            ]
+        }
+    });
+
+
+    var bindvaluecheckbox = new Vue({
+        el: "#bind-value-checkbox",
+        data: {
+            toggle: '',
+            y: "是!!!",
+            n: "不是!!!"
+        }
+    });
+
+    var bindvalueradio = new Vue({
+        el: "#bind-value-radio",
+        data: {
+            pick: '',
+            yes: "好!!!",
+            no: "不好!!!!"
+        }
+    });
+
+
+    var bindvalueselect = new Vue({
+        el: "#bind-value-select",
+        data: {
+            selected: ''
+        }
+    });
+
+
+    var xiushifulazy = new Vue({
+        el: "#xiushifu-lazy",
+        data: {
+            message: ''
+        }
+    });
+
+
+    var xiushifunumber = new Vue({
+        el: "#xiushifu-number",
+        data: {
+            message: ''
+        }
+    });
+
+
+    var xiushifutrim = new Vue({
+        el: "#xiushifu-trim",
+        data: {
+            message: '修饰符-trim'
+        }
+    });
+
+
+    //注册
+    Vue.component('my-component', {
+        template: "<h3> 我是由组件生成的h1</h3>"
+    });
+
+    //创建根实例
+    var zujianQuanjv = new Vue({
+        el: "#zujianQuanjv"
+    });
+
+
+    //局部注册
+    var jvbuZujian = {
+        template: "<h4> 我是局部注册的组件 </h4>"
+    };
+
+    var zujianjvbu = new Vue({
+        el: "#zujianjvbu",
+        components: {
+            "my-component2": jvbuZujian
+        }
+    });
+
+
+    //注册
+    Vue.component("my-componentnotfunc",
+        {
+            template: '<h5> 我是组件中的h5 </h5>'
+        }
+    );
+
+
+    //创建根实例
+    var dataNotFunction = new Vue({
+        el: "#dataNotFunction"
+    });
+
+
+    //        var data={ counter:0};
+    //先注册
+    Vue.component("simple-counter", {
+        template: "<button v-on:click='counter+=1'> {{counter}} </button>",
+        data: function () {
+            return {
+                counter: 0
+            }
+        }
+    });
+    //后根实例化
+    var dataIsFunction1 = new Vue({
+        el: "#dataIsFunction1"
+    });
+
+
+    Vue.component("child", {
+        props: ['myMessage'],
+        template: "<h5> {{myMessage}} </h5>"
+    });
+
+    var propChuangdi = new Vue({
+        el: "#prop-chuangdi"
+    });
+
+    //局部
+
+
+    var jvbuzhucechild = {
+        props: ["my-msg"],
+        template: "<p>{{myMsg}}</p>"
+    };
+    var childshowinputjvbu = new Vue({
+        el: "#prop-bind",
+        data: {
+            parentMsg: "我的数据是从父元素得到的，我与父元素数据是同步的 "
+        },
+        components: {
+            "child-show-input": jvbuzhucechild
+        }
+
+    });
+
+
+    //全局组件
+
+    //先注册
+    Vue.component("child-show-input-quanjv", {
+        props: ["my-msg-quanjv"],
+        template: "<h6> {{myMsgQuanjv}}  </h6>"
+    });
+    //再进行根实例化
+    var propbindquanjv = new Vue({
+        el: "#prop-bind-quanjv",
+        data: {
+            parentMsgQuanjv: " 我是上面例子中的全局组件的演变"
+        }
+    });
+
+
+    //局部组件
+    var compTemp = {
+        props: ["some-prop"],
+        template: "<h5> {{someProp}} </h5>"
+    };
+
+    var feiZiMianLiang = new Vue({
+        el: "#feiZiMianLiang",
+        components: {
+            "comp": compTemp
+        }
+    });
+
+    var jvbushujvTem = {
+        props: ["initialCounter"],
+        template: "<h5> {{counter}} </h5>",
+        data: function () {
+            return {
+                counter: this.initialCounter
+            }
+        }
+    };
+    var jvbushujv = new Vue({
+        el: "#jvbushujv",
+        components: {
+            "shiyongjvbushujv": jvbushujvTem
+        }
+    });
+
+    var childDoReturnTem = {
+        props: ["size"],
+        template: "<h3> {{normalizedSize}} </h3>",
+        computed: {
+            normalizedSize: function () {
+                return this.size.trim().toLowerCase()
+            }
+        }
+    };
+    var childDoReturn = new Vue({
+        el: "#child-do-return",
+        components: {
+            "child-do-return-comp": childDoReturnTem
+        }
+    });
+
+    Vue.component("button-self", {
+        template: '<button v-on:click="addSelfAndBroth">{{curValue}}</button>',
+        methods: {
+            addSelfAndBroth: function () {
+                this.curValue += 1;
+                this.$emit("lisen-add-self-and-broth");
+            }
+        },
+        data: function () {
+            return {curValue: 0};
+        }
+    });
+    var addeventbyself = new Vue({
+        el: "#add-event-by-self",
+        data: {
+            total: 0
+        },
+        methods: {
+            changeTotal: function () {
+                this.total += 1;
+            }
+        }
+    });
+
+
+    Vue.component("self-comp-origin", {
+        template: "<button>点我弹出及打印</button>"
+    });
+
+    var bangdingyuansheng = new Vue({
+        el: "#bangdingyuansheng",
+        methods: {
+            nativeEvent: function () {
+                alert(" 我是 methods里的")
+            }
+        }
+
+
+    });
+
+    Vue.component("custom-input", {
+        template: '<span>' +
+        '<input ref="inputValue" v-bind:value="value" v-on:input="updateValue($event.target.value)">' +
+        '</span>',
+        methods: {
+            updateValue: function (value) {
+                var formValue = value.trim().slice(0, value.indexOf('.') + 3);
+                if (formValue !== value) {
+                    this.$refs.inputValue.value = formValue;
+                }
+                this.$emit('input', Number(formValue));
+                console.log(this);
+            }
+        },
+        data: function () {
+            return {"value": "0"};
+        }
+    });
+
+    var customeventinput = new Vue({
+        el: "#custom-event-input"
+    });
+
+
+    var userefexampleTem = {
+        template: " <div v-on:click='showRef'>" +
+                       "<h4 ref='isref'> 测试ref</h4>" +
+                  "</div>",
+        methods: {
+            showRef: function () {
+                console.log("this.$refs.isref是", this.$refs.isref);
+                console.log(this)
+            }
+        }
+    };
+    var userefexampleparent = new Vue({
+        el: "#use-ref-example-parent",
+        components: {
+            "zujian-ref": userefexampleTem
+        }
+    });
+
+    var refoutsidecomponentTem={
+        template:"<div class='childComp'><h5>我是子组件</h5></div>"
+    };
+    var  refoutsidecomponent=new Vue({
+        el:"#ref-outside-component",
+        components:{
+            "component-father":refoutsidecomponentTem
+        },
+        methods:{
+            consoleRef:function () {
+                console.log(this);
+                console.log(this.$refs.outsideComponentRef);
+            }
+        }
+    });
+
+
+
+    var refoutsidedomTem={
+        template:"<div class='childComp'><h5>我是子组件</h5></div>"
+    };
+    var  refoutsidedom=new Vue({
+        el:"#ref-outside-dom",
+        components:{
+            "component-father":refoutsidedomTem
+        },
+        methods:{
+            consoleRef:function () {
+                console.log(this);
+                console.log(this.$refs.outsideDomRef);
+            }
+        }
+    });
+
+
+    var refinsidedomTem={
+        template:"<div class='childComp' v-on:click='consoleRef'>" +
+                       "<h5 ref='insideDomRef'>我是子组件</h5>" +
+                  "</div>",
+        methods:{
+            consoleRef:function () {
+                console.log(this);
+                console.log(this.$refs.insideDomRef);
+            }
+        }
+    };
+    var  refinsidedom=new Vue({
+        el:"#ref-inside-dom",
+        components:{
+            "component-father":refinsidedomTem
+        }
+    });
+
+    Vue.component("ref-inside-dom-quanjv",{
+        template:"<div class='insideFather'> " +
+                    "<input type='text' ref='insideDomRefAll' v-on:input='showinsideDomRef'>" +
+                    "  <p>ref在里面的元素上--全局注册 </p> " +
+                  "</div>",
+        methods:{
+            showinsideDomRef:function () {
+                console.log(this); //这里的this其实还是div.insideFather
+                console.log(this.$refs.insideDomRefAll);
+            }
+        }
+    });
+
+    var refinsidedomall=new Vue({
+        el:"#ref-inside-dom-all"
+    });
+
+    var kongvue=new Vue();
+    var broth1Temp={
+        template:"<div><p> 我是broth1的数值: {{broth1count}}</p> <button v-on:click='addbroth2count'>点我增加broth2的数值</button> </div>",
+        methods:{
+            addbroth2count:function () {
+                kongvue.$emit("getbroth1Event")
+            }
+        },
+        data:function () {
+            return { broth1count:0 }
+        }
+    };
+    var broth2Temp={
+        template:"<div><p> 我是broth2的数值: {{broth2count}}</p></div>",
+        methods:{
+            getbroth1Event:function () {
+
+
+            }
+        },
+        mounted:function () {
+            kongvue.$on("getbroth1Event",function () {
+                this.broth2count+=1;
+                console.log(this)
+            }.bind(this));
+        },
+        data:function () {
+            return { broth2count:0 }
+        }
+
+    };
+
+    var notfatherandchild2=new Vue({
+        el:"#not-father-and-child",
+        components:{
+         "broth1":   broth1Temp,
+         "broth2":   broth2Temp
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    var userefexamplechild = userefexampleparent.$refs.isref;
+    //console.log("userefexampleparent.$refs.isref是",userefexamplechild);
+
+
+    //先注册
+    Vue.component("father-prop", {
+        props: {
+            //验证类型
+            propMustNumber: Number,
+            //验证类型及大于0
+            propMustUp0: {
+                type: Number,
+                default: 0,
+                required: true,
+                validator: function (value) {
+                    return value >= 0
+                }
+            }
+        },
+        template: "<h4>{{propMustNumber}} {{propMustUp0}}</h4>"
+    });
+    //再根实例化
+    var propexample = new Vue({
+        el: "#prop-example",
+        data: {
+            isNumber: 0,
+            up0: 666
+        }
+    });
+
+    Vue.component('currency-input', {
+        template: ' <div> ' +
+        '<label v-if="label">{{ label }}</label>  ' +
+        '$ <input ref="input" ' +
+        'v-bind:value="value"  ' +
+        'v-on:input="updateValue($event.target.value)" ' +
+        'v-on:focus="selectAll"    ' +
+        'v-on:blur="formatValue">' +
+        '</div>',
+        props: {
+            value: {
+                type: Number,
+                default: 0
+            },
+            label: {
+                type: String,
+                default: ''
+            }
+        },
+        mounted: function () {
+            this.formatValue()
+        },
+        methods: {
+            updateValue: function (value) {
+                var result = currencyValidator.parse(value, this.value)
+                if (result.warning) {
+                    this.$refs.input.value = result.value
+                }
+                this.$emit('input', result.value)
+            },
+            formatValue: function () {
+                this.$refs.input.value = currencyValidator.format(this.value)
+            },
+            selectAll: function (event) {
+                // Workaround for Safari bug
+                // http://stackoverflow.com/questions/1269722/selecting-text-on-focus-using-jquery-not-working-in-safari-and-chrome
+                setTimeout(function () {
+                    event.target.select()
+                }, 0)
+            }
+        }
+    });
+
+    new Vue({
+        el: '#self-event-input-component',
+        data: {
+            price: 0,
+            shipping: 0,
+            handling: 0,
+            discount: 0
+        },
+        computed: {
+            total: function () {
+                return ((
+                    this.price * 100 +
+                    this.shipping * 100 +
+                    this.handling * 100 -
+                    this.discount * 100
+                ) / 100).toFixed(2)
+            }
+        }
+    });
+
+
+    Vue.component("jisuanzujian", {
+        template: " <div> <label v-if='label' v-bind:for='label'> {{label}}： <input v-bind:value='value' " +
+        "v-on:input='upInputDate($event.target.value)' " +
+        "v-on:focus='selectAll($event.target)' " +
+        "v-on:blur='formatValue' " +
+        "ref='childInputValue'></label> </div>",
+        props: {
+            value: {
+                type: Number,
+                default: 0
+            },
+            label: {
+                type: String,
+                default: ''
+            }
+        },
+        mounted: function () {
+            this.formatValue()
+        },
+        methods: {
+            upInputDate: function (value) {
+                var result = currencyValidator.parse(value, this.value);
+                if (result.warning) {
+                    this.$refs.childInputValue.value = result.value;
+                }
+                this.$emit("input", result.value);
+            },
+            selectAll: function (event) {
+                setTimeout(function () {
+                    event.select();
+                }, 0)
+            },
+            formatValue: function () {
+                this.$refs.childInputValue.value = currencyValidator.format(this.value);
+            }
+        }
+    });
+
+    var danjiashuliangyouhui = new Vue({
+        el: "#danjia-shuliang-youhui",
+        data: {
+            huafei: 0,
+            dianfei: 0,
+            shuifei: 0
+        },
+        computed: {
+            total: function () {
+                return ( this.huafei + this.dianfei + this.shuifei).toFixed(2);
+            }
+        }
+    });
+
+    var synczujianTemp = {
+        template: " <h4 v-on:click='changeProps'> 测试修饰符sync---{{zujianprops}}  </h4> ",
+        props: ["zujianprops"],
+        methods: {
+            changeProps: function () {
+                this.$emit("updatekey:zujianprops","新属性");
+            }
+        }
+
+    };
+    var xiushifusync = new Vue({
+        el: "#xiushifu-sync-yuanli",
+        components: {
+            syncZujian: synczujianTemp
+        },
+        data: {
+            oldKey: "我是sync-zujian的旧属性props"
+        }
+    });
+
+
+
+
+
+
+
+
+var propsyncchildTemp={
+    props:["message"],
+    template:" <div> " +
+                 "<input  type='text' v-model='message'>" +
+                "<button v-on:click='changeProp'>" +
+                   "changeProp" +
+                 "</button>" +
+               "</div>",
+    methods:{
+        changeProp:function () {
+            this.$emit( "update:message","我是子组件的新属性值")
+        }
+    }
+};
+
+var propsyncexample=new Vue({
+    el:"#prop-sync-example",
+    data:{
+        parentMsg:"我是父元素属性"
+    },
+    components:{
+        "prop-sync-child":propsyncchildTemp
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // 使用空的实例作为中央事件总线
+    var bus=new Vue({});
+    //broth1 组件
+    var broth1Temp={
+        template:"<div>我是broth1,我的数值是{{broth1Count}},<button v-on:click='addBroth2Count'>点我增加broth2的数值</button></div>",
+        data:function () {
+            return  {broth1Count:0}
+        },
+        methods:{
+            addBroth2Count:function () {
+                bus.$emit("addBroth2Count");
+            }
+        }
+    };
+    //broth2 组件
+    var broth2Temp={
+        template:"<div>我是broth2,我的数值是{{broth2Count}}</div>",
+        data:function () {
+            return  {broth2Count:0}
+        },
+        mounted:function () {
+            bus.$on("addBroth2Count",function () {
+                this.broth2Count+=1;
+            }.bind(this))
+        }
+    };
+var notfatherChild1=new Vue({
+    el:"#not-fatherChild",
+    components:{
+        "broth1":broth1Temp,
+        "broth2":broth2Temp
+    }
+});
+
+
+
+
+
+var  singleSlotTemp={
+    template:
+    "<div>" +
+     " <h6>我是子组件的标题</h6>  " +
+      "<slot> 当父组件中无内容时我才被显示 </slot> " +
+    "</div>"
+};
+var singleSlotvue=new Vue({
+    el:"#singleSlot",
+    components:{
+        "single-slot":singleSlotTemp
+    }
+});
+var jvmingslotzujianTemp={
+    template:" <div class='childzujian'>" +
+                    "<slot name='h3yes'></slot> " +
+                     "<slot></slot> " +
+                    "<slot name='pyes'></slot>  " +
+                    "<h2>5我是子组件模板中的h2</h2>  " +
+                "</div>"
+};
+
+var jvmingslot=new Vue({
+    el:"#jv-ming-slot",
+    components:{
+        "jv-ming-slot-zujian":jvmingslotzujianTemp
+    }
+});
+
+
+
+
+
+
+
+Vue.component("father-zujian-slot",{
+    template:
+    "<div>" +
+        "<header>" +
+              "<slot name='header'></slot>" +
+        "</header>" +
+        "<main> " +
+             "<slot></slot> " +
+        "</main> " +
+        "<footer> " +
+            "<slot name='footer'></slot> " +
+        "</footer> " +
+    "</div> "
+});
+
+var jvMingSlot=new Vue({
+    el:"#jvMingSlot"
+});
+
+
+var childTem={
+    template:"<div class='child'>" +
+                 "<slot text='我是来自子组件'></slot>" +
+              "</div>"
+};
+
+var parentZuoYongYuChaChao=new Vue({
+    el:"#parentZuoYongYuChaChao",
+    components:{
+        "child":childTem
+    }
+});
+
+var fathercompTemp={
+template:"<div> " +
+    "<h5> 我是子组件中的h5 </h5> " +
+    "<slot text='我是子组件模板中的slot的text属性的值'>" +
+    "</slot>" +
+          "</div>"
+};
+
+var zuoyongyuchacao=new Vue({
+    el:"#zuoyongyuchacao",
+    components:{
+      "father-comp":  fathercompTemp
+    }
+});
+
+
+
+
+
+//Vue.component("lie-biao-zu-jian",{
+//    template:"<ul> <slot name='item' v-for='item in items' v-bind:text='item.text'></slot></ul>"
+//});
+//var lieBiaoZuJianZuoYongYuChaCao=new Vue({
+//    el:"#lieBiaoZuJianZuoYongYuChaCao",
+//    data:{
+//        items:{
+//            item:"111",
+//            item:"222"
+//        }
+//    }
+//});
+
+    var myawesomelistTemp={
+        template:'<ul>' +
+                    '<slot    ' +
+                          'v-for="item in items" :text="item.text" :beiyong="item.beiyong">' +
+                    ' {{item.beiyong}}  ' +
+                    '</slot>' +
+                 '</ul>'
+        ,
+        data:function () {
+            return { items:[
+                {text:"我是text1",beiyong:"我是text1的备用内容"},
+                {text:"我是text2",beiyong:"我是text2的备用内容"}
+                ] }
+        }
+    };
+
+    var zuoyongyuchacaoLiebiao=new Vue({
+        el:"#zuoyongyuchacaoLiebiao",
+        components:{
+            myAwesomeList:myawesomelistTemp
+        }
+
+    });
+
+    var dongTaiZuJianTem1={
+      template:"<h5>我是兔子</h5>"
+    };
+    var dongTaiZuJianTem2={
+        template:"<h5>我是猫</h5>"
+    };
+    var dongTaiZuJianTem3={
+        template:"<h5>我是狗</h5>"
+    };
+
+
+    var dongTaiZuJian=new Vue({
+        el:"#dongTaiZuJian",
+        data:{
+            showCurrent:"mao"
+        },
+        components:{
+            tuzi:dongTaiZuJianTem1,
+            mao:dongTaiZuJianTem2,
+            gou:dongTaiZuJianTem3
+        }
+    });
+
+
+
+
+    var zujianDuixiang={
+        template:"<h4>绑定组件对象上</h4>"
+    };
+
+    var bangdingzujianduixiangshang=new Vue({
+        el:"#bangding-zujian-duixiangshang",
+        data:{
+            showZujianDuixiang:zujianDuixiang
+        }
+    });
+
+
+
+    var zujianDuixiangKeepAlive={
+        template:"<h5>组件对象 keep-active</h5>"
+    };
+    var keepaliveexample=new Vue({
+        el:"#keep-alive-example",
+        data:{
+            showMe: zujianDuixiangKeepAlive
+        }
+    });
+
+    var kefuyongzujianTemp={
+        template:"  <div>" +
+                        "<h5 v-on:click='jiHuoDoThis'>" +
+                        "2我是可复用组件中的子组件模板中的h5" +
+                        "</h5>" +
+                        "<slot name='icon'>" +
+                        "</slot>" +
+                        "<slot name='eWaiNeiRong'>" +
+                        "</slot>" +
+                    "</div>",
+        methods:{
+            jiHuoDoThis:function () {
+                console.log("子组件模板中的jiHuoDoThis方法运行了！");
+                this.$emit("event-a")
+            }
+        }
+    };
+    var bainXieKeFuYongZuJian=new Vue({
+        el:"#bainXieKeFuYongZuJian",
+        components:{
+            kefuyongzujian:kefuyongzujianTemp
+        },
+        data:{
+            shuXingZhi1:"我是属性值1",
+            shuXingZhi2:"我是属性值2"
+        },
+        methods:{
+            doThis:function () {
+                console.log("我是外部环境（父组件）中的 doThis")
+            }
+        }
+    });
+
+
+    Vue.component("async-zujian",function (resolve,reject) {
+            setTimeout(function () {
+                resolve({
+                    template:"<h5> 我是异步组件范例，3秒钟后出现! </h5>"
+                });
+            },3000);
+        }
+    );
+
+    var asynczujianexample=new Vue({
+        el:"#async-zujian-example"
+    });
+
+ var   notinlinetemplateTemp={
+     template:"<div> <h5> 我是子组件里的h5--不是内联模板</h5> <slot name='showP'></slot></div>"
+ };
+ var notinlinetemplateexample=new Vue({
+     el:"#not-inline-template-example",
+     components:{
+         notInlineTemplate:  notinlinetemplateTemp
+     }
+ });
+
+
+
+    var   tinlinetemplateTemp={
+        template:"<h5>" +
+                   "我是子组件里的h5--是内联模板" +
+                  "</h5>"
+    };
+    var tinlinetemplateexample=new Vue({
+        el:"#inline-template-example",
+        components:{
+            inlineTemplateZujian:  tinlinetemplateTemp
+        }
+    });
+
+
+
+
+
+
+    Vue.component("x-template-zujian",{
+        template:"#x-template-example"
+    });
+    var xtemplateExample=new Vue({
+        el:"#test-x-template"
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

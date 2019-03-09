@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+            grid-template-rows: repeat(2, 100px);
+            grid-gap: 10px;
+
+        }
+        .wrap>div{
+            border: 1px solid red;
+            background-color: yellow;
+
+        }
+        .wrap>div>img{
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: 0 0;
+        }
+
+
+    </style>
+</head>
+<body>
+<a href="http://www.css88.com/archives/8706">一行 CSS 代码实现响应式布局 – 使用 Grid 实现的响应式布局</a>
+
+<div class="wrap">
+    <div class="content1"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+    <div class="content2"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+    <div class="content3"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+    <div class="content1"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+    <div class="content2"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+    <div class="content3"><img src="http://www.css88.com/img/qrcode-css88.jpg" alt=""></div>
+</div>
+
+</body>
+</html>

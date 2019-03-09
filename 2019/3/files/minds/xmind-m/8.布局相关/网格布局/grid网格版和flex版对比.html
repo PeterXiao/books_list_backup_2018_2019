@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        /*              一、grid方法           */
+
+        .grid-wrap-part {
+            display: grid;
+            /*grid-template-rows: 100px minmax(300px, auto) 100px;*/
+            grid-template-columns: 3fr 1fr;
+            grid-template-areas: 'h h' ' s a ' ' f f ';
+            grid-gap: 5px;
+        }
+
+        .grid-wrap-part > header {
+            grid-area: h;
+            background: red;
+            display: grid;
+            height: 100px;
+            grid-template-columns: 1fr 1fr;
+            /*display: flex;*/
+            /*justify-content: space-between;*/
+        }
+
+        .grid-wrap-part > header > nav {
+            justify-self: start;
+            align-self: center;
+        }
+
+        .grid-wrap-part > header > nav .link .log {
+            font-size: 30px;
+        }
+
+        .grid-wrap-part > header > nav .link > li {
+            display: inline;
+        }
+
+        .grid-wrap-part > header > button {
+            justify-self: end;
+            align-self: center;
+        }
+
+        .grid-wrap-part > section {
+            grid-area: s;
+            background: green;
+        }
+
+        .grid-wrap-part > aside {
+            grid-area: a;
+            background: blue;
+        }
+
+        .grid-wrap-part > footer {
+            grid-area: f;
+            background: yellow;
+            height: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-wrap-part {
+                grid-template-areas: 'h h' 's s' 'a a' 'f f';
+                /*  或者下面的写法也可以  */
+                /*grid-template-columns: 1fr;*/
+                /*grid-template-areas: 'h' 's' 'a' 'f';*/
+            }
+
+        }
+
+        /*               二、flex方法           */
+        .flex-wrap-part {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-wrap-part > header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+            background: red;
+            margin-top: 50px;
+        }
+
+        .flex-wrap-part > header > nav > .link {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .flex-wrap-part > header > nav > .link .log {
+            font-size: 30px;
+        }
+
+        .flex-wrap-part > .main {
+            display: flex;
+            margin: 5px 0;
+
+        }
+
+        .flex-wrap-part > .main > section {
+            flex: 3;
+            background: green;
+            margin-right: 5px;
+        }
+
+        .flex-wrap-part > .main > aside {
+            flex: 1;
+            background: blue;
+        }
+
+        .flex-wrap-part > footer {
+            height: 100px;
+            background: yellow;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 600px) {
+            .flex-wrap-part > .main {
+                flex-direction: column;
+            }
+
+            .flex-wrap-part > .main > section {
+                flex: 1;
+                margin-bottom: 5px;
+                margin-right:0;
+            }
+
+        }
+
+
+    </style>
+</head>
+<body>
+<a href="http://www.css88.com/archives/8642">CSS Grid VS Flexbox：实例比较</a>
+<section class="grid-wrap-part">
+    <header>
+        <nav>
+            <ul class="link">
+                <li><a href="####" class="log">grid网格布局log</a></li>
+                <li><a href="####">link</a></li>
+                <li><a href="####">link</a></li>
+            </ul>
+        </nav>
+        <button>button</button>
+    </header>
+    <section>
+        <h1>标题</h1>
+        <p>这里是grid方法</p>
+        <p>这里是grid方法</p>
+        <p>这里是grid方法</p>
+        <p>这里是grid方法</p>
+        <p>这里是grid方法</p>
+    </section>
+    <aside>侧边栏</aside>
+    <footer>底部</footer>
+</section>
+
+<section class="flex-wrap-part">
+    <header>
+        <nav>
+            <ul class="link">
+                <li><a href="####" class="log">flexbox布局log</a></li>
+                <li><a href="####">link</a></li>
+                <li><a href="####">link</a></li>
+            </ul>
+        </nav>
+        <button>button</button>
+    </header>
+    <!--需要另外添加一个包裹容器-->
+    <div class="main">
+        <section>
+            <h1>标题</h1>
+            <p>这里是flex方法</p>
+            <p>这里是flex方法</p>
+            <p>这里是flex方法</p>
+            <p>这里是flex方法</p>
+            <p>这里是flex方法</p>
+        </section>
+        <aside>侧边栏</aside>
+    </div>
+    <footer>底部</footer>
+</section>
+</body>
+</html>

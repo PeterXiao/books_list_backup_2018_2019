@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .shengbei {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 200px auto 200px;
+            grid-template-areas:'h h h' 'la  a ra' 'f f f';
+        }
+        .shengbei>header{
+            grid-area: h;
+            background: red;
+        }
+        .shengbei>.left-aside{
+            grid-area: la;
+            background: green;
+        }
+        .shengbei>article{
+            grid-area: a;
+            background: yellow;
+        }
+        .shengbei>.right-aside{
+            grid-area: ra;
+            background: brown;
+        }
+        .shengbei>footer{
+            grid-area: f;
+            background: fuchsia;
+        }
+        @media (max-width: 640px) {
+            .shengbei {
+                grid-template-areas:'h h h ' 'la la la' 'a a a' 'ra ra ra' 'f f f';
+
+            }
+        }
+
+    </style>
+</head>
+<body>
+<a href="http://www.css88.com/archives/8635">CSS Grid 布局示例大全</a>
+<!--     一、圣杯布局   -->
+<section class="shengbei">
+    <header>圣杯布局header</header>
+    <aside class="left-aside">左侧边栏</aside>
+    <article>内容</article>
+    <aside class="right-aside">右侧边栏</aside>
+    <footer>底部</footer>
+</section>
+<!--     二、两列布局   -->
+<!--     三、均匀分布，按需调整   -->
+<!--     四、文章内容布局   -->
+<!--     五、灵活的布局变化   -->
+</body>
+</html>
