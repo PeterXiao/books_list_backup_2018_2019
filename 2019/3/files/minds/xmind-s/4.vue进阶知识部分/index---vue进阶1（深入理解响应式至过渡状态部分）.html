@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s
+        }
+        .fade-enter, .fade-leave-to{
+        opacity: 0
+        }
+        .slide-fade-enter-active{
+            transition: all .3s ease;
+        }
+        .slide-fade-leave-active{
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        }
+        .slide-fade-enter,.slide-fade-leave-active{
+            transform: translateX(10px);
+            opacity: 0;
+        }
+
+        .css-animation-enter-active{
+            animation: smalltobig 1s ;
+        }
+        @keyframes smalltobig {
+            0% { transform: scale(0)}
+            50% { transform: scale(1.5)}
+            100% { transform: scale(1)}
+        }
+
+        .css-animation-leave-active{
+            animation: bigtosmall 1s ;
+        }
+        @keyframes bigtosmall {
+            0% { transform: scale(1)}
+            50% { transform: scale(1.5)}
+            100% { transform: scale(0)}
+        }
+
+        .duogeyuansu-transition-enter-active,
+        .duogeyuansu-transition-leave-active{
+            transition: opacity .5s;
+        }
+        .duogeyuansu-transition-enter,
+        .duogeyuansu-transition-leave-to{
+            opacity: 0;
+        }
+        .duogezujian-transition-enter-active,.duogezujian-transition-leave-active{
+            transition: all 1s;
+        }
+        .duogezujian-transition-enter,.duogezujian-transition-leave{
+            opacity: 0;
+        }
+
+        .alllist{
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .list-in-out-enter-active,.list-in-out-leave-active{
+            transition: all 1s ;
+        }
+        .list-in-out-enter,.list-in-out-leave-active{
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        .list-in-out-leave-active{
+        position: absolute; /* 这句必须要，否则移除时不会有动态效果 */
+        }
+        .list-in-out-move{
+            transition: all 1s;
+        }
+
+
+
+
+
+        .list-weiyi-move{
+            transition: all 1s;
+        }
+        .kefuyong-transition-enter-active,.kefuyong-transition-leave{
+            transition: all 1s;
+        }
+        .kefuyong-transition-leave,.kefuyong-transition-enter{
+            opacity: 0;
+        }
+    </style>
+    <link href="./animate.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="https://unpkg.com/animate.css@3.5.1/animate.min.css" rel="stylesheet" type="text/css">-->
+</head>
+<body>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>-->
+<script src="./velocity.min.js"></script>
+<script src="./lodash.min.js"></script>
+
+<div id="kefuyong-guodu-example">
+    <p>可复用过渡举例</p>
+    <kefuyong-guodu></kefuyong-guodu>
+</div>
+
+
+
+<div id="list-weiyi-guodu">
+    <button v-on:click="changeOrder">点击打乱顺序</button>
+    <transition-group name="list-weiyi" tag="ul">
+        <li v-for="item in items" v-bind:key="item">
+            {{item}}
+        </li>
+    </transition-group>
+</div>
+
+
+
+
+<div id="list-enter-leave-example">
+
+    <button v-on:click="addList">增加</button>
+    <button v-on:click="removeList">减少</button>
+    <button v-on:click="changeOrder">打乱顺序</button>
+    <transition-group tag="p" name="list-in-out">
+        <span v-for="item in items" v-bind:key="item" class="alllist">
+            {{item}}
+        </span>
+
+    </transition-group>
+
+
+</div>
+
+<div id="duogezujian-guodu" v-on:click="changeView">
+    <transition name="duogezujian-transition" mode="out-in">
+        <zujian-guodu v-bind:is="view"></zujian-guodu>
+    </transition>
+</div>
+
+<div id="duogeyuansu-guodu">
+    <transition name="duogeyuansu-transition" mode="out-in">
+        <button v-bind:key="zhuangtai" v-on:click="changeZhuangtai">
+            {{dongtai}}
+        </button>
+    </transition>
+</div>
+
+
+
+
+<div id="js-gouzi">
+    <button @click="show=!show">
+        点我利用js钩子实现过渡效果
+    </button>
+    <transition
+            v-on:before-enter="beforeEnter"
+            v-on:enter="enter"
+            v-on:leave="leave"
+            v-bind:css="false"
+    >
+        <p v-if="show"> 我有动画效果 </p>
+    </transition>
+</div>
+
+
+<div id="zidingyi-guodu">
+    <button @click="show=!show">点我自定义类过渡效果</button>
+    <transition
+            name="zidingyi-class"
+            enter-active-class="animated bounce"
+            leave-active-class="animated rollOut"
+    >
+        <p v-if="show"> 我有动画效果 </p>
+    </transition>
+</div>
+
+<div id="css-animation-example">
+    <button @click="show=!show">点我有动画</button>
+    <transition name="css-animation">
+        <p v-if="show"> 我有动画效果 </p>
+    </transition>
+
+</div>
+
+
+<div id="css-guodu">
+    <button @click="show=!show">
+        切换
+    </button>
+    <transition name="slide-fade">
+        <p v-if="show">你好</p>
+    </transition>
+</div>
+
+
+
+
+<div id="demo">
+    <button v-on:click="show = !show">Toggle</button>
+    <transition name="fade">
+        <p v-if="show">hello</p>
+    </transition>
+</div>
+
+<script src="./vue.js"></script>
+
+
+
+<script>
+
+    var kefuyongguoduTem={
+        template:" <transition name='kefuyong-transition' mode='out-in'> " +
+                    "<button v-if='show' v-on:click='show=!show' key='on' >on</button> " +
+                    "<button v-else v-on:click='show=!show' key='off' >off</button> " +
+                   "</transition> ",
+        data:function () {
+            return {
+                show:true
+            }
+        }
+    };
+
+    var kefuyongguoduexample=new Vue({
+        el:"#kefuyong-guodu-example",
+        components:{
+            kefuyongGuodu:kefuyongguoduTem
+        }
+
+    });
+
+
+
+
+    var listweiyiguodu=new Vue({
+        el:"#list-weiyi-guodu",
+        data:{
+            items:[1,2,3,4,5,6,7]
+        },
+        methods:{
+            changeOrder:function () {
+                this.items=_.shuffle(this.items)
+            }
+        }
+
+    });
+
+
+
+
+   var listenterleaveexample=new Vue({
+       el:"#list-enter-leave-example",
+       data:{
+           items:[0,1,2,3,4,5,6,7,8,9],
+           originNum:10
+       },
+       methods:{
+           currentNum:function () {
+               return   Math.floor(Math.random()*(this.items.length))
+           },
+           addList:function () {
+               this.items.splice(this.currentNum(),0,this.originNum++)
+           },
+           removeList:function () {
+               this.items.splice(this.currentNum(),1)
+           },
+           changeOrder:function () {
+               this.items=_.shuffle(this.items)
+           }
+
+       }
+   });
+
+
+
+
+
+
+
+
+var   duogezujainguodu=new Vue({
+  el:"#duogezujian-guodu",
+  data:{
+      view:'v-a'
+  },
+  components:{
+      'v-a':{
+          template:"<div>我是组件A</div>"
+      },
+      'v-b':{
+          template:"<div>我是组件B</div>"
+      }
+  },
+  methods:{
+      changeView:function () {
+          if (this.view==='v-a'){
+              this.view='v-b'
+          }else{
+              this.view='v-a'
+          }
+      }
+  }
+});
+
+
+
+
+  
+
+
+    var duogeyuansuguodu=new Vue({
+        el:"#duogeyuansu-guodu",
+        data:{
+            zhuangtai:'saved'
+        },
+        methods:{
+            changeZhuangtai:function () {
+
+                switch (this.zhuangtai){
+                    case 'saved':   this.zhuangtai='edited'; break ;
+                    case 'edited': this.zhuangtai='saved'; break;
+                    case 'editing': this.zhuangtai='cancel'; break;
+
+                    default: console.log("出错了1")
+
+                }
+            }
+        },
+        computed:{
+            dongtai:function (zhuangtai) {
+                switch (this.zhuangtai){
+                    case 'saved': return 'Edit'; break ;
+                    case 'edited': return 'Save'; break ;
+                    case 'editing': return 'Cancel'; break ;
+                    default: console.log("出错了2")
+
+                }
+
+            }
+        }
+    });
+
+    var jsgouziexample=new Vue({
+        el:"#js-gouzi",
+        data:{
+            show:true
+        },
+        methods: {
+            beforeEnter: function (el) {
+                el.style.opacity = 0
+                el.style.transformOrigin = 'left'
+            },
+            enter: function (el, done) {
+                Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+                Velocity(el, { fontSize: '1em' }, { complete: done })
+            },
+            leave: function (el, done) {
+                Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
+                Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+                Velocity(el, {
+                    rotateZ: '45deg',
+                    translateY: '30px',
+                    translateX: '30px',
+                    opacity: 0
+                }, { complete: done })
+            }
+        }
+    });
+
+
+
+
+    var zidingyiguoduexample=new Vue({
+        el:"#zidingyi-guodu",
+        data:{
+            show:true
+        }
+    });
+
+
+
+
+    var cssanimationexample=new Vue({
+        el:"#css-animation-example",
+        data:{
+            show:true
+        }
+    });
+
+
+
+
+
+    var cssguodu=new Vue({
+        el:"#css-guodu",
+        data:{
+            show:true
+        }
+    });
+
+
+    new Vue({
+        el: '#demo',
+        data: {
+            show: true
+        }
+    });
+
+
+
+
+
+</script>
+
+</body>
+</html>

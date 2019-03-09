@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="vue.js"></script>
+
+<div id="renderFuncExample">
+    <zidingyi-h>
+    </zidingyi-h>
+</div>
+<hr>
+
+<div id="render-shixian-v-if-v-else-example">
+    <render-shixian-v-if-v-else>
+    </render-shixian-v-if-v-else>
+</div>
+<hr>
+<div id="render-shixian-v-model-example">
+    <render-shixian-v-model>
+    </render-shixian-v-model>
+</div>
+<hr>
+
+
+<div id="shijian-anjianxiushifu-example">
+    <shijian-anjianxiushifu>
+        我是render函数创建的a链接
+    </shijian-anjianxiushifu>
+</div>
+
+<hr>
+
+
+<div id="slots-render-example">
+    <slots-render>
+        我是render函数创建的div-不具名
+        <p>我是render函数创建的p--不具名</p>
+        <span slot="jvming">
+            我是render函数创建的span--具名
+        </span>
+    </slots-render>
+</div>
+<hr>
+
+
+<div id="scopedSlots-render-example">
+    <scopedslots-render>
+        <template scope="props">
+            <h5>作用域插槽范例</h5>
+            <p>
+                这里是text：{{props.text}}
+            </p>
+        </template>
+    </scopedslots-render>
+</div>
+<hr>
+
+
+
+
+<!--<div id="xiang-zizujain-chuangdi-zuoyongyuchacao">-->
+    <!--<chuangdi-zuoyongyuchacao>-->
+        <!--<template scope="props">-->
+            <!--{{props.text}}-->
+        <!--</template>-->
+    <!--</chuangdi-zuoyongyuchacao>-->
+<!--</div>-->
+<!--<hr>-->
+
+
+
+
+
+
+
+
+<div id="self-directive">
+    <input type="text" v-model="modelValue" v-focus>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+
+    Vue.component("zidingyi-h", {
+        render: function (createElement) {
+            return createElement(
+                'h3',
+                {
+                    style: {
+                        color: 'red'
+                    }
+                },
+
+                "子节点为单个字符串的例子"
+            )
+        }
+
+    });
+
+
+    var renderFuncExample = new Vue({
+        el: "#renderFuncExample"
+    });
+
+    Vue.component("render-shixian-v-if-v-else", {
+        render: function (createElement) {
+            if (this.items.length) {
+                return createElement('ul', this.items.map(function (item) {
+                    return createElement('li', item.name)
+                }))
+            }
+            else {
+                return createElement('p', '没有发现items')
+            }
+        },
+        data: function () {
+            return {
+                items: [
+                    {"name": "我是item1"},
+                    {"name": "我是item2"},
+                    {"name": "我是item3"}
+                ]
+            }
+        }
+    });
+
+    var rendershixianvifvelseexample = new Vue({
+        el: "#render-shixian-v-if-v-else-example"
+
+    });
+
+    Vue.component("render-shixian-v-model", {
+        render: function (createElement) {
+            var self = this;
+            return createElement('input', {
+                domProps: {
+                    value: self.value
+                },
+                on: {
+                    input: function (event) {
+                        self.value = event.target.value;
+                    }
+                }
+            })
+        }
+    });
+    var rendershixianvmodelexample = new Vue({
+        el: "#render-shixian-v-model-example"
+    });
+
+    Vue.component('shijian-anjianxiushifu', {
+        render: function (createElement) {
+            return createElement('a', {
+                attrs: {
+                    href: './x.html'
+                },
+                on: {
+                    '~click': function (event) {
+                        console.log(this);
+                        event.preventDefault();
+                    }
+                }
+            }, this.$slots.default)
+        }
+    });
+    var shijiananjianxiushifuexample = new Vue({
+        el: "#shijian-anjianxiushifu-example"
+    });
+
+
+    Vue.component('slots-render', {
+        render: function (createElement) {
+            return createElement('div', this.$slots.default)
+        }
+    });
+    var slotsrenderexample = new Vue({
+        el: "#slots-render-example"
+    });
+
+
+
+Vue.component("scopedslots-render", {
+    render: function (createElement) {
+        return createElement('div', [this.$scopedSlots.default({
+            text: this.msg
+        })])
+// 上面其实相当于 <div> <slot v-bind:text="msg"></slot> </div>
+    },
+    data: function () {
+        return {
+            msg: "我是msg"
+        }
+    }
+});
+
+
+
+
+
+    var scopedSlotsrenderexample = new Vue({
+        el: "#scopedSlots-render-example"
+    });
+
+//    Vue.component("chuangdi-zuoyongyuchacao", {
+//        render: function (createElement) {
+//            return createElement('div', [
+//                    createElement('div', {
+//                        scopedSlots:{
+//                            default:function (props) {
+//                                return createElement('span',props.text)
+//                            }
+//                        }
+//                    })
+//                ]
+//            )
+//        },
+//        data:function () {
+//            return { text:"jjjj" }
+//        }
+//
+//    });
+//
+//    var xiangzizujainchuangdizuoyongyuchacao=new Vue({
+//        el:"#xiang-zizujain-chuangdi-zuoyongyuchacao"
+//    })
+
+
+
+
+
+// 注册全局指令v-focus
+    Vue.directive('focus',{
+        inserted:function (el) {
+            el.focus()
+        }
+    });
+
+    var selfdirective=new Vue({
+        el:"#self-directive",
+        data:{
+            modelValue:"自定义指令"
+        }
+    });
+
+    // 定义一个混合对象
+myFirstMixins={
+    created:function () {
+        this.sayHi()
+    },
+
+    methods:{
+        sayHi:function () {
+            console.log("hi，我来自混合mixins")
+        }
+
+    }
+
+};
+
+var hunhe=Vue.extend({
+    mixins:[myFirstMixins]
+});
+
+var chuangjianHunHe= new hunhe();
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

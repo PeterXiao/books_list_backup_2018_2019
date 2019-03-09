@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .box1 {
+            height: 100px;
+            background: red;
+        }
+
+        .box2 {
+            background: green;
+        }
+
+        .wrap {
+            height: 100vh;
+        }
+
+        .flex-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-wrap > .box2 {
+            flex: 1;
+        }
+
+        .position-wrap {
+            position: relative;
+        }
+
+        .position-wrap > .box2 {
+            position: absolute;
+            top: 100px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .calc-wrap > .box2 {
+            height: calc(100vh - 100px);
+        }
+
+        .grid-wrap {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 100px 1fr;
+        }
+
+        .border-box-wrap {
+            box-sizing: border-box;
+            padding-top: 100px;
+            position: relative;
+        }
+
+        .border-box-wrap > .box1 {
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        .border-box-wrap > .box2 {
+            height: 100%;
+        }
+
+        .margin-wrap {
+            box-sizing: border-box;
+            padding-top: 100px;
+        }
+
+        .margin-wrap > .box1 {
+            margin: -100px 0 0 0;
+        }
+
+        .margin-wrap > .box2 {
+            height: 100%;
+        }
+    </style>
+
+</head>
+<body>
+<!--有一个高度自适应的div，里面有两个div，一个高度100px，希望另一个填满剩下的高度。-->
+
+<!--方法一 flex方法-->
+
+<!--<section>-->
+<!--<div class="wrap flex-wrap ">-->
+<!--<div class="box1 ">box1 flex</div>-->
+<!--<div class="box2 ">box2 flex</div>-->
+<!--</div>-->
+<!--</section>-->
+
+
+
+<!--方法二 绝对定位方法-->
+
+<!--<section>-->
+<!--<div class="wrap position-wrap ">-->
+<!--<div class="box1 ">box1 position</div>-->
+<!--<div class="box2" >box2 position</div>-->
+<!--</div>-->
+<!--</section>-->
+
+<!--方法三 calc方法-->
+
+<!--<section>-->
+<!--<div class="wrap calc-wrap ">-->
+<!--<div class="box1">box1 calc</div>-->
+<!--<div class="box2">box2 calc</div>-->
+<!--</div>-->
+<!--</section>-->
+
+
+<!--方法四 grid方法-->
+
+<!--<section>-->
+<!--<div class="wrap grid-wrap ">-->
+<!--<div class="box1">box1 grid</div>-->
+<!--<div class="box2">box2 grid</div>-->
+<!--</div>-->
+<!--</section>-->
+
+<!--方法五 border-box + 绝对定位方法-->
+
+<section>
+<div class="wrap border-box-wrap ">
+<div class="box1">box1 border-box</div>
+<div class="box2">box2 border-box</div>
+</div>
+</section>
+
+<!--方法六  border-box + 负margin方法-->
+
+<!--<section>-->
+    <!--<div class="wrap margin-wrap ">-->
+        <!--<div class="box1">box1 负margin</div>-->
+        <!--<div class="box2">box2 负margin</div>-->
+    <!--</div>-->
+<!--</section>-->
+
+
+</body>
+</html>

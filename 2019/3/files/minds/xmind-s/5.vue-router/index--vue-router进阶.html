@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="./vue.js"></script>
+<script src="./vue-router.js"></script>
+<!--<div id="quanjvgouzi">-->
+    <!--<p>全局钩子</p>-->
+    <!--<router-link to="/a">点击进入/a</router-link>-->
+    <!--<router-link to="/b">点击进入/b</router-link>-->
+
+    <!--<router-view></router-view>-->
+<!--</div>-->
+
+
+
+
+
+<div id="dangeluyouduxiang">
+    <p>单个路由独享</p>
+    <router-link to="/a">点击进入/a</router-link>
+    <router-link to="/b">点击进入/b</router-link>
+
+    <router-view></router-view>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+//    const quanjvgouziAComp = {
+//        template: '<h5> 我是a的组件 </h5>'
+//    };
+//    const quanjvgouziBComp = {
+//        template: '<h5> 我是b的组件 </h5>'
+//    };
+//    const quanjvgouziCComp={
+//        template:'<h5> 我是c的组件 </h5>'
+//    };
+//
+//    const router = new VueRouter({
+//        mode: 'history',
+//        routes: [
+//            { path: '/a', component: quanjvgouziAComp },
+//            { path: '/b', component: quanjvgouziBComp },
+//            { path: '/c', component: quanjvgouziCComp }
+//        ]
+//    });
+//
+//    router.beforeEach((to, from, next) => {
+//    console.log("to打印的结果是", to);
+//    console.log("from打印的结果是", from);
+//    console.log("next打印的结果是", next);
+//    next();
+//    });
+//
+//    const quanjvgouzi = new Vue({
+//        router,
+//        el: "#quanjvgouzi"
+//    });
+
+const dangeluyouduxiangAComp = {
+    template: '<h5> 我是a的组件 </h5>'
+};
+const dangeluyouduxiangBComp = {
+    template: '<h5> 我是b的组件 </h5>'
+};
+const router = new VueRouter({
+    mode: 'history',
+    routes: [
+        { path: '/a', component: dangeluyouduxiangAComp },
+        { path: '/b', component: dangeluyouduxiangBComp,
+            beforeEnter:(to,from,next)=>{
+        console.log(" 单个路由b独享： to的打印结果是",to);
+        console.log(" 单个路由b独享： from的打印结果是",from);
+        console.log(" 单个路由b独享： next的打印结果是",next);
+        next();
+         },
+meta:{requiresAuth:true}
+        }
+    ]
+});
+
+
+const dangeluyouduxiang = new Vue({
+    router,
+    el: "#dangeluyouduxiang"
+});
+
+</script>
+
+</body>
+</html>

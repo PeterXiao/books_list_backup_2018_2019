@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="vue.js"></script>
+<script src="vuex@2.3.1.js"></script>
+<body>
+<!--<div id="simple-store-example">-->
+<!--<p> 简单vuex计数应用 {{count}} </p>-->
+<!--<button v-on:click="add">点我加一</button>-->
+<!--<button v-on:click="cut">点我减一</button>-->
+<!--</div>-->
+
+
+
+
+
+
+
+
+
+<!--<div id="on-vuecomp-getvuex">-->
+<!--</div>-->
+
+
+<!--<div id="vuex-actions-example">-->
+    <!--<vuex-actions-zujian></vuex-actions-zujian>-->
+<!--</div>-->
+
+
+<div id="vuex-getters-example">
+    <vuex-getters-zujian>
+    </vuex-getters-zujian>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+    //    const store=new Vuex.Store({
+    //       state:{
+    //           count:0
+    //       },
+    //        mutations:{
+    //            storeAdd:state => state.count++ ,
+    //            storeCut:state => state.count--
+    //        }
+    //
+    //    });
+    //
+    //    const simplestoreexample=new Vue({
+    //        el:"#simple-store-example",
+    //        computed:{
+    //            count:function(){
+    //                return store.state.count
+    //            }
+    //        },
+    //        methods:{
+    //            add:function () {
+    //                store.commit('storeAdd')
+    //            },
+    //            cut:function () {
+    //                store.commit('storeCut')
+    //            }
+    //        }
+    //    });
+
+
+
+
+
+
+//    const store = new Vuex.Store({
+//            state: {
+//                count: 0
+//            },
+//            mutations: {
+//                storeZero:(state) => state.count=0,
+//                storeAdd: (state,n) => state.count+=n,
+//                storeCut: (state,payload) => state.count-=payload.num
+//            }
+//    });
+//
+//    const childrenZujian1Temp = {
+//        template: '<div> {{count}}  </div>',
+//        computed: Vuex.mapState([ 'count'])//简写映射为this.count=store.state.count
+//    };
+//
+//    const onvuecompgetvuex = new Vue({
+//        el: "#on-vuecomp-getvuex",
+//        components: {
+//            "childrenZujian1": childrenZujian1Temp
+//        },
+//        template: `<div><p>在组件中获取vuex状态</p>
+//                <button v-on:click="zero">点我归零</button>
+//               <button v-on:click="add">点我增加1</button>
+//               <button v-on:click="cut">点我减少1</button>
+//               <childrenZujian1></childrenZujian1> </div> `,
+////  通过在根实例中注册store选项，该store选项会注入到
+//// 该根组件下的所有子组件中
+//        store,
+//        methods: {
+//            zero:function(){
+//                store.commit('storeZero')
+//            },
+//            add: function () {
+//                 store.commit("storeAdd",10) //提交载荷payload 10
+//            },
+//            cut: function () {
+//                store.commit({type:"storeCut",num:1})  // 以对象风格的方式提交
+//            }
+//        }
+//    });
+
+
+//    const moduleA={
+//        state:{ count:0 },
+//        mutations:{
+//            mutationsAdd:(state,n) => state.count+=n
+//        },
+//        actions:{
+//            actionsAdd:(context) => context.commit('mutationsAdd',2)
+//        }
+//    };
+//    const store=new Vuex.Store({
+//        modules:{
+//            a:moduleA
+//        }
+//    });
+//    const vuexactionsChildrenzujianTemp={
+//        template:'<div>  {{$store.state.a.count}}--> {{count}}</div>',
+//        computed:{    count:function () {  return this.$store.state.a.count }
+//        }
+//    };
+//    const vuexactionsexample= new Vue({
+//        el:"#vuex-actions-example",
+//        components:{"vuex-actions-children-zujian":vuexactionsChildrenzujianTemp},
+//        store,
+//        template:`<div>
+//        <button v-on:click="add"> 点击加十</button>
+//        <vuex-actions-children-zujian></vuex-actions-children-zujian>
+//        <button v-on:click="add1"> 通过actions 点击加2</button>
+//        </div>`,
+//        methods:{
+//            add :function () {
+//                store.commit("mutationsAdd",10)
+//            },
+//            add1 :function () {
+//                store.dispatch("actionsAdd")
+//            }
+//        }
+//    });
+
+
+    const store= new Vuex.Store({
+        state:{
+            count:[1,2,3]
+
+        },
+        getters:{
+            count2x: state => {
+                return   state.count.map( (x) =>  x*2 )
+            },
+            countPlus2x:(state,getters) =>{
+                return (state.count).concat(getters.count2x) //concat 方法 合并两个数组
+            }
+
+        }
+    });
+
+    const vuexgetterszujianTemp={
+        template:"<div> <p> count2x的结果是 {{$store.getters.count2x}} <br>" +
+        "countPlus2x的结果是 {{countPlus2x}}</p></div>"
+        ,computed: Vuex.mapGetters(["countPlus2x"])
+//     上面 Vuex.mapGetters等同于 doneTodos:function () {
+        // return store.getters.count2x ｝
+    };
+
+    const vuexgettersexample=new Vue({
+        el:"#vuex-getters-example",
+        store,
+        components:{
+            "vuex-getters-zujian": vuexgetterszujianTemp
+        }
+    });
+
+
+
+
+</script>
+
+
+</body>
+</html>

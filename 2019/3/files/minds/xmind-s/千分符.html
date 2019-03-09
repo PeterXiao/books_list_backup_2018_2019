@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        html,body{
+            margin: 0;
+            padding: 0;
+
+
+        }
+
+        .left,.right{
+            width: 300px;
+            background-color: aquamarine;
+        }
+        .wrap{
+
+        }
+        .center{
+            background-color: red;
+            /*margin: 0 300px;*/
+            width: calc(100% - 600px);
+            /*box-sizing: border-box;*/
+            float: left;
+            padding: 0 300px;
+            /*padding: 0 300px;*/
+        }
+        .left{
+            float: left;
+            margin-left:-100%;
+
+
+        }
+        .right{
+            float: left;
+            margin-left: -300px;
+
+        }
+        .wrap:after{
+            display: block;
+            content: "";
+            clear: both;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+  <!--1、 flex 2、float A 3、position  4、负margin 5、table-cell 6、groud 网格布局 -->
+<div class="wrap">
+    <div class="center">中</div>
+    <div class="left">左</div>
+    <div class="right">右</div>
+
+</div>
+
+
+
+
+
+    <script type="text/javascript">
+    // 1  20  300   4000 50000
+    //-1 -20 -300  -4000 -5000043221
+
+    // 1.2  45.23  5555555.21345  -2342453.342  012   0012 
+
+
+
+    function getResult(num) {
+        var stringed = String(num)
+        var zhengshu = stringed.indexOf('-') === -1 ? true : false
+        var xiaoshudianIndex = stringed.indexOf('.')
+        var length = stringed.length
+        if (zhengshu) {
+            return noZhengfu(stringed)
+        } else {
+            var stringed = stringed.slice(1)
+            return '-' + noZhengfu(stringed)
+        }
+
+        function noZhengfu(string) {
+            if (xiaoshudianIndex === -1) {
+                return addDouhao(string)
+            } else {
+                let arrayed = string.split('.')
+                console.log('有小数点')
+                return addDouhao(arrayed[0]) + '.' + arrayed[1]
+            }
+        }
+    }
+
+    function addDouhao(string) {
+        let length = string.length
+        if (length < 4) {
+            return string
+        } else {
+            var times = (length / 3) | 0
+            var arrayed = string.split('')
+            arrayed.reverse()
+            var j = -3;
+            for (var i = 0; i < times; i++) {
+                j = j + 3
+                arrayed.splice(3 + j + i, 0, ",")
+            }
+            arrayed.reverse()
+            var stringed = arrayed.join('')
+            if (stringed.indexOf(',') === 0) {
+                return stringed.slice("1")
+            } else {
+                return stringed
+            }
+        }
+    }
+    
+    // 12 2344 4,432  234,4    1,234,567   7654321    ["7",6,5, ',' , 4,3,2,',',1]       1  345 
+
+    // 1,123,456,789    987,654,321,1
+
+    // 2  5  8   11   
+
+    // 2  2+3+1  2+3+3+2 2+3+3+3+3   
+
+    // 2  6 10  14
+
+
+    // 2 (2+1)*2
+    </script>
+</body>
+
+</html>

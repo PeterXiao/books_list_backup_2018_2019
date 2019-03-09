@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        .wrap {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: 50px 350px 50px;
+            grid-template-areas:  'h h h h h h h h h h h h '
+                                  '. a m m m m m m m m m . '
+                                  'f f f f f f f f f f f f';
+            grid-gap: 5px;
+
+
+        }
+        .wrap header{
+            background: red;
+            grid-area: h;
+        }
+        .wrap aside{
+            background: green;
+            grid-area: a;
+        }
+        .wrap>.main{
+            background: yellow;
+            grid-area: m;
+        }
+        .wrap footer{
+            background: blue;
+            grid-area: f;
+        }
+
+    </style>
+</head>
+<body>
+<a href="http://www.css88.com/archives/8512">如何使用 CSS Grid 快速而又灵活的布局</a>
+
+<div class="wrap">
+    <header>头部</header>
+    <aside>侧边栏</aside>
+    <div class="main">主要内容</div>
+    <footer>底部</footer>
+</div>
+
+</body>
+</html>
