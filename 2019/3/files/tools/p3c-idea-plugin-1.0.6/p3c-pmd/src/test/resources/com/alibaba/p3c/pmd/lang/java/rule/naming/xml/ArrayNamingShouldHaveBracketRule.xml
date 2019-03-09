@@ -1,0 +1,62 @@
+<test-data>
+    <code-fragment id="ArrayTypeStyleTest">
+        <![CDATA[
+  public class ArrayTypeStyleTest{
+    private String array2[];
+    private String[] array1;
+    public void f(){
+      String[] array3;
+      String array4[];
+    }
+}
+    ]]>
+    </code-fragment>
+    <test-code>
+        <description>array should be array[]</description>
+        <expected-problems>2</expected-problems>
+        <code-ref id="ArrayTypeStyleTest" />
+        <expected-linenumbers>2,6</expected-linenumbers>
+    </test-code>
+
+    <code-fragment id="ArrayTypeStyleTest1">
+        <![CDATA[
+  public class ArrayTypeStyleTest{
+    private String[] array1;
+    public void f(){
+      String[] array2;
+    }
+}
+    ]]>
+    </code-fragment>
+    <test-code>
+        <description>array should be array[]</description>
+        <expected-problems>0</expected-problems>
+        <code-ref id="ArrayTypeStyleTest1" />
+    </test-code>
+
+    <code-fragment id="ArrayTypeStyleTest2">
+        <![CDATA[
+  public class ArrayTypeStyleTest{
+    public void ConfParse(String str){
+        TreeMap<String, String> mapConfKeyValue = new TreeMap<>();
+        String[] params = str.split("&");
+        for (String param : params) {
+            String fields[] = param.split("=");
+            if (fields.length != 2) {
+                continue;
+            }
+            String key = fields[0].trim();
+            String value = fields[1].trim();
+            mapConfKeyValue.put(key, value);
+        }
+    }
+}
+    ]]>
+    </code-fragment>
+    <test-code>
+        <description>array should be array[]</description>
+        <expected-problems>1</expected-problems>
+        <expected-linenumbers>6</expected-linenumbers>
+        <code-ref id="ArrayTypeStyleTest2" />
+    </test-code>
+</test-data>
