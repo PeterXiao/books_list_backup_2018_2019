@@ -1,0 +1,38 @@
+%!TEX root = cv.tex
+
+\newcommand{\ContactEntry}[2]{
+	$\begin{array}{l}
+	{\includegraphics[height=15pt]{#1}}
+	\end{array}
+	$ #2
+}
+
+
+\LARGE
+\noindent\colorbox{materialGreen}
+{\parbox[c][25pt][c]{\textwidth}{\hspace{15pt}\textcolor{white}{Contacts}}} %%Contacts separator
+
+\begin{multicols}{2}
+
+%%Contact Information
+\large
+%Add new or alter contact entries in this section by using the examples below
+%for other contact information search the image folder for other icons
+\ContactEntry{images/green/telephone1}{111-222-3333}
+
+\ContactEntry{images/green/mail9}{mail@mail.com}
+
+\ContactEntry{images/green/links1}{http://mywebsite.com}
+
+\ContactEntry{images/green/linkedin2}{https://www.linkedin.com/in/yourname}
+
+\columnbreak
+
+\ContactEntry{images/green/house3}{Street, number
+
+\hspace*{25pt} City, State 0000-0000
+
+\hspace*{25pt} Country}
+
+
+\end{multicols}

@@ -1,0 +1,150 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Twenty Seconds Resume/CV
+% LaTeX Template
+% Version 1.0 (14/7/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Carmine Spagnuolo (cspagnuolo@unisa.it) with major modifications by 
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% The MIT License (see included LICENSE file)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[letterpaper]{twentysecondcv} % a4paper for A4
+
+% Command for printing skill progress bars
+\newcommand\skills{ 
+~
+	\smartdiagram[bubble diagram]{
+        \textbf{Full Stack}\\\textbf{Dev},
+        \textbf{Relational/}\\\textbf{Document}\\\textbf{Databases},
+        \textbf{~~~~OOP~~~~~},
+        \textbf{Mobile}\\\textbf{Dev},
+        \textbf{Machine}\\\textbf{Learning},
+        \textbf{Test}\\\textbf{~~Automation~~},
+        \textbf{Statistical}\\\textbf{Analysis}
+    }
+}
+
+\interests{{Dev Ops/4.5},{Test Automation/5},{Data Science/6},{Software Engineering/6}}
+
+%----------------------------------------------------------------------------------------
+%	 PERSONAL INFORMATION
+%----------------------------------------------------------------------------------------
+
+% If you don't need one or more of the below, just remove the content leaving the command, e.g. \cvnumberphone{}
+
+
+
+\cvname{Harsh Gadgil} % Your name
+\cvjobtitle{ Data Scientist, \\ Full Stack Developer} % Job title/career
+
+\cvlinkedin{https://linkedin.com/in/hsgadgil}
+\cvnumberphone{+1 205 282 9201} % Phone number
+\cvsite{http://www.hgadgil.com/} % Personal website
+\cvmail{harsh.gadgil@gmail.com} % Email address
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\makeprofile % Print the sidebar
+
+%----------------------------------------------------------------------------------------
+%	 EDUCATION
+%----------------------------------------------------------------------------------------
+\section{Education}
+
+\begin{twenty} % Environment for a list with descriptions
+	\twentyitem
+    	{Expected \\ Dec 2016}
+        {MSc., Computer Science}
+        {\href{http://www.uoguelph.ca/}{University of Guelph}}
+        {Guelph, Ontario, Canada}
+        {Current GPA: 3.7/4, 83\%}
+	\twentyitem
+    	{2009 - 2013}
+        {BEng., Computer Engineering}
+        {\href{http://www.unipune.ac.in/}{University of Pune}}
+        {Pune, Maharashtra, India}
+        {GPA: 4.0, First Class with Distinction}
+	%\twentyitem{<dates>}{<title>}{<organization>}{<location>}{<description>}
+\end{twenty}
+
+
+\section{Research}
+\begin{twenty}
+	\twentyitem
+    	{2015 - 2016}
+        {Graduate Research Assistant}
+        {\href{http://www.uoguelph.ca/}{University of Guelph}}
+        {}
+        {
+        {\begin{itemize}
+        \item Performed classification using Support Vector Machine and multivariate regression analyses using Logistic Regression
+        \item Proposed a novel method to reliably integrate large, noisy datasets. Evaluated the method on datasets containing six million records
+        \item A paper describing the method and preliminary results is accepted for publication in the proceedings of the IEEE International Conference of Data Mining 2016
+    \end{itemize}}
+        }
+\end{twenty}
+
+%----------------------------------------------------------------------------------------
+%	 EXPERIENCE
+%----------------------------------------------------------------------------------------
+
+\section{Experience}
+
+\begin{twenty} % Environment for a list with descriptions
+	\twentyitem
+    	{Sep 2015 - \\May 2016}
+        {Co-Founder \& Full Stack Developer}
+        {\href{http://www.localxchange.ca/}{LocalXChange Inc.}}
+        {}
+        {
+        {\begin{itemize}
+        \item In a team of two, won \$8,000 in funding from The Hub incubator (CBaSE, University of Guelph) to kick start a startup venture
+        \item In a team of three, built a prototype hyperlocal content platform. The goal was to deliver hyperlocal news, events and other content from community organizations to local users
+        \item Built hybrid mobile and web apps using Node.js, Ionic, AngularJS and MongoDB. Performed automated testing using Selenium.
+        \item Met with city officials, including the Mayor, and university executives to marketing \& business strategies for the platform 
+    \end{itemize}}
+        }
+        
+    \twentyitem
+   		{Sept 2015 - \\ Present}
+        {Graduate Teaching Assistant}
+        {\href{http://www.uoguelph.ca}{University of Guelph}}
+        {}
+        {
+        {\begin{itemize}
+        \item TA for CIS*2430 (OOP), CIS*4150 (Software Reliability \& Testing) and CIS*3530 (Database Systems \& Concepts) courses
+    \end{itemize}}
+        }
+        
+     \twentyitem
+   		{Dec 2013 - \\ Apr 2015}
+        {Test Automation Engineer}
+        {\href{http://www.synechron.com/}{Synechron}}
+        {}
+        {
+        \begin{itemize}
+        \item Developed a \textit{Keyword Driven} and \textit{Behavior Driven} test automation framework for \href{https://www.microsoft.com/en-ca/dynamics/crm.aspx}{Microsoft Dynamics CRM}. Wrote an efficient recursive function to search within multi-level nested frames, reducing development time by several weeks. Won SPOT award {\includegraphics[scale=0.05]{img/trophy.png}}
+        
+        \textit{My work opened up a new position in the organization, enabling it to earn additional revenue}
+        \item Involved in development of a Coded UI test automation framework for \href{https://www.microsoft.com/en-ca/dynamics/erp-ax-overview.aspx}{Microsoft Dynamics AX} in C\#
+        \item Involved in manual testing for \href{http://www.fico.com/en/products/fico-blaze-advisor-decision-rules-management-system}{FICO Blaze Advisor}. Participated in standup meetings and Three Amigos sessions with onshore/offshore developers and BAs. Responsible for sending daily status reports and testing user stories. Used JIRA and Quality Center for defect reporting, and Quick Test Professional for executing automated test cases
+    \end{itemize}
+    	}
+        
+	%\twentyitem{<dates>}{<title>}{<location>}{<description>}
+\end{twenty}
+
+\end{document} 

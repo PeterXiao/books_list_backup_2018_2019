@@ -1,0 +1,25 @@
+%!TEX root = cv.tex
+
+%%Command used in order to make each entry cleaner
+\newcommand{\EducationEntry}[5]{
+\begin{tabular}{  p{\dimexpr 0.15\linewidth-2\tabcolsep} 
+                   p{\dimexpr 0.70\linewidth-2\tabcolsep}}
+  \textbf{\textcolor{materialBlueDark}{#1-}}\textbf{\textcolor{materialBlue}{#2}}\hspace{20pt} & \textbf{#3}\\
+  	& \normalsize #4\\
+  	&{\small \textcolor{textLightGray}{#5}}
+\end{tabular}
+\vspace*{10pt}
+}
+
+\LARGE
+\noindent\colorbox{materialBlue}
+{\parbox[c][25pt][c]{\textwidth}{\hspace{15pt}\textcolor{white}{Education}}} %%Contacts separator
+
+%%Contact Information
+\large
+\vspace*{10pt}
+%Add new or alter education entries in this section by using the examples below
+%\EducationEntry{starting year}{final year}{Type of studies}{Studies description if applicable}{Place of studies}
+\EducationEntry{2000}{2014}{Studies in something 1}{Studies description....}{Place X}
+
+\vspace*{5pt}

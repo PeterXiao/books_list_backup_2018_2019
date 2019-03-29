@@ -1,0 +1,80 @@
+%!TEX program = xelatex
+%========================================================================================================
+% Material CV
+% Author: Artur Gomes
+%
+% Description: This template design was based on the
+% Google Material Design for the new Android 5.0 L 
+% version.
+%
+% Aknowledgements
+% The font used was the font Roboto used in Android:
+% http://developer.android.com/design/style/typography.html
+% 
+% Used the elegant font iconset for icons (colors were changed acording to the color of the separator):
+% http://www.flaticon.com/packs/elegant-font
+%========================================================================================================
+
+\documentclass{article}
+\usepackage[top=0cm, bottom=2cm, outer=0cm, inner=0cm]{geometry}
+\usepackage[pages=some]{background}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{multicol}
+
+
+%Color definition based on Material Design
+\definecolor{materialGreen} 	{RGB}{068,225,130}
+\definecolor{materialGreenDark} {RGB}{029,184,090}
+\definecolor{materialRed}   	{RGB}{218,068,049}
+\definecolor{materialRedDark}   {RGB}{173,045,031}
+\definecolor{materialPurple}   	{RGB}{153,039,176}
+\definecolor{materialPurpleDark}{RGB}{088,022,099}
+\definecolor{materialBlue}  	{RGB}{044,116,246}
+\definecolor{materialBlueDark}  {RGB}{010,082,216}
+\definecolor{materialYellow}	{RGB}{254,193,005}
+\definecolor{materialYellowDark}{RGB}{194,147,001}
+\definecolor{textGray}			{RGB}{070,070,070}
+\definecolor{textLightGray}		{RGB}{140,140,140}
+
+%Using font Roboto as main font for the document
+\setmainfont{Roboto}
+
+\backgroundsetup{
+scale=1,
+color=black,
+opacity=1,
+placement=top,
+angle=0,
+contents={%
+  \includegraphics[width=\paperwidth,height=200pt]{images/pic}
+  }%
+}
+\begin{document}
+	\color{textGray}
+	\pagenumbering{gobble}
+	\vspace*{105pt} %spacing used to move the first and last name down
+	\Huge
+	\BgThispage
+		\textcolor{white}{First Name}
+
+		\textcolor{white}{Last Name}
+	\BgThispage
+	\vspace*{20pt}
+	%Include the main information from other tex files in order to get a better organization
+
+	%include contacts information
+	\input{info_contacts}
+	
+	%include experience information
+	\input{info_experience}
+	
+	%include education information
+	\input{info_education}
+	
+	%include interests information
+	\input{info_interests}
+
+	%include awards information
+	\input{info_awards}
+\end{document}
