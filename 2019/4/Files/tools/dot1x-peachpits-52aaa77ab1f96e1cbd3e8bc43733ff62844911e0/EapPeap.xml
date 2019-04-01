@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for EAP-Peap
+
+		
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+	<Include ns="EapTls" src="file:##PitPath##EapTls.xml" />
+    <!-- End Includes Section -->  
+	<DataModel name="EAP-Request-EAP-PEAP-Start" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Type" size="8" value="25"/> <!-- 25: EAP-PEAP -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="20"/>
+    </DataModel>
+    <DataModel name="EAP-Response-PEAP-Hello" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="25"/> <!--25: EAP-PEAP -->
+        <Block ref="EapTls:EAP-TLS-Record-Client-Hello"/>
+    </DataModel>
+
+    <!--
+        NAK Server's EAP-Type, Request PEAP
+        This should be encapsulated within EAP-Message
+    -->
+
+     <DataModel name="EAP-Response-NAK-PEAP" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="25"/> <!-- 25: EAP-PEAP -->
+    </DataModel>
+
+
+	
+	
+</Peach>

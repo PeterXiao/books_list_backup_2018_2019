@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PitDefines>
+    <!--
+		Radius_Fuzzer_Config.xml - Radius Fuzzer Configuration File
+		Brad.Antoniewicz@foundstone.com
+		
+		Invoke these settings with \-\-definedvalues=Radius_Fuzzer_Config.xml
+		
+		To be used with:
+			Radius_Fuzzer_Ias.xml
+			Radius_Fuzzer_Acs.xml
+			Radius_Fuzzer_FreeRadius.xml
+		
+    -->
+	<Configuration platform="Linux">
+		<PitDefine key="PitPath" value="/root/PeachPits/"/>
+		<PitDefine key="LocalDevice" value="eth0" />
+        <PitDefine key="IasServer" value="192.168.1.1" />
+        <PitDefine key="IasPort" value="1812" />
+		<PitDefine key="IasLogPath" value="peach_logs/Radius/Ias"/>
+        <PitDefine key="AcsServer" value="192.168.1.1" />
+        <PitDefine key="AcsPort" value="1645" />
+		<PitDefine key="AcsLogPath" value="peach_logs/Radius/Acs"/>
+        <PitDefine key="FreeRadiusServer" value="192.168.1.1" />
+        <PitDefine key="FreeRadiusPort" value="1812" />
+		<PitDefine key="FreeRadiusLogPath" value="peach_logs/Radius/FreeRadius"/>
+        <PitDefine key="SbrServer" value="192.168.1.1"/>
+        <PitDefine key="SbrPort" value="1812"/>
+		<PitDefine key="SbrLogPath" value="peach_logs/Radius/Sbr"/>
+        <PitDefine key="TekRadiusServer" value="192.168.1.1"/>
+        <PitDefine key="TekRadiusPort" value="1812"/>
+		<PitDefine key="TekRadiusLogPath" value="peach_logs/Radius/TekRadius"/>
+        <PitDefine key="Domain" value="DOMAIN.LOCAL"/>
+        <PitDefine key="Username" value="brad"/>
+        <PitDefine key="UserPassword" value="password"/>
+        <PitDefine key="SharedSecret" value="0a0a0a0a0a0"/> <!--  Need to provide the same password value here in hex -->
+        <!-- Request Authenticator 
+            In Acess-Request messages, the authenticator is just a randomly generated value. 
+            We set this value here to help with the RadiusPap Transformer
+        -->
+        <PitDefine key="RequestAuthenticator" value="0f876c6ec636ff0769020fc5d64b4f5e"/> 
+	</Configuration>
+	<Configuration platform="Windows">
+		<PitDefine key="PitPath" value="/path/to/PeachPits/"/>
+		<PitDefine key="LocalDevice" value="Local Area Connection" />
+        <PitDefine key="IasServer" value="192.168.1.1" />
+        <PitDefine key="IasPort" value="1812" />
+		<PitDefine key="IasLogPath" value="peach_logs\\Radius\\Ias"/>
+        <PitDefine key="AcsServer" value="192.168.1.1" />
+        <PitDefine key="AcsPort" value="1812" />
+		<PitDefine key="AcsLogPath" value="peach_logs\\Radius\\Acs"/>
+        <PitDefine key="FreeRadiusServer" value="192.168.1.1" />
+        <PitDefine key="FreeRadiusPort" value="1812" />
+		<PitDefine key="FreeRadiusLogPath" value="peach_logs\\Radius\\FreeRadius"/>
+        <PitDefine key="SbrServer" value="192.168.1.1"/>
+        <PitDefine key="SbrPort" value="1812"/>
+		<PitDefine key="SbrLogPath" value="peach_logs\\Radius\\Sbr"/>
+	</Configuration>
+</PitDefines>
+

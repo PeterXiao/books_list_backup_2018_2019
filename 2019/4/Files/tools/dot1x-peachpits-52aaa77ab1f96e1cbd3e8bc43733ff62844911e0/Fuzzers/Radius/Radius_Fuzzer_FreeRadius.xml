@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Radius_Fuzzer_FreeRadius.xml - 
+		Radius Fuzzer geared towards FreeRadius
+		By Brad.Antoniewicz@foundstone.com
+		
+	Configure with:
+		Radius_Fuzzer_Config.xml
+		
+	Invoke with:
+		peach.exe -DSTRAT=Value \-\-definedvalues=Radius_Fuzzer_Config.xml Test Radius_Fuzzer_FreeRadius.xml
+		
+		Where:
+			1. Value is the Fuzzing Strategy to use, acceptable values are:
+				Sequential
+				RandomDeterministic
+				Random
+				
+				Note: Random does not have an end.
+			
+			2. Test is the particular Test to run, acceptable values are:
+				GEN-RESIDENT
+				GEN-RESIDENT-Blob
+				GEN-RESIDENT-BadChk
+				
+	
+	Note: StateModels are created within the assumption that the server is set to use PEAP by default, so 
+		every state starts off with NAK'ing PEAP and asking for the particular EAP Type for the state
+-->
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach/peach/peach.xsd"
+	author="Brad.Antoniewicz@foundstone.com">
+
+	<!-- Includes -->
+	<Include ns="Radius" src="file:##PitPath##Radius.xml" />	
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <Include ns="EapMschapv2" src="file:##PitPath##EapMschapv2.xml" />
+    <Include ns="EapGtc" src="file:##PitPath##EapGtc.xml" />
+    <Include ns="EapTlv" src="file:##PitPath##EapTlv.xml" />
+    <Include ns="EapFast" src="file:##PitPath##EapFast.xml" />
+    <Include ns="EapPeap" src="file:##PitPath##EapPeap.xml" />
+    <Include ns="EapMd5" src="file:##PitPath##EapMd5.xml" />
+    <Include ns="EapLeap" src="file:##PitPath##EapLeap.xml" />
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+
+
+	<!-- PEAP-ClientHello; 
+		EapRespIdent -> ReqPeap -> PeapClientHello 
+	-->
+	<StateModel name="PEAP-ClientHello" initialState="Initial">
+		<State name="Initial">
+            <!--
+                Send Initial EAP-Response Identity 
+            -->
+            <Action type="output">
+                <DataModel name="Access-Request-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" /> 
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC-APCH" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC-APCH//Packet-Identifier" setXpath="//AR-APCH//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC-APCH//EAP-Data//EAP-Id" setXpath="//AR-APCH//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC-APCH//AVP-State//Value" setXpath="//AR-APCH//AVP-State//Value"/>
+
+            <!--
+                Send PEAP Client Hello
+            -->
+            <Action type="output">
+                <DataModel name="AR-APCH" ref="Radius:Access-Request-EAP-PEAP-Client-Hello"/>
+            </Action>
+		</State>
+	</StateModel>
+  
+	<!-- ACS-PAP-State: Acs Specific
+			PapRequest ->
+	-->
+    <StateModel name="ACS-PAP-State" initialState="Initial">
+        <State name="Initial">
+            <Action type="output">
+                <DataModel ref="Radius:Access-Request-PAP" />
+            </Action>
+        </State>
+    </StateModel>
+    <StateModel name="ACS-STATE-State" initialState="Initial">
+        <State name="Initial">
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-AMS" ref="Access-Challenge-EAP-PEAP-STATE-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-AMS//Packet-Identifier" setXpath="//AR1-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-AMS//EAP-Data//EAP-Id" setXpath="//AR1-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-AMS//AVP-State//Value" setXpath="//AR1-AMS//AVP-State//Value"/>
+
+            <Action type="output">
+                <DataModel name="AR1-AMS" ref="Access-Request-NAK-MD5-STATE-ACS"/>
+            </Action>
+        </State>
+    </StateModel>
+    
+    <!-- Really Basic Agent -->
+    <Agent name="Simple-Agent-ACS">
+        <Monitor class="Ping">
+            <Param name="Host" value="##AcsServer##"/>
+        </Monitor>
+    </Agent>
+    <Agent name="FreeRadius-Agent" location="##FreeRadiusServer##:9001">
+        <Monitor class="Process">
+            <Param name="Executable" value="/usr/sbin/freeradius"/>
+            <Param name="Arguments" value="-X -s"/>
+            <Param name="RestartOnEachTest" value="false" />
+            <Param name="FaultOnEarlyExit" value="true" />
+        </Monitor>
+    </Agent>
+	
+	<!-- EAP-RESPIDENT: Generic Eap Response/Identity  -->
+    <Test name="GEN-RESIDENT">
+        <Agent ref="FreeRadius-Agent"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##"/>
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+	<!-- EAP-RESPIDENT-BLOB: Generic Eap Response/Identity Blob -->
+    <Test name="GEN-RESIDENT-Blob">
+        <Agent ref="FreeRadius-Agent"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity-Blob"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##"/>
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+<!-- EAP-RESPIDENT-BadChk: Generic Eap Response/Identity with Bad Message Auth -->
+    <Test name="GEN-RESIDENT-BadChk">
+        <Agent ref="FreeRadius-Agent"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity-BadChk"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##"/>
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+	<!-- ACS-PEAP-ClientHello: Fuzzing msgs up to and including TLS ClientHello-->
+    <Test name="ACS-PEAP-ClientHello">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-PEAP-ClientHello"/>
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##"/>
+        </Publisher>
+        <Strategy class="##STRAT##"/>
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+	<!-- ACS-PAP -->
+    <Test name="ACS-PAP">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="ACS-PAP-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+    <!-- ACS-STATE -->
+    <Test name="ACS-STATE">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <Exclude ref="Radius:Access-Request"/>
+        <Exclude ref="AR-EAP-Response-Identity"/>
+        <Include ref="Cisco-State"/>
+        <StateModel ref="ACS-STATE-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+
+	<!-- ACS-MD5-LEAP-NAK (Experimental) -->
+    <Test name="ACS-MD5-LEAP-NAK">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="AR-EAP-Response-Identity"/>
+        <Exclude ref="AR1-ALS"/>
+        <StateModel ref="ACS-MD5-LEAP-NAK-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##FreeRadiusServer##"/>
+                <Param name="Port" value="##FreeRadiusPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="##FreeRadiusLogPath##"/>
+        </Logger>
+    </Test>
+
+</Peach>
+<!-- end -->

@@ -1,0 +1,1284 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>Nmap</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="6jh8mleajrcgirqf3vdctta6t3">Nmap</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="Nmap_files/images/Nmap 2.jpg"></div>
+<h2 class="topic">
+<a name="22f7t999pd9be1m766itt1jio9">1.nmap语法</a>
+</h2>
+<h3 class="topic">
+<a name="0ge570042b3qva9l7uhd0tp6fu">&nbsp;-A 全面扫描/综合扫描</a>
+</h3>
+<h3 class="topic">
+<a name="3r0k10mom0gbi70m7pa8ni5t15">&nbsp;&nbsp;例如:nmap -A 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6hgr30e0d9rpfd3hbagv14v4g4">&nbsp;扫描指定段</a>
+</h3>
+<h3 class="topic">
+<a name="4rce71me5n2m3qkdpj3dssrnls">&nbsp;&nbsp;例如:nmap 127.0.0.1-200&amp;nmap 127.0.0.1/24</a>
+</h3>
+<h2 class="topic">
+<a name="3ffr93uij01prhg5s1ilspgsa5">2.Nmap 主机发现</a>
+</h2>
+<h3 class="topic">
+<a name="32rj4p4usdsil5d8mm9nsc7mso">&nbsp;-sP</a>
+</h3>
+<h3 class="topic">
+<a name="2fb9tufkn65sb0nhgl034uplhm">&nbsp;&nbsp;-sP ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="7s49o95vc24obj8cq0pk3o0a6t">&nbsp;&nbsp;例如:nmap -sP 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3semmu35v38rel7seddba8mfmn">&nbsp;-P0 </a>
+</h3>
+<h3 class="topic">
+<a name="29bc3hpho3uilmoe1a718uvv6e">&nbsp;&nbsp;-P0  无ping扫描 备注:【协议1,协议2】【目标】扫描</a>
+</h3>
+<h3 class="topic">
+<a name="6dsakkp742vag3e93g8a2s130p">&nbsp;&nbsp;例如:nmap -P0 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3fu5gpitntpuqodkrc60h0p9r2">&nbsp;&nbsp;如果想知道这些协议是如何判断目标主机是否存在可以使用--packet-trace选项。</a>
+</h3>
+<h3 class="topic">
+<a name="456fkmr2gt9duqsk02igos6nst">&nbsp;&nbsp;例如:nmap -p0 --packet-trace 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="15st6aj7om26hm7irv4nmom5ct">&nbsp;-PS</a>
+</h3>
+<h3 class="topic">
+<a name="79gks1bg9drqtoo5p6bqcr5l24">&nbsp;&nbsp;-PS  TCP SYN Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="0enlsv72sge23grohh83a3v1ql">&nbsp;&nbsp;例如:nmap -PS -v 127.0.0.1 &amp;&amp; 指定端口:nmap -PS80,100-200 -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7jlg9g7c4nsnl00mngi7rm0mpv">&nbsp;-PA</a>
+</h3>
+<h3 class="topic">
+<a name="3ie86me76d3aucg684hokvkkfq">&nbsp;&nbsp;-PA TCP ACK Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="0dd436tiv48ta1ourl5aqe5i42">&nbsp;&nbsp;例如:nmap -PA -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2cfg35j9gjgc5qd2ku660iei5r">&nbsp;-PU</a>
+</h3>
+<h3 class="topic">
+<a name="5b9orsd8q77kpr2bshktfnb92f">&nbsp;&nbsp;-PU UDP Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="3nimb4igjpnlp828ulrq3vp5pk">&nbsp;&nbsp;例如:nmap -PU -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="29e1tq60boeef662mspnr7d5ga">&nbsp;-PE;-PP;-PM</a>
+</h3>
+<h3 class="topic">
+<a name="6urb1tfe3rc89keo442gnd597v">&nbsp;&nbsp;-PE;-PP;-PM ICMP Ping Types 扫描</a>
+</h3>
+<h3 class="topic">
+<a name="44ii1drl74u31ud1nedor0plm3">&nbsp;&nbsp;使用ICMP Echo扫描方式</a>
+</h3>
+<h3 class="topic">
+<a name="2fl961n2kmhfosppjn561dbcgq">&nbsp;&nbsp;例如:nmap -PE -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2n1d93ikn99in5df8hl6rtith5">&nbsp;&nbsp;使用ICMP时间戳Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="774lrdsv9ipqs3jb5v8i0ih6mc">&nbsp;&nbsp;例如:nmap -PP -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0otjpaetmf37ds7bjp68262elm">&nbsp;&nbsp;使用ICMP地址掩码Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="1ibnevc1lvdl2rhaoitmpldq7t">&nbsp;&nbsp;例如:nmap -PM -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6ff4jml78ugnb7s8c8j2tlg6q2">&nbsp;-PR</a>
+</h3>
+<h3 class="topic">
+<a name="66jshctvft6lf4mc5lba33hf25">&nbsp;&nbsp;-PR ARM Ping扫描</a>
+</h3>
+<h3 class="topic">
+<a name="75rb3e0ptdg7n3pk1koa0brj1n">&nbsp;&nbsp;例如:nmap -PR 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7et87a65vlsqbt6699o6qmlult">&nbsp;-n</a>
+</h3>
+<h3 class="topic">
+<a name="488uindq5d82tb30qc8lm9cmm9">&nbsp;&nbsp;-n 禁止DNS反向解析(使用该选项的时候Nmap永远不对目标ip地址作反向域名解析)</a>
+</h3>
+<h3 class="topic">
+<a name="0vcd6770htquq3v2u98hvi8q91">&nbsp;&nbsp;例如:nmap -n 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="5ulum4trh3hulaejg194i6j5ku">&nbsp;-R</a>
+</h3>
+<h3 class="topic">
+<a name="07iguis0cna2d4910brjnoqdav">&nbsp;&nbsp;-R 反向解析域名(使用该选项的时候Nmap永远对目标ip地址作反向域名解析)</a>
+</h3>
+<h3 class="topic">
+<a name="0dval8svssvfmvgkc3pg3pdgl4">&nbsp;&nbsp;例如:nmap -R -sL 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6tlvib1kni96kpck0pi7o3j5fs">&nbsp;--system-dns</a>
+</h3>
+<h3 class="topic">
+<a name="7jahijpi4vgk5dln5u85n3lb8o">&nbsp;&nbsp;--system-dns 使用系统域名解析器(如果你希望使用系统自带的解析器，就制定该选项(通过getnameinfo()调用一次解析一个IP)</a>
+</h3>
+<h3 class="topic">
+<a name="7m2v9lfmggmc5mf8cahr1l488n">&nbsp;&nbsp;例如:nmap --system-dns 127.0.0.1 127.0.0.2</a>
+</h3>
+<h3 class="topic">
+<a name="1q8cfr0ec31tf951nlgrq5mhnm">&nbsp;--sL</a>
+</h3>
+<h3 class="topic">
+<a name="3h4ie7eepbj375ch4e15e0i73r">&nbsp;&nbsp;--sL 列表扫描</a>
+</h3>
+<h3 class="topic">
+<a name="0adjgnvk7emoc8id87qst50ro7">&nbsp;&nbsp;例如:nmap -sL 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1nguhcfqs42fgk4nb0birsf7h8">&nbsp;&nbsp;禁止反向域名解析(使用该选项的时候Nmap永远不对目标ip地址作反向域名解析)</a>
+</h3>
+<h3 class="topic">
+<a name="2vsdn0acifdgrannr5jqvu4ti3">&nbsp;&nbsp;例如:nmap -n -sL 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2s1sme5crogk2u082ggsjf4a2b">&nbsp;-6</a>
+</h3>
+<h3 class="topic">
+<a name="2b5tqro9r4gkuu1vn2akhaco12">&nbsp;&nbsp;-6 扫描IPv6地址</a>
+</h3>
+<h3 class="topic">
+<a name="0so0jtrfntndkivt09pdf3ttds">&nbsp;&nbsp;例如:nmap -6 fe80::d920:6c18:1f7f:3d7c</a>
+</h3>
+<h3 class="topic">
+<a name="36bkk5sq0doa2v3656jvr1p8fs">&nbsp;--traceroute</a>
+</h3>
+<h3 class="topic">
+<a name="3fcn8ubcf3t3nm5gha3qek891k">&nbsp;&nbsp;--traceroute 路由跟踪(使用--traceroute选项即可进行路由追踪.)使用路由追踪功能可以帮助用户了解网络的同行情况,通过此选项可以轻松地查出从计算机到目标之间所经过的网络节点,并可以看到通过各个节点的时间.</a>
+</h3>
+<h3 class="topic">
+<a name="5gea9uoi0tu52vmhfcjt0hgldm">&nbsp;&nbsp;例如:nmap --traceroute -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="43bg1nlql6vi7cbkmd2d6hhhdl">&nbsp;-PY</a>
+</h3>
+<h3 class="topic">
+<a name="3g7bvn5kd7ehs0nar2nufbnbp8">&nbsp;&nbsp;-PY SCTP INIT Ping扫描（通过向目标发送INIT包,根据目标主机的相应判断目标主机是否存活.)</a>
+</h3>
+<h3 class="topic">
+<a name="54jevacan6k9r2ge8r5hbrn7bt">&nbsp;&nbsp;例如:nmap -PY -v 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="3asg8mfhc4uqho68oc0udhm3i3">3.探索网络</a>
+</h2>
+<h3 class="topic">
+<a name="4u6ji65u17fehh2rfpatemjcin">&nbsp;-T</a>
+</h3>
+<h3 class="topic">
+<a name="74cled79l88mnnt15ub2rsqfib">&nbsp;&nbsp;-T 时序选项</a>
+</h3>
+<h3 class="topic">
+<a name="5pl52dv7at35dm69da6h8ehi3t">&nbsp;&nbsp;&nbsp;例如:nmap -T0 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6qa17elebipum1ma1qkoo0slgl">&nbsp;&nbsp;&nbsp;例如:nmap -T1 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1n94fp1jn3ifnboamcdnjh31a5">&nbsp;&nbsp;&nbsp;同上</a>
+</h3>
+<h3 class="topic">
+<a name="1tp22kbbtanirofh76rcsum8o4">&nbsp;&nbsp;Nmap使用-T(0-5)可以启用时序选项)对于时序想选这里有0~5不同的选项.</a>
+</h3>
+<h3 class="topic">
+<a name="6avt8glkg76vsus4vp4glkipdd">&nbsp;&nbsp;&nbsp;-T0(偏执的):非常慢的扫描,用于IDS逃避.</a>
+</h3>
+<h3 class="topic">
+<a name="0957isebq69m94jqingbloc9cd">&nbsp;&nbsp;&nbsp;-T1(鬼崇的):缓慢的扫描,用于IDS逃避.</a>
+</h3>
+<h3 class="topic">
+<a name="4dqj3jtg9busrldejbf92m9lm8">&nbsp;&nbsp;&nbsp;-T2(文雅的):降低速度以降低对带宽的消耗,此选项一般不常用.</a>
+</h3>
+<h3 class="topic">
+<a name="2ue7bvpf257jl3hnd2i9f59b60">&nbsp;&nbsp;&nbsp;-T3(普通的):默认,根据目标的反应自动调整时间.</a>
+</h3>
+<h3 class="topic">
+<a name="4ufh9qc0lo896lkuo82bk5mgl9">&nbsp;&nbsp;&nbsp;-T4(野蛮的):快速扫描,常用扫描方式,需要在很好的网络环境下进行扫描,请求可能会淹没目标.</a>
+</h3>
+<h3 class="topic">
+<a name="7e41uhvd7il5pmnl3mcndl4pht">&nbsp;&nbsp;&nbsp;-T5(疯狂的):急速扫描,这种扫描方式以牺牲准确度来提升扫描速度.</a>
+</h3>
+<h3 class="topic">
+<a name="7ojkjapo9h10cmrh9fa1301pat">&nbsp;-p</a>
+</h3>
+<h3 class="topic">
+<a name="146vpkvmq34oaojis9kl4vlgcd">&nbsp;&nbsp;-p 常用扫描方式(-p指定扫描端口如80,1433,1521,3306,3389等等)</a>
+</h3>
+<h3 class="topic">
+<a name="1m832uv2fe5hb5odkomoprinkv">&nbsp;&nbsp;例如:nmap -p 3389 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1so9c1jbmlikj7fjgi6hrpg0aj">&nbsp;&nbsp;-F 选项 使用该选项可以快速扫描端口,但并不是所有端口都会扫描,智慧扫描有限的端口,在Nmap中nmap-services包含了默认扫描的端口,也可以用--datadir选项指定自己的nmap-services文件.</a>
+</h3>
+<h3 class="topic">
+<a name="4o6bv6s4v1mhmf826jgiu4be9e">&nbsp;&nbsp;--top-ports选项</a>
+</h3>
+<h3 class="topic">
+<a name="062g346r6ntcfgh2nlv8ksao03">&nbsp;&nbsp;例如:nmap --top-ports 100 127.0.0.1 (输出结果扫描100个开放率最高的端口.)</a>
+</h3>
+<h3 class="topic">
+<a name="2so95tvq6i8edqicpsdgdvfi4d">&nbsp;-sS</a>
+</h3>
+<h3 class="topic">
+<a name="2cf2kca1b45qrknh2meg3oh1fv">&nbsp;&nbsp;-sS TCP SYN扫描</a>
+</h3>
+<h3 class="topic">
+<a name="7hqh1dc0sgg8jt1ase5c58n6pc">&nbsp;&nbsp;例如:nmap -sS 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="10jj5m388nvj6mh72m1ckvt8vl">&nbsp;-sT</a>
+</h3>
+<h3 class="topic">
+<a name="13tea0uho6a8l3vdk5o5i2gt7f">&nbsp;&nbsp;-sT TCP连接扫描</a>
+</h3>
+<h3 class="topic">
+<a name="3bed3efseoaitsfppgf9gqki59">&nbsp;&nbsp;例如:nmap -sT 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="27ue9gk7vigcnc599r505ps9vb">&nbsp;-sU</a>
+</h3>
+<h3 class="topic">
+<a name="26pc5ppo9784b9lv0bck5j14vf">&nbsp;&nbsp;-sU UDP扫描</a>
+</h3>
+<h3 class="topic">
+<a name="2dvvf1qnj3la436a8jqtjth9dm">&nbsp;&nbsp;例如:nmap -sU -p 80-500 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4ua8hm24nqomm49gbr25dn3a2s">&nbsp;-sN;-sF;-sX</a>
+</h3>
+<h3 class="topic">
+<a name="12mhjjfu4o8agnshlpvu8ni7be">&nbsp;&nbsp;-sN;-sF;-sX 隐蔽扫描</a>
+</h3>
+<h3 class="topic">
+<a name="3gibl1n1c3bdenqtkglgirgqla">&nbsp;&nbsp;&nbsp;-sN是Null扫描,是通过发送非常规的TCP通信数据包对计算机进行探测.</a>
+</h3>
+<h3 class="topic">
+<a name="0edrp6e57lrns9a48ivilbdmko">&nbsp;&nbsp;&nbsp;&nbsp;nmap -sN 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="38t493tbc2c7ug37u6qe76th55">&nbsp;&nbsp;&nbsp;-sF是FIN扫描,当我们使用TCP SYN扫描时可能会被目标主机的防火墙发现,会阻止SYN数据包,这时我们使用TCP FIN扫描方式会有很好的穿透效果.</a>
+</h3>
+<h3 class="topic">
+<a name="7etih6h623vlg8n48e400ll27h">&nbsp;&nbsp;&nbsp;&nbsp;nmap -sF 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4uu4escg5s9209ierj1rmrvnrn">&nbsp;&nbsp;&nbsp;-sX是Xmas扫描</a>
+</h3>
+<h3 class="topic">
+<a name="4s51npnlf85ua3eitmusg7rep2">&nbsp;&nbsp;&nbsp;&nbsp;nmap -sX 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1089gpqn11vdlf01nj01jvr6qt">&nbsp;-sA</a>
+</h3>
+<h3 class="topic">
+<a name="0ggdj72s7acvllfak0a1me37jm">&nbsp;&nbsp;-sA TCP ACK扫描</a>
+</h3>
+<h3 class="topic">
+<a name="31fvkfrt044g7iuod859u0itc4">&nbsp;&nbsp;例如:nmap -sA -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4r8famfp4t7sdogf5l4kie4jgp">&nbsp;-sW</a>
+</h3>
+<h3 class="topic">
+<a name="20djsmct1doecm4sfb1tv62tja">&nbsp;&nbsp;-sW TCP窗口扫描</a>
+</h3>
+<h3 class="topic">
+<a name="52vato8r2a44lseehci938t5hf">&nbsp;&nbsp;例如:nmap -sW -v -F 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4jekvaragslgqgn38snth9be9m">&nbsp;-sM</a>
+</h3>
+<h3 class="topic">
+<a name="1j4uoi5rkuh2nsuuo7roekkvb5">&nbsp;&nbsp;-sM TCP Maimon扫描</a>
+</h3>
+<h3 class="topic">
+<a name="6itq6ke1mlejpteecn2gje413f">&nbsp;&nbsp;例如:nmap -sM -T4 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="35014eo74icrunvd4d8l01q2e4">&nbsp;--scanflags</a>
+</h3>
+<h3 class="topic">
+<a name="41fp8ou036d1e0slcp74immje5">&nbsp;&nbsp;--scanflags 自定义TCP扫描(--scanflags选项可以是一个数字标记值.</a>
+</h3>
+<h3 class="topic">
+<a name="24j7edqakkjv9mr6apjdv3b2c1">&nbsp;&nbsp;nmap -sT --scanflags SYNURG 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="5fm4qd39prfvnf38rchnhnrl4f">&nbsp;-sI</a>
+</h3>
+<h3 class="topic">
+<a name="0iivga56ba32a298brn74tdn7m">&nbsp;&nbsp;-sI 空闲扫描</a>
+</h3>
+<h3 class="topic">
+<a name="05r0c5fg65bnp9fvrfbdf4f9e0">&nbsp;&nbsp;例如:nmap -sI 192.168.1.100:80 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7fd4f6p456kcfblof8tphcsjjg">&nbsp;-sO</a>
+</h3>
+<h3 class="topic">
+<a name="2k0l1m98aa1rlsuopd6i5l6cuh">&nbsp;&nbsp;-sO IP协议扫描</a>
+</h3>
+<h3 class="topic">
+<a name="2i2iukp5g9219q7oihbovntrqr">&nbsp;&nbsp;例如:nmap -sO -T4 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="398066i0ugvb806anpt422ikcp">&nbsp;-b</a>
+</h3>
+<h3 class="topic">
+<a name="071qije8peo10qepmk2uau2oa2">&nbsp;&nbsp;-b FTP Bounce扫描(使用-b选项就可以进行FTP Bounce Scan扫描,它允许用户连接到一台FTP服务器,然后要求文件送到一台第三方服务器,这种扫描方式很少被支持,但是也是躲避防火墙的办法.)</a>
+</h3>
+<h3 class="topic">
+<a name="733j4tusr7lqk28ouk6e2k98pl">&nbsp;&nbsp;例如:nmap -b 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="1gok4vmo5m6a9t6q6idfe3r8ae">4.指纹识别与探测</a>
+</h2>
+<h3 class="topic">
+<a name="64er8hdt8tkgoqi0tv8u09jl47">&nbsp;-sV</a>
+</h3>
+<h3 class="topic">
+<a name="5f2vk92r23ccbsafnpmj44bmnm">&nbsp;&nbsp;-sV 版本探测</a>
+</h3>
+<h3 class="topic">
+<a name="7ov75l4kf7kvbm6p4cf5atgkkp">&nbsp;&nbsp;例如:nmap -sV 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7427o1d1a7glvo7lp1li3cba46">&nbsp;&nbsp;可以借助-A选项进行操作系统探测和版本探测.结果信息更详细和直观.</a>
+</h3>
+<h3 class="topic">
+<a name="2o1mekm2hvb3s3hs1dufpve195">&nbsp;&nbsp;例如:nmap -sV -A 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2i8m7e275k8u94r726pt68a54l">&nbsp;--allports</a>
+</h3>
+<h3 class="topic">
+<a name="1oc6ttco6vtl4rv22s7k38rv77">&nbsp;&nbsp;--allports 全端口版本探测</a>
+</h3>
+<h3 class="topic">
+<a name="7pnk28dv81eo6jtcmas1k8ba6s">&nbsp;&nbsp;例如:nmap -sV --allports 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6ejnu0nn3m2r3sou8b2rv2ipaa">&nbsp;--version-intensity</a>
+</h3>
+<h3 class="topic">
+<a name="2q1jr45gj2unjba4bv1ee8i3dh">&nbsp;&nbsp;--version-intensity 设置扫描强度(赋予的值越高,服务越有可能被正确识别,但是时间也较长,强度在0~9之间,默认强度是7.0代表最低强度,9代表最高强度.)</a>
+</h3>
+<h3 class="topic">
+<a name="76ot14jaskj160ag2gn5jj2qe3">&nbsp;&nbsp;例如:nmap -sV --version-intensity 5 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1asoc755aa80ttkhtsdeanndlm">&nbsp;--version-light</a>
+</h3>
+<h3 class="topic">
+<a name="7dtqlueu15i1im7qlsp3db4m5t">&nbsp;&nbsp;--version-light  轻量级扫描(--version-intensity有0~9的测试等级,--version-intensity则是对应的--version-intensity 2的快捷方式,轻量级扫描会节省时间,但是准确性会降低.使用以下选项可以节约部分时间和不会牺牲太多准确性.)</a>
+</h3>
+<h3 class="topic">
+<a name="2ncoc6005blv06qab3t04am4di">&nbsp;&nbsp;例如:nmap -sV --version-light 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1a07jcuoloseookh79n263lgai">&nbsp;--version-all</a>
+</h3>
+<h3 class="topic">
+<a name="72k2j0gd8v9l2afqdiihlcs59t">&nbsp;&nbsp;--version-all 重量级扫描</a>
+</h3>
+<h3 class="topic">
+<a name="72p2402vncgcvep1rlqu23oeb4">&nbsp;&nbsp;例如:nmap -sV --version-all 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4fjmtvcqfolu0107lqd16ngp2h">&nbsp;--version-trace</a>
+</h3>
+<h3 class="topic">
+<a name="171labbs24ftfirdukb31t47pj">&nbsp;&nbsp;--version-trace 获取详细版本信息</a>
+</h3>
+<h3 class="topic">
+<a name="75o60iinlujoin5aertqqbnhuc">&nbsp;&nbsp;例如:nmap -sV --version-trace 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3oqc3rqt6dthkcsq7tkji6tsip">&nbsp;-sR</a>
+</h3>
+<h3 class="topic">
+<a name="144mbuhqu80o7tf17i5aqtjqvb">&nbsp;&nbsp;-sR RPC扫描</a>
+</h3>
+<h3 class="topic">
+<a name="2qgnd8ro3ql6mtf91dh3nqg5fi">&nbsp;&nbsp;例如:nmap -sV -sR 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="05mj14pg85thq8rsda6jq9uhha">&nbsp;-O</a>
+</h3>
+<h3 class="topic">
+<a name="2uo2fib638331bda1di01rms9l">&nbsp;&nbsp;-O 启用操作系统探测</a>
+</h3>
+<h3 class="topic">
+<a name="4rqlban6hjscbjll92a4hjtf7a">&nbsp;&nbsp;例如:nmap -O 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1tluc2e5dlq5tgks62brmmtaid">&nbsp;--osscan-limit</a>
+</h3>
+<h3 class="topic">
+<a name="238b81l696mks24hnvmsl2gn0e">&nbsp;&nbsp;--osscan-limit 对指定的目标进行操作系统检测(该选项仅在使用-O或-A进行操作系统检测时起作用.)</a>
+</h3>
+<h3 class="topic">
+<a name="6pf6eu1vkt39ikmnugu4s1jr33">&nbsp;&nbsp;例如:nmap -O --osscan-limit 127.0.0.1/24</a>
+</h3>
+<h3 class="topic">
+<a name="1huitag5jsrlrban84l9vqkb64">&nbsp;--osscan-guess;--fuzzy</a>
+</h3>
+<h3 class="topic">
+<a name="4kin2fcboscmljkn4rludrvu33">&nbsp;&nbsp;--osscan-guess;--fuzzy 推测系统版本(当无法准确识别的时候,nmap会从最接近数据中取值,大胆的猜测目标系统.)</a>
+</h3>
+<h3 class="topic">
+<a name="04e8ou8ho1h7rdnkg0s6f1u5i1">&nbsp;&nbsp;例如:nmap -O --osscan-guess 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="53cmcnpj0a5uuta696v22pkn5c">5.伺机而动</a>
+</h2>
+<h3 class="topic">
+<a name="50kpe8t3cpeut07m275tbc5prp">&nbsp;--min-hostgroup</a>
+</h3>
+<h3 class="topic">
+<a name="3tqh3dlfcd5qd8ujrnroc25por">&nbsp;&nbsp;--min-hostgroup 调整并行扫描组的大小(扫nmap默认情况下载进行扫描的是,首先开始扫描较小的组,最小为5,会在最短的时间产生一个想要的结果,随后慢慢增加大小,最大为1024.为了保证效率,会针对UDP或少量端口的TCP扫描.)</a>
+</h3>
+<h3 class="topic">
+<a name="369fheuhc6ladqi5o7rl0crjpq">&nbsp;&nbsp;例如:nmap --min-hostgroup -30 127.0.0.1/24</a>
+</h3>
+<h3 class="topic">
+<a name="2mtj7hh04rc387dti6stnaqgne">&nbsp;--min-parallelism</a>
+</h3>
+<h3 class="topic">
+<a name="6vll24gmiv9qpur4csqk7ti1oc">&nbsp;&nbsp;--min-parallelism 调整探测报文的并行度</a>
+</h3>
+<h3 class="topic">
+<a name="1oh4hpmc9tmmblu0eijflthi57">&nbsp;&nbsp;例如:nmap --min-parallelism 100 127.0.0.1/24</a>
+</h3>
+<h3 class="topic">
+<a name="7nq92qb3baidnbd8hc54s3as2m">&nbsp;--max-parallelism</a>
+</h3>
+<h3 class="topic">
+<a name="0qboisve6rult57dvbst21hmls">&nbsp;&nbsp;--max-parallelism 调整探测报文的并行度</a>
+</h3>
+<h3 class="topic">
+<a name="251ir6b9d0ce9t539rt3lbiduj">&nbsp;&nbsp;例如:nmap --max-parallelism 100 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="71uid59dcuoa65qk5ptke3bk7v">&nbsp;--min-rtt-timeout</a>
+</h3>
+<h3 class="topic">
+<a name="23eou82lrditco6cbqq8onurqk">&nbsp;&nbsp;--min-rtt-timeout 调整探测报文超时(使用该选项时,规定100毫秒是比较合适的,rtt值不得小于100,也最好不要大于1000毫秒.)</a>
+</h3>
+<h3 class="topic">
+<a name="2uco7fictm6ihn28m000nc7la7">&nbsp;&nbsp;例如:nmap --min-rtt-timeout 500ms 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="50a9u14a6v9h3o2ajtastb0p2e">&nbsp;--max-rtt-timeout</a>
+</h3>
+<h3 class="topic">
+<a name="0ba0v6pt80lsrvnaidn3eoutp0">&nbsp;&nbsp;--max-rtt-timeout 调整探测报文超时</a>
+</h3>
+<h3 class="topic">
+<a name="5dmc377r1oi9mlect9pjdjltlm">&nbsp;&nbsp;例如:nmap --max-rtt-timeout 500ms 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="62tnfgq3rt3hat4c1vlk59cv6c">&nbsp;--initial-rtt-timeout</a>
+</h3>
+<h3 class="topic">
+<a name="07ftpr4p01101rot7qvi14la8e">&nbsp;&nbsp;--initial-rtt-timeout 调整探测报文超时</a>
+</h3>
+<h3 class="topic">
+<a name="14nq37o1j4tmhsnbjgcdmo0b63">&nbsp;&nbsp;例如:nmap --initial-rtt-timeout 500ms 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="33i7q4t47phtvd88449urevi9t">&nbsp;--host-timeout</a>
+</h3>
+<h3 class="topic">
+<a name="6p109murn2k3kh6l29mr1db8ei">&nbsp;&nbsp;--host-timeout 放弃低速目标主机(单位是毫秒,一般我们设置为1800000毫秒,保证nmap在对单个主机扫描的时间不会超过半个小时.在半小时后的时间内其他主机也会同时扫描.）</a>
+</h3>
+<h3 class="topic">
+<a name="0cig7vhhj3gfjtdils0vmegrie">&nbsp;&nbsp;例如:nmap --host-timeout 100ms 127.0.0.1/24</a>
+</h3>
+<h3 class="topic">
+<a name="7a3hmtnkk2o4k1v0fdt2ro2fnq">&nbsp;--scan-delay</a>
+</h3>
+<h3 class="topic">
+<a name="2rts8bmnuhllvr0m0khajn8jtg">&nbsp;&nbsp;--scan-delay 调整探测报文的时间间隔(该选项可以控制Nmap对一个或多个主机发送探测报文的等待时间.等待时间可以毫秒为单位.）</a>
+</h3>
+<h3 class="topic">
+<a name="3a8ovof6o14scboj7dpa0msd2j">&nbsp;&nbsp;例如:nmap --scan-delay 1s 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="27vlt5u5dbjvldg04crgvnmk18">&nbsp;--max-scan-delay</a>
+</h3>
+<h3 class="topic">
+<a name="6gsle2ssgv676fjlch1gg15htp">&nbsp;&nbsp;--max-scan-delay 调整探测报文的时间间隔</a>
+</h3>
+<h3 class="topic">
+<a name="3qdfd0j7l0amsbt5svr7bj6mdl">&nbsp;&nbsp;例如:nmap --max-scan-delay 30s 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="6druqjrgeq79gdp6118tr93502">6.防火墙/IDS逃逸</a>
+</h2>
+<h3 class="topic">
+<a name="4arnr83b2delf21njt3j4btu00">&nbsp;-f</a>
+</h3>
+<h3 class="topic">
+<a name="29dvf4hl6cgll1qbqn36gp1aj0">&nbsp;&nbsp;-f 报文分段</a>
+</h3>
+<h3 class="topic">
+<a name="6f5v86lg6l8jvr1e8ihbtd95h3">&nbsp;&nbsp;例如:nmap -sX -v -F 127.0.0.1(ping扫描目标主机)</a>
+</h3>
+<h3 class="topic">
+<a name="72i99g8d1anbi83n42c4tt2s7m">&nbsp;&nbsp;如果在无法获知目标主机的端口是否开放.此时尝试使用报文分段进行扫描.</a>
+</h3>
+<h3 class="topic">
+<a name="5vr1o4dgg5cuiopk6h8ks4gfq3">&nbsp;&nbsp;例如:nmap -f -v 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4ou1m5bqs213krnc2egccqlkbv">&nbsp;--mtu</a>
+</h3>
+<h3 class="topic">
+<a name="54val9hks56cu143cnd9psajlm">&nbsp;&nbsp;--mtu 指定偏移大小</a>
+</h3>
+<h3 class="topic">
+<a name="2d9iq09qlvh926a766ats88v3g">&nbsp;&nbsp;例如:nmap --mtu 16 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0k8s2ieccs95n0nglonl8dmjo3">&nbsp;-D</a>
+</h3>
+<h3 class="topic">
+<a name="236vpkr7ska2oq1a7kj1ta5vbk">&nbsp;&nbsp;-D IP欺骗(IP欺骗的语法如下:Nmap -D [decoy1,decoy2...|RND: number][目标])</a>
+</h3>
+<h3 class="topic">
+<a name="1duda459fq6doorvg24n9daol7">&nbsp;&nbsp;(使用-D选项可以指定多个ip地址,或者使用RND随机生成几个地址,在指定的诱饵之间使用逗号进行分割,需要注意的是在进行版本检测或者TCP扫描的时候诱饵是无效的.)</a>
+</h3>
+<h3 class="topic">
+<a name="5llmn9qvlfprt88qparcnvcodf">&nbsp;&nbsp;例如:nmap -D RND:11 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6qdk59671cndhjbq8ik96co8a3">&nbsp;&nbsp;随机的方法容易发现,接下来将指定几个IP地址对目标实施扫描来达到更好的效果.</a>
+</h3>
+<h3 class="topic">
+<a name="75e30cnr7al9su7v86cdl8s46l">&nbsp;&nbsp;例如:nmap -D 127.0.0.1,127.0.0.2,127.0.0.253 127.0.153.1</a>
+</h3>
+<h3 class="topic">
+<a name="7771oshbbq55k5r4iqros3mhsu">&nbsp;&nbsp;通过抓包的方法看到nmap正在使用我们指定的ip进行对目标主机的扫描,可以使用ME选项指定自己的真实IP.</a>
+</h3>
+<h3 class="topic">
+<a name="7defq5ccn8v386sgc946hi9o1o">&nbsp;&nbsp;例如:nmap -D 127.0.0.1,127.0.0.2,127.0.0.253,ME 127.0.153.1</a>
+</h3>
+<h3 class="topic">
+<a name="39g887ojsjd963o2qqcojmpp6a">&nbsp;-sI</a>
+</h3>
+<h3 class="topic">
+<a name="7matjkngf5mn42es5emet17n8j">&nbsp;&nbsp;-sI 原地址欺骗(使用-sI选项可以进行源地址欺骗,如果Nmap无法确定你的原地址,Nmap会给出相应的提示,我们使用-sI选项指定需要发包的接口ip地址.)</a>
+</h3>
+<h3 class="topic">
+<a name="522l687r2f3vssrh51kf2ivco0">&nbsp;&nbsp;例如:nmap -sI xssm.me:80 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1k1d7q2hdu9cpv41e9f06375kp">&nbsp;--source-port</a>
+</h3>
+<h3 class="topic">
+<a name="6rpblh55vjcjvpocooce5lpdtd">&nbsp;&nbsp;--source-port 源端口欺骗(使用--source-port选项可以进行源地址欺骗,也可以用-g选项,只需要提供端口,nmap就可以从端口发sing数据,)</a>
+</h3>
+<h3 class="topic">
+<a name="4k2acqnpn3lvode2f94bknpm55">&nbsp;&nbsp;例如:nmap --source-port 53 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="71lm51g76pppo8qkpkacah7so1">&nbsp;--data-length</a>
+</h3>
+<h3 class="topic">
+<a name="00v08mo7qad2id3f8jmm5n3dtc">&nbsp;&nbsp;--data-length 指定发包长度(使用--datalength可以在发送报文的时候指定发包长度,tcp包是40字节,ICMP Echo有28个字节.)</a>
+</h3>
+<h3 class="topic">
+<a name="6vbbs9d2g2napu0rrlji5i4cfn">&nbsp;&nbsp;例如:nmap --data-length 30 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4mrkd0jsioe07qs55vdgodfc97">&nbsp;--randomize-hosts</a>
+</h3>
+<h3 class="topic">
+<a name="5119c7og95hvvmmhbqghp0eh55">&nbsp;&nbsp;--randomize-hosts 目标主机随机排序(使用该选项可以对比主机书序进行随机的排序,最多可达8096个主机,单方面使用这个选项对防火墙/IDS逃逸效果不大.配合时间选项会有很好的效果.)</a>
+</h3>
+<h3 class="topic">
+<a name="2n7spocbsl3hhjm5bi7b8pc5gd">&nbsp;&nbsp;例如:nmap --randomize-hosts 127.0.0.1-200</a>
+</h3>
+<h3 class="topic">
+<a name="2fo6nkglasn9bvld6c3if0pek4">&nbsp;--spoof-mac</a>
+</h3>
+<h3 class="topic">
+<a name="2pa51aaja4ek69auikbno8d42l">&nbsp;&nbsp;--spoof-mac MAC地址欺骗</a>
+</h3>
+<h3 class="topic">
+<a name="39bofjj9p0nirq7sigrnmc01cm">&nbsp;&nbsp;使用该选项就可以进行MAC地质欺骗,冒失指定一个MAC地质会引起管理员怀疑,这是可以用字符串'0'随机分配一个MAC地址,也可以指定一个MAC地址进行欺骗,.MAC地址最好是存在的,这样才能起到欺骗的效果,使用--spoof-mac选项可以用参数包括0，MAC Address,Vendor Name.0表示随机生成一个MAC地址,MAC Address表示用户手动指定一个MAC地址,Vendor Name表示从指定厂商生成一个MAC地址.</a>
+</h3>
+<h3 class="topic">
+<a name="5qeopv4hf359bl40b4f3nj21tg">&nbsp;&nbsp;例如:nmap -sT -PN --spoof-mac 0 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="72gr84qqad28s9ij2vjgvf57aq">7.信息搜集</a>
+</h2>
+<h3 class="topic">
+<a name="0cpnhqp899876stlb6507v6trd">&nbsp;--script ip-geolocation-*</a>
+</h3>
+<h3 class="topic">
+<a name="2jkonop1416ai413kbje8r9vig">&nbsp;&nbsp;--script ip-geolocation-* IP信息搜集</a>
+</h3>
+<h3 class="topic">
+<a name="5abe0a4ia0l2m9ige4hf9ppe1h">&nbsp;&nbsp;例如:nmap --script ip-geolocation-*  www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="3bdfad50s2pdu7rvdh9i3pf1t6">&nbsp;whois</a>
+</h3>
+<h3 class="topic">
+<a name="0l071chgp67ev7v38fce1ttaeq">&nbsp;&nbsp;whois WHOIS查询(查询目标域名whois信息)(有时候whois查询到信息并不准确,我们更热衷于查询历史whois记录.)</a>
+</h3>
+<h3 class="topic">
+<a name="3v3or7ltdcnkcqji9tc5btmki9">&nbsp;&nbsp;例如:nmap --script whois www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="78ucj1rdspjh9m87q3ac8ggbln">&nbsp;&nbsp;大部分网站启用了whois保护或隐藏电话,姓名等信息,我们可以查询历史whois,例如whois可能还没有启用whois保护,我们可以启用其他几个whois查询脚本.)</a>
+</h3>
+<h3 class="topic">
+<a name="6odoivsse52hgik6as3ncdt5hc">&nbsp;&nbsp;例如:nmap --script whois --script-args whois.whodb=nofollow www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="6mjb5s2k5n5cc1gamnjihktfq4">&nbsp;&nbsp;如果域名比较多,我们可以使用列表的方式进行查询.</a>
+</h3>
+<h3 class="topic">
+<a name="2fto3ia2urpgikc5cjhru15ji7">&nbsp;&nbsp;例如:nmap --sn --script whois -v -iL host.txt</a>
+</h3>
+<h3 class="topic">
+<a name="2qolsv96o4di3ke4p6eia26lri">&nbsp;http-email-harvest</a>
+</h3>
+<h3 class="topic">
+<a name="2b7jmeqt4op8uh5kn4f7vdmph6">&nbsp;&nbsp;http-email-harvest 搜集E-mail信息(Email查询)</a>
+</h3>
+<h3 class="topic">
+<a name="5il12h84521nlur36c8kc3hule">&nbsp;&nbsp;例如:nmap --script http-email-harvest www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="3os9c9qqj525vaurmbp0rgv8gm">&nbsp;hostmap-ip2hosts</a>
+</h3>
+<h3 class="topic">
+<a name="4hs09s8rjkvb3mvu4pn2rnoofl">&nbsp;&nbsp;hostmap-ip2hosts IP反查</a>
+</h3>
+<h3 class="topic">
+<a name="5sf02vodifabqdp14ptu13hah6">&nbsp;&nbsp;例如:nmap -sn --script hostmap-ip2hosts www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="2d4oqmssrk25rd645kvmmb6s08">&nbsp;dns-brute</a>
+</h3>
+<h3 class="topic">
+<a name="2us0rqu4t8risbktrit6bnddbs">&nbsp;&nbsp;dns-brute DNS信息搜集(域名系统是因特网的一项服务,他作为将域名和Ip地址相互映射的一个分布式数据库,能够使人更方便的访问互联网,dns使用tcp和udp端口53,当前,对于每一级域名长度的限制是63个字符,域名总长度则不能超过253个字符.)</a>
+</h3>
+<h3 class="topic">
+<a name="6m4k4qigv9jb595h1pq90afac0">&nbsp;&nbsp;例如:nmap --script dns-brute www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="4f48ersqf9k2dsmg6dtel8qe6t">&nbsp;&nbsp;该脚本的默认现成是5,如果是扫描一个大型网站,速度可能会较慢,可以设置一下扫描线程,nmap--script dns-brute dns-brute.threads=10 www.xssm.me,设置10个线程时相应扫描速度回增加很多,如果需要查询多个域名可以指定一个列表:nmap --script dns-brute dns-brute.threads=10,dns-brute.hostlist www.xssm.me.</a>
+</h3>
+<h3 class="topic">
+<a name="196cplhp8d6dops1o9j83fbdqq">&nbsp;membase-http-info</a>
+</h3>
+<h3 class="topic">
+<a name="6d9evtpkolnppvkfjifj663kau">&nbsp;&nbsp;membase-http-info 检索系统信息</a>
+</h3>
+<h3 class="topic">
+<a name="1v8ue5vegjcnbk1lfjhrcqbll5">&nbsp;&nbsp;例如:nmap -p 445 127.0.0.1 --script membase-http-info</a>
+</h3>
+<h3 class="topic">
+<a name="6kor18n0j3cvnjuumq4qv4p2ie">&nbsp;smb-security-mode.nse</a>
+</h3>
+<h3 class="topic">
+<a name="0m433vtiasu8eae973itvkunit">&nbsp;&nbsp;smb-security-mode.nse 后台打印机服务漏洞</a>
+</h3>
+<h3 class="topic">
+<a name="2khfm6c6qg2tqqbo8j3gu7t94d">&nbsp;&nbsp;例如:nmap --script smb-security-mode.nse -p 445 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0jcnsvnt4k432tv7ka32ld1nl6">&nbsp;smb-check-vulns.nse</a>
+</h3>
+<h3 class="topic">
+<a name="63dct2k9i2nam580t8m447o7q2">&nbsp;&nbsp;smb-check-vulns.nse 系统漏洞扫描(可以使用U:或者T:进行配合,这样会得到意想不到的效果.)</a>
+</h3>
+<h3 class="topic">
+<a name="40mq6jqj7bn7l8hcj4amp96djv">&nbsp;&nbsp;例如:nmap --script smb-check-vulns.nse -p445 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1aae11dviu51fc22sfo55hftto">&nbsp;http-stored-xss.nse</a>
+</h3>
+<h3 class="topic">
+<a name="0mmlcadja2scu6vu2m7aen72et">&nbsp;&nbsp;http-stored-xss.nse 扫描Web漏洞</a>
+</h3>
+<h3 class="topic">
+<a name="7oi2etcnorc7ttm2nankic0n40">&nbsp;&nbsp;例如:nmap -p80 --script http-stored-xss.nse www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="518ua9vt09qogq8tkjrhh8qjkt">&nbsp;snmp-win32-services</a>
+</h3>
+<h3 class="topic">
+<a name="4vprvpcj3jlh0cv446b4nqhj38">&nbsp;&nbsp;snmp-win32-services 通过Snmp列举Windows服务/账户</a>
+</h3>
+<h3 class="topic">
+<a name="482oh9t44po5fsvn2emjcv35vh">&nbsp;&nbsp;例如:nmap -sU -p 161 --script=snmp-win32-services 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2bq8lsmrab2036n1nuvr411ce1">&nbsp;dns-brute</a>
+</h3>
+<h3 class="topic">
+<a name="05chmr0jc7aunhgb9gq410g701">&nbsp;&nbsp;dns-brute 枚举DNS服务器的主机名(下面的示例是对baidu.com子域名的枚举.)</a>
+</h3>
+<h3 class="topic">
+<a name="0lup7h4apocmra1lrfnd9nr8j1">&nbsp;&nbsp;例如:nmap --script dns-brute --script-args dns-brute.domain=baidu.com</a>
+</h3>
+<h3 class="topic">
+<a name="08la7sdco8dh1qkiur5tianjjb">&nbsp;&nbsp;所有有关子域名及服务器都被dns-brute脚本枚举出来,该脚本可以使用"dns-brute.threads=线程"指定线程来加快或较少破解速度,使用dns-brute.hostlist=./hostfile.txt指定一个需要枚举的列表.</a>
+</h3>
+<h3 class="topic">
+<a name="43o0ql6dgf3tufv6lvo5vu97p8">&nbsp;http-header/http-sitmap-generator</a>
+</h3>
+<h3 class="topic">
+<a name="5r705cn8fr54mho193k9461fvn">&nbsp;&nbsp;http-header/http-sitmap-generator HTTP信息搜集</a>
+</h3>
+<h3 class="topic">
+<a name="3elphkb6qc9l0frjkivvu90goh">&nbsp;&nbsp;使用nmap扫描http版本,得知当前版本漏洞,例如Apache,IIS7,Nginx的畸形漏洞在相应的低版本中都会存在.nmap可以非常简单的发泄这些漏洞.</a>
+</h3>
+<h3 class="topic">
+<a name="6dshopmo4e35hv1aieeuq6vq97">&nbsp;&nbsp;例如:nmap -sV -p 80 www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="12gct265hpg9gjil6a4527lfui">&nbsp;&nbsp;使用命令"nmap -p 80 --script=http-headers目标地址"即可对目标地址进行HTTP头信息探测.</a>
+</h3>
+<h3 class="topic">
+<a name="2n1kav7760sn69h69j4kvmuja6">&nbsp;&nbsp;例如:nmap -p 80 --script=http-headers baidu.com</a>
+</h3>
+<h3 class="topic">
+<a name="0dbie564cr2b0js4htculn3mhf">&nbsp;&nbsp;使用命令"nmap -p 80 --script=http-sitemap-generator目标地址"即可爬行Web目录结构.</a>
+</h3>
+<h3 class="topic">
+<a name="4rpc6vj1etneimr3ju7ra5do7f">&nbsp;&nbsp;例如:nmap -p 80 --script=http-sitemap-generator www.baidu.com</a>
+</h3>
+<h3 class="topic">
+<a name="5p052o72ar3jt79bqm5c1l42al">&nbsp;ssl-enum-ciphers</a>
+</h3>
+<h3 class="topic">
+<a name="109fgh6v270c5it97bm66kvjuj">&nbsp;&nbsp;ssl-enum-ciphers 枚举SSL秘钥</a>
+</h3>
+<h3 class="topic">
+<a name="2lquuhbsrf9rk5mrmpjdenq19i">&nbsp;&nbsp;例如:nmap -p 443 --script=ssl-enum-ciphers www.baidu.com</a>
+</h3>
+<h3 class="topic">
+<a name="1cq0hi4ve429imlejl87j8ni6s">&nbsp;ssh-hostkey</a>
+</h3>
+<h3 class="topic">
+<a name="1dpqg61qi3g9i9vln6t51jqtvm">&nbsp;&nbsp;ssh-hostkey SSH服务秘钥信息探测(sh-hosts可以查看SSH服务的秘钥信息.)</a>
+</h3>
+<h3 class="topic">
+<a name="0gkki2aroca75lo0shu6bo3t7u">&nbsp;&nbsp;例如:nmap -p 22 --script ssh-hostkey --script-args ssh_hostkey=full 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="758gkmd6rtd3a3unp50oam62g2">8.数据库渗透测试</a>
+</h2>
+<h3 class="topic">
+<a name="1ll5tfgnugnhaved8195vuui0b">&nbsp;mysql-databases</a>
+</h3>
+<h3 class="topic">
+<a name="12fqjrm30vtbpa8f1tvd9dlbnq">&nbsp;&nbsp;mysql-databases MYSQL列举数据库(如果目标端口改变组需要-p指定相应的端口.)</a>
+</h3>
+<h3 class="topic">
+<a name="6j842vj643u6k70584oq42j9ah">&nbsp;&nbsp;例如:nmap -p3306 --script mysql-databases --script-args mysqluser=root,mysqlpass 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7ej8ol1m3c2d97rdfhvij8d14e">&nbsp;mysql-variables</a>
+</h3>
+<h3 class="topic">
+<a name="64pj63b08jfvv8sbl1vgeheilm">&nbsp;&nbsp;mysql-variables 列举MYSQL变量(如果目标端口改变组需要-p指定相应的端口.)</a>
+</h3>
+<h3 class="topic">
+<a name="3rhjenkve7shosnqq24a3vnv73">&nbsp;&nbsp;例如:nmap -p3306 --script=mysql-variables 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0b5rjp942ank3vatr9jbcon88g">&nbsp;mysql-empty-password</a>
+</h3>
+<h3 class="topic">
+<a name="61c77fm7cch1hpfm8m1qso24qa">&nbsp;&nbsp;mysql-empty-password 检查MYSQL密码</a>
+</h3>
+<h3 class="topic">
+<a name="2323lhfk9r7ov8ige8794vh339">&nbsp;&nbsp;例如:nmap -p3306 --script=mysql-empty-password 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4qgsc0o32b5j5odueefkjqkgpv">&nbsp;&nbsp;如果无法确定目标开放的端口号,可以用-sV选项进行扫描.</a>
+</h3>
+<h3 class="topic">
+<a name="0lj2uat81i6q8bdv91766c3brg">&nbsp;&nbsp;例如:nmap -sV --script=mysql-empty-password 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="31f8fqls5jmuq0vt7tgtr1g9ts">&nbsp;mysql-brute</a>
+</h3>
+<h3 class="topic">
+<a name="19vrgbrbptrko2d0umtio2forn">&nbsp;&nbsp;mysql-brute 审计MYSQL密码</a>
+</h3>
+<h3 class="topic">
+<a name="5gi4k67nmjdnoga78olp7cc6n1">&nbsp;&nbsp;例如:nmap --script=mysql-brute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2oae5d9s1eege7n2ef9ctc0c7g">&nbsp;&nbsp;该脚本用于MYSQL弱口令,默认查找全部端口查找MYSQL端口,但是我们可以用-p指定端口,也可以自定义账号密码字典.</a>
+</h3>
+<h3 class="topic">
+<a name="2mlk59gr3v67gt1mgjeroc82im">&nbsp;&nbsp;例如:nmap -p 3306 --script=mysql-brute userdb=/root/passdb.txt passdb=/root/pass.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4njig3dsica54r03t1mj1s7c9c">&nbsp;mysql-audit</a>
+</h3>
+<h3 class="topic">
+<a name="0gfea9d6gqcm03p744jrf0ssou">&nbsp;&nbsp;mysql-audit 审计MYSQL安全配置</a>
+</h3>
+<h3 class="topic">
+<a name="17g0ekqclve0lojij4vor9i9vk">&nbsp;&nbsp;例如:nmap -p 3306 --script mysql-audit --script-args "mysql-audit.username='root',mysql-audit.password='',mysql-audit.filename='nselib/data/mysql-cis.audit'" 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3l8d5766ihhhat1e0ekfv96aje">&nbsp;oracle-brute</a>
+</h3>
+<h3 class="topic">
+<a name="5npfmeglvh5v3fecmqv02luhgn">&nbsp;&nbsp;oracle-brute 审计Oracle密码</a>
+</h3>
+<h3 class="topic">
+<a name="6thf6v5gt1ajllun49e22fel89">&nbsp;&nbsp;例如:nmap --script oracle-brute -p 1521 --script-args oracle-brute.sid=test 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3p2mek0gkkha0pknl442n26iom">&nbsp;&nbsp;该脚本暴力破解Oracle密码,但是我们可以用-p指定端口,也可以自定义账号密码字典.需要userdb选项指定账号字典passdb指向密码字典.</a>
+</h3>
+<h3 class="topic">
+<a name="64ip7qmrff782fk4ajsfldb8sn">&nbsp;&nbsp;例如:nmap --script oracle-brute -p 1521 --script-args oracle-brute.sid=test --script-args userdb=/tmp/usernames.txt,passdb=/tmp/passwords.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="329m1ch9hsi99qba003ep6okoe">&nbsp;ms-sql-brute</a>
+</h3>
+<h3 class="topic">
+<a name="3e5c4s146untgcnsdp65likq4u">&nbsp;&nbsp;ms-sql-brute 审计msSQL密码</a>
+</h3>
+<h3 class="topic">
+<a name="6c02mr6n7454s4vule3hf27o3m">&nbsp;&nbsp;例如:nmap -p 1433 --script ms-sql-brute --script-args userdb=name.txt,passdb=pass.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="177a7vu12l3j303d9od55osur6">&nbsp;ms-sql-empty-password</a>
+</h3>
+<h3 class="topic">
+<a name="08hj35p204v7frdpp8lb26pbpl">&nbsp;&nbsp;ms-sql-empty-password 检查msSQL空密码</a>
+</h3>
+<h3 class="topic">
+<a name="13meb6iuah2kild7ktrh8idcp9">&nbsp;&nbsp;例如:nmap -p 1433 --script ms-sql-empty-password 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7pei0s70u4utjvgksktnmfkgpl">&nbsp;ms-sql-tables</a>
+</h3>
+<h3 class="topic">
+<a name="1k84a07bv5ojjli5ggs8cjq365">&nbsp;&nbsp;ms-sql-tables 读取msSQL数据</a>
+</h3>
+<h3 class="topic">
+<a name="2cesfbafcbvv2po8thduoho58c">&nbsp;&nbsp;例如:nmap -p 1433 --script ms-sql-tables -scripts-args mssql.username=sq,mssql.password=sa 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="5lnbc5ej9t0f4sadb2ki0d914m">&nbsp;ms-sql-xp-cmdshell</a>
+</h3>
+<h3 class="topic">
+<a name="2k88tpioq9f6no5dt73ch3i44e">&nbsp;&nbsp;ms-sql-xp-cmdshell msSQL执行系统命令</a>
+</h3>
+<h3 class="topic">
+<a name="6ojh8th5493tlvijbr4sem2tte">&nbsp;&nbsp;例如:nmap -p 1433 --script ms-sql-xp-cmdshell --script-args mssql.username=sa,mssql.password=sa,ms-sql-xp-cmdshell.cmd="ipconfig" 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3c40hkl5andt4eq62tf07ghoge">&nbsp;pgsql-brute</a>
+</h3>
+<h3 class="topic">
+<a name="4qg2b8gssogkk0tt9v7c6gdb26">&nbsp;&nbsp;pgsql-brute 审计PgSQL密码</a>
+</h3>
+<h3 class="topic">
+<a name="0v4a5giakps8uemoqmtb5b46s1">&nbsp;&nbsp;例如:nmap -p 5432 --script pgsql-brute 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="1ogij2s25kjhsugkk41drg4a30">9.渗透测试</a>
+</h2>
+<h3 class="topic">
+<a name="6e5nami3v4m0lvp04v2hv5b1m3">&nbsp;http-brute</a>
+</h3>
+<h3 class="topic">
+<a name="520ndkf31tmfvlk9pcdr1epfq6">&nbsp;&nbsp;http-brute 审计HTTP身份验证</a>
+</h3>
+<h3 class="topic">
+<a name="0po32k55jid4tdi7gje1dainka">&nbsp;&nbsp;例如:nmap --script http-brute -p 80 www.xssm.me</a>
+</h3>
+<h3 class="topic">
+<a name="1m71ase805q74qmchemtcqn1pb">&nbsp;ftp-brute</a>
+</h3>
+<h3 class="topic">
+<a name="7qcqpvt645gm2gsjktv9vlebpj">&nbsp;&nbsp;ftp-brute 审计FTP服务器</a>
+</h3>
+<h3 class="topic">
+<a name="4st06uqp12o8ogaldm7kvis97b">&nbsp;&nbsp;例如:nmap --script ftp-brute -p 21 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3068merhadu8he864etbeg836g">&nbsp;&nbsp;如果上面没有破解成功,需要设置一个账号密码的字典进行破解.</a>
+</h3>
+<h3 class="topic">
+<a name="50m7vcfe7lib3d86i8vbl1iqqc">&nbsp;&nbsp;例如:nmap --script ftp-brute --script-args userdb=user.txt,passdb=pass.txt -p 21 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="07kvhbhcol0sjaaf438gl91a9p">&nbsp;http-wordpress-brute</a>
+</h3>
+<h3 class="topic">
+<a name="7lpevm32faulq03c0m7vq7su1r">&nbsp;&nbsp;http-wordpress-brute 审计Wordpress程序</a>
+</h3>
+<h3 class="topic">
+<a name="149a875mlolcphnf2jebbe8p0t">&nbsp;&nbsp;例如:nmap -p80 --script http-wordpress-brute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3bp5kq6e0fo12b4l1o3pgvo78i">&nbsp;&nbsp;若是需要自定字典则需要设置userdb,passdb选项指定相应的字典.</a>
+</h3>
+<h3 class="topic">
+<a name="2e19dghb7fhdldn04ncubid008">&nbsp;&nbsp;例如:nmap -p80 --script http-wordpress-brute --script-args userdb=user.txt,passdb=passwd.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="00oi48m8s4f7e0ci3t3a17kk0q">&nbsp;&nbsp;还可以设置线程数,减少破解的时间.</a>
+</h3>
+<h3 class="topic">
+<a name="341semopb0836h65uuirhq438b">&nbsp;&nbsp;例如:nmap -p80 --script http-wordpress-brute --script-args http-wordpress-brute。threads=10 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="5i2bppd2anla2n073ojv5v0shi">&nbsp;http-joomla-brute</a>
+</h3>
+<h3 class="topic">
+<a name="5uqigd6e8vmul078chadaa604m">&nbsp;&nbsp;http-joomla-brute 审计joomla程序</a>
+</h3>
+<h3 class="topic">
+<a name="3gu6fiq88muel65vv4pel2335f">&nbsp;&nbsp;例如:nmap -p80 --script http-joomla-brute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1as7f38igsrhj2end5v9sa7cgm">&nbsp;&nbsp;自定义账号密码字典,进行高效率的破解.</a>
+</h3>
+<h3 class="topic">
+<a name="5jd8niq01ikb4hgusqvags8ok0">&nbsp;&nbsp;例如:nmap -p80 --script http-joomlabrute --script-args userdb=users.txt,passdb=passwords.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="79qhe78otbk5a6r5nqc8ms6dvd">&nbsp;&nbsp;设置线程让破解更加高效.</a>
+</h3>
+<h3 class="topic">
+<a name="06t0rs4mmia98b75f39lg795j3">&nbsp;&nbsp;例如:nmap -p80 --script http-joomlabrute --script-args userdb=users.txt,passdb=passwords.txt,http-joomla-brute.threads=5 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0am8jq5mnk57ooo1oil8heb195">&nbsp;pop3-brute</a>
+</h3>
+<h3 class="topic">
+<a name="147u5r3i1j7ktv77pve44ffurl">&nbsp;&nbsp;pop3-brute 审计邮件服务器(如果需要自定义字典需要设置passdb,userdb两个选项指定相应的字典.)</a>
+</h3>
+<h3 class="topic">
+<a name="08nuk1ss46mh0nn1m7jpo9d1th">&nbsp;&nbsp;例如:nmap -p110 --script=pop3-brute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="05v0bmpk24o12dgi264iskmko3">&nbsp;smb-brute.nse</a>
+</h3>
+<h3 class="topic">
+<a name="48hkot7am4fmnvn8gpm02kvii6">&nbsp;&nbsp;smb-brute.nse 审计SMB口令</a>
+</h3>
+<h3 class="topic">
+<a name="26g0527170ilmum812hogm44au">&nbsp;&nbsp;例如:nmap --script smb-brute.nse -p445 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1ql0n4h52tg88p68pus812ifp4">&nbsp;&nbsp;可以使用passdb选项指向一个自定义字典.</a>
+</h3>
+<h3 class="topic">
+<a name="4jot3klp5tnkfcrc3lguldlmj5">&nbsp;&nbsp;例如:nmap --script smb-brute.nse --script-args passdb=pass.txt -p445 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="63p40jee33m613946srq6gkd1u">&nbsp;vnc-brute</a>
+</h3>
+<h3 class="topic">
+<a name="7v8j40hp1d0ffui7p1njr9kka6">&nbsp;&nbsp;vnc-brute 审计vnc服务器(如果需要自定义字典需要设置passdb,userdb两个选项指定相应的字典.)</a>
+</h3>
+<h3 class="topic">
+<a name="19hudf78br2j7d04hsrnnuck3j">&nbsp;&nbsp;例如:nmap --script vnc-brute -p 5900 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6gi0sditgflt16c61k0gigj5cc">&nbsp;smtp-brute</a>
+</h3>
+<h3 class="topic">
+<a name="43mhidmdudhfgmmncc5tfv4qm6">&nbsp;&nbsp;smtp-brute 审计SMTP服务器</a>
+</h3>
+<h3 class="topic">
+<a name="256c3gr16adlk4avq5tijskan1">&nbsp;&nbsp;例如:nmap -p 25 --script smtp-brute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1g5eb5tb0knqgro8hum9nl57ic">&nbsp;smtp-enum-users</a>
+</h3>
+<h3 class="topic">
+<a name="1dhmrineckfn2q847jp2ipij0m">&nbsp;&nbsp;smtp-enum-users 审计SMTP服务器</a>
+</h3>
+<h3 class="topic">
+<a name="575oekd1nhufcq5mh24jf6o08a">&nbsp;&nbsp;若要进行邮件的接收与发送则需要有对应的邮箱账户,通过VRFY,EXPN,或RCPT命令,可以枚举邮箱用户,在nmap的脚本中smtp-enum-users则可以通过枚举远程系统所有的用户.</a>
+</h3>
+<h3 class="topic">
+<a name="0lsth0sln0p30g75ip8tqus61g">&nbsp;&nbsp;例如:nmap -p 25 --script=smtp-enum-users.nse smtp.xx.com</a>
+</h3>
+<h3 class="topic">
+<a name="55lnucteg64vik3hsqinj3e837">&nbsp;stuxnet-detect</a>
+</h3>
+<h3 class="topic">
+<a name="7nh32mt3v078o7gqdpddu8svta">&nbsp;&nbsp;stuxnet-detect 检测Stuxnet蠕虫</a>
+</h3>
+<h3 class="topic">
+<a name="5nr0gi5pn9t4lerbi7c81nh4lp">&nbsp;&nbsp;例如:nmap --script stuxnet-detect -p 445 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3k1rsmes2ds2tg7b1jamijh7nh">&nbsp;snmp-netstat</a>
+</h3>
+<h3 class="topic">
+<a name="39vfcr6pkshlfgb0a5119dib5k">&nbsp;&nbsp;snmp-netstat SNMP服务安全审计(获取目标主机网络连接状态)</a>
+</h3>
+<h3 class="topic">
+<a name="2r1i92r6emugtm1042dqlpek87">&nbsp;&nbsp;例如:nmap -sU -p 161 --script=snmp-netstat 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="15tou6rv0rjujfuvqs1hv7psfk">&nbsp;snmp-processes</a>
+</h3>
+<h3 class="topic">
+<a name="2oji59r0jemr2gp66enor7p546">&nbsp;&nbsp;snmp-processes SNMP服务安全审计(snmp-processes脚本可以通过SNMP服务协议枚举运行的系统进程)</a>
+</h3>
+<h3 class="topic">
+<a name="2fdbbfbt05jqcl7dvp67qctops">&nbsp;&nbsp;例如:nmap -sU -p 161 --script=snmp-processes 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="74ir0alh8uo8qufotv3j5fda8s">&nbsp;snmp-win32-services</a>
+</h3>
+<h3 class="topic">
+<a name="0im6falbfr6gqsvd2icnuiv9s8">&nbsp;&nbsp;snmp-win32-services SNMP服务安全审计(snmp-win32-services脚本可以获得Windows服务器的服务)</a>
+</h3>
+<h3 class="topic">
+<a name="3tkf61l147vfrtn0d8pnss6eud">&nbsp;&nbsp;例如:nmap -sU -p 161 --script=snmp-win32-services 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2smisdgbpnjsua1k1maqhccgt4">&nbsp;snmp-brute</a>
+</h3>
+<h3 class="topic">
+<a name="5tqf4h9c5tgf10s3cjmeaj9lju">&nbsp;&nbsp;snmp-brute SNMP服务安全审计(snmp-brute可以对目标服务器的Snmp服务进行口令审计.)</a>
+</h3>
+<h3 class="topic">
+<a name="30r9eq213lnmvupp7r4nphjjc8">&nbsp;&nbsp;例如:nmap -sU -p 161 --script=snmp-brute 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="7pkrb971a3j1uu285qilrn8aab">10.Nmap技巧</a>
+</h2>
+<h3 class="topic">
+<a name="2m5d7pv846794jn82ea2kvdfn2">&nbsp;--send-eth</a>
+</h3>
+<h3 class="topic">
+<a name="2827jj4f2nkgts5hmtcnamjn67">&nbsp;&nbsp;--send-eth 发送以太网数据包</a>
+</h3>
+<h3 class="topic">
+<a name="6h73n7v0bntaqnvdhn5e9hbfgr">&nbsp;&nbsp;例如:nmap --send-eth 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6ejiio6elu66a6dv6j6pp79988">&nbsp;--send-ip</a>
+</h3>
+<h3 class="topic">
+<a name="32q5ehps79n79700srcjcd3557">&nbsp;&nbsp;--send-ip 网络层发送</a>
+</h3>
+<h3 class="topic">
+<a name="2mq7f97dj4d9eqlspjqit7i0hb">&nbsp;&nbsp;例如:nmap --send-ip 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3t30a7ov442b8a9j940n049mb8">&nbsp;--privileged</a>
+</h3>
+<h3 class="topic">
+<a name="13uirlfm1gc9pt2ucm21ni62o1">&nbsp;&nbsp;--privileged 假定拥有所有权</a>
+</h3>
+<h3 class="topic">
+<a name="2hjlf2o9scibqsvgfp4dn2fevk">&nbsp;&nbsp;例如:nmap --privileged 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="2l66puqs2g647scikco29gsof9">&nbsp;--interactive</a>
+</h3>
+<h3 class="topic">
+<a name="41an60b6gmru3oj8nrephbtl4c">&nbsp;&nbsp;--interactive 在交互模式中启动</a>
+</h3>
+<h3 class="topic">
+<a name="5ha7evcheeqganbvlhiqld9ltq">&nbsp;&nbsp;--interactive告诉nmap在交互模式中启动,这时nmap会提供交互模式,便于扫描.</a>
+</h3>
+<h3 class="topic">
+<a name="4c4m81an3l5l4qp3od7vi8drns">&nbsp;&nbsp;例如:nmap --interactive &amp;&amp; n -T4 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1125b3rc8smr0d1uup777j0o56">&nbsp;-V</a>
+</h3>
+<h3 class="topic">
+<a name="30ip1i30423j4i7lvrg38knsjb">&nbsp;&nbsp;-V 查看Nmap版本号(使用-V选项或者--version选项查看nmap的版本信息.)</a>
+</h3>
+<h3 class="topic">
+<a name="14l4g6qtdgnqqla17j3kjuqihb">&nbsp;&nbsp;例如:namp -V</a>
+</h3>
+<h3 class="topic">
+<a name="664kcjooi5mv5tqshbu1a56hv8">&nbsp;-d</a>
+</h3>
+<h3 class="topic">
+<a name="5s1g4h262loqfhscr2ieibj0v5">&nbsp;&nbsp;-d 设置调试级别(使用-d选项设置调试级别,可选有1~9,-d 9是最高级别,这时候产生的数据会非常多.)</a>
+</h3>
+<h3 class="topic">
+<a name="64gih902fp5977b340ueomv8vu">&nbsp;&nbsp;例如:nmap -d 1 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="6crrbr4o6h9vj40bount5nal5u">&nbsp;--packet-trace</a>
+</h3>
+<h3 class="topic">
+<a name="2b9gvlk9bqb4u7ut21vmt4uep1">&nbsp;&nbsp;--packet-trace 跟踪发送接受的报文</a>
+</h3>
+<h3 class="topic">
+<a name="5qfgfjst1c9gvib1o4btmogm16">&nbsp;&nbsp;例如:nmap --packet-trace -p 20-30 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0s7s14besq6hieo3kqn710pla8">&nbsp;--iflist</a>
+</h3>
+<h3 class="topic">
+<a name="0h3o17mo6o6q76154dali01q7d">&nbsp;&nbsp;--iflist 列举接口和路由</a>
+</h3>
+<h3 class="topic">
+<a name="0pm76cc64t9nmcni1nin8d95cp">&nbsp;&nbsp;例如:nmap --iflist 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="0b8u9umo8ahsk1bsk6p9tgncja">&nbsp;-e</a>
+</h3>
+<h3 class="topic">
+<a name="581fo9v0mh9fqodbbe0q4iaq90">&nbsp;&nbsp;-e 指定网络接口</a>
+</h3>
+<h3 class="topic">
+<a name="136m49ks40qdaltgms4tj0si2c">&nbsp;&nbsp;nmap -e eth0 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4mf9qqa72r3f81cte64g0trtn9">&nbsp;-oG</a>
+</h3>
+<h3 class="topic">
+<a name="250vvp84fkpduik5n733763cbf">&nbsp;&nbsp;-oG 继续中断扫描(我们使用-oG将扫描结果保存为TXT,然后在扫描过程中按下Ctrl+C终端扫描.)</a>
+</h3>
+<h3 class="topic">
+<a name="0uisokta84b5p7f0cvqq7vhfi0">&nbsp;&nbsp;nmap --oG 1.txt -v 192.168.1.1/24</a>
+</h3>
+<h3 class="topic">
+<a name="6hnja6ka1jhclta827sjv4djfe">&nbsp;&nbsp;我们使用--resume选项继续扫描.</a>
+</h3>
+<h3 class="topic">
+<a name="1cb8p3ni89f6qrqtekr8qhgm66">&nbsp;&nbsp;例如:nmap --resume 1.txt</a>
+</h3>
+<h3 class="topic">
+<a name="7f0upinfknueipbp7k9ntr30d8">&nbsp;firewalk</a>
+</h3>
+<h3 class="topic">
+<a name="0aq2hhu0d35mrdni3kh4tt93hf">&nbsp;&nbsp;firewalk 探测防火墙</a>
+</h3>
+<h3 class="topic">
+<a name="1hfj8nbg538jjp3mb9mg2g2hbh">&nbsp;&nbsp;nmap --script=firewalk --traceroute 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4dsgfu8d042tdalnfam8tc695p">&nbsp;vmauthd-brute</a>
+</h3>
+<h3 class="topic">
+<a name="0q7e91n07ru8ugqg0iuch2gjou">&nbsp;&nbsp;vmauthd-brute VMWare认证破解</a>
+</h3>
+<h3 class="topic">
+<a name="5gnbgidf9puj8qm1tdjha6ncdd">&nbsp;&nbsp;例如:nmap -p 902 --script vmauthd-brute 127.0.0.1</a>
+</h3>
+<h2 class="topic">
+<a name="2mmmhdn926ufgpe2ui3hh4sihk">11.Nmap保存和输出</a>
+</h2>
+<h3 class="topic">
+<a name="4obst8n7ojl8ksc7r3o80fqg92">&nbsp;-oN</a>
+</h3>
+<h3 class="topic">
+<a name="7r05ee0h2bt9suf3tujjsmn0ql">&nbsp;&nbsp;-oN 标准保存</a>
+</h3>
+<h3 class="topic">
+<a name="4rur2oio3f5sdd2ugpi38m78nd">&nbsp;&nbsp;例如:nmap -F -oN test1.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="7pj2bp6ooro20s6pnq2klgo673">&nbsp;-oX</a>
+</h3>
+<h3 class="topic">
+<a name="1n6cad6ko4j8jqsv3sp5ht49sl">&nbsp;&nbsp;-oX XML保存</a>
+</h3>
+<h3 class="topic">
+<a name="0lbr26gvstb3ptf1s0uofhgo4k">&nbsp;&nbsp;例如:nmap -F -oX test1.xml 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="5tu052olr9kpmoo81qij8gk8cg">&nbsp;-oS</a>
+</h3>
+<h3 class="topic">
+<a name="0ebb8qvk60s6pjukaobho306t2">&nbsp;&nbsp;-oS 133t保存</a>
+</h3>
+<h3 class="topic">
+<a name="0drgleo4bkt67ras079fvooqns">&nbsp;&nbsp;例如:nmap -F -oS test1.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="4u5ngl4u5tb9fcd2tcqc0vket8">&nbsp;-oG</a>
+</h3>
+<h3 class="topic">
+<a name="6g9sfqhj311cpfjj7466auas2n">&nbsp;&nbsp;-oG Grep保存</a>
+</h3>
+<h3 class="topic">
+<a name="4hc1okmc8hh4jdqetu69ocvee5">&nbsp;&nbsp;例如:nmap -F -oG test1.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="15u9ihnq48aol00cgiqs1jc9vo">&nbsp;-oA</a>
+</h3>
+<h3 class="topic">
+<a name="1imbntkamfu51aful8l1m4g7be">&nbsp;&nbsp;-oA 保存到所有格式</a>
+</h3>
+<h3 class="topic">
+<a name="4m27aidhar3v996mt4disnja48">&nbsp;&nbsp;例如:nmap -F -oA testA 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="3ho7necrgd72d1h14mfbqe9622">&nbsp;--append-output</a>
+</h3>
+<h3 class="topic">
+<a name="2r91ev0ucel0h8a3ev0fqdp17u">&nbsp;&nbsp;--append-output 补充保存文件</a>
+</h3>
+<h3 class="topic">
+<a name="23al5f2gnu3c7a4e253e4om2fh">&nbsp;&nbsp;例如:nmap -F --append-output -oN test1.txt 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="1m1g5j6840j7bdom47iua3klq8">&nbsp;-oX</a>
+</h3>
+<h3 class="topic">
+<a name="695fg1ni1lk2eug6f3t4j5122m">&nbsp;&nbsp;-oX 转换XML保存(--stylesheet可以将XSL样式表转为XML保存.)</a>
+</h3>
+<h3 class="topic">
+<a name="69d3hri75isbpk323ntfo7o901">&nbsp;&nbsp;例如:nmap -F -oX testB.xml --stylesheet http://www.insecure.org/nmap/data/nmap.xsl 127.0.0.1</a>
+</h3>
+<h3 class="topic">
+<a name="08h8sjgnh35cmf6cdjfdfaas47">&nbsp;--oX</a>
+</h3>
+<h3 class="topic">
+<a name="4duqrk7ring2vf8ug1ggebvcn7">&nbsp;&nbsp;--oX 忽略XML生命的XSL样式表(--no-styleshee选项禁止nmap的XML保存关联任何XSL样式表.)</a>
+</h3>
+<h3 class="topic">
+<a name="6qv504kh1calee8m20ss3lfq52">&nbsp;&nbsp;例如:nmap -oX testC.xml --no-stylesheet  127.0.0.1</a>
+</h3>
+</body>
+</html>

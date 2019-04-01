@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+        author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+
+
+<!--
+    HTTP 1.1 Peach Pit as per RFC2616
+    http://www.w3.org/Protocols/rfc2616/rfc2616.html
+    
+    Brad Antoniewicz
+    brad.antoniewicz@foundstone.com
+-->
+
+<DataModel name="media-type-subtype">
+    <Choice name="media-type-picks" minOccurs="1">
+        <String value="text"/>
+        <String value="*"/>
+        <String value="audio"/>
+        <String value="image"/>
+    </Choice>
+    <String value="/" token="true"/>
+    <Choice name="media-subtype" minOccurs="1">
+        <String value="*"/>
+        <String value="basic"/>
+        <String value="html"/>
+        <String value="plain"/>
+        <String value="x-dvi"/>
+        <String value="jpeg"/>
+    </Choice>
+</DataModel>
+    <Choice name="media-token" occurs="1">
+        <String value=";"/>
+        <String value=","/>
+    </Choice>
+    <Block name="QVal" minOccurs="0">
+        <String value="q"/>
+        <String value="=" token="true"/>
+        <Number value="0.1"/>
+    </Block>
+</DataModel>
+
+<DataModel name="media-range">
+    <Block name="media-type" ref="media-type-subtype" minOccurs="1">
+        <String value=";" token="true"/>
+    </Block>
+    <Choice name="media-token" occurs="1">
+        <String value=";"/>
+        <String value=","/>
+    </Choice>
+    <Block name="QVal" minOccurs="0">
+        <String value="q"/>
+        <String value="=" token="true"/>
+        <Number value="0.1"/>
+        <String value="," token="true"/>
+    </Block>
+    <Block name="media-type2" ref="media-type-subtype" minOccurs="0">
+        <String value="," token="true"/>
+    </Block>
+</DataModel>
+
+
+<DataModel name="Absolute-Path">
+    <String value="/" token="true"/>
+    <Block name="Traverse" minOccurs="0">
+        <String value="../" token="true"/>
+    </Block>
+    <Block name="Directory" minOccurs="0"> 
+        <String value="somedir"/>
+        <String value="/" token="true" />
+    </Block>
+    <Block name="File" minOccurs="0">
+        <String name="Filename" value="index"/>
+        <String value="." token="true"/>
+        <Choice name="Extension" minOccurs="0">
+            <String name="ext_html" value="html"/>
+            <String name="ext_htm" value="htm"/>
+            <String name="ext_php" value="php"/>
+            <String name="ext_js" value="js"/>
+            <String name="ext_asp" value="asp"/>
+            <String name="ext_aspx" value="aspx"/>
+            <String name="ext_cf" value="cf"/>
+            <String name="ext_cfm" value="cfm"/>
+        </Choice>
+    </Block>
+</DataModel>
+
+<!--
+    Request-URI 
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1
+-->
+
+<DataModel name="Request-URI-String">
+    <Choice name="URI-String-Values">
+        <Block name="Abs_path" ref="Absolute-Path"/>
+        <Block name="Asterisk">
+            <String value="*"/>
+        </Block>
+        <Block name="AbsoluteURI">
+            <String value="http://www.somehost.com/"/>
+            <Block ref="Absolute-Path"/>
+        </Block>
+        <!-- TODO: Implement Authority -->
+        
+    </Choice>
+</DataModel>
+
+
+<DataModel name="Header-String">
+    <String name="Name"/>
+    <String value=":" token="true"/>
+    <String name="Value"/>
+    <String value="\r\n" token="true"/>
+</DataModel>
+
+<DataModel name="Header-Number">
+    <String name="Name"/>
+    <String value=":" token="true"/>
+    <Number name="Value"/>
+    <String value="\r\n" token="true"/>
+</DataModel>
+
+
+<!-- 
+    HTTP Headers
+-->
+<!--
+    HTTP Header: Cache-Control
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9
+-->
+<DataModel name="Hdr-Cache-Control">
+    <String name="Name" value="Cache-Control"/>
+    <String value=":" token="true"/>
+    <Choice name="Cache-Directive"> <!-- These are only request-directives -->
+        <String name="Value1" value="no-cache"/>
+        <String name="Value2" value="no-store"/>
+        <String name="Value3" value="max-age=1"/> <!-- TODO: Break this out -->
+        <String name="Value4" value="max-stale=1"/>
+        <String name="Value5" value="max-fresh=1"/>
+        <String name="Value6" value="no-transform"/>
+        <String name="Value7" value="only-if-cached"/>
+   </Choice>
+   <String value="\r\n" token="true"/>
+</DataModel>
+
+<!--
+    HTTP Header: Connection
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.10
+-->
+<DataModel name="Hdr-Connection">
+    <String name="Name" value="Connection"/>
+    <String value=":" token="true"/>
+    <Choice name="Connection-Option">
+        <String name="Value1" value="close"/>
+        <String name="Value2" value="1"/>
+    </Choice>
+    <String value="\r\n" token="true"/>
+</DataModel>
+
+<!--
+    HTTP Header: Date
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.18
+-->
+<DataModel name="Hdr-Date" ref="Header-String">
+    <String name="Name" value="Date"/>
+    <String name="Value" value="Tue, 15 Nov 1994 08:12:31 GMT"/> <!-- TODO: Break this out -->
+</DataModel>
+
+<!--
+    HTTP Header: Pragma
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.32
+-->
+<DataModel name="Hdr-Pragma" ref="Header-String">
+    <String name="Name" value="Pragma"/>
+    <String name="Value" value="no-cache"/> <!-- Only Directive? -->
+</DataModel>
+
+<!--
+    TODO: 
+    HTTP Header: Trailer
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.40
+-->
+
+<!--
+    TODO: 
+    HTTP Header: Transfer-Encoding
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.41
+
+<DataModel name="Transfer-Encoding" ref="Header-String">
+    <String name="Name" value="Transfer-Encoding"/>
+</DataModel>
+-->
+
+<!--
+    HTTP Header: Upgrade
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.42
+-->
+<DataModel name="Hdr-Upgrade" ref="Header-String">
+    <String name="Name" value="Upgrade"/>
+    <String name="Value" value="HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11"/>
+</DataModel>
+
+<!--
+    HTTP Header: Via
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.45
+-->
+<DataModel name="Hdr-Via" ref="Header-String">
+    <String name="Name" value="Via" />
+    <String name="Value" value="1.0 fred, 1.1 nowhere.com (Apache/1.1)"/>
+</DataModel>
+
+<!--
+    HTTP Header: Warning
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.46
+-->
+<DataModel name="Hdr-Warning">
+    <String value="Warning"/>
+    <String value=":" token="true"/>
+    <Block name="Header-Warning-Value">
+        <Number name="warn-code"/>
+        <String value=" " token="true"/>
+        <Choice name="warn-agent" occurs="1">
+            <Block name="Warn-Agent-String">
+                <String value="BRAD"/> <!-- Can be Hostname or ip:port -->
+            </Block>
+            <Block name="Warn-Agent-IP-Port">
+                <String value="192.168.1.1"/>
+                <String value=":"/>
+                <String value="80"/>
+            </Block>
+        </Choice>
+        <String value=" " token="true"/>
+        <String name="warn-text"/>
+        <String value=" " token="true"/>
+        <String name="warn-date" value="Tue, 15 Nov 1994 08:12:31 GMT"/>
+    </Block>
+    <String value="\r\n" token="true"/>
+</DataModel>
+
+<!-- 
+    HTTP Header: Accept
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1
+-->
+<DataModel name="Hdr-Accept">
+    <String name="Name" value="Accept"/>
+    <String value=":" token="true"/>
+    <Block name="Value" ref="media-range"/>
+    <String value="\r\n" token="true"/>  
+</DataModel>
+
+
+<!--
+    Request-Line
+    http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.1
+-->
+
+<DataModel name="Request-Line">
+        <String name="Method"/>
+        <String value=" " token="true"/>
+        <Block name="Request-URI" ref="Request-URI-String"/>
+        <String value=" " token="true"/>
+        <String name="HTTP-Version" value="HTTP/1.0"/>
+        <String value="\r\n" token="true"/>
+</DataModel>
+
+
+<DataModel name="HTTP-Request-GET">
+    <Block name="GET-Request-Line" ref="Request-Line">
+        <String name="Method" value="GET"/>
+    </Block>
+
+    <!-- 
+        General Header Fields 
+        http://www.w3.org/Protocols/rfc2616/rfc2616-sec4.html#sec4.5
+    -->
+    <Choice name="HTTP-Headers" minOccurs="0">
+        <Block name="Cache-Control" ref="Hdr-Cache-Control" />
+        <Block name="Connection" ref="Hdr-Connection" />
+        <Block name="Date" ref="Hdr-Date" />
+        <Block name="Pragma" ref="Hdr-Pragma"/>
+        <!-- TODO: <Block name="Trailer" ref="Hdr-Trailer"/>  -->
+        <!-- TODO: <Block name="Transfer-Encoding" ref="Hdr-Transfer-Encoding"/> --> 
+        <Block name="Upgrade" ref="Hdr-Upgrade"/>
+        <Block name="Via" ref="Hdr-Via"/>
+        <Block name="Warning" ref="Hdr-Warning"/>
+    </Choice>
+    <!--
+        Request Header Fields
+        http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html#sec5.3
+    -->
+    <Choice name="Request Header Fields" minOccurs="0">
+        <Block name="Accept" ref="Hdr-Accept"/>
+    </Choice>
+    <String value="\r\n\r\n" token="true"/>
+</DataModel>
+
+<StateModel name="NonState" initialState="initial">
+        <State name="initial">
+            <Action type="output">
+                <DataModel ref="HTTP-Request-GET"/>
+            </Action>
+        </State>
+</StateModel>
+
+<Test name="Default">
+    <StateModel ref="NonState"/>
+    
+    <Publisher class="TcpClient">
+        <Param name="Host" value="192.168.1.1"/>
+        <Param name="Port" value="80"/>
+    </Publisher>
+    
+    <Logger class="File">
+        <Param name="Path" value="peach_logs/GenericWebServer" />
+    </Logger>
+
+</Test>
+
+</Peach>
+

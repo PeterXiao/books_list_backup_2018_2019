@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach version="1.0" author="Dejan Lukan">
+
+
+  <!--                      -->
+  <!--  Include Defaults    -->
+  <!--                      --> 
+  <Include ns="default" src="file:defaults.xml"/>
+  
+
+  <!--                      -->
+  <!--     Data Models      -->
+  <!--                      --> 
+  <DataModel name="DataHELP">
+    <String value="HELP" mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataSTATS">
+    <String value="STATS " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataRTIME">
+    <String value="RTIME " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataLTIME">
+    <String value="LTIME " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataSRUN">
+    <String value="SRUN " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataTRUN">
+    <String value="TRUN " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataGMON">
+    <String value="GMON " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataGDOG">
+    <String value="GDOG " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataKSTET">
+    <String value="KSTET " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataGTER">
+    <String value="GTER " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataHTER">
+    <String value="HTER " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataLTER">
+    <String value="LTER " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataKSTAN">
+    <String value="KSTAN " mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+  
+  <DataModel name="DataEXIT">
+    <String value="EXIT" mutable="false" token="true"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false" token="true"/>
+  </DataModel>
+
+  <!-- Response -->
+  <DataModel name="DataResponse">
+    <String value=""/>
+  </DataModel>
+  
+
+
+
+  
+  
+  <!--                     -->
+  <!--    State Model      -->
+  <!--                     -->
+  <StateModel name="StateHELP" initialState="Initial">
+    <State name="Initial">
+      <!-- connect to the remote vulnerable server via network socket -->
+      <Action type="open"/>
+      
+      <!-- read welcome message -->
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+  
+      <!-- send our data to the vulnerable server -->
+      <Action type="output"><DataModel ref="DataHELP"/></Action>
+
+      <!-- read the response -->
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+
+      <!-- close the network socket -->
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateSTATS" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTATS"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateRTIME" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRTIME"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateLTIME" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLTIME"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSRUN" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSRUN"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateTRUN" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataTRUN"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateGMON" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataGMON"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateGDOG" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataGDOG"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateKSTET" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataKSTET"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateGTER" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataGTER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateHTER" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataHTER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateLTER" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLTER"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateKSTAN" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataKSTAN"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateEXIT" initialState="Initial">
+    <State name="Initial">
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataEXIT"/></Action>
+      <Action type="input" ><DataModel ref="DataResponse"/></Action>
+    </State>
+  </StateModel>
+
+
+
+
+
+  
+  
+  <!--                     -->
+  <!--   Remote Agent      -->
+  <!--                     -->
+  <Agent name="Agent" location="http://127.0.0.1:9000">
+    <!-- Run and attach windbg to a vulnerable server. -->
+    <Monitor name="VulnseverMonitorDebugger" class="debugger.WindowsDebugEngine">
+      <Param name="CommandLine" value="C:\Documents and Settings\eleanore\Desktop\vulnserver\vulnserver.exe"/>
+    </Monitor>
+  </Agent>
+  
+  
+
+
+  <!--                     -->
+  <!--    Test Block       -->
+  <!--                     -->  
+  <Test name="TestHELP">
+    <!-- The remote agent that will monitor for exceptions. -->
+    <Agent ref="Agent"/>
+    
+    <!-- The state that will use a Publisher and send data to server. -->
+    <StateModel ref="StateHELP"/>
+  
+    <!-- A publisher that will connect to the remote vulnerable server. -->
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test>
+
+  <Test name="TestSTATS">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateSTATS"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+
+  <Test name="TestRTIME">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateRTIME"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestLTIME">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateLTIME"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestSRUN">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateSRUN"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestTRUN">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateTRUN"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestGMON">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateGMON"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestGDOG">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateGDOG"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestKSTET">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateKSTET"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestGTER">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateGTER"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestHTER">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateHTER"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestLTER">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateLTER"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+  
+  <Test name="TestKSTAN">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateKSTAN"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+
+  <Test name="TestEXIT">
+    <Agent ref="Agent"/>
+    <StateModel ref="StateEXIT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="127.0.0.1"/>
+      <Param name="port" value="9999"/>
+    </Publisher>
+  </Test> 
+
+
+
+  <!--                     -->
+  <!--    Run Config       -->
+  <!--                     -->  
+  <Run name="DefaultRun">
+    <Test ref="TestHELP"/>
+    <Test ref="TestSTATS"/>
+    <Test ref="TestRTIME"/>
+    <Test ref="TestLTIME"/>
+    <Test ref="TestSRUN"/>
+    <Test ref="TestTRUN"/>
+    <Test ref="TestGMON"/>
+    <Test ref="TestGDOG"/>
+    <Test ref="TestKSTET"/>
+    <Test ref="TestGTER"/>
+    <Test ref="TestHTER"/>
+    <Test ref="TestLTER"/>
+    <Test ref="TestKSTAN"/>
+    <Test ref="TestEXIT"/>
+
+    <Logger class="logger.Filesystem">
+      <Param name="path" value="/home/eleanor/peach/vulnserver/"/>
+    </Logger>
+  </Run>
+   
+
+
+</Peach>

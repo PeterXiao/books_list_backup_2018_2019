@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		General Peach Data Models that can be used for various purposes
+
+        Dependencies:
+            This PeachPit requres the following set in a PitDefine:
+                Username
+                Domain
+	-->
+	
+	<!-- 
+        Domain\Username DataModel
+    -->
+
+    <DataModel name="Domain-Username">
+        <Block name="Domain-Prefix" minOccurs="0">
+            <String name="Domain" value="##Domain##" />
+            <String value="\" token="true"/>
+        </Block>
+        <String name="Username" value="##Username##" />
+    </DataModel>
+    <!-- Cisco's State Attribute included in RADIUS messages
+        This is a replacement for AVP-String
+
+        State:33-30-53-65-73-73-69-6F-6E-49-44-3D-61-63-73-2F-31-38-32-39-38-38-31-32-30-2F-32-31-37-30-36-34-3B
+        State:30SessionID=acs/182988120/217064;
+
+    -->
+    <DataModel name="Cisco-State"> 
+        <Number name="Type" size="8" value="24"/>
+        <Number name="Length" size="8">
+            <Relation type="size" of="Cisco-State" />
+        </Number>
+        <String name="Size" length="2">
+            <Relation type="size" of="SessionID"/>
+        </String>
+        <Block name="SessionID">
+            <String name="Field" value="SessionID"/>
+            <String value="=" token="true"/>
+            <String name="host" value="acs"/>
+            <String value="/" token="true"/>
+            <String name="SessionID-1"/>
+            <String value="/" token="true"/>
+            <String name="SessionID-2"/>
+        </Block>
+        <String value=";" token="true"/>
+    </DataModel>
+</Peach>

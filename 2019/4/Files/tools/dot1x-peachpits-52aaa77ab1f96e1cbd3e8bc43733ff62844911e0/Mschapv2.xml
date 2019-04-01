@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!-- Peach Data Model for MSCHAPv2
+        http://tools.ietf.org/html/rfc2759
+        This was written for use in EAP messages but can be used wherever
+
+
+
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+    <!-- End Includes Section -->    
+
+    <DataModel name="MSCHAPv2-Challenge">
+        <Number name="MSCHAPv2-OpCode" size="8" value="1"/>
+        <Number name="MSCHAPv2-Id" size="8"/>
+        <Number name="MSCHAPv2-Length" size="16" endian="big">
+            <Relation type="size" of="MSCHAPv2-Challenge"/>
+        </Number>
+        <Number name="MSCHAPv2-ValueSize" size="8">
+            <Relation type="size" of="MSCHAPv2-ChallengeValue"/>
+        </Number>
+        <Blob name="MSCHAPv2-ChallengeValue" length="16" lengthType="bytes" valueType="hex"/>
+        <String name="MSCHAPv2-Name" nullTerminated="false"/>
+    </DataModel>
+    <DataModel name="MSCHAPv2-Response">
+        <Number name="MSCHAPv2-OpCode" size="8" value="2"/>
+        <Number name="MSCHAPv2-Id" size="8"/>
+        <Number name="MSCHAPv2-Length" size="16" endian="big">
+            <Relation type="size" of="MSCHAPv2-Response"/>
+        </Number>
+        <Number name="MSCHAPv2-ValueSize" size="8">
+            <Relation type="size" of="MSCHAPv2-Value"/>
+        </Number>
+        <Block name="MSCHAPv2-Value">
+            <Blob name="MSCHAPv2-PeerChallenge" length="16" lengthType="bytes" valueType="hex"/>
+            <Blob name="MSCHAPv2-Reserved" length="8" lengthType="bytes" valueType="hex"/>
+            <Blob name="MSCHAPv2-NT-Response" length="24" lengthType="bytes" valueType="hex"/>
+            <Number name="MSCHAPv2-Flags" size="8"/>
+        </Block>
+        <Block name="MSCHAPv2-Name" ref="Utils:Domain-Username"/>
+    </DataModel>
+    <DataModel name="MSCHAPv2-ChangePassword">
+        <Number name="MSCHAPv2-OpCode" size="8" value="7"/> <!-- Change Password -->
+        <Number name="MSCHAPv2-Id" size="8"/>
+        <Number name="MSCHAPv2-Length" size="16" endian="big"> <!-- this should usually always be 586, but.. -->
+            <Relation type="size" of="MSCHAPv2-ChangePassword"/>
+        </Number>
+        <Blob name="MSCHAPv2-Encrypted-Password" length="516" lengthType="bytes" valuetype="hex"/>
+        <Blob name="MSCHAPv2-Encrypted-Hash" length="16" lengthType="bytes" valueType="hex"/>
+        <Blob name="MSCHAPv2-Peer-Challenge" length="16" lengthType="bytes" valueType="hex"/>
+        <Blob name="MSCHAPv2-Reserved" length="8" lengthType="bytes" valueType="hex"/>
+        <Blob name="MSCHAPv2-NT-Response" length="24" lengthType="bytes" valueType="hex"/>
+        <Number name="MSCHAPv2-Flags" size="8"/>
+    </DataModel> 
+</Peach>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for EAP-TLV
+        http://tools.ietf.org/html/draft-hiller-eap-tlv-00
+
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+	
+	<!-- Generic EAP-TLV Packet
+         80 03 00 02 00 01
+	-->
+	<DataModel name="EAP-TLV-Packet">
+        <Number name="EAP-TLV-Mandatory" size="1"/> <!-- Single Bit Non-Mandatory is 0, Mandatory is 1 -->
+        <Number name="EAP-TLV-Reserved" size="1" value="0"/> <!-- Single Bit always 0 -->
+        <Number name="EAP-TLV-Type" size="14"/> <!-- 3:Acknowledged Result is really the only value here -->
+        <Number name="EAP-TLV-Length" size="16" signed="false" endian="big">
+            <Relation type="size" of="EAP-TLV-Value" />
+        </Number>
+        <Block name="EAP-TLV-Value"/>
+	</DataModel>
+	
+	<!-- Request EAP-TLV Success 
+        Sent by the Authentication Server to the Client
+    -->
+    <DataModel name="EAP-Request-TLV-Success" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="33"/> <!-- 33: EAP-TLV -->
+        <Block ref="EAP-TLV-Packet">
+            <Number name="EAP-TLV-Mandatory" size="1" value="1"/>
+            <Number name="EAP-TLV-Type" size="14" value="3"/>
+            <Block name="EAP-TLV-Value">
+                <Number name="EAP-TLV-Success" size="16" value="1" endian="big"/>
+            </Block>
+        </Block>
+    </DataModel>
+
+    <!-- Response EAP-TLV Success
+        Sent by the Client to the Authentication Server
+    -->
+    <DataModel name="EAP-Response-TLV-Success" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="33"/> <!-- 33: EAP-TLV -->
+        <Block ref="EAP-TLV-Packet">
+            <Number name="EAP-TLV-Mandatory" size="1" value="1"/>
+            <Number name="EAP-TLV-Type" size="14" value="3"/>
+            <Block name="EAP-TLV-Value">
+                <Number name="EAP-TLV-Success" size="16" value="1" endian="big"/>
+            </Block>
+        </Block>
+    </DataModel>
+
+	
+</Peach>

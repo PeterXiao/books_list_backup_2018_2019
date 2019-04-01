@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for EAP-GTC
+        http://tools.ietf.org/html/rfc3748
+
+		Note: EAP-GTC is implemented differently within EAP-FAST
+		
+        This was written for use in EAP messages but can be used wherever
+    
+        Dependencies: 
+            This PeachPit requires ##UserPassword## in a PitDefine
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+	
+	<!-- Generic EAP-GTC Packet
+		EAP-GTC is as basic as it gets, its just a string wrapped in a EAP packet
+	-->
+	<DataModel name="EAP-GTC-Packet">
+		<String name="EAP-GTC-TypeData"/>
+	</DataModel>
+	
+	<!-- EAP-GTC Password Prompt 
+        Sent by the Authentication Server to the Client
+		This is the first message that provides the data to prompt
+		the user with. 
+    -->
+    <DataModel name="EAP-Request-GTC-Prompt" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="6"/> <!-- 6: EAP-GTC -->
+        <Block ref="EAP-GTC-Packet"/>
+    </DataModel>
+
+	<!-- EAP-GTC Response
+        Sent by the Client to the Authentication Server 
+		Simply the token card data. 
+    -->
+    <DataModel name="EAP-Response-GTC" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="6"/> <!-- 6: EAP-GTC -->
+        <Block ref="EAP-GTC-Packet">
+			<String name="EAP-GTC-TypeData" value="##UserPassword##"/>
+		</Block>
+    </DataModel>
+	
+	
+	<!-- NAK Server's EAP-Type, Request EAP-GTC
+    -->
+    <DataModel name="EAP-Response-NAK-GTC" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="6"/> <!-- 6: EAP-GTC -->
+    </DataModel>
+	
+	
+</Peach>

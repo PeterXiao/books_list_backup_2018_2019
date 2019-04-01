@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach/peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+
+	<!-- Peach DataModel for EAP
+		http://tools.ietf.org/html/rfc3748
+		
+		This DataModel is mostly used by all of the other
+		EAP-Type DataModels by Radius.xml would need it for
+		Success, Failure, and Identity messages. 
+	-->
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+    <!-- End Includes Section -->
+    <DataModel name="EAP-Header">
+        <Number name="EAP-Code" size="8"/>
+        <Number name="EAP-Id" size="8" signed="false">
+            <Fixup class="SequenceIncrementFixup"/>
+        </Number>
+        <Number name="EAP-Length" size="16" signed="false" endian="big">
+            <Relation type="size" of="EAP-Header" />
+        </Number>
+    </DataModel>
+    <DataModel name="EAP-Success" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="3"/> <!-- 3: Success -->
+    </DataModel>
+    <DataModel name="EAP-Failure" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="4"/> <!-- 4: Failure-->
+    </DataModel>
+    <DataModel name="EAP-Response-Blob" ref="EAP-Header">
+        <Blob name="EAP-Response-Data" />
+    </DataModel>
+    <DataModel name="EAP-Request-Blob" ref="EAP-Header">
+        <Blob name="EAP-Request-Data"/>
+    </DataModel>
+    <DataModel name="EAP-Response-Identity" ref="EAP-Header"> 
+        <Number name="EAP-Code" size="8" value="2"/> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="1"/> <!-- 1: Identity -->
+        <Block name="EAP-Identity" ref="Utils:Domain-Username"/>
+     </DataModel>
+    <!-- EAP Request Identity 
+        Sent by the Authentication Server to the Client
+    -->
+    <DataModel name="EAP-Request-Identity" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <!-- <Number name="EAP-Id" value="0"/> --> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="1"/> <!-- 1: Identity -->
+    </DataModel>
+</Peach>

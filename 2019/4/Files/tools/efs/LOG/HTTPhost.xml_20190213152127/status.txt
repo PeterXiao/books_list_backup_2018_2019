@@ -1,0 +1,11 @@
+Peach Fuzzing Run
+=================
+
+Date of run: 2019/2/13 15:21:27
+Peach Version: 3.1.124.0
+Seed: 31337
+Command line: -DHOST=192.168.222.131 -DPORT=80 HTTPhost.xml 
+Pit File: HTTPhost.xml
+. Test starting: Default
+
+. Test finished: Default

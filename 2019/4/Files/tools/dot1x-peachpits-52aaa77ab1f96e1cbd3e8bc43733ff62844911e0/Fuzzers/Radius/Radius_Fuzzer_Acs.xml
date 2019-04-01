@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Radius_Fuzzer_Acs.xml - 
+		Radius Fuzzer geared towards Cisco Acs
+		By Brad.Antoniewicz@foundstone.com
+		
+	Configure with:
+		Radius_Fuzzer_Config.xml
+		
+	Invoke with:
+		peach.exe -DSTRAT=Value \-\-definedvalues=Radius_Fuzzer_Config.xml Test Radius_Fuzzer_Acs.xml
+		
+		Where:
+			1. Value is the Fuzzing Strategy to use, acceptable values are:
+				Sequential
+				RandomDeterministic
+				Random
+				
+				Note: Random does not have an end.
+			
+			2. Test is the particular Test to run, acceptable values are:
+				GEN-RESIDENT
+				GEN-RESIDENT-Blob
+				GEN-RESIDENT-BadChk
+				ACS-PEAP-ClientHello
+				ACS-LEAP
+				ACS-MD5
+				ACS-PAP
+	            ACS-STATE
+    			ACS-MD5-LEAP-NAK (Expermimental)
+	
+	Note: StateModels are created within the assumption that the server is set to use PEAP by default, so 
+		every state starts off with NAK'ing PEAP and asking for the particular EAP Type for the state
+-->
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach/peach/peach.xsd"
+	author="Brad.Antoniewicz@foundstone.com"
+	>
+
+	<!-- Includes -->
+	<Include ns="Radius" src="file:##PitPath##Radius.xml" />	
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <Include ns="EapMschapv2" src="file:##PitPath##EapMschapv2.xml" />
+    <Include ns="EapGtc" src="file:##PitPath##EapGtc.xml" />
+    <Include ns="EapTlv" src="file:##PitPath##EapTlv.xml" />
+    <Include ns="EapFast" src="file:##PitPath##EapFast.xml" />
+    <Include ns="EapPeap" src="file:##PitPath##EapPeap.xml" />
+    <Include ns="EapMd5" src="file:##PitPath##EapMd5.xml" />
+    <Include ns="EapLeap" src="file:##PitPath##EapLeap.xml" />
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+
+    <!-- Input: Access Challenge PEAP-Start (Acs Specific) -->
+    <DataModel name="Access-Challenge-EAP-PEAP-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="Radius:AVP-Blob"> 
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EapPeap:EAP-Request-EAP-PEAP-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+    <!-- Input: Access Challenge PEAP-Start with State Buildout (Acs Specific) -->
+    <DataModel name="Access-Challenge-EAP-PEAP-STATE-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="Cisco-State" ref="Utils:Cisco-State"/>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EapPeap:EAP-Request-EAP-PEAP-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+    <!-- Input: Access Challenge LEAP-Start (Acs Specific) -->
+    <DataModel name="Access-Challenge-LEAP-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="Radius:AVP-Blob">
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EapLeap:EAP-Request-LEAP-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+    <!-- Input: Access Challenge EAP-MD5-Challenge (Acs Specific) -->
+    <DataModel name="Access-Challenge-MD5-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="Radius:AVP-Blob">
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EapMd5:EAP-Request-MD5-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!-- NAK EAP Type, Request MD5 (Acs Specific with State)
+    -->
+    <DataModel name="Access-Request-NAK-MD5-STATE-ACS" ref="Radius:Access-Request">
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="Access-Request-NAK-MD5-ref" ref="EapMd5:EAP-Response-NAK-MD5" />
+        </Block>
+        <Block ref="Utils:Cisco-State"/>
+    </DataModel>
+
+	<!-- ACS-PEAP-ClientHello: Acs Specific; 
+		EapRespIdent -> ReqPeap -> PeapClientHello 
+	-->
+	<StateModel name="ACS-PEAP-ClientHello" initialState="Initial">
+		<State name="Initial">
+            <!--
+                Send Initial EAP-Response Identity 
+            -->
+            <Action type="output">
+                <DataModel name="Access-Request-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" /> 
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC-APCH" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC-APCH//Packet-Identifier" setXpath="//AR-APCH//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC-APCH//EAP-Data//EAP-Id" setXpath="//AR-APCH//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC-APCH//AVP-State//Value" setXpath="//AR-APCH//AVP-State//Value"/>
+
+            <!--
+                Send PEAP Client Hello
+            -->
+            <Action type="output">
+                <DataModel name="AR-APCH" ref="Radius:Access-Request-EAP-PEAP-Client-Hello"/>
+            </Action>
+		</State>
+	</StateModel>
+    <!-- ACS-LEAP-State: Acs Specific
+			EapRespIdent -> ReqPeap -> Nak/ReqLeap -> ReqLeap -> LeapRespChal
+	-->
+	<StateModel name="ACS-LEAP-State" initialState="Initial">
+        <State name="Initial">
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-ALS" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-ALS//Packet-Identifier" setXpath="//AR1-ALS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-ALS//EAP-Data//EAP-Id" setXpath="//AR1-ALS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-ALS//AVP-State//Value" setXpath="//AR1-ALS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR1-ALS" ref="Radius:Access-Request-NAK-LEAP"/>
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC2-ALS" ref="Access-Challenge-LEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC2-ALS//Packet-Identifier" setXpath="//AR2-ALS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC2-ALS//EAP-Data//EAP-Id" setXpath="//AR2-ALS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC2-ALS//AVP-State//Value" setXpath="//AR2-ALS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR2-ALS" ref="Radius:Access-Request-LEAP-PeerChallenge"/>
+            </Action>
+        </State>
+    </StateModel>
+    <StateModel name="ACS-MD5-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-AMS" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-AMS//Packet-Identifier" setXpath="//AR1-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-AMS//EAP-Data//EAP-Id" setXpath="//AR1-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-AMS//AVP-State//Value" setXpath="//AR1-AMS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR1-AMS" ref="Radius:Access-Request-NAK-MD5"/>
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC2-AMS" ref="Access-Challenge-MD5-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC2-AMS//Packet-Identifier" setXpath="//AR2-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC2-AMS//EAP-Data//EAP-Id" setXpath="//AR2-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC2-AMS//AVP-State//Value" setXpath="//AR2-AMS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR2-AMS" ref="Radius:Access-Request-MD5-Response"/>
+            </Action>
+        </State>
+    </StateModel>
+	<!-- ACS-PAP-State: Acs Specific
+			PapRequest ->
+	-->
+    <StateModel name="ACS-PAP-State" initialState="Initial">
+        <State name="Initial">
+            <Action type="output">
+                <DataModel ref="Radius:Access-Request-PAP" />
+            </Action>
+        </State>
+    </StateModel>
+    <StateModel name="ACS-STATE-State" initialState="Initial">
+        <State name="Initial">
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-AMS" ref="Access-Challenge-EAP-PEAP-STATE-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-AMS//Packet-Identifier" setXpath="//AR1-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-AMS//EAP-Data//EAP-Id" setXpath="//AR1-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-AMS//AVP-State//Value" setXpath="//AR1-AMS//AVP-State//Value"/>
+
+            <Action type="output">
+                <DataModel name="AR1-AMS" ref="Access-Request-NAK-MD5-STATE-ACS"/>
+            </Action>
+        </State>
+    </StateModel>
+
+
+	<!-- ACS-MD5-LEAP-NAK: Acs Specific (Expermimental)
+			This is just an infinite loop state to testing. 
+	-->
+    <StateModel name="ACS-MD5-LEAP-NAK-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Radius:Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC-AMLN" ref="Access-Challenge-MD5-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC-AMLN//Packet-Identifier" setXpath="//AR-AMLN//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC-AMLN//EAP-Data//EAP-Id" setXpath="//AR-AMLN//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC-AMLN//AVP-State//Value" setXpath="//AR-AMLN//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR-AMLN" ref="Radius:Access-Request-NAK-LEAP"/>
+            </Action>
+
+            <Action type="changeState" ref="NAK-Loop"/>
+
+        </State>
+
+        <State name="NAK-Loop"> 
+            <Action type="input">
+                <DataModel name="AC5-AMLN" ref="Access-Challenge-LEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC5-AMLN//Packet-Identifier" setXpath="//AR5-AMLN//Packet-Identifier" /> 
+            <Action type="slurp" valueXpath="//AC5-AMLN//EAP-Data//EAP-Id" setXpath="//AR5-AMLN//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC5-AMLN//AVP-State//Value" setXpath="//AR5-AMLN//AVP-State//Value"/>
+
+            <Action type="output">
+                <DataModel name="AR5-AMLN" ref="Radius:Access-Request-NAK-MD5"/>
+            </Action>
+
+            <Action type="stop"/>
+            <Action type="start"/>
+
+           <Action type="changeState" ref="NAK-Loop"/> 
+        </State>
+    </StateModel>
+    
+    <!-- Really Basic Agent -->
+    <Agent name="Simple-Agent-ACS">
+        <Monitor class="Ping">
+            <Param name="Host" value="##AcsServer##"/>
+        </Monitor>
+    </Agent>
+    <Agent name="ACS-Agent" location="tcp://##AcsServer##:9001">
+        <Monitor class="Process">
+            <Param name="Executable" value="/opt/CSCOacs/runtime/bin/rt_daemon"/>
+            <Param name="Arguments" value="-d"/>
+            <Param name="RestartOnEachTest" value="false" />
+            <Param name="FaultOnEarlyExit" value="true" />
+        </Monitor>
+    </Agent>  
+	
+	<!-- EAP-RESPIDENT: Generic Eap Response/Identity  -->
+    <Test name="GEN-RESIDENT">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##"/>
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+	<!-- EAP-RESPIDENT-BLOB: Generic Eap Response/Identity Blob -->
+    <Test name="GEN-RESIDENT-Blob">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity-Blob"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+<!-- EAP-RESPIDENT-BadChk: Generic Eap Response/Identity with Bad Message Auth -->
+    <Test name="GEN-RESIDENT-BadChk">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="Radius:State-EAP-Response-Identity-BadChk"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+	<!-- ACS-PEAP-ClientHello: Fuzzing msgs up to and including TLS ClientHello-->
+    <Test name="ACS-PEAP-ClientHello">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-PEAP-ClientHello"/>
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+        <Strategy class="##STRAT##"/>
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+	<!-- ACS-LEAP: Fuzzing msgs up to and including LEAP Resp/PeerChall -->
+    <Test name="ACS-LEAP">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-LEAP-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+	<!-- ACS-MD5: Fuzzing Msgs up to and including MD5 Resp -->
+    <Test name="ACS-MD5">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-MD5-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+	<!-- ACS-PAP -->
+    <Test name="ACS-PAP">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="ACS-PAP-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+    <!-- ACS-STATE -->
+    <Test name="ACS-STATE">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Radius:Access-Request-EAP-Response-Identity"/>
+        <Exclude ref="Radius:Access-Request"/>
+        <Exclude ref="AR-EAP-Response-Identity"/>
+        <Include ref="Cisco-State"/>
+        <StateModel ref="ACS-STATE-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+
+	<!-- ACS-MD5-LEAP-NAK (Experimental) -->
+    <Test name="ACS-MD5-LEAP-NAK">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="AR-EAP-Response-Identity"/>
+        <Exclude ref="AR1-ALS"/>
+        <StateModel ref="ACS-MD5-LEAP-NAK-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="##AcsServer##"/>
+                <Param name="Port" value="##AcsPort##" />
+                <Param name="SrcPort" value="##AcsPort##" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Acs"/>
+        </Logger>
+    </Test>
+
+</Peach>
+<!-- end -->

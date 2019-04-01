@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+        author="Name">
+
+
+	<!--
+    Description - Describe what Protocol this template Implements
+	Author
+	-->
+	
+	<!-- Includes Section -->
+	<Include ns="Utils" src="file:##PitPath##Utils.xml" />	
+	<!-- End Includes Section -->
+
+	<!--
+		DataModel Description
+	-->
+	<DataModel name="MyDataModel">
+	</DataModel>
+
+	<StateModel name="NonState" initialState="initial">
+        <State name="initial">
+            <Action type="output">
+                <DataModel ref="MyDataModel"/>
+            </Action>
+        </State>
+	</StateModel>
+
+	<!-- 
+		General "Data" Template would likely not have <Test>'s
+		There meant to be included in another PeachPit that will 
+		be used as the Fuzzer. 
+	-->
+	<Test name="Default">
+		<StateModel ref="NonState"/>
+    
+		<Publisher class="TcpClient">
+			<Param name="Host" value="10.219.1.225"/>
+			<Param name="Port" value="80"/>
+		</Publisher>
+		
+		<Logger class="File">
+			<Param name="Path" value="peach_logs/Template" />
+		</Logger>
+
+	</Test>
+</Peach>
+

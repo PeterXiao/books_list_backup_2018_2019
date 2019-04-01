@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Radius_Fuzzer_Bridge.xml - 
+		Radius Fuzzer for use with eap-bridge as part of hostapd/wpa_supplicant
+		By Brad.Antoniewicz@foundstone.com
+		
+	Configure with:
+		Radius_Fuzzer_Config.xml
+		
+	Invoke with:
+		peach.exe -DSTRAT=Value \-\-definedvalues=Radius_Fuzzer_Config.xml Test Radius_Fuzzer_Acs.xml
+		
+		Where:
+			1. Value is the Fuzzing Strategy to use, acceptable values are:
+				Sequential
+				RandomDeterministic
+				Random
+				
+				Note: Random does not have an end.
+			
+			2. Test is the particular Test to run, acceptable values are:
+                Bridge-MSCHAPv2
+				Bridge-GTC
+-->
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach/peach/peach.xsd"
+	author="Brad.Antoniewicz@foundstone.com"
+	>
+
+	<!-- Includes -->
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />	
+	<Include ns="EapMschapv2" src="file:##PitPath##EapMschapv2.xml" />	
+	<Include ns="EapGtc" src="file:##PitPath##EapGtc.xml" />	
+	<Include ns="EapTlv" src="file:##PitPath##EapTlv.xml" />	
+
+
+    <PythonPath path="./"/>
+    <Import import="startBridge"/>
+
+    <StateModel name="Bridge-EAP-IDENT-State" initialState="StartBridge">
+        <State name="StartBridge">
+            <!-- Placeholder state incase you need an "onStart" condition
+                (e.g onStart="startBridge.start()" -->
+            <Action type="changeState" ref="BridgeHandshake"/>
+        </State>
+        <State name="BridgeHandshake">
+            <Action type="output">
+                <DataModel name="start">
+                    <String value="\n"/>
+                </DataModel>
+            </Action>
+            <Action type="input">
+                <DataModel name="ack">
+                    <String value="ack"/>
+                </DataModel>
+            </Action>
+            <Action type="output">
+                <DataModel name="ack">
+                    <String value="ack2"/>
+                </DataModel>
+            </Action>
+            <Action type="changeState" ref="EapIdentity"/>
+        </State>
+        <State name="EapIdentity">
+            <Action type="input">
+                <DataModel name="ERQ" ref="Eap:EAP-Request-Identity"/>
+            </Action>
+            <Action type="slurp" valueXpath="//ERQ//EAP-Id" setXpath="//ERS//EAP-Id" />
+            <Action type="output">
+                <DataModel name="ERS" ref="Eap:EAP-Response-Identity"/>
+            </Action>
+            <Action type="changeState" ref="Close"/>
+        </State>
+        <State name="Close">
+            <Action type="input">
+                <DataModel name="tt">
+                    <Blob/>
+                </DataModel>
+            </Action>
+            <Action type="output">
+                <DataModel ref="Eap:EAP-Success"/>
+            </Action>
+        </State>
+    </StateModel>	
+	<StateModel name="Bridge-EAP-GTC-State" initialState="StartBridge">
+		<State name="StartBridge">
+			<!-- Placeholder state incase you need an "onStart" condition 
+				(e.g onStart="startBridge.start()" -->
+            <Action type="changeState" ref="BridgeHandshake"/>
+        </State>
+        <State name="BridgeHandshake">
+            <Action type="output">
+                <DataModel name="start">
+                    <String value="\n"/>
+                </DataModel>
+            </Action>
+            <Action type="input">
+                <DataModel name="ack">
+                    <String value="ack"/>
+                </DataModel>
+            </Action>
+            <Action type="output">
+                <DataModel name="ack">
+                    <String value="ack2"/>
+                </DataModel>
+            </Action>
+            <Action type="changeState" ref="EapIdentity"/>
+        </State>
+        <State name="EapIdentity">
+            <Action type="input">
+                <DataModel name="ERQI" ref="Eap:EAP-Request-Identity"/>    
+            </Action>
+            <Action type="slurp" valueXpath="//ERQI//EAP-Id" setXpath="//ERSI//EAP-Id" />
+            <Action type="output">
+                <DataModel name="ERSI" ref="Eap:EAP-Response-Identity"/>
+            </Action>
+            <Action type="changeState" ref="NAK-EapGtc"/>
+        </State>
+		<State name="NAK-EapGtc">
+            <Action type="input">
+               <DataModel name="MSC" ref="EapMschapv2:EAP-Request-MSCHAPv2-SC"/> 
+            </Action>
+            <!-- <Action type="changeState" ref="Close" when="str(StateModel.states['NAK-EapGtc'].actions[0].dataModel['EAP-Type']) == str(26)"/> -->
+            <!-- <Action type="changeState" ref="Close" when="int(getattr(StateModel.states['NAK-EapGtc'].actions[0].dataModel.find('EAP-Type'),'InternalValue', None)) != 26"/> -->
+            <Action type="slurp" valueXpath="//MSC//EAP-Id" setXpath="//NG//EAP-Id" />
+            <Action type="output">
+                <DataModel name="NG" ref="EapGtc:EAP-Response-NAK-GTC"/>
+            </Action>
+			<Action type="changeState" ref="EapGtc"/>
+        </State>
+		<State name="EapGtc">
+			<Action type="input">
+               <DataModel name="GRQ" ref="EapGtc:EAP-Request-GTC-Prompt"/> 
+            </Action>
+			<Action type="slurp" valueXpath="//GRQ//EAP-Id" setXpath="//GRS//EAP-Id" />
+            <Action type="output">
+                <DataModel name="GRS" ref="EapGtc:EAP-Response-GTC"/>
+            </Action>
+            <Action type="changeState" ref="EapTlv"/>
+		</State>
+        <State name="EapTlv">
+            <Action type="input">
+               <DataModel name="TRQ" ref="EapTlv:EAP-Request-TLV-Success"/>
+            </Action>
+            <Action type="slurp" valueXpath="//TRQ//EAP-Id" setXpath="//TRS//EAP-Id" />
+            <Action type="output">
+                <DataModel name="TRS" ref="EapTlv:EAP-Response-TLV-Success"/>
+            </Action>
+        </State>
+        <State name="Close">
+        </State>
+	</StateModel>
+	
+    <StateModel name="Bridge-MSCHAPv2-State" initialState="StartBridge">
+       <State name="StartBridge">
+			<!-- Placeholder state incase you need an "onStart" condition 
+				(e.g onStart="startBridge.start()" -->
+            <Action type="changeState" ref="BridgeHandshake"/>
+        </State>
+        <State name="BridgeHandshake">
+            <Action type="output">
+                <DataModel name="start">
+                    <String value="\n"/>
+                </DataModel>
+            </Action>
+            <Action type="input">
+                <DataModel name="ack">
+                    <String value="ack"/>
+                </DataModel>
+            </Action>
+            <Action type="output">
+                <DataModel name="ack">
+                    <String value="ack2"/>
+                </DataModel>
+            </Action>
+            <Action type="changeState" ref="EapIdentity"/>
+        </State>
+        <State name="EapIdentity">
+            <Action type="input">
+                <DataModel name="ERQI" ref="Eap:EAP-Request-Identity"/>    
+            </Action>
+
+            <Action type="slurp" valueXpath="//ERQI//EAP-Id" setXpath="//ERSI//EAP-Id" />
+
+            <Action type="output">
+                <DataModel name="ERSI" ref="Eap:EAP-Response-Identity"/>
+            </Action>
+            <Action type="changeState" ref="MSCHAPv2"/>
+        </State>
+        <State name="MSCHAPv2">
+            <Action type="input">
+               <DataModel name="MSC" ref="EapMschapv2:EAP-Request-MSCHAPv2-SC"/> 
+            </Action>
+            <Action type="slurp" valueXpath="//MSC//EAP-Id" setXpath="//MCR//EAP-Id" />
+            <Action type="slurp" valueXpath="//MSC//MSCHAPv2-Id" setXpath="//MCR//MSCHAPv2-Id"/>
+            <Action type="output">
+                <DataModel name="MCR" ref="EapMschapv2:EAP-Response-MSCHAPv2-ClientResponse"/>
+            </Action>
+        <Action type="changeState" ref="EapTlv"/>
+        </State>
+        <State name="EapTlv">
+            <Action type="input">
+               <DataModel name="TRQ" ref="EapTlv:EAP-Request-TLV-Success"/>
+            </Action>
+            <Action type="slurp" valueXpath="//TRQ//EAP-Id" setXpath="//TRS//EAP-Id" />
+            <Action type="output">
+                <DataModel name="TRS" ref="EapTlv:EAP-Response-TLV-Success"/>
+            </Action>
+        </State>
+        <State name="Close">
+        </State>
+    </StateModel>
+    <!-- Really Basic Agent -->
+    <Agent name="Simple-Agent-ACS">
+        <Monitor class="Ping">
+            <Param name="Host" value="##AcsServer##"/>
+        </Monitor>
+    </Agent>
+    <Agent name="FreeRADIUS-Agent" location="tcp://192.168.1.1:9001">
+        <Monitor class="Process">
+            <Param name="Executable" value="/usr/sbin/freeradius"/>
+            <Param name="Arguments" value="-X -s"/>
+            <Param name="RestartOnEachTest" value="false" />
+            <Param name="FaultOnEarlyExit" value="true" />
+        </Monitor>
+    </Agent>
+	<!-- Bridge-MSCHAPv2: Fuzz MSCHAPv2 using the Bridge Tunnel -->
+    <Test name="Bridge-MSCHAPv2">
+        <Agent ref="Simple-Agent-ACS"/> 
+        <Exclude ref="start"/>
+        <Exclude ref="ack"/>
+        <Exclude ref="EapIdentity"/>
+        <StateModel ref="Bridge-MSCHAPv2-State"/>
+
+        <Publisher class="Tcp" >
+                <Param name="Host" value="127.0.0.1"/>
+                <Param name="Port" value="31337" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Bridge/MSCHAPv2"/>
+        </Logger>
+    </Test>
+	<!-- Bridge-EAPGTC: Fuzz EAP-GTC using the Bridge Tunnel -->
+    <Test name="Bridge-GTC">
+	    <Agent ref="Simple-Agent-ACS"/>
+
+        <Exclude ref="start"/>
+        <Exclude ref="ack"/>
+        <Exclude ref="EapIdentity"/>
+
+        <StateModel ref="Bridge-EAP-GTC-State"/>
+
+        <Publisher class="Tcp" >
+                <Param name="Host" value="127.0.0.1"/>
+                <Param name="Port" value="31337" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Bridge/EAP-GTC"/>
+        </Logger>
+    </Test>
+    <!-- Bridge-EAPGTC: Fuzz EAP-GTC using the Bridge Tunnel -->
+    <Test name="Bridge-IDENT">
+        <Agent ref="Simple-Agent-ACS"/>
+
+        <Exclude ref="start"/>
+        <Exclude ref="ack"/>
+        <StateModel ref="Bridge-EAP-IDENT-State"/>
+
+        <Publisher class="Tcp" >
+                <Param name="Host" value="127.0.0.1"/>
+                <Param name="Port" value="31337" />
+        </Publisher>
+
+        <Strategy class="##STRAT##"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/Radius/Bridge/EAP-GTC"/>
+        </Logger>
+    </Test>
+</Peach>
+<!-- end -->

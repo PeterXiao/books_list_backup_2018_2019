@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!-- Peach Data Model for EAP-MSCHAPv2
+    -->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+	<Include ns="Mschapv2" src="file:##PitPath##Mschapv2.xml" />
+    <!-- End Includes Section -->    
+	
+    <!-- EAP-MSCHAPv2 Server Challenge (SC)
+        Sent by the Authentication Server to the Client
+    -->
+    <DataModel name="EAP-Request-MSCHAPv2-SC" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+        <Block name="EAP-MSCHAPv2-Challenge" ref="Mschapv2:MSCHAPv2-Challenge"/>
+    </DataModel>
+    <!-- EAP-MSCHAPv2 Client Challenge and Response
+		 Sent from client to the server
+    -->
+    <DataModel name="EAP-Response-MSCHAPv2-ClientResponse" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+        <Block ref="Mschapv2:MSCHAPv2-Response"/>
+    </DataModel>
+    <!-- NAK Server's EAP-Type, Request EAP-MSCHAPv2
+    -->
+    <DataModel name="EAP-Response-NAK-MSCHAPv2" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+    </DataModel>
+</Peach>

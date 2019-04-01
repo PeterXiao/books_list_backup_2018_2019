@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for EAP-MD5
+        http://tools.ietf.org/html/rfc3748
+
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+	
+	<!-- Generic DataModel for EAP-MD5
+    -->
+    <DataModel name="EAP-MD5-Packet">
+        <Number name="EAP-MD5-ValueSize" size="8">
+            <Relation type="size" of="EAP-MD5-Value" />
+        </Number>
+        <Blob name="EAP-MD5-Value" length="16" lengthType="bytes" valueType="hex"/>
+        <Blob name="EAP-MD5-ExtraData"/>
+    </DataModel>
+
+   <!-- EAP-MD5-Challenge Start
+        Sent by the Authentication Server to the Client
+    -->
+    <DataModel name="EAP-Request-MD5-Start" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+        <Block ref="EAP-MD5-Packet">
+            <Blob name="EAP-MD5-ExtraData" length="3" lengthType="bytes"/>
+        </Block>
+    </DataModel>
+	
+    <!-- NAK Server's EAP-Type, Request EAP-MD5
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-NAK-MD5" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+    </DataModel>
+
+	<!-- Contains Response Challenge sent to Server 
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-MD5-Response" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+        <Block ref="EAP-MD5-Packet">
+            <Blob name="EAP-MD5-Value" length="16" lengthType="bytes" valueType="hex"/>
+            <Blob name="EAP-MD5-ExtraData"/>
+        </Block>
+    </DataModel>
+
+</Peach>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for EAP-LEAP
+        http://freeradius.org/rfc/leap.txt
+
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+
+	<!-- Generic DataModel for LEAP
+    -->
+    <DataModel name="EAP-LEAP-Packet">
+        <Number name="LEAP-Version" size="8" value="1"/> <!-- 1: LEAP v1 -->
+        <Number name="LEAP-Reserverd" size="8" value="0"/>
+        <Number name="LEAP-Count" size="8">
+            <Relation type="size" of="LEAP-Data" /> 
+        </Number>
+        <Blob name="LEAP-Data"/> 
+        <Block name="LEAP-Name" ref="Utils:Domain-Username"/>
+    </DataModel>
+
+	<!-- LEAP Start
+        Sent by the Authentication Server to the Client
+    -->
+    <DataModel name="EAP-Request-LEAP-Start" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->  
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="17"/> <!-- 17: EAP-LEAP -->
+        <Block ref="EAP-LEAP-Packet">
+            <Number name="LEAP-Count" size="8" value="8" />
+            <Blob name="LEAP-Data" length="8" lengthType="bytes" /> <!-- LEAP Server Challenge -->
+        </Block>
+    </DataModel>
+
+    <!-- 
+        LEAP Packet Containing the Response/Peer Challenge Send to the Server
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-LEAP-PeerChallenge" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="17"/> <!-- 17: EAP-LEAP -->
+        <Block ref="EAP-LEAP-Packet">
+            <Blob name="LEAP-Data" length="24" lengthType="bytes" value="0ab92b45b90f265f0ab92b45" /> <!-- LEAP Server Challenge --> 
+        </Block>
+    </DataModel>
+
+    <!-- NAK Server's EAP-Type, Request LEAP
+        This should be encapsulated within EAP-Message
+    -->
+     <DataModel name="EAP-Response-NAK-LEAP" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="17"/> <!-- 17: EAP-PEAP -->
+    </DataModel>
+
+	
+	
+</Peach>

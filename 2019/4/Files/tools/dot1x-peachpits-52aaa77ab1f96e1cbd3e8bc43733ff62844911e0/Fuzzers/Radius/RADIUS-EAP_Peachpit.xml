@@ -1,0 +1,2329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd">
+
+    <!-- 
+        Blobs for Dumb Fuzzing 
+    -->
+    <DataModel name="Access-Request-EAP-Response-Identity-Blob">
+        <Blob valueType="hex" value="0110007b14fb0b2460e75d7455bf7080ca3074270103300c06000005781e10303032332e303437382e353633301f10303032302e643837662e383239640606000000015012997c90a11a37ec659474888ebf40fe854f080201000601303d0600000013050600041ade570832363930323204060adb012b20046170"/>
+    </DataModel>
+
+
+    <!-- 
+        Domain\Username DataModel
+    -->
+
+    <DataModel name="Domain-Username">
+        <Block name="Domain-Prefix" minOccurs="0">
+            <String name="Domain" value="BLUE" />
+            <String value="\" token="true"/>
+        </Block>
+        <String name="Username" value="brad" />
+    </DataModel>
+    
+    <!--
+        SSL Messages
+    -->
+
+    <!-- 
+        Generic DataModel for TLS Extensions
+        Use this as a Block ref when modeling an
+        extension
+    -->
+    <DataModel name="TLS-Extension-Blob">
+        <Number name="Type" size="16"/>
+        <Number name="Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Extension-Data"/>
+        </Number>
+        <Blob name="TLS-Extension-Data"/>
+    </DataModel>
+    
+    <DataModel name="TLS-Extensions-Number">
+        <Number name="Type" size="16"/>
+        <Number name="Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Extension-Header"/>
+        </Number>
+        <Block name="TLS-Extension-Header"/>
+    </DataModel>
+
+    <DataModel name="TLS-Record-Header">
+        <Number name="Hdr-Content-Type" size="8"/> 
+        <Number name="Hdr-Version" size="16" value="0301" valueType="hex" /> <!-- 0x0301: TLS v1.0 -->
+        <Number name="Hdr-Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Record-Data"/>
+        </Number>
+        <Block name="TLS-Record-Data"/>
+    </DataModel>
+
+    <DataModel name="TLS-Record-Handshake-Header">
+        <Number name="Handshake-Type" size="8"/>
+        <Number name="Handshake-Length" size="24" endian="big">
+            <Relation type="size" of="TLS-Record-Handshake-Data"/>
+        </Number>
+        <Block name="TLS-Record-Handshake-Data"/>
+    </DataModel>
+
+
+    <!--
+        Inner most Handshake Data for a Client-Hello
+        There are more fields that can be included here
+        but they would need to be split across multiple EAP-Messages
+    -->
+
+    <DataModel name="TLS-Record-Handshake-Hello" ref="TLS-Record-Handshake-Header">
+        <Number name="Handshake-Type" size="8" value="1" /> <!-- 1: Client Hello -->
+        <Block name="TLS-Record-Handshake-Data">
+        <Number name="Handshake-Version" size="16" value="0301" valueType="hex" /> <!-- 0x0301: TLS v1.0 -->
+        <Blob name="Handshake-gmt_unix_time" length="4" lengthType="bytes" value="52a710ce" valueType="hex"/>
+        <Blob name="Handshake-random_bytes" length="28" lengthType="bytes" valueType="hex" value="557d688f6f327f411dcc1292921e90c1194e0f14601066d6aadb4aba"/>
+        <Number name="Handshake-Session-ID-Length" size="8" value="0"/>
+        <Number name="Handshake-Cipher-Suites-Length" size="16" endian="big">
+            <Relation type="size" of="Cipher-Suites"/>
+        </Number>
+        <Block name="Cipher-Suites">
+            <Blob name="TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" value="c014" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" value="c00a" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_AES_256_CBC_SHA" value="c022" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_AES_256_CBC_SHA" value="c021" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_AES_256_CBC_SHA" value="0039" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_AES_256_CBC_SHA" value="0038" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA" value="0088" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA" value="0087" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_AES_256_CBC_SHA" value="c00f" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA" value="c005" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_AES_256_CBC_SHA" value="0035" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_CAMELLIA_256_CBC_SHA" value="0084" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA" value="c012" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA" value="c008" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA" value="c01c" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA" value="c01b" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA" value="0016" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA" value="0013" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA" value="c00d" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA" value="c003" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_3DES_EDE_CBC_SHA" value="000a" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" value="c013" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" value="c009" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_AES_128_CBC_SHA" value="c01f" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_AES_128_CBC_SHA" value="c01e" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_AES_128_CBC_SHA" value="0033" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_AES_128_CBC_SHA" value="0032" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_SEED_CBC_SHA" value="009a" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_SEED_CBC_SHA" value="0099" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA" value="0045" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA" value="0044" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_AES_128_CBC_SHA" value="c00e" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA" value="c004" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_AES_128_CBC_SHA" value="002f" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_SEED_CBC_SHA" value="0096" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_CAMELLIA_128_CBC_SHA" value="0041" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_RC4_128_SHA" value="c011" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_RC4_128_SHA" value="c007" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_RC4_128_SHA" value="c00c" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_RC4_128_SHA" value="c002" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_RC4_128_SHA" value="0005" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_RC4_128_MD5" value="0004" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_DES_CBC_SHA" value="0015" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_DES_CBC_SHA" value="0012" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_DES_CBC_SHA" value="0009" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA" value="0014" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA" value="0011" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_DES40_CBC_SHA" value="0008" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5" value="0006" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_RC4_40_MD5" value="0003" valueType="hex" length="2"/>
+            <Blob name="TLS_EMPTY_RENEGOTIATION_INFO_SCSV" value="00ff" valueType="hex" length="2"/>
+        </Block>
+        <Block name="Handshake-Compression-Methods">
+            <Number name="Compression-Methods-Length" size="8" endian="big">
+                <Relation type="size" of="Compression-Methods"/>
+            </Number>
+            <Number name="Compression-Methods" size="8" value="0" /> <!-- Compression Method: null -->
+        </Block>
+
+
+        <Number name="Extensions-Length" size="16" endian="big">
+            <Relation type="size" of="Extensions"/>
+        </Number>
+        <Block name="Extensions">
+
+            <Block name="Extension-ec_point_formats" ref="TLS-Extensions-Number">
+                <Number name="Type" size="16" value="000b" valueType="hex"/> <!-- 0x000b: ec_point_formats -->
+                <Block ref="TLS-Extension-Header">
+                        <Number name="Length" size="8">
+                            <Relation type="size" of="EC-PF-Data"/>
+                        </Number>
+                        <Block name="EC-PF-Data">
+                            <Number name="EC-PF-uncompressed" size="8" alue="0" /> <!-- 0: uncompressed -->
+                            <Number name="EC-PF-ansix962_compressed_prime" size="8" value="1" /> <!-- 1: ansix962_compressed_prime -->
+                            <Number name="EC-PF-ansix962_compressed_char2" size="8" value="2" /> <!-- 2: ansix962_compressed_char2 -->
+                        </Block>
+                </Block>
+            </Block>
+            <Block name="Extension-elliptic_curves" ref="TLS-Extensions-Number">
+                <Number name="Type" size="16" value="000a" valueType="hex"/> <!-- 0x000a: elliptic_curves -->
+                <Block ref="TLS-Extension-Header">
+                        <Number name="Length" size="16" endian="big">
+                            <Relation type="size" of="EC-Data"/>
+                        </Number>
+                        <Block name="EC-Data">
+                            <Number name="EC-sect571r1" value="000e" size="16" valueType="hex"/> <!-- 0x000e: sect571r1 -->
+                            <Number name="EC-sect571k1" value="000d" size="16" valueType="hex"/> <!-- 0x000d: sect571k1 -->
+                            <Number name="EC-secp521r1" value="0019" size="16" valueType="hex"/> <!-- 0x0010: secp521r1 -->
+                            <Number name="EC-sect409k1" value="000b" size="16" valueType="hex"/> <!-- 0x000b: sect409k1 -->
+                            <Number name="EC-sect409r1" value="000c" size="16" valueType="hex"/> <!-- 0x000c: sect409r1 -->
+                            <Number name="EC-secp384r1" value="0018" size="16" valueType="hex"/> <!-- 0x0018: secp384r1 -->
+                            <Number name="EC-sect283k1" value="0009" size="16" valueType="hex"/> <!-- 0x0009: sect283k1 -->
+                            <Number name="EC-sect283r1" value="000a" size="16" valueType="hex"/> <!-- 0x000a: sect283r1 -->
+                            <Number name="EC-secp256k1" value="0016" size="16" valueType="hex"/> <!-- 0x0016: secp256k1 -->
+                            <Number name="EC-secp256r1" value="0017" size="16" valueType="hex"/> <!-- 0x0017: secp256r1-->
+                            <Number name="EC-sect239k1" value="0008" size="16" valueType="hex"/> <!-- 0x0008: sect239k1-->
+                            <Number name="EC-sect233k1" value="0006" size="16" valueType="hex"/> <!-- 0x0006: sect233k1-->
+                            <Number name="EC-sect233r1" value="0007" size="16" valueType="hex"/> <!-- 0x0007: sect233r1 -->
+                            <Number name="EC-secp224k1" value="0014" size="16" valueType="hex"/> <!-- 0x0014: secp224k1 -->
+                            <Number name="EC-secp224r1" value="0015" size="16" valueType="hex"/> <!-- 0x0015: secp224r1 -->
+                            <Number name="EC-sect193r1" value="0004" size="16" valueType="hex"/> <!-- 0x0004: sect193r1 -->
+                            <Number name="EC-sect193r2" value="0005" size="16" valueType="hex"/> <!-- 0x0005: sect193r2 -->
+                            <Number name="EC-secp192k1" value="0012" size="16" valueType="hex"/> <!-- 0x0012: secp192k1 -->
+                            <Number name="EC-secp192r1" value="0013" size="16" valueType="hex"/> <!-- 0x0013: secp192r1 -->
+                            <Number name="EC-sect163k1" value="0001" size="16" valueType="hex"/> <!-- 0x0001: sect163k1 -->
+                            <Number name="EC-sect163r1" value="0002" size="16" valueType="hex"/> <!-- 0x0002: sect163r1 -->
+                            <Number name="EC-sect163r2" value="0003" size="16" valueType="hex"/> <!-- 0x0003: sect163r2 -->
+                            <Number name="EC-secp160k1" value="000f" size="16" valueType="hex"/> <!-- 0x000f: secp160k1 -->
+                            <Number name="EC-secp160r1" value="0010" size="16" valueType="hex"/> <!-- 0x0010: secp160r1 -->
+                            <Number name="EC-secp160r2" value="0011" size="16" valueType="hex"/> <!-- 0x0011: secp160r2 -->
+                        </Block>
+                </Block>
+            </Block>
+            <Block name="Extension-HeartBeat" ref="TLS-Extension-Blob">
+                <Number name="Type" size="16" value="000f" valueType="hex"/>
+                <Blob name="TLS-Extension-Data" valueType="hex" value="01" />
+            </Block>
+        </Block>
+        </Block>
+    </DataModel>
+
+    <!--
+        Reference This DataModel for a Client-Hello that can be Encapsulated inside 
+        the EAP-Message AVP
+    -->
+    <DataModel name="TLS-Record-Client-Hello" ref="TLS-Record-Header">
+        <Number name="Hdr-Content-Type" size="8" value="22"/> <!-- 22: Handshake -->
+        <Block name="TLS-Record-Data" ref="TLS-Record-Handshake-Hello"/>
+    </DataModel>
+    <DataModel name="EAP-TLS-Record-Client-Hello">
+        <Number name="EAP-TLS-Flags" size="8" value="80" valueType="hex"/> <!-- 1: v1 -->
+        <Number name="EAP-TLS-Length" size="32" endian="big">
+            <Relation type="size" of="EAP-TLS-Client-Hello" />
+        </Number>
+        <Block name="EAP-TLS-Client-Hello" ref="TLS-Record-Client-Hello"/>
+    </DataModel>
+
+    <!-- 
+        EAP Messages
+    -->
+    
+    <DataModel name="EAP-Type-FAST" >
+        <Number name="EAP-Type" size="8" value="43"/>
+        <Number name="EAP-TLS-Flags" size="8" value="1"/>
+        <Blob name="SSLInfo" valueType="hex" value="1403010001011603010030cb7a39a5d17f945377c829568a540dfe316003393c8b90a06c4adbe8e69d22206820dd9064295f1e24acd9a1c9caad7f" />
+    </DataModel>
+
+    <DataModel name="EAP-Header">
+        <Number name="EAP-Code" size="8"/>
+        <Number name="EAP-Id" size="8" signed="false">
+            <Fixup class="SequenceIncrementFixup"/>
+        </Number>
+        <Number name="EAP-Length" size="16" signed="false" endian="big">
+            <Relation type="size" of="EAP-Header" />
+        </Number>
+    </DataModel>
+
+    <DataModel name="EAP-Response-Identity" ref="EAP-Header"> 
+        <Number name="EAP-Code" size="8" value="2"/> <!-- 2: Response -->
+        <Number name="EAP-Type" size="8" value="1"/> <!-- 1: Identity -->
+        <Block name="EAP-Identity" ref="Domain-Username"/>
+     </DataModel>
+
+    <DataModel name="EAP-Request-EAP-TLS-Start" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Type" size="8" value="13"/> <!-- 13: EAP-TLS -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="20"/>
+    </DataModel>
+
+    <DataModel name="EAP-Request-EAP-PEAP-Start" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Type" size="8" value="25"/> <!-- 25: EAP-PEAP -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="20"/>
+    </DataModel>
+
+
+    <!--
+        Generic DataModel for LEAP
+    -->
+
+    <DataModel name="EAP-LEAP-Packet">
+        <Number name="LEAP-Version" size="8" value="1"/> <!-- 1: LEAP v1 -->
+        <Number name="LEAP-Reserverd" size="8" value="0"/>
+        <Number name="LEAP-Count" size="8" value="8">
+            <Relation type="size" of="LEAP-Data" /> 
+        </Number>
+        <Blob name="LEAP-Data"/> 
+        <String name="LEAP-Name" nullTerminated="false"/>
+    </DataModel>
+
+    <!--
+        Generic DataModel for EAP-MD5
+    -->
+    
+    <DataModel name="EAP-MD5-Packet">
+        <Number name="EAP-MD5-ValueSize" size="8">
+            <Relation type="size" of="EAP-MD5-Value" />
+        </Number>
+        <Blob name="EAP-MD5-Value" length="16" lengthType="bytes" valueType="hex"/>
+        <Blob name="EAP-MD5-ExtraData"/>
+    </DataModel>
+
+    <!-- 
+        Generic DataModel for EAP-MSCHAPv2 Challenge
+        There are field differences for Chal/Resp/Succ so we'll need
+        a generic datamodel for each
+    -->
+    <DataModel name="EAP-MSCHAPv2-Challenge">
+        <Number name="MSCHAPv2-OpCode" size="8" value="1"/>
+        <Number name="MSCHAPv2-Id" size="8"/>
+        <Number name="MSCHAPv2-Length" size="16" endian="big">
+            <Relation type="size" of="EAP-MSCHAPv2-Challenge"/>
+        </Number>
+        <Number name="MSCHAPv2-ValueSize" size="8">
+            <Relation type="size" of="MSCHAPv2-Challenge"/>
+        </Number>
+        <Blob name="MSCHAPv2-Challenge" length="16" lengthType="bytes" valueType="hex"/>
+        <String name="MSCHAPv2-Name" nullTerminated="false"/>
+    </DataModel>
+
+    <!--
+        Generic DataModel for EAP-MSCHAPv2 Response 
+        There are field differences for Chal/Resp/Succ so we'll need
+        a generic datamodel for each
+    -->
+    <DataModel name="EAP-MSCHAPv2-Response">
+        <Number name="MSCHAPv2-OpCode" size="8" value="2"/>
+        <Number name="MSCHAPv2-Id" size="8"/>
+        <Number name="MSCHAPv2-Length" size="16" endian="big">
+            <Relation type="size" of="EAP-MSCHAPv2-Response"/>
+        </Number>
+        <Number name="MSCHAPv2-ValueSize" size="8">
+            <Relation type="size" of="MSCHAPv2-Value"/>
+        </Number>
+        <Block name="MSCHAPv2-Value">
+            <Blob name="MSCHAPv2-PeerChallenge" length="16" lengthType="bytes" valueType="hex"/>
+            <Blob name="MSCHAPv2-Reserved" length="8" lengthType="bytes" valueType="hex"/>
+            <Blob name="MSCHAPv2-NT-Response" length="24" lengthType="bytes" valueType="hex"/>
+            <Number name="MSCHAPv2-Flags" size="8"/>
+        </Block>
+        <Block name="MSCHAPv2-Name" ref="Domain-Username"/>
+    </DataModel>
+
+
+    <!-- 
+        LEAP Start
+        Sent by the Authentication Server to the Client
+    -->
+
+    <DataModel name="EAP-Request-LEAP-Start" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->  
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="17"/> <!-- 17: EAP-LEAP -->
+        <Block ref="EAP-LEAP-Packet">
+            <Number name="LEAP-Count" size="8" value="8" />
+            <Blob name="LEAP-Data" length="8" lengthType="bytes" /> <!-- LEAP Server Challenge -->
+            <String name="LEAP-Name" nullTerminated="false"/>
+        </Block>
+    </DataModel>
+
+   <!--
+        EAP-MD5-Challenge Start
+        Sent by the Authentication Server to the Client
+    -->
+
+    <DataModel name="EAP-Request-MD5-Start" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+        <Block ref="EAP-MD5-Packet">
+            <Blob name="EAP-MD5-ExtraData" length="3" lengthType="bytes"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        EAP-MSCHAPv2 Server Challenge (SC)
+        Sent by the Authentication Server to the Client
+    -->
+
+    <DataModel name="EAP-Request-MSCHAPv2-SC" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+        <Block name="EAP-MSCHAPv2-Challenge-ref" ref="EAP-MSCHAPv2-Challenge"/>
+    </DataModel>
+
+    <!--
+        NAK Server's EAP-Type, Request PEAP
+        This should be encapsulated within EAP-Message
+    -->
+
+     <DataModel name="EAP-Response-NAK-PEAP" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="25"/> <!-- 25: EAP-PEAP -->
+    </DataModel>
+
+    <!--
+        NAK Server's EAP-Type, Request LEAP
+        This should be encapsulated within EAP-Message
+    -->
+
+     <DataModel name="EAP-Response-NAK-LEAP" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="17"/> <!-- 17: EAP-PEAP -->
+    </DataModel>
+
+    <!--
+        NAK Server's EAP-Type, Request EAP-FAST 
+        This should be encapsulated within EAP-Message
+    -->
+
+    <DataModel name="EAP-Response-NAK-FAST" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="43"/> <!-- 43: EAP-FAST -->
+    </DataModel>
+    
+    <!--
+        NAK Server's EAP-Type, Request EAP-MD5
+        This should be encapsulated within EAP-Message
+    -->
+
+    <DataModel name="EAP-Response-NAK-MD5" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+    </DataModel>
+
+    <!--
+        NAK Server's EAP-Type, Request EAP-MSCHAPv2
+        This should be encapsulated within EAP-Message
+    -->
+
+    <DataModel name="EAP-Response-NAK-MSCHAPv2" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+    </DataModel>
+    
+    <DataModel name="EAP-Request-EAP-FAST-Start" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="43"/> <!-- 43: EAP-FAST -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="21"/> <!-- 21: v1 Start --> 
+        <Blob name="EAP-TLS-StartTEST" length="20" lengthType="bytes"/> <!-- I dont care what this is, but probably should in the future -->
+    </DataModel>
+
+    <DataModel name="EAP-Response-PEAP-Hello" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="25"/> <!--25: EAP-PEAP -->
+        <Block ref="EAP-TLS-Record-Client-Hello"/>
+    </DataModel>
+
+    <!-- 
+        LEAP Packet Containing the Response/Peer Challenge Send to the Server
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-LEAP-PeerChallenge" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="17"/> <!-- 17: EAP-LEAP -->
+        <Block ref="EAP-LEAP-Packet">
+            <Number name="LEAP-Count" size="8" value="8" />
+            <Blob name="LEAP-Data" length="24" lengthType="bytes" /> <!-- LEAP Server Challenge -->
+            <String name="LEAP-Name" value="brad"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        MD5 Packet Containing the Response Challenge Send to the Server
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-MD5-Response" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="4"/> <!-- 4: EAP-MD5-Challenge -->
+        <Block ref="EAP-MD5-Packet">
+            <Blob name="EAP-MD5-Value" length="16" lengthType="bytes" valueType="hex"/>
+            <Blob name="EAP-MD5-ExtraData"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        EAP-MSCHAPv2 Packet containing the Client Challenge and Response Sent to the Server
+        This should be encapsulated within EAP-Message
+    -->
+    <DataModel name="EAP-Response-MSCHAPv2-ClientResponse" ref="EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="26"/> <!-- 26: EAP-MSCHAPv2 -->
+        <Block ref="EAP-MSCHAPv2-Response"/>
+    </DataModel>
+
+
+    <!--
+        RADIUS Vendor Specific Values
+    -->
+    <DataModel name="AVP-VSA-String">
+        <Number name="Vendor-Type" size="8" signed="false" />
+        <Number name="Vendor-Length" size="8" signed="false">
+            <Relation type="size" of="AVP-VSA-String" />
+        </Number>
+        <String name="VSA-Value" value="BRAD"/>
+    </DataModel>
+
+    <DataModel name="AVP-VSA-Cisco-AVPair">
+        <Choice name="Proto-Type" minOccurs="1">
+            <Block name="Proto-Ip">
+                <String value="ip"/>
+            </Block>
+            <Block name="Proto-Ipx">
+                <String value="ipx"/>
+            </Block>
+            <Block name="Proto-Vpdn">
+                <String value="vpdn"/>
+            </Block>
+            <Block name="Proto-Voip">
+                <String value="voip"/>
+            </Block>
+            <Block name="Proto-Shell">
+                <String value="shell"/>
+            </Block>
+            <Block name="Proto-Rsvp">
+                <String value="rsvp"/>
+            </Block>
+            <Block name="Proto-Sip">
+                <String value="sip"/>
+            </Block>
+            <Block name="Proto-Airnet">
+                <String value="airnet"/>
+            </Block>
+            <Block name="Proto-Outbound">
+                <String value="outbound"/>
+            </Block>
+        </Choice>
+        <String value=":" token="true"/>
+        <String name="AVPair-Name"/>
+        <Choice name="Sep-Type" minOccurs="1">
+            <Block name="Sep-Eq">
+                <String value="=" token="true"/>
+            </Block>
+            <Block name="Seq-As">
+                <String value="*" token="true"/>
+            </Block>
+        </Choice>
+        <String name="AVPair-Value"/>
+    </DataModel>
+
+    <DataModel name="AVP-VSA-Cisco-String">
+        <Number name="Vendor-Type" size="8" signed="false" />
+        <Number name="Vendor-Length" size="8" signed="false">
+            <Relation type="size" of="AVP-VSA-Cisco-String" />
+        </Number>
+        <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair"/>
+    </DataModel>
+
+    
+
+
+    <!--
+        RADIUS Attribute Value Pairs
+    -->
+
+    <DataModel name="AVP-String"> <!-- RFC 2865 defines "text" and "string" for AVPs. we'll just use one type, string -->
+        <Number name="Type" size="8"/>
+        <Number name="Length" size="8">
+            <Relation type="size" of="AVP-String" />
+        </Number>
+        <String name="Value" value="POO"/> <!-- most strings need to be >=3 chars -->
+    </DataModel>
+
+    <DataModel name="AVP-Integer" > <!-- RFC 2865 AVP type "integer" -->
+        <Number name="Type" size="8" />
+        <Number name="Length" size="8"  >
+            <Relation type="size" of="AVP-Integer" />
+        </Number>
+        <Number name="Value" value="0" size="32"  signed="false" endian="big"/> <!-- BUG: Size, Unsigned, endian flags here is ignored by Peach -->
+    </DataModel>
+
+    <DataModel name="AVP-Address" > <!-- RFC 2865 AVP type "address" -->
+        <Number name="Type" size="8" />
+        <Number name="Length" size="8"  >
+            <Relation type="size" of="AVP-Address" />
+        </Number>
+        <Blob name="Value" value="127.0.0.1" mutable="false"> <!-- If we mutate this, the transformere explodes -->
+                <Transformer class="Ipv4StringToOctet"/>
+        </Blob>
+    </DataModel>
+
+    <DataModel name="AVP-Vendor" > <!-- For Vendor Specific Attributes -->
+        <Number name="Type" size="8" value="26" />
+        <Number name="Length" size="8" >
+            <Relation type="size" of="AVP-Vendor" />
+        </Number>
+        <Number name="Vendor-Id" size="32"  signed="false" endian="big"/>
+        <!-- When you use this, you need to include a <Block ref="RADIUS-AVP-VSA"> -->
+    </DataModel>
+
+
+    <DataModel name="AVP-Blob" > <!-- Needed this because retrofitting everything to AVP-Address was getting TESTpy -->
+        <Number name="Type" size="8"  />
+        <Number name="Length" size="8" >
+            <Relation type="size" of="AVP-Blob" />
+        </Number>
+        <Blob name="Value" valueType="hex" />
+    </DataModel>
+
+
+    <!-- 
+        Generic RADIUS Message Template
+    -->
+    <DataModel name="RADIUS-Message">
+        <Number name="Code" size="8"/>
+        <Number name="Packet-Identifier" size="8" value="1"> 
+            <Fixup class="SequenceIncrementFixup"/>
+        </Number> 
+        <Number name="Length" size="16" signed="false" endian="big">
+            <Relation type="size" of="RADIUS-Message" />
+        </Number>
+        <Blob name="Authenticator" length="16" lengthType="bytes" valueType="hex" value="0f876c6ec636ff0769020fc5d64b4f5e"/> <!-- In Access-Request messages, this should just be some random number, so we can let it be static -->
+        <Block name="AVP-Message-Authenticator" ref="AVP-Blob">
+            <Number name="Type" value="80" />
+            <Blob name="Message-Authenticator-PlaceHolder" valueType="hex" value="00000000000000000000000000000000">
+                <Fixup class="HMAC">
+                    <Param name="ref" value="RADIUS-Message"/>
+                    <Param name="Key" value="7465737474657374"/> <!-- Shared Secret: Hex of "testtest" -->
+                    <Param name="Hash" value="HMACMD5"/>
+                </Fixup>
+            </Blob>
+        </Block>
+    </DataModel>
+
+    <!-- 
+        Standard RADIUS Access-Request
+    -->
+
+	<DataModel name="Access-Request" ref="RADIUS-Message" >
+        <Number name="Code" size="8" valueType="hex" value="01" /> <!-- Code: Access-Request: 1 -->
+        <Block name="AVP-Username" >
+            <Number name="Type" value="1" /> <!-- 1 - Username -->
+            <Number name="Length" size="8" >
+                <Relation type="size" of="AVP-Username" />
+            </Number>
+            <Block name="Value" ref="Domain-Username"/>
+        </Block>        
+
+        <Block name="AVP-Framed-MTU" ref="AVP-Integer" >
+            <Number name="Type" value="12" /> <!-- 12 - Framed-MTU -->
+            <Number name="Value" value="1400" size="32" signed="false" endian="big"/>
+        </Block>
+
+        <Block name="AVP-Called-Station-ID" ref="AVP-String" >
+            <Number name="Type" value="30" /> <!-- 30 - Called-Station-Id -->
+            <String name="Value" value="0023.0478.5630" />
+        </Block>
+
+        <Block name="AVP-Calling-Station-ID" ref="AVP-String" >
+            <Number name="Type" value="31" /> <!-- 31 - Calling-Station-Id -->
+            <String name="Value" value="0020.d87f.829d" />
+        </Block>
+
+        <Block name="AVP-Service-Type" ref="AVP-Integer" >
+            <Number name="Type" value="6" /> <!-- 6 - Service-Type -->
+            <Number name="Value" value="1" size="32" signed="false" endian="big"/>
+        </Block>
+
+        <Block name="AVP-NAS-Port-Type" ref="AVP-Integer" >
+            <Number name="Type" value="61" /> <!-- 61 - Port-Type -->
+            <Number name="Value" value="19" size="32" signed="false" endian="big"/> <!-- 19 - Wireless 802.11 -->
+        </Block>
+    
+        <Block name="AVP-NAS-Port" ref="AVP-Integer" >
+            <Number name="Type" value="5" /> <!-- 5 - NAS-Port -->
+            <Number name="Value" value="233646" size="32" signed="false" endian="big"/>
+        </Block>
+
+        <Block name="AVP-NAS-Port-Id" ref="AVP-String" >
+            <Number name="Type" value="87" /> <!-- 87 - NAS-Port-Id -->
+            <String name="Value" value="233646">
+                <Hint name="NumericalString" value="true"/>
+            </String>
+        </Block>
+
+        <Block name="AVP-NAS-IP-Address" ref="AVP-Address" >
+            <Number name="Type" value="4" /> <!-- 4 - NAS-IP-Address -->
+            <Blob name="Value" value="192.168.1.1" mutable="false">
+                <Transformer class="Ipv4StringToOctet"/>
+            </Blob>
+        </Block>
+
+        <Block name="AVP-NAS-Identifier" ref="AVP-String" >
+            <Number name="Type" value="32" /> <!-- 32 - NAS-Identifier -->
+            <String name="Value" value="ap" />
+        </Block>
+
+        <!-- 
+            Non-Essential AVPs
+        -->       
+ 
+        <Block name="AVP-Framed-Protocol" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="7" /> <!-- 7 - Framed-Protocol-->
+        </Block>
+        <Block name="AVP-User-Password" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="2" /> <!-- 2 - User-Password -->
+            <String name="Value" value="TESTTESTTESTTEST" />  <!-- TODO: Add the MD5Fixup to make this actually decrypt -->
+        </Block>
+        <Block name="AVP-CHAP-Password" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="3" /> <!-- 3 - CHAP-Password -->
+            <Number name="CHAP-Ident" value="0" size="8"/>
+            <String name="Value" value="TESTTESTTESTTEST" /> <!-- TODO: Add the appropriate fixup to make this work -->
+        </Block>
+        <Block name="AVP-Framed-IP-Address" ref="AVP-Address" minOccurs="0">
+            <Number name="Type" value="8" /> <!-- 8 - Framed-IP-Address -->
+        </Block>
+        <Block name="AVP-Framed-IP-Netmask" ref="AVP-Address" minOccurs="0">
+            <Number name="Type" value="9" /> <!-- 9 - Framed-IP-Netmask-->
+        </Block>
+        <Block name="AVP-Framed-Routing" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="10" /> <!-- 10 - Framed-Routing -->
+        </Block>
+        <Block name="AVP-Filter-Id" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="11" /> <!-- 11 - Filter-Id -->
+        </Block>
+        <Block name="AVP-Framed-Compression" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="13" /> <!-- 13 - Framed-Compression -->
+        </Block>
+        <Block name="AVP-Login-IP-Host" ref="AVP-Integer" minOccurs="0"> <!-- TODO: This is supposed to be AVP-Address but using AVP-Integer since Address is non-mutable -->
+            <Number name="Type" value="14" /> <!-- 14 - Login-IP-Host -->
+        </Block>
+        <Block name="AVP-Login-Service" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="15" /> <!-- 15 - Login-Service -->
+        </Block>
+        <Block name="AVP-Login-TCP-Port" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="16" /> <!-- 16 - Login-TCP-Port-->
+        </Block>
+        <Block name="AVP-Reply-Message" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="18" /> <!-- 18 - Reply-Message -->
+        </Block>
+        <Block name="AVP-Callback-Number" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="19" /> <!-- 19 - Callback-Number-->
+        </Block>
+        <Block name="AVP-Callback-Id" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="20" /> <!-- 20 - Callback-Id -->
+        </Block>
+        <Block name="AVP-Framed-Route" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="22" /> <!-- 22 - Framed-Route -->
+        </Block>
+        <Block name="AVP-Framed-IPX-Network" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="23" /> <!-- 23 - Framed-IPX-Network -->
+        </Block>
+        <Block name="AVP-Class" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="25" /> <!-- 25 - Class -->
+        </Block>
+
+        <Block name="AVP-Session-Timeout" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="27" /> <!-- 27 - Session-Timeout -->
+        </Block>
+        <Block name="AVP-Idle-Timeout" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="28" /> <!-- 28 - Idle-Timeout -->
+        </Block>
+        <Block name="AVP-Termination-Action" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="29" /> <!-- 29 - Termination Action -->
+            <Number name="Value" value="0" />
+        </Block>
+        <Block name="AVP-Proxy-State" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="33" /> <!-- 33 - Proxy-State -->
+        </Block>
+        <Block name="AVP-Login-LAT-Service" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="34" /> <!-- 34 - Login-LAT-Service -->
+        </Block>
+        <Block name="AVP-Login-LAT-Node" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="35" /> <!-- 35 - Login-LAT-Node -->
+        </Block>
+        <Block name="AVP-Login-LAT-Group" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="36" /> <!-- 36 - Login-LAT-Group -->
+        </Block>
+        <Block name="AVP-Framed-AppleTalk-Link" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="37" /> <!-- 37 - Framed-AppleTalk-Link -->
+        </Block>
+        <Block name="AVP-Framed-AppleTalk-Network" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="38" /> <!-- 38 - Framed-AppleTalk-Network -->
+        </Block>
+        <Block name="AVP-Framed-AppleTalk-Zone" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="39" /> <!-- 39 - Framed-AppleTalk-Zone -->
+        </Block>
+        <Block name="AVP-CHAP-Challenge" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="60" /> <!-- 60 - CHAP-Challenge -->
+        </Block>
+        <Block name="AVP-Port-Limit" ref="AVP-Integer" minOccurs="0">
+            <Number name="Type" value="62" /> <!-- 62 - Port-Limit -->
+        </Block>
+        <Block name="AVP-Login-LAT-Port" ref="AVP-String" minOccurs="0">
+            <Number name="Type" value="63" /> <!-- 63 - Login-LAT-Port -->
+        </Block>
+    
+            <!-- 
+                Microsoft Vendor Specific Attributes 
+                References:
+                    http://www.ietf.org/rfc/rfc2548.txt
+                    http://msdn.microsoft.com/en-us/library/cc243439.aspx
+            -->
+        <Block name="AVP-VSA-MS-MS-CHAP-Challenge" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-Challenge -->
+                <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+                <Block ref="AVP-VSA-String">
+                    <Number name="Vendor-Type" value="11"  size="8" signed="false"/>
+                </Block>
+        </Block>
+        <Block name="AVP-VSA-MS-MS-CHAP-Response" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-Response -->
+            <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <String name="VSA-Value" value="TESTTESTTEST"/> <!-- Response should be of a fixed length -->
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-MS-MS-CHAP-Domain" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-Domain -->
+            <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-String">
+                <Number name="Vendor-Type" value="10"  size="8" signed="false"/>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-MS-MS-CHAP-Error" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-Error -->
+            <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-String">
+                <Number name="Vendor-Type" value="2"  size="8" signed="false"/>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-MS-MS-CHAP-CPW-1" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-CPW-2 -->
+            <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-String">
+                <Number name="Vendor-Type" value="3"  size="8" signed="false"/>
+                <String name="VSA-Value" value="TESTTESTTEST"/> <!-- Response should be of a fixed length -->
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-MS-MS-CHAP-CPW-2" ref="AVP-Vendor" minOccurs="0"> <!-- Microsoft: MS-CHAP-CPW-2 -->
+            <Number name="Vendor-Id" value="311" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-String">
+                <Number name="Vendor-Type" value="4"  size="8" signed="false"/>
+                <String name="VSA-Value" value="TESTTESTTEST"/> <!-- Response should be of a fixed length -->
+            </Block>
+        </Block>
+
+        <!--
+            Cisco Vendor Specific Attributes
+            References:
+                http://www.cisco.com/en/US/docs/ios/12_2/security/configuration/guide/scfrdat3.pdf
+        -->
+        <Block name="AVP-VSA-C-l2tp-cm-local-window-size" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco l2tp-cm-local-window-size -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-cm-local-window-size"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-drop-out-of-order" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco:  l2tp-drop-out-of-order -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-drop-out-of-order"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-hello-interval" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-hello-interval -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-hello-interval"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-hidden-avp" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-hidden-avp -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-hidden-avp"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-nosession-timeout" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-nosession-timeout -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-nosession-timeout"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-tunnel-tos-reflect" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: tunnel-tos-reflect -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="tunnel-tos-reflect"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-tunnel-authen" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-tunnel-authen -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-tunnel-authen"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-tunnel-password" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-tunnel-password -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-tunnel-password"/>
+                    <String name="AVPair-Value" value="x1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-l2tp-udp-checksum" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: l2tp-udp-checksum -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="l2tp-udp-checksum"/>
+                    <String name="AVPair-Value" value="no"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block nme="AVP-VSA-C-Fax-Account-Id-Origin" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Account-Id-Origin -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="3"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Account-Id-Origin"/>
+                    <String name="AVPair-Value" value="BRADBRAD"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Msg-Id" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Msg-Id -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="4" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Msg-Id"/>
+                    <String name="AVPair-Value" value="1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block nme="AVP-VSA-C-Fax-Pages" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Pages -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="5"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Pages"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Coverpage-Flag" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Coverpage-Flag -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="6"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Coverpage-Flag"/>
+                    <String name="AVPair-Value" value="true"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Modem-Time" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Modem-Time -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="7"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Modem-Time"/>
+                    <String name="AVPair-Value" value="1/10"/> <!-- TODO: this should be in formation number/numbner (10/1) -->
+                </Block>
+            </Block>
+        </Block>
+        <Block nme="AVP-VSA-C-Fax-Connect-Speed" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Connect-Speed  -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="8"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Connect-Speed"/>
+                    <String name="AVPair-Value" value="9600">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Recipient-Count" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Recipient-Count -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="9"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Recipient-Count"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Process-Abort-Flag" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Process-Abort-Flag -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="10"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Process-Abort-Flag"/>
+                    <String name="AVPair-Value" value="false"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Dsn-Address" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Dsn-Address -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="11"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Dsn-Address"/>
+                    <String name="AVPair-Value" value="1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Dsn-Flag" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Dsn-Flag -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="12"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Dsn-Flag"/>
+                    <String name="AVPair-Value" value="true"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Mdn-Address" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Mdn-Address -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="13"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Mdn-Address"/>
+                    <String name="AVPair-Value" value="1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Mdn-Flag" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Mdn-Flag -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="14"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Mdn-Flag"/>
+                    <String name="AVPair-Value" value="true"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Fax-Auth-Status" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Fax-Auth-Status -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="15"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Fax-Auth-Status"/>
+                    <String name="AVPair-Value" value="unknown"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Email-Server-Address" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Email-Server-Address -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="16"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Email-Server-Address"/>
+                    <String name="AVPair-Value" value="10.219.1.1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Email-Server-Ack-Flag" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Email-Server-Ack-Flag -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="17"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Email-Server-Ack-Flag"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Gateway-Id" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Gateway-Id -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="18"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Gateway-Id"/>
+                    <String name="AVPair-Value" value="hostname.domainname"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Call-Type" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Call-Type  -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="19"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Call-Type"/>
+                    <String name="AVPair-Value" value="fax send"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Port-Used" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Port-Used -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="20"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Port-Used"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Abort-Cause" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Abort-Cause  -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="21"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Abort-Cause"/>
+                    <String name="AVPair-Value" value="TEST"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-remote-address" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-remote-address  -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="23"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-remote-address"/>
+                    <String name="AVPair-Value" value="192.168.1.1"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-conf-id" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-conf-id -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="24"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-conf-id"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-setup-time" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-setup-time -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="25" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-setup-time"/>
+                    <String name="AVPair-Value" value="1:00 01/01/01"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-call-origin" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-call-origin -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="26" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-call-origin"/>
+                    <String name="AVPair-Value" value="terminating"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-call-type" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-call-type -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="27"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-call-type"/>
+                    <String name="AVPair-Value" value="VoIP"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-connect-time" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-connect-time -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="28"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-connect-time"/>
+                    <String name="AVPair-Value" value="1:11:11 01/01/10"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-disconnect-time" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-disconnect-time -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="29" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-disconnect-time"/>
+                    <String name="AVPair-Value" value="1:22:22 02/02/02"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-disconnect-cause" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-disconnect-cause -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="30" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-disconnect-cause"/>
+                    <String name="AVPair-Value" value="herpes"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-voice-quality" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-voice-quality -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="31" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-voice-quality"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-h323-gw-id" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: h323-gw-id -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="33" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="h323-gw-id"/>
+                    <String name="AVPair-Value" value="TEST"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-callback-dialstring" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: callback-dialstring -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="callback-dialstring"/>
+                    <String name="AVPair-Value" value="ATZ ^]"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-data-service" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: data-service -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="data-service"/>
+                    <String name="AVPair-Value" value="secret attribute"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-dial-number" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: dial-number -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="dial-number"/>
+                    <String name="AVPair-Value" value="180012345678">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-force-56" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: force-56 -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="force-56"/>
+                    <String name="AVPair-Value" value="true"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-map-class" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: map-class -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="map-class"/>
+                    <String name="AVPair-Value" value="SomeVal"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-send-auth" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: send-auth -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="send-auth"/>
+                    <String name="AVPair-Value" value="PAP"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-send-name" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: send-name -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="send-name"/>
+                    <String name="AVPair-Value" value="TEST"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-send-secret" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: send-secret -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1" size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="send-secret"/>
+                    <String name="AVPair-Value" value="someSecret"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-remote-name" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: remote-name -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="remote-name"/>
+                    <String name="AVPair-Value" value="remote-name"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-Cisco-NAS-Port" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: Cisco-NAS-Port -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="2"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="Cisco-NAS-Port"/>
+                    <String name="AVPair-Value" value="SomeNASPort"/>
+                </Block>
+            </Block>
+        </Block>
+        <Block name="AVP-VSA-C-min-links" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: min-links -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="min-links"/>
+                    <String name="AVPair-Value" value="1">
+                        <Hint name="NumericalString" value="true"/>
+                    </String>
+                </Block>
+            </Block>
+        </Block>
+        <!-- TODO: Add proxyacl# -->
+        <Block name="AVP-VSA-C-spi" ref="AVP-Vendor" minOccurs="0"> <!-- Cisco: spi -->
+            <Number name="Vendor-Id" value="9" size="32" signed="false" endian="big"/>
+            <Block ref="AVP-VSA-Cisco-String">
+                <Number name="Vendor-Type" value="1"  size="8" signed="false"/>
+                <Block name="AVPair" ref="AVP-VSA-Cisco-AVPair">
+                    <String name="AVPair-Name" value="spi"/>
+                    <String name="AVPair-Value" value="somespivalue"/>
+                </Block>
+            </Block>
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request w/ EAP-Response Identity
+    -->
+
+    <DataModel name="Access-Request-EAP-Response-Identity" ref="Access-Request"> 
+         <Block name="EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="EAP-Message" />
+            </Number>
+            <Block ref="EAP-Response-Identity" />
+        </Block>
+    </DataModel>
+
+    <!--
+         RADIUS Access-Request w/ EAP-Response Identity and Bad Message Authenticator
+    -->
+    <DataModel name="Access-Request-EAP-Response-Identity-BadChk" ref="Access-Request">
+        <Blob name="Message-Authenticator-PlaceHolder" valueType="hex" value="1234567890abcdef1234567890abcdef" />
+         <Block name="EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="EAP-Message" />
+            </Number>
+            <Block ref="EAP-Response-Identity" />
+        </Block>
+    </DataModel>
+
+    
+    <!-- 
+        RADIUS Access-Request w/ Desired Auth Type EAP-FAST
+     -->
+    <DataModel name="Access-Request-AuthType-EAP-FAST" ref="Access-Request">
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block ref="EAP-Response-NAK-FAST" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-String" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+   <DataModel name="Access-Request-NAK-PEAP" ref="Access-Request">
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block ref="EAP-Response-NAK-PEAP" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <DataModel name="Access-Request-PAP" ref="Access-Request">
+        <Block name="AVP-User-Password" ref="AVP-String" minOccurs="1">
+            <Number name="Type" value="2" /> <!-- 2 - User-Password -->
+            <String name="Value" value="TESTTESTTESTTEST" />  <!-- TODO: Add the MD5Fixup to make this actually decrypt -->
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request 
+        NAK to Whatever, Request LEAP
+    -->
+    <DataModel name="Access-Request-NAK-LEAP" ref="Access-Request">
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="EAP-Response-NAK-LEAP-ref" ref="EAP-Response-NAK-LEAP" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+   <!--
+        RADIUS Access-Request
+        NAK to Whatever, Request MD5
+    -->
+    <DataModel name="Access-Request-NAK-MD5" ref="Access-Request">
+        <!-- <Number name="Packet-Identifier" size="8" /> -->
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="Access-Request-NAK-MD5-ref" ref="EAP-Response-NAK-MD5" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request
+        NAK to Whatever, Request FAST 
+    -->
+    <DataModel name="Access-Request-NAK-FAST" ref="Access-Request">
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="Access-Request-NAK-FAST-ref" ref="EAP-Response-NAK-FAST" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request
+        NAK to Whatever, Request MSCHAPv2
+    -->
+    <DataModel name="Access-Request-NAK-MSCHAPv2" ref="Access-Request">
+        <!-- <Number name="Packet-Identifier" size="8" /> -->
+        <Block name="AVP-EAP-Message" > <!-- AVP EAP-Message -->
+            <Number name="EAP-AVP-Code" size="8" value="79" />
+            <Number name="EAP-AVP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="Access-Request-NAK-MSCHAPv2-ref" ref="EAP-Response-NAK-MSCHAPv2" />
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob" >
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+     <!--
+        RADIUS Access-Request w/ EAP-PEAP Client Hello
+     -->
+    <DataModel name="Access-Request-EAP-PEAP-Client-Hello" ref="Access-Request">
+        <Block name="AVP-EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="AVP-EAP-Code" size="8" value="79" />
+            <Number name="AVP-EAP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="EAP-Response-PEAP-Hello-ref" ref="EAP-Response-PEAP-Hello"/>
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request w/ EAP-LEAP Peer Challenge
+     -->
+    <DataModel name="Access-Request-LEAP-PeerChallenge" ref="Access-Request">
+        <Block name="AVP-EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="AVP-EAP-Code" size="8" value="79" />
+            <Number name="AVP-EAP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="EAP-Response-LEAP-PeerChallenge-ref" ref="EAP-Response-LEAP-PeerChallenge"/>
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+    
+    <!--
+        RADIUS Access-Request w/ EAP-MD5 Peer Challenge
+     -->
+    <DataModel name="Access-Request-MD5-Response" ref="Access-Request">
+        <Block name="AVP-EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="AVP-EAP-Code" size="8" value="79" />
+            <Number name="AVP-EAP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="EAP-Response-MD5-Response-ref" ref="EAP-Response-MD5-Response"/>
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <!--
+        RADIUS Access-Request w/ EAP-MSCHAPv2 Client Response/Challenge
+     -->
+    <DataModel name="Access-Request-MSCHAPv2-ClientResponse" ref="Access-Request">
+        <Block name="AVP-EAP-Message"> <!-- AVP EAP-Message -->
+            <Number name="AVP-EAP-Code" size="8" value="79" />
+            <Number name="AVP-EAP-Length" size="8" signed="false" endian="big">
+                <Relation type="size" of="AVP-EAP-Message" />
+            </Number>
+            <Block name="EAP-Response-MSCHAPv2-ClientResponse-ref" ref="EAP-Response-MSCHAPv2-ClientResponse"/>
+        </Block>
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+        </Block>
+    </DataModel>
+
+    <!--
+       Access Challenge EAP-TLS-Start
+    -->
+
+    <DataModel name="Access-Challenge-TLS-Start">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+        <Block name="State" ref="AVP-String">
+            <Number name="Type" value="24"/>
+        </Block>
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block ref="EAP-Request-EAP-TLS-Start"/>
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+    
+    <!--
+
+        input packet 2:     Access-Challenge is sent from the RADIUS server to the client
+                            Agreeing to EAP-FAST with some SSL Data
+                            Should see this with ACS
+
+    -->
+
+    <DataModel name="Access-Challenge-EAP-FAST">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+        <Block name="State" ref="AVP-String">
+            <Number name="Type" value="24"/>
+        </Block>
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block ref="EAP-Request-EAP-FAST-Start"/>
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+
+    <!--
+        Input Packet
+        Access Challenge PEAP-Start
+        Microsoft NPS (IAS) Specific   
+    -->
+
+    <DataModel name="Access-Challenge-EAP-PEAP-IAS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="Session-Timeout" ref="AVP-Integer">
+            <Number name="Type" value="27"/>        
+        </Block>
+
+        
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EAP-Request-EAP-PEAP-Start"/>
+
+        <Block name="AVP-State" ref="AVP-Blob"> 
+            <Number name="Type" value="24"/>
+            <Blob name="Value" length="36" lengthType="bytes" valueType="hex"/>
+        </Block>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!--
+        Input Packet
+        Access Challenge EAP-MSCHAPv2 Server Challenge (SC)
+        Microsoft NPS (IAS) Specific
+    -->
+
+    <DataModel name="Access-Challenge-MSCHAPv2-SC-IAS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="Session-Timeout" ref="AVP-Integer">
+            <Number name="Type" value="27"/>
+        </Block>
+
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EAP-Request-MSCHAPv2-SC"/>
+
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+            <Blob name="Value" length="36" lengthType="bytes" valueType="hex"/>
+        </Block>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!--
+        Input Packet
+        Access Challenge PEAP-Start
+        Cisco ACS Specific 
+    -->
+
+    <DataModel name="Access-Challenge-EAP-PEAP-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="AVP-Blob"> 
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EAP-Request-EAP-PEAP-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!--
+        Input Packet
+        Access Challenge LEAP-Start
+        Cisco ACS Specific
+    -->
+
+    <DataModel name="Access-Challenge-LEAP-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EAP-Request-LEAP-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!--
+        Input Packet
+        Access Challenge EAP-MD5-Challenge
+        Cisco ACS Specific
+    -->
+
+    <DataModel name="Access-Challenge-MD5-ACS">
+        <Number name="Code" size="8" valueType="hex" value="11" /> <!-- Code: Access-Challenge: 11 -->
+        <Number name="Packet-Identifier" size="8" />
+        <Number name="Length" size="16" signed="false" endian="big"/>
+        <Blob name="Authenticator" length="16" lengthType="bytes" />
+
+        <Block name="AVP-State" ref="AVP-Blob">
+            <Number name="Type" value="24"/>
+            <Blob name="Value" valueType="hex"/>
+        </Block>
+
+        <Number name="EAP-Code" size="8" value="79" />
+        <Number name="EAP-Length" size="8" signed="false" endian="big"/>
+        <Block name="EAP-Data" ref="EAP-Request-MD5-Start"/>
+
+        <Blob name="Message-Authenticator" length="18" lengthType="bytes"/>
+    </DataModel>
+
+    <!--
+
+        StateModel
+
+    -->
+
+
+   <StateModel name="State-EAP-Response-Identity-Blob" initialState="Initial">
+        <State name="Initial">
+            <Action type="output">
+                <DataModel ref="Access-Request-EAP-Response-Identity-Blob"/>
+            </Action>
+        </State>
+    </StateModel>
+
+
+    <!---
+        focusing on this Access-Request-EAP-Response-Identity was completed
+    -->
+    <StateModel name="State-EAP-Response-Identity" initialState="Initial">
+        <State name="Initial">
+            <Action type="output">
+                <DataModel ref="Access-Request-EAP-Response-Identity"/>
+            </Action>
+        </State>
+    </StateModel>    
+
+    <!--
+        Testing with Bad Message Authenticators
+    -->
+
+    <StateModel name="State-EAP-Response-Identity-BadChk" initialState="Initial">
+        <State name="Initial">
+            <Action type="output">
+                <DataModel ref="Access-Request-EAP-Response-Identity-BadChk"/>
+            </Action>
+        </State>
+    </StateModel>
+
+
+	<StateModel name="ACS-PEAP-ClientHello" initialState="Initial">
+		<State name="Initial">
+           <Exclude ref="Access-Request-EAP-Response-Identity"/> 
+            <!--
+                Send Initial EAP-Response Identity 
+            -->
+            <Action type="output">
+                <DataModel name="Access-Request-EAP-Response-Identity" ref="Access-Request-EAP-Response-Identity" /> 
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC-APCH" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC-APCH//Packet-Identifier" setXpath="//AR-APCH//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC-APCH//EAP-Data//EAP-Id" setXpath="//AR-APCH//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC-APCH//AVP-State//Value" setXpath="//AR-APCH//AVP-State//Value"/>
+
+            <!--
+                Send PEAP Client Hello
+            -->
+            <Action type="output">
+                <DataModel name="AR-APCH" ref="Access-Request-EAP-PEAP-Client-Hello"/>
+            </Action>
+		</State>
+	</StateModel>
+
+    <StateModel name="ACS-LEAP-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-ALS" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-ALS//Packet-Identifier" setXpath="//AR1-ALS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-ALS//EAP-Data//EAP-Id" setXpath="//AR1-ALS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-ALS//AVP-State//Value" setXpath="//AR1-ALS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR1-ALS" ref="Access-Request-NAK-LEAP"/>
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC2-ALS" ref="Access-Challenge-LEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC2-ALS//Packet-Identifier" setXpath="//AR2-ALS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC2-ALS//EAP-Data//EAP-Id" setXpath="//AR2-ALS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC2-ALS//AVP-State//Value" setXpath="//AR2-ALS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR2-ALS" ref="Access-Request-LEAP-PeerChallenge"/>
+            </Action>
+        </State>
+    </StateModel>
+
+    <StateModel name="ACS-MD5-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC1-AMS" ref="Access-Challenge-EAP-PEAP-ACS"/>
+            </Action>
+
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-AMS//Packet-Identifier" setXpath="//AR1-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-AMS//EAP-Data//EAP-Id" setXpath="//AR1-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-AMS//AVP-State//Value" setXpath="//AR1-AMS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR1-AMS" ref="Access-Request-NAK-MD5"/>
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC2-AMS" ref="Access-Challenge-MD5-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC2-AMS//Packet-Identifier" setXpath="//AR2-AMS//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC2-AMS//EAP-Data//EAP-Id" setXpath="//AR2-AMS//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC2-AMS//AVP-State//Value" setXpath="//AR2-AMS//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR2-AMS" ref="Access-Request-MD5-Response"/>
+            </Action>
+        </State>
+    </StateModel>
+
+    <StateModel name="ACS-PAP-State" initialState="Initial">
+        <State name="Initial">
+
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel ref="Access-Request-PAP" />
+            </Action>
+
+        </State>
+    </StateModel>
+
+
+    <StateModel name="ACS-MD5-LEAP-NAK-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel name="AR-EAP-Response-Identity" ref="Access-Request-EAP-Response-Identity" />
+            </Action>
+
+            <Action type="input">
+                <DataModel name="AC-AMLN" ref="Access-Challenge-MD5-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC-AMLN//Packet-Identifier" setXpath="//AR-AMLN//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC-AMLN//EAP-Data//EAP-Id" setXpath="//AR-AMLN//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC-AMLN//AVP-State//Value" setXpath="//AR-AMLN//AVP-State//Value"/>
+
+            <!--
+                Send LEAP Response/PeerChallenge
+            -->
+            <Action type="output">
+                <DataModel name="AR-AMLN" ref="Access-Request-NAK-LEAP"/>
+            </Action>
+
+            <Action type="changeState" ref="NAK-Loop"/>
+
+        </State>
+
+        <State name="NAK-Loop"> 
+            <Action type="input">
+                <DataModel name="AC5-AMLN" ref="Access-Challenge-LEAP-ACS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC5-AMLN//Packet-Identifier" setXpath="//AR5-AMLN//Packet-Identifier" /> 
+            <Action type="slurp" valueXpath="//AC5-AMLN//EAP-Data//EAP-Id" setXpath="//AR5-AMLN//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC5-AMLN//AVP-State//Value" setXpath="//AR5-AMLN//AVP-State//Value"/>
+
+            <Action type="output">
+                <DataModel name="AR5-AMLN" ref="Access-Request-NAK-MD5"/>
+            </Action>
+
+            <Action type="stop"/>
+            <Action type="start"/>
+
+           <Action type="changeState" ref="NAK-Loop"/> 
+        </State>
+    </StateModel>
+
+
+    <StateModel name="IAS-PEAP-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel ref="Access-Request-EAP-Response-Identity" />
+            </Action>    
+
+
+            <Action type="input">
+                <DataModel name="AC1-IPCH" ref="Access-Challenge-MSCHAPv2-SC-IAS"/>
+            </Action>
+            <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-IPCH//Packet-Identifier" setXpath="//AR1-IPCH//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-IPCH//EAP-Data//EAP-Id" setXpath="//AR1-IPCH//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-IPCH//AVP-State//Value" setXpath="//AR1-IPCH//AVP-State//Value"/>
+
+            <Action type="output">
+                <DataModel name="AR1-IPCH" ref="Access-Request-NAK-PEAP"/>
+            </Action>
+
+           <!--
+               IAS should send us an EAP-PEAP Start  Access Challenge  
+            --> 
+
+            <Action type="input">
+                <DataModel name="AC2-IPCH" ref="Access-Challenge-EAP-PEAP-IAS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC2-IPCH//Packet-Identifier" setXpath="//AR2-IPCH//Packet-Identifier" /> 
+            <Action type="slurp" valueXpath="//AC2-IPCH//EAP-Data//EAP-Id" setXpath="//AR2-IPCH//AVP-EAP-Message//EAP-Id" /> 
+            <Action type="slurp" valueXpath="//AC2-IPCH//AVP-State//Value" setXpath="//AR2-IPCH//AVP-State//Value"/>
+
+            <!--
+                Send PEAP Client Hello
+            -->
+            <Action type="output">
+                <DataModel name="AR2-IPCH" ref="Access-Request-EAP-PEAP-Client-Hello"/>
+            </Action>
+
+        </State>
+    </StateModel>
+
+    <StateModel name="IAS-MSCHAPv2-State" initialState="Initial">
+        <State name="Initial">
+            <Exclude ref="Access-Request-EAP-Response-Identity"/>
+            <!--
+                Send Initial EAP-Response Identity
+            -->
+            <Action type="output">
+                <DataModel ref="Access-Request-EAP-Response-Identity" />
+            </Action>
+
+           <!--
+               IAS should send us an EAP-PEAP Start  Access Challenge
+            -->
+
+            <Action type="input">
+                <DataModel name="AC1-IM" ref="Access-Challenge-MSCHAPv2-SC-IAS"/>
+            </Action>
+
+             <!-- Copy Data to next output packet -->
+            <Action type="slurp" valueXpath="//AC1-IM//Packet-Identifier" setXpath="//AR1-IM//Packet-Identifier" />
+            <Action type="slurp" valueXpath="//AC1-IM//EAP-Data//EAP-Id" setXpath="//AR1-IM//AVP-EAP-Message//EAP-Id" />
+            <Action type="slurp" valueXpath="//AC1-IM//AVP-State//Value" setXpath="//AR1-IM//AVP-State//Value"/>
+            <Action type="slurp" valueXpath="//AC1-IM//MSCHAPv2-Id" setXpath="//AR1-IM//MSCHAPv2-Id"/>
+
+            <!--
+                Send PEAP Client Hello
+            -->
+            <Action type="output">
+                <DataModel name="AR1-IM" ref="Access-Request-MSCHAPv2-ClientResponse"/>
+            </Action>
+
+        </State>
+    </StateModel>
+
+
+
+    <!--
+
+        Agents
+
+    -->
+
+    <!-- Really Basic Agent -->
+
+
+    <Agent name="Simple-Agent-ACS">
+        <Monitor class="Ping">
+            <Param name="Host" value="192.168.1.1"/>
+        </Monitor>
+    </Agent>
+    <Agent name="ACS-Agent" location="tcp://192.168.1.1:9001">
+        <Monitor class="Process">
+            <Param name="Executable" value="/opt/CSCOacs/runtime/bin/rt_daemon"/>
+            <Param name="Arguments" value="-d"/>
+            <Param name="RestartOnEachTest" value="false" />
+            <Param name="FaultOnEarlyExit" value="true" />
+        </Monitor>
+    </Agent>
+    <Agent name="Simple-Agent-IAS">
+        <Monitor class="Ping">
+            <Param name="Host" value="192.168.1.1"/>
+        </Monitor>
+    </Agent>
+
+    <Agent name="Simple-Agent-FreeRADIUS">
+        <Monitor class="Ping">
+            <Param name="Host" value="192.168.1.1"/>
+        </Monitor>
+    </Agent>
+
+    <Agent name="FreeRADIUS-Agent" location="tcp://192.168.1.1:9001">
+        <Monitor class="Process">
+            <Param name="Executable" value="/usr/sbin/freeradius"/>
+            <Param name="Arguments" value="-X -s"/>
+            <Param name="RestartOnEachTest" value="false" />
+            <Param name="FaultOnEarlyExit" value="true" />
+        </Monitor>
+    </Agent>
+    
+    <Agent name="IAS-Agent" location="tcp://192.168.1.1:9001">
+        <Monitor class="WindowsService">
+            <Param name="Service" value="IAS" />
+            <Param name="MachineName" value="HOST.DOMAIN.LOCAL" />
+            <Param name="Restart" value="true"/>
+        </Monitor>
+    </Agent>
+
+
+    <!--
+        FreeRADIUS Testing
+    -->
+
+
+	<Test name="FreeRADIUS-Target"> <!--  waitTime=".1"> -->
+		<Agent ref="FreeRADIUS-Agent"/>
+		<!-- <Agent ref="Simple-Agent-FreeRADIUS"/> -->
+        <StateModel ref="State-EAP-Response-Identity-Blob"/> 
+        <StateModel ref="State-EAP-Response-Identity-BadChk"/>  
+		<StateModel ref="State-EAP-Response-Identity"/> 
+        <!-- <StateModel ref="ValidState"/>  -->
+
+        <Publisher class="Udp" >
+            <Param name="Host" value="192.168.1.1"/>
+            <Param name="Port" value="1645" />          
+            <Param name="SrcPort" value="1645" />          
+        </Publisher>
+
+		<!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/> 
+		
+		<Logger class="File">
+			<Param name="Path" value="peach_logs/FreeRADIUS"/>
+		</Logger>
+    
+	</Test>
+    
+    <!-- 
+        ACS Testing
+    -->
+    <Test name="ACS-All">
+        <Agent ref="Simple-Agent-ACS"/> 
+        <StateModel ref="State-EAP-Response-Identity-Blob"/>
+        <StateModel ref="State-EAP-Response-Identity-BadChk"/>
+        <StateModel ref="State-EAP-Response-Identity"/>
+        <StateModel ref="ACS-LEAP-State"/> 
+        <StateModel ref="ACS-PEAP-ClientHello"/>
+        <!-- <StateModel ref="ACS-MD5-State"/> -->
+        <!-- <StateModel ref="ACS-PAP-State"/> -->
+
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+ 
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>  
+
+        <Mutators mode="include">
+            <!-- <Mutator class="DataElementDuplicateMutator"/> -->
+            <Mutator class="StringMutator"/>
+        </Mutators>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+    
+    <Test name="ACS-PEAP-ClientHello">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-PEAP-ClientHello"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <!-- <Strategy class="RandomDeterministic"/> -->
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+
+    <Test name="ACS-LEAP">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-LEAP-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+
+    <Test name="ACS-MD5">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-MD5-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+
+    <Test name="ACS-MD5-LEAP-NAK">
+        <Agent ref="Simple-Agent-ACS"/>
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+        <StateModel ref="ACS-MD5-LEAP-NAK-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+    
+    <Test name="ACS-PAP">
+        <Agent ref="Simple-Agent-ACS"/>
+        <StateModel ref="ACS-PAP-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/ACS"/>
+        </Logger>
+    </Test>
+
+    <!--
+        IAS (NPS) Testing
+    -->
+    <Test name="IAS-All">
+        <Agent ref="Simple-Agent-IAS"/>
+        <!-- <Agent ref="IAS-Agent"/> -->
+    
+        <StateModel ref="State-EAP-Response-Identity-Blob"/>
+        <StateModel ref="State-EAP-Response-Identity-BadChk"/>
+        <StateModel ref="State-EAP-Response-Identity"/>
+        <StateModel ref="IAS-PEAP-State"/>
+        <StateModel ref="IAS-MSCHAPv2-State"/>
+        
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <!-- <Strategy class="RandomDeterministic"/>-->
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/IAS"/>
+        </Logger>
+    </Test>
+
+    <Test name="IAS-PEAP">
+        <Agent ref="Simple-Agent-IAS"/>
+        <!-- <Agent ref="IAS-Agent"/> -->
+
+        <StateModel ref="IAS-PEAP-State"/> 
+
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/IAS"/>
+        </Logger>
+    </Test>
+
+
+    <Test name="IAS-MSCHAPv2">
+        <Agent ref="Simple-Agent-IAS"/>
+        <!-- <Agent ref="IAS-Agent"/> -->
+
+        <Exclude ref="Access-Request-EAP-Response-Identity"/>
+
+        <StateModel ref="IAS-MSCHAPv2-State"/>
+
+        <Publisher class="Udp" >
+                <Param name="Host" value="192.168.1.1"/>
+                <Param name="Port" value="1645" />
+                <Param name="SrcPort" value="1645" />
+        </Publisher>
+
+        <!-- <Strategy class="Sequential"/> -->
+        <Strategy class="RandomDeterministic"/>
+
+        <Logger class="File">
+                <Param name="Path" value="peach_logs/IAS"/>
+        </Logger>
+    </Test>
+</Peach>
+<!-- end -->

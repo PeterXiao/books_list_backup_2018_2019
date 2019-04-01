@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!-- Peach Data Model for EAP-FAST
+        http://tools.ietf.org/search/rfc4851
+        http://tools.ietf.org/search/rfc5422
+		http://tools.ietf.org/html/rfc5421 (EAP-GTC with EAP-FAST - Not This)
+	-->
+    <!-- Includes Section -->
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+ 
+    <DataModel name="EAP-Type-FAST" >
+        <Number name="EAP-Type" size="8" value="43"/>
+        <Number name="EAP-TLS-Flags" size="8" value="1"/>
+        <Blob name="SSLInfo" valueType="hex" value="1403010001011603010030cb7a39a5d17f945377c829568a540dfe316003393c8b90a06c4adbe8e69d22206820dd9064295f1e24acd9a1c9caad7f" />
+    </DataModel>
+    <!-- NAK Server's EAP-Type, Request EAP-FAST 
+    -->
+    <DataModel name="EAP-Response-NAK-FAST" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="2" /> <!-- 2: Response -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="3"/> <!-- 3: NAK -->
+        <Number name="EAP-DesAuthType" value="43"/> <!-- 43: EAP-FAST -->
+    </DataModel>      
+    <DataModel name="EAP-Request-EAP-FAST-Start" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Id" value="0"/> <!-- Need EAP-Id here and set to zero for slurp -->
+        <Number name="EAP-Type" size="8" value="43"/> <!-- 43: EAP-FAST -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="21"/> <!-- 21: v1 Start --> 
+        <Blob name="EAP-TLS-StartCrap" length="20" lengthType="bytes"/> <!-- I dont care what this is, but probably should in the future -->
+    </DataModel>
+	
+</Peach>

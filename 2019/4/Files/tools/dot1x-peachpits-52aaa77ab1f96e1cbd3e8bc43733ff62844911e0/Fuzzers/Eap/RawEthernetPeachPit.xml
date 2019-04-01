@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://peachfuzzer.com/2012/Peach/peach/peach.xsd">
+
+	<Include ns="Ieee8021x" src="file:##PitPath##Ieee802.1x.xml" />
+	
+
+	<StateModel name="TheState" initialState="Initial">
+		<State name="Initial">
+			<Action type="input">
+				<DataModel name="aaa" ref="Ieee8021x:8021x-EAP-Request-Identity"/>
+			</Action>
+        <Action type="slurp" valueXpath="//aaa//EAP-Id" setXpath="//bbb//EAP-Id" />
+            <Action type="output">
+                <DataModel name="bbb" ref="Ieee8021x:8021x-EAP-Response-Identity"/>
+            </Action>
+		</State>
+
+	</StateModel>
+
+	<Test name="Default">
+		<StateModel ref="TheState"/>
+
+		<Publisher class="RawEthernetPublisher">
+			<Param name="Destination" value="01-80-c2-00-00-03"/> <!-- In 01-80-c2-00-00-03 Format -->
+			<Param name="Source" value="00-23-18-B6-52-a5"/>
+			<Param name="Device" value="##LocalDevice##"/>
+		</Publisher>
+
+		<!-- OPTIONAL: Configure a strategy -->
+		<!--<Strategy class="Random"/>-->
+		
+		<Logger class="File">
+			<Param name="Path" value="logs"/>
+		</Logger>
+	</Test>
+
+</Peach>
+<!-- end -->

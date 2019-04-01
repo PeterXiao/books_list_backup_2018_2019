@@ -1,0 +1,3342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach version="1.0" author="Dejan Lukan">
+
+
+  <!--                      -->
+  <!--  Include Defaults    -->
+  <!--                      --> 
+  <Include ns="default" src="file:defaults.xml"/>
+
+  <!--                      -->
+  <!--     Data Models      -->
+  <!--                      --> 
+  <DataModel name="DDataUSER">
+    <String value="USER anon\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DDataPASS">
+    <String value="PASS anon\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DDataPORT">
+    <String value="PORT 10.1.1.169,4,1\r\n"/>
+  </DataModel>
+
+  <DataModel name="DDataREST">
+    <String value="REST 9999\r\n"/>
+  </DataModel>
+
+  <DataModel name="DDataMKD">
+    <String value="MKD test\r\n"/>
+  </DataModel>
+
+  <DataModel name="DDataRNFR">
+    <String value="RNFR test\r\n"/>
+  </DataModel>
+
+  <DataModel name="DDataQUIT"> 
+     <String value="QUIT\r\n" token="true" mutable="false"/> 
+   </DataModel>
+   
+  <!-- Response -->
+  <DataModel name="DataResponse">
+    <String name="response"/>
+  </DataModel>
+
+
+  <!--
+
+          RFC 959
+
+  -->
+  <!-- USER [username]: login with the specified username -->
+  <DataModel name="DataUSER">
+    <String value="USER "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- PASS [password]: login with the specified password -->
+  <DataModel name="DataPASS">
+    <String value="PASS "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- QUIT: terminate a connection with the server. -->
+  <DataModel name="DataQUIT"> 
+    <String value="QUIT"/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- HELP [command]: return the command's help -->
+  <DataModel name="DataHELP">
+    <String value="HELP "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- ACCT [account]: identify user's account -->
+  <DataModel name="DataACCT">
+    <String value="ACCT "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- CWD [dir]: change working directory on the server. -->
+  <DataModel name="DataCWD">
+    <String value="CWD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- CDUP: change to parent directory -->
+  <DataModel name="DataCDUP">
+    <String value="CDUP "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <!-- SMNT [path]: mount filesystem -->
+  <DataModel name="DataSMNT">
+    <String value="SMNT "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- REIN (arg): reinitialize user, requires relogin -->
+  <DataModel name="DataREIN">
+    <String value="REIN "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- PORT [h1,h2,h3,h4,p1,p2]: specify host/port to be used -->
+  <DataModel name="DataPORT">
+     <String value="PORT 0,0,0,0,0,0\r\n" analyzer="stringtoken.StringTokenAnalyzer"/>
+    <!--<Block minOccurs="1" maxOccurs="1">
+      <String value="PORT "/>
+      <Number size="8"/> 
+      <String value=","/>
+      <Number size="8" endian="little"/> 
+      <String value=","/>
+      <Number size="8" signed="false" /> 
+      <String value=","/>
+      <Number size="8" signed="false" endian="little"/> 
+      <String value=","/>
+      <Number size="8" signed="false" endian="little"/> 
+      <String value=","/>
+      <Number size="8" signed="false" endian="little"/> 
+      <String value="\r\n"/>
+    </Block>-->
+  </DataModel>
+
+  <!-- PASV: enter passive mode to let client connect to the
+       server.
+  -->
+  <DataModel name="DataPASV">
+    <String value="PASV "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- TYPE [type_first] [type_second]: set the type of file to be transfered -->
+  <DataModel name="DataTYPE1">
+    <String value="TYPE "/>
+    <String length="1" value="A"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" mutable="true">
+        <Hint name="ValidValues" value="N;T;C"/>
+      </String>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DataTYPE2">
+    <String value="TYPE "/>
+    <String length="1" value="E"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" mutable="true">
+        <Hint name="ValidValues" value="N;T;C"/>
+      </String>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DataTYPE3">
+    <String value="TYPE "/>
+    <String length="1" value="I"/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataTYPE4">
+    <String value="TYPE "/>
+    <String length="1" value="L"/>
+    <Number size="8" signed="false" endian="little"/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <!-- STRU [structure]: sets the file structure -->
+  <DataModel name="DataSTRU">
+    <String value="STRU "/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" mutable="true">
+        <Hint name="ValidValues" value="F;R;P"/>
+      </String>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- MODE [mode]: sets the transfer mode -->
+  <DataModel name="DataMODE">
+    <String value="MODE "/>
+    <String length="1" mutable="true">
+      <Hint name="ValidValues" value="S;B;C"/>
+    </String>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <!-- RETR [file]: retrieve a remote file from the server. -->
+  <DataModel name="DataRETR">
+    <String value="RETR "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- STOR [file]: store a file on the server  -->
+  <DataModel name="DataSTOR">
+    <String value="STOR "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- STOU [file]: store a file on the server -->
+  <DataModel name="DataSTOU">
+    <String value="STOU "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- APPE [file]: append to a remote file  -->
+  <DataModel name="DataAPPE">
+    <String value="APPE "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- ALLO [size] [R max_record_size]: allocate storaga space to receive a file. Optionally follows letter 'R' and maximum size of a record.  -->
+  <DataModel name="DataALLO">
+    <String value="ALLO "/>
+    <Number size="32" signed="false" endian="little" valueType="string" mutable="true">
+    </Number>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" value=" "/>
+      <String length="1" value="R"/>
+      <String length="1" value=" "/>
+      <Number size="32" signed="false" endian="little"/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <!-- REST [char]*: Restart file transfer. -->
+  <!-- TODO: arg has characters in range ascii(33)-ascii(126) -->
+  <DataModel name="DataREST">
+    <String value="REST " mutable="false"/>
+    <String value=""/>
+    <String value="\r\n" mutable="false"/>
+  </DataModel>
+
+
+  <!-- RNFR [name]: Specify the name of the file to be renamed. -->
+  <DataModel name="DataRNFR">
+    <String value="RNFR "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- RNTO [name]: Specify the name the file is to be renamed into. -->
+  <DataModel name="DataRNTO">
+    <String value="RNTO "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- ABOR: Abort the previous FTP service command. -->
+  <DataModel name="DataABOR">
+    <String value="ABOR "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- DELE [name]: Delete the file on server-side. -->
+  <DataModel name="DataDELE">
+    <String value="DELE "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- RMD [dir]: Delete the directory. -->
+  <DataModel name="DataRMD">
+    <String value="RMD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- MKD [dir]: Create a directory. -->
+  <DataModel name="DataMKD">
+    <String value="MKD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- PWD: Print working directory. -->
+  <DataModel name="DataPWD">
+    <String value="PWD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- LIST [path]: List remote files. --> 
+  <DataModel name="DataLIST">
+    <String value="LIST"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String value=" "/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- NLST [path]: Name list remote files. --> 
+  <DataModel name="DataNLST">
+    <String value="NLST"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String value=" "/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- SITE [string]: Site specific command. -->
+  <DataModel name="DataSITE">
+    <String value="SITE "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- SYST: Return type of OS on the server. -->
+  <DataModel name="DataSYST">
+    <String value="SYST "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- STAT [path]: Return server status. --> 
+  <DataModel name="DataSTAT">
+    <String value="STAT"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String value=" "/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <!-- NOOP: Do nothing. -->
+  <DataModel name="DataNOOP">
+    <String value="NOOP "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- HOST [string]: connect to specified virtual host. -->
+  <DataModel name="DataHOST">
+    <String value="HOST "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <!-- 
+
+       RFC 2228
+
+  -->
+
+  <!-- AUTH: [string]: Site specific command. -->
+  <DataModel name="DataAUTH">
+    <String value="AUTH "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <!-- TODO: binary string: ADAT <SP> <bstring> <CRLF> -->
+  <DataModel name="DataADAT">
+    <String value="ADAT "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataPROT">
+    <String value="PROT "/>
+    <String length="1" mutable="true">
+      <Hint name="ValidValues" value="C;S;E;P"/>
+    </String>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataPBSZ">
+    <String value="PBSZ "/>
+    <Number size="32" signed="false" endian="little"/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataCCC">
+    <String value="CCC "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataMIC">
+    <String value="MIC "/>
+    <String value="">
+      <Transformer class="encode.Base64Encode"/>
+    </String>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataCONF">
+    <String value="CONF "/>
+    <String value="">
+      <Transformer class="encode.Base64Encode"/>
+    </String>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataENC">
+    <String value="ENC "/>
+    <String value="">
+      <Transformer class="encode.Base64Encode"/>
+    </String>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataALGS">
+    <String value="ALGS "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+
+  <DataModel name="DataEPRT">
+    <String value="EPRT "/>
+    <String length="1" value="|"/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value="|"/>
+    <Block minOccurs="1" maxOccurs="1">
+      <Number size="8" signed="false" endian="little"/> 
+      <String length="1" value="."/>
+      <Number size="8" signed="false" endian="little"/> 
+      <String length="1" value="."/>
+      <Number size="8" signed="false" endian="little"/> 
+      <String length="1" value="."/>
+      <Number size="8" signed="false" endian="little"/> 
+    </Block>
+    <String length="1" value="|"/>
+    <Number size="16" signed="false" endian="little"/> 
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataEPSV">
+    <String value="EPSV "/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataFEAT">
+    <String value="FEAT "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataOPTS">
+    <String value="OPTS "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+
+  <DataModel name="DataLANG">
+    <String value="LANG"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String value=" "/>
+      <String value=""/>
+      <String value="-"/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+
+  <DataModel name="DataLPRT">
+    <String value="LPRT "/>
+    <Number size="8" signed="false" endian="little"/>
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String length="1" value=","/>
+    <Number size="8" signed="false" endian="little"/> 
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataLPSV">
+    <String value="LPSV "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+
+  <DataModel name="DataMDTM">
+    <String value="MDTM "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataMLST">
+    <String value="MLST"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" value=" "/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataMLSD">
+    <String value="MLSD"/>
+    <Block minOccurs="0" maxOccurs="1">
+      <String length="1" value=" "/>
+      <String value=""/>
+    </Block>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataSIZE">
+    <String value="SIZE "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+  <DataModel name="DataXRMD">
+    <String value="XRMD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DataXMKD">
+    <String value="XMKD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DataXPWD">
+    <String value="XPWD"/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+  
+  <DataModel name="DataXCWD">
+    <String value="XCWD "/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+  <DataModel name="DataXCUP">
+    <String value="XCUP"/>
+    <String value=""/>
+    <String value="\r\n"/>
+  </DataModel>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--                                                      -->
+  <!-- Commands you can execute before being authenticated. -->
+  <!--                                                      -->
+
+  <!-- USER: Try to authenticate with the malformed USER command. -->
+  <StateModel name="AStateUSER" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <!-- Read welcome message. -->
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      
+      <!-- Send USER command to ftp server. -->
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+
+      <!-- Send QUIT command. -->
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <!-- 
+    PASS: Try to authenticate with the malformed PASS command. This should
+    return the following output, but we're trying to fuzz it anyway:
+
+    > 503 Bad sequence of commands. Send USER first
+  -->
+  <StateModel name="AStatePASS" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+  <!-- 
+     Three combinations of USER/PASS commands where we'll fuzz the 
+     authentication login mechanism. The three options are:
+
+     USER <fuzz>\r\n
+     PASS anon\r\n
+
+     USER anon\r\n
+     PASS <fuzz>\r\n
+
+     USER <fuzz>\r\n
+     PASS <fuzz>\r\n
+  -->
+  <StateModel name="AStateUSERPASS1" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  <StateModel name="AStateUSERPASS2" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  <StateModel name="AStateUSERPASS3" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+  <!-- 
+    ACCT: The ACCT command is sometimes available without being authenticated. 
+  -->
+  <StateModel name="AStateACCT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataACCT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <!-- 
+    HELP: The HELP command is sometimes available without being authenticated. 
+  -->
+  <StateModel name="AStateHELP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataHELP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <!-- 
+    QUIT: The QUIT command is sometimes available without being authenticated. 
+  -->
+  <StateModel name="AStateQUIT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataQUIT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+
+
+
+
+
+  <!--                        -->
+  <!-- Special PASV commands. -->
+  <!--                        -->        
+  <StateModel name="StatePASVAPPE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAPPE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASVSTOR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASVRETR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRETR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASVSTOU" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOU"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASVLIST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLIST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASVNLST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataNLST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+
+  <!--                        -->
+  <!-- Special PORT commands. -->
+  <!--                        -->    
+  <StateModel name="StatePORTAPPE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAPPE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORTSTOR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORTRETR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRETR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORTSTOU" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOU"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORTLIST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLIST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORTNLST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPORT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataNLST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+  <!--                        -->
+  <!-- Special REST commands. -->
+  <!--                        -->    
+  <StateModel name="StateRESTAPPE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataREST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAPPE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRESTSTOR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataREST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRESTRETR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataREST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRETR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+
+  <!--                       -->
+  <!-- Special RNFR command. -->
+  <!--                       -->    
+  <StateModel name="StateRNFRRNTO" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataMKD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataRNFR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRNTO"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+
+
+
+
+
+
+
+  <!--                                              -->
+  <!-- Commands where you need to be authenticated. -->
+  <!--                                              -->
+  <StateModel name="StateHELP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <!-- Read welcome message. -->
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      
+      <!-- Send USER command to ftp server. -->
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+
+      <!-- Send PASS command to ftp server. -->
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+
+      <!-- Send HELP command. -->
+      <Action type="output"><DataModel ref="DataHELP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+
+      <!-- Send QUIT command. -->
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateACCT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataACCT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateCWD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataCWD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateCDUP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataCDUP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSMNT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSMNT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateREIN" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataREIN"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateQUIT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataQUIT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePORT" initialState="Initial"> 
+    <State name="Initial"> 
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action> 
+      <Action type="output"><DataModel ref="DDataUSER"/></Action> 
+      <Action type="input"><DataModel ref="DataResponse"/></Action> 
+      <Action type="output"><DataModel ref="DDataPASS"/></Action> 
+      <Action type="input"><DataModel ref="DataResponse"/></Action> 
+      <Action type="output"><DataModel ref="DataPORT"/></Action> 
+      <Action type="input"><DataModel ref="DataResponse"/></Action> 
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action> 
+      <Action type="close"/>
+    </State> 
+  </StateModel>
+
+  <StateModel name="StatePORT2" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action name="aaa" type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="changeState" ref="InitialPASS" when="State['aaa']['DataResponse']['response'].getInternalValue().startswith('331')"></Action>  
+      <Action type="close"/>
+    </State>
+    <State name="InitialPASS">
+      <Action type="connect"/>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action name="bbb" type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="changeState" ref="InitialCOMM" when="State['bbb']['DataResponse']['response'].getInternalValue().startswith('230')"></Action>
+      <Action type="close"/>
+    </State>
+    <State name="InitialCOMM">
+      <Action type="connect"/>
+      <Action type="output"><DataModel ref="DataPORT"/></Action>
+      <Action name="ccc" type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="changeState" ref="InitialCOMM" when="State['ccc']['DataResponse']['response'].getInternalValue()[0:3] == '200'"></Action>
+      <Action type="close"/>
+    </State>
+    <State name="InitialQUIT">
+      <Action type="connect"/>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePASV" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPASV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateTYPE1" initialState="StateTYPE1">
+    <State name="StateTYPE1">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataTYPE1"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  <StateModel name="StateTYPE2" initialState="StateTYPE2">
+    <State name="StateTYPE2">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataTYPE2"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  <StateModel name="StateTYPE3" initialState="StateTYPE3">
+    <State name="StateTYPE3">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataTYPE3"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  <StateModel name="StateTYPE4" initialState="StateTYPE4">
+    <State name="StateTYPE4">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataTYPE4"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSTRU" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTRU"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateMODE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMODE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRETR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRETR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSTOR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSTOU" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTOU"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateAPPE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAPPE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateALLO" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataALLO"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateREST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataREST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRNFR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRNFR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRNTO" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRNTO"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateABOR" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataABOR"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateDELE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataDELE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateRMD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataRMD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateMKD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMKD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StatePWD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPWD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateLIST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLIST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateNLST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataNLST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSITE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSITE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSYST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSYST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateSTAT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSTAT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateHELP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataHELP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateNOOP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataNOOP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+  <StateModel name="StateHOST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataHOST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <!--                                             -->
+  <!--            Extended Commands                -->
+  <!--                                             -->
+  <StateModel name="StateAUTH" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAUTH"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+
+  <StateModel name="StateADAT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataADAT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StatePROT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPROT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StatePBSZ" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPBSZ"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="AStatePROT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPROT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="AStatePBSZ" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataPBSZ"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="AStateAUTHADAT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataAUTH"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataADAT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+  <StateModel name="StateCCC" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataCCC"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateMIC" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMIC"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateCONF" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataCONF"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateENC" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataENC"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateALGS" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataALGS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateEPRT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataEPRT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateEPSV" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataEPSV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateFEAT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataFEAT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateOPTS" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataOPTS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateLANG" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLANG"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateLPRT" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLPRT"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateLPSV" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataLPSV"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateMDTM" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMDTM"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateMLST" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMLST"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateMLSD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataMLSD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateSIZE" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataSIZE"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateXRMD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataXRMD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateXMKD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataXMKD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateXPWD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataXPWD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateXCWD" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataXCWD"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+  
+  <StateModel name="StateXCUP" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataPASS"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DataXCUP"/></Action>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataQUIT"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+  <!-- 
+    Check for the supported commands on the FTP server.
+  -->
+  <StateModel name="CheckFTPCommands" initialState="Initial">
+    <State name="Initial">
+      <Action type="connect"/>
+      <Action type="input"><DataModel ref="DataResponse"/></Action>
+      <Action type="output"><DataModel ref="DDataUSER"/></Action>
+      <Action type="close"/>
+    </State>
+  </StateModel>
+
+
+
+  <!--                     -->
+  <!--    Test Block       -->
+  <!--                     -->  
+
+  <!-- 
+    Before authenticated. 
+  -->
+  <Test name="ATestUSER">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateUSER"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+  <Test name="ATestPASS">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStatePASS"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+
+  <Test name="ATestUSERPASS1">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateUSERPASS1"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+
+  <Test name="ATestUSERPASS2">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateUSERPASS2"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+
+  <Test name="ATestUSERPASS3">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateUSERPASS3"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+
+  <Test name="ATestACCT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateACCT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+  <Test name="ATestHELP">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateHELP"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+  <Test name="ATestQUIT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateQUIT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+  </Test>
+
+
+  
+  <!--
+    Special PASV commands
+  -->
+  <Test name="TestPASVAPPE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVAPPE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+  <Test name="TestPASVSTOR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVSTOR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+  <Test name="TestPASVRETR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVRETR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+  <Test name="TestPASVSTOU">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVSTOU"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+  <Test name="TestPASVLIST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVLIST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+  <Test name="TestPASVNLST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASVNLST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DataPASV"/>
+  </Test>
+
+
+  <!--
+    Special PORT commands
+  -->
+  <Test name="TestPORTAPPE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTAPPE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+  <Test name="TestPORTSTOR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTSTOR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+  <Test name="TestPORTRETR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTRETR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+  <Test name="TestPORTSTOU">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTSTOU"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+  <Test name="TestPORTLIST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTLIST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+  <Test name="TestPORTNLST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORTNLST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataPORT"/>
+  </Test>
+
+
+  <!--
+    Special REST commands
+  -->
+  <Test name="TestRESTAPPE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRESTAPPE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataREST"/>
+  </Test>
+
+  <Test name="TestRESTSTOR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRESTSTOR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataREST"/>
+  </Test>
+
+  <Test name="TestRESTRETR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRESTRETR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataREST"/>
+  </Test>
+
+
+
+  <!--
+    Special RNFR command
+  -->
+  <Test name="TestRNFRRNTO">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRNFRRNTO"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+    <Exclude ref="DDataMKD"/>
+    <Exclude ref="DDataRNFR"/>
+  </Test>
+
+
+
+  <!-- 
+    Standard commands
+  -->
+  <Test name="TestACCT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateACCT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestHELP">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateHELP"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestCWD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateCWD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestCDUP">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateCDUP"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSMNT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSMNT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestREIN">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateREIN"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestQUIT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateQUIT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestPORT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePORT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestPASV">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePASV"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestTYPE1">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateTYPE1"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestTYPE2">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateTYPE2"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestTYPE3">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateTYPE3"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestTYPE4">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateTYPE4"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSTRU">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSTRU"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMODE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMODE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestRETR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRETR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSTOR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSTOR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSTOU">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSTOU"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestAPPE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateAPPE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestALLO">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateALLO"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestREST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateREST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestRNFR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRNFR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestRNTO">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRNTO"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestABOR">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateABOR"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestDELE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateDELE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestRMD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateRMD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMKD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMKD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestPWD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePWD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestLIST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateLIST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestNLST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateNLST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSITE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSITE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSYST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSYST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSTAT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSTAT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestNOOP">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateNOOP"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestHOST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateHOST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+  <!--                   -->
+  <!-- Extended Commands -->
+  <!--                   -->
+  <Test name="TestAUTH">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateAUTH"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestADAT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateADAT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestPROT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePROT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestPBSZ">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StatePBSZ"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="ATestPROT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStatePROT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="ATestPBSZ">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStatePBSZ"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="ATestAUTHADAT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="AStateAUTHADAT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestCCC">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateCCC"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMIC">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMIC"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestCONF">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateCONF"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestENC">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateENC"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestALGS">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateALGS"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestEPRT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateEPRT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestEPSV">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateEPSV"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestFEAT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateFEAT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestOPTS">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateOPTS"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestLANG">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateLANG"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestLPRT">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateLPRT"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestLPSV">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateLPSV"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMDTM">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMDTM"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMLST">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMLST"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestMLSD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateMLSD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestSIZE">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateSIZE"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestXRMD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateXRMD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestXMKD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateXMKD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestXPWD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateXPWD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestXCWD">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateXCWD"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+  <Test name="TestXCUP">
+    <Agent ref="AgentRemote"/>
+    <StateModel ref="StateXCUP"/>
+    <Publisher class="tcp.Tcp">
+      <Param name="host" value="10.1.1.169"/>
+      <Param name="port" value="2121"/>
+      <Param name="waittime" value="8"/>
+    </Publisher>
+    <Exclude ref="DDataUSER"/>
+    <Exclude ref="DDataPASS"/>
+    <Exclude ref="DDataQUIT"/>
+  </Test>
+
+
+
+
+
+
+
+
+  <!--                     -->
+  <!--   Remote Agent      -->
+  <!--                     -->
+  <Agent name="AgentRemote" location="http://10.1.1.169:9001">
+    <Monitor name="AgentDebugger" class="debugger.WindowsDebugEngine">
+      <!--<Param name="CommandLine" value="C:\Documents and Settings\eleanore\Desktop\slimftp\SlimFTPd.exe" />-->
+      <Param name="CommandLine" value="C:\Users\eleanor\Desktop\easyftp\ftpbasicsvr.exe /nontservice" />
+
+    </Monitor>
+
+    <!-- Network Monitoring -->
+    <!--<Monitor class="network.PcapMonitor">
+      <Param name="filter" value="tcp port 21" />
+    </Monitor>-->
+
+    <!-- Heap debugging -->
+    <!--<Monitor class="process.PageHeap">
+        <Param name="Executable" value="mplayer.exe"/>
+    </Monitor>-->
+  </Agent>
+
+
+  <!--                     -->
+  <!--    Run Config       -->
+  <!--                     -->  
+  <!--
+    // Login commands
+    ATestUSER: USER <fuzz>\r\n
+    ATestPASS: PASS <fuzz>\r\n
+    ATestUSERPASS1: USER <fuzz>\r\n PASS anon\r\n
+    ATestUSERPASS2: USER anon\r\n   PASS <fuzz>\r\n
+    ATestUSERPASS3: USER <fuzz>\r\n PASS <fuzz>\r\n
+    ATestACCT: ACCT <fuzz>\r\n
+    ATestHELP: HELP <fuzz>\r\n
+    ATestQUIT: QUIT <fuzz>\r\n
+
+    // Standard commands
+    TestHELP: USER/PASS H <fuzz>\r\n
+    TestACCT: USER/PASS ACCT <fuzz>\r\n
+    TestCWD : USER/PASS CWD  <fuzz>\r\n
+    TestCDUP: USER/PASS CDUP <fuzz>\r\n
+    TestSMNT: USER/PASS SMNT <fuzz>\r\n
+    TestREIN: USER/PASS REIN <fuzz>\r\n
+    TestQUIT: USER/PASS QUIT <fuzz>\r\n
+    TestPORT: USER/PASS PORT <fuzz>\r\n
+    TestPASV: USER/PASS PASV <fuzz>\r\n
+    TestTYPE: USER/PASS TYPE <fuzz>\r\n
+    TestSTRU: USER/PASS STRU <fuzz>\r\n
+    TestMODE: USER/PASS MODE <fuzz>\r\n
+    TestRETR: USER/PASS RETR <fuzz>\r\n
+    TestSTOR: USER/PASS STOR <fuzz>\r\n
+    TestSTOU: USER/PASS STOU <fuzz>\r\n
+    TestAPPE: USER/PASS APPE <fuzz>\r\n
+    TestALLO: USER/PASS ALLO <fuzz>\r\n
+    TestREST: USER/PASS REST <fuzz>\r\n
+    TestRNFR: USER/PASS RNFR <fuzz>\r\n
+    TestRNTO: USER/PASS RNTO <fuzz>\r\n
+    TestABOR: USER/PASS ABOR <fuzz>\r\n
+    TestDELE: USER/PASS DELE <fuzz>\r\n
+    TestRMD : USER/PASS RMD  <fuzz>\r\n
+    TestMKD : USER/PASS MKD  <fuzz>\r\n
+    TestPWD : USER/PASS PWD  <fuzz>\r\n
+    TestLIST: USER/PASS LIST <fuzz>\r\n
+    TestNLST: USER/PASS NLST <fuzz>\r\n
+    TestSITE: USER/PASS SITE <fuzz>\r\n
+    TestSYST: USER/PASS SYST <fuzz>\r\n
+    TestSTAT: USER/PASS STAT <fuzz>\r\n
+    TestNOOP: USER/PASS NOOP <fuzz>\r\n
+    TestHOST: HOST <fuzz>\r\n USER/PASS
+
+    // Special commands
+    TestPASVAPPE: USER/PASS PASV\r\n APPE <fuzz>\r\n
+    TestPASVSTOR: USER/PASS PASV\r\n STOR <fuzz>\r\n
+    TestPASVRETR: USER/PASS PASV\r\n RETR <fuzz>\r\n
+    TestPASVSTOU: USER/PASS PASV\r\n STOU <fuzz>\r\n
+    TestPASVLIST: USER/PASS PASV\r\n LIST <fuzz>\r\n
+    TestPASVNLST: USER/PASS PASV\r\n NLST <fuzz>\r\n
+    TestPORTAPPE: USER/PASS PORT 192,168,1,1,4,1\r\n APPE <fuzz>\r\n
+    TestPORTSTOR: USER/PASS PORT 192,168,1,1,4,1\r\n STOR <fuzz>\r\n
+    TestPORTRETR: USER/PASS PORT 192,168,1,1,4,1\r\n RETR <fuzz>\r\n
+    TestPORTSTOU: USER/PASS PORT 192,168,1,1,4,1\r\n STOU <fuzz>\r\n
+    TestPORTLIST: USER/PASS PORT 192,168,1,1,4,1\r\n LIST <fuzz>\r\n
+    TestPORTNLST: USER/PASS PORT 192,168,1,1,4,1\r\n NLST <fuzz>\r\n
+    TestRESTAPPE: USER/PASS REST 9999\r\n APPE <fuzz>\r\n
+    TestRESTSTOR: USER/PASS REST 9999\r\n STOR <fuzz>\r\n
+    TestRESTRETR: USER/PASS REST 9999\r\n RETR <fuzz>\r\n
+    TestRNFRRNTO: USER/PASS MKD dir\r\n RNFR dir\r\n RNTO <fuzz>\r\n
+
+    // Extended commands
+  -->
+  <Run name="DefaultRun">
+    <!-- Authentication -->
+    <Test ref="ATestUSER"/>
+    <Test ref="ATestPASS"/>
+    <Test ref="ATestUSERPASS1"/>
+    <Test ref="ATestUSERPASS2"/>
+    <Test ref="ATestUSERPASS3"/>
+    <Test ref="ATestACCT"/>
+    <Test ref="ATestHELP"/>
+    <Test ref="ATestQUIT"/>
+
+    <!-- Special commands -->
+    <Test ref="TestPASVAPPE"/>
+    <Test ref="TestPASVSTOR"/>
+    <Test ref="TestPASVRETR"/>
+    <Test ref="TestPASVSTOU"/>
+    <Test ref="TestPASVLIST"/>
+    <Test ref="TestPASVNLST"/>
+    <Test ref="TestPORTAPPE"/>
+    <Test ref="TestPORTSTOR"/>
+    <Test ref="TestPORTRETR"/>
+    <Test ref="TestPORTSTOU"/>
+    <Test ref="TestPORTLIST"/>
+    <Test ref="TestPORTNLST"/>
+    <Test ref="TestRESTAPPE"/>
+    <Test ref="TestRESTSTOR"/>
+    <Test ref="TestRESTRETR"/>
+    <Test ref="TestRNFRRNTO"/>
+
+
+    <!-- Standard commands -->
+    <Test ref="TestHELP"/>
+    <Test ref="TestACCT"/>
+    <Test ref="TestCWD"/>
+    <Test ref="TestCDUP"/>
+    <Test ref="TestSMNT"/>
+    <Test ref="TestREIN"/>
+    <Test ref="TestQUIT"/>
+    <Test ref="TestPORT"/>
+    <Test ref="TestPASV"/>
+    <Test ref="TestTYPE1"/>
+    <Test ref="TestTYPE2"/>
+    <Test ref="TestTYPE3"/>
+    <Test ref="TestTYPE4"/>
+    <Test ref="TestSTRU"/>
+    <Test ref="TestMODE"/>
+    <Test ref="TestRETR"/>
+    <Test ref="TestSTOR"/>
+    <Test ref="TestSTOU"/>
+    <Test ref="TestAPPE"/>
+    <Test ref="TestALLO"/>
+    <Test ref="TestREST"/>
+    <Test ref="TestRNFR"/>
+    <Test ref="TestRNTO"/>
+    <Test ref="TestABOR"/>
+    <Test ref="TestDELE"/>
+    <Test ref="TestRMD"/>
+    <Test ref="TestMKD"/>
+    <Test ref="TestPWD"/>
+    <Test ref="TestLIST"/>
+    <Test ref="TestNLST"/>
+    <Test ref="TestSITE"/>
+    <Test ref="TestSYST"/>
+    <Test ref="TestSTAT"/>
+    <Test ref="TestNOOP"/>
+    <Test ref="TestHOST"/>
+
+    <!-- Extended commands -->
+    <Test ref="TestAUTH"/>
+    <Test ref="TestADAT"/>
+    <Test ref="TestPROT"/>
+    <Test ref="TestPBSZ"/>
+    <Test ref="ATestPROT"/>
+    <Test ref="ATestPBSZ"/>
+    <Test ref="ATestAUTHADAT"/>
+    <Test ref="TestCCC"/>
+    <Test ref="TestMIC"/>
+    <Test ref="TestCONF"/>
+    <Test ref="TestENC"/>
+    <Test ref="TestALGS"/>
+    <Test ref="TestEPRT"/>
+    <Test ref="TestEPSV"/>
+    <Test ref="TestFEAT"/>
+    <Test ref="TestOPTS"/>
+    <Test ref="TestLANG"/>
+    <Test ref="TestLPRT"/>
+    <Test ref="TestLPSV"/>
+    <Test ref="TestMDTM"/>
+    <Test ref="TestMLST"/>
+    <Test ref="TestMLSD"/>
+    <Test ref="TestSIZE"/>
+    <Test ref="TestXRMD"/>
+    <Test ref="TestXMKD"/>
+    <Test ref="TestXPWD"/>
+    <Test ref="TestXCWD"/>
+    <Test ref="TestXCUP"/>
+
+
+    <!--<Test ref="TestENC"/>-->
+
+    <Logger class="logger.Filesystem">
+      <Param name="path" value="/home/eleanor/peach/ftp/easyftp_cwd/"/>
+      <!--<Param name="path" value="C:/Documents and Settings/eleanor/Desktop/logs"/>-->
+    </Logger>
+  </Run>
+   
+
+
+</Peach>

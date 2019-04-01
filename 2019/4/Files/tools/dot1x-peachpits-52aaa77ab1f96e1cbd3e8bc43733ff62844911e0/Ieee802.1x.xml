@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!--
+		Peach Data Model for IEEE802.1x 
+
+        This was written for use with EAP messages but can be used wherever
+	-->
+
+    <!-- Includes Section -->
+    <Include ns="Utils" src="file:##PitPath##Utils.xml" />
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+    <!-- End Includes Section -->    
+	
+	<!-- Generic IEEE 802.1x Frame 
+	-->
+	<DataModel name="8021x-Frame">
+		<Number name="8021x-Version" value="2" size="8"/> <!-- 2: IEEE 802.1x -->
+        <Number name="8021x-Type" value="0" size="8" /> <!-- 0: EAP -->
+        <Number name="8021x-Length" size="16" signed="false" endian="big">
+            <Relation type="size" of="8021x-Data" />
+        </Number>
+        <Block name="8021x-Data"/>
+	</DataModel>
+
+    <DataModel name="8021x-EAP-Request-Identity" ref="8021x-Frame">
+        <Block name="8021x-Data" ref="Eap:EAP-Request-Identity"/>
+    </DataModel>
+    <DataModel name="8021x-EAP-Response-Identity" ref="8021x-Frame">
+        <Block name="8021x-Data" ref="Eap:EAP-Response-Identity"/>
+    </DataModel>
+	
+	
+</Peach>

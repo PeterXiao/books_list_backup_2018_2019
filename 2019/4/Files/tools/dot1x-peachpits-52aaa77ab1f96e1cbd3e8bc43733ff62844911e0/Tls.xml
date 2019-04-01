@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+    <!-- 
+        Generic DataModel for TLS Extensions
+        Use this as a Block ref when modeling an
+        extension
+    -->
+    <DataModel name="TLS-Extension-Blob">
+        <Number name="Type" size="16"/>
+        <Number name="Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Extension-Data"/>
+        </Number>
+        <Blob name="TLS-Extension-Data"/>
+    </DataModel>
+    
+    <DataModel name="TLS-Extensions-Number">
+        <Number name="Type" size="16"/>
+        <Number name="Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Extension-Header"/>
+        </Number>
+        <Block name="TLS-Extension-Header"/>
+    </DataModel>
+
+    <DataModel name="TLS-Record-Header">
+        <Number name="Hdr-Content-Type" size="8"/> 
+        <Number name="Hdr-Version" size="16" value="0301" valueType="hex" /> <!-- 0x0301: TLS v1.0 -->
+        <Number name="Hdr-Length" size="16" endian="big">
+            <Relation type="size" of="TLS-Record-Data"/>
+        </Number>
+        <Block name="TLS-Record-Data"/>
+    </DataModel>
+
+    <DataModel name="TLS-Record-Handshake-Header">
+        <Number name="Handshake-Type" size="8"/>
+        <Number name="Handshake-Length" size="24" endian="big">
+            <Relation type="size" of="TLS-Record-Handshake-Data"/>
+        </Number>
+        <Block name="TLS-Record-Handshake-Data"/>
+    </DataModel>
+
+
+    <!--
+        Inner most Handshake Data for a Client-Hello
+        There are more fields that can be included here
+        but they would need to be split across multiple EAP-Messages
+    -->
+
+    <DataModel name="TLS-Record-Handshake-Hello" ref="TLS-Record-Handshake-Header">
+        <Number name="Handshake-Type" size="8" value="1" /> <!-- 1: Client Hello -->
+        <Block name="TLS-Record-Handshake-Data">
+        <Number name="Handshake-Version" size="16" value="0301" valueType="hex" /> <!-- 0x0301: TLS v1.0 -->
+        <Blob name="Handshake-gmt_unix_time" length="4" lengthType="bytes" value="52a710ce" valueType="hex"/>
+        <Blob name="Handshake-random_bytes" length="28" lengthType="bytes" valueType="hex" value="557d688f6f327f411dcc1292921e90c1194e0f14601066d6aadb4aba"/>
+        <Number name="Handshake-Session-ID-Length" size="8" value="0"/>
+        <Number name="Handshake-Cipher-Suites-Length" size="16" endian="big">
+            <Relation type="size" of="Cipher-Suites"/>
+        </Number>
+        <Block name="Cipher-Suites">
+            <Blob name="TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA" value="c014" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA" value="c00a" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_AES_256_CBC_SHA" value="c022" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_AES_256_CBC_SHA" value="c021" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_AES_256_CBC_SHA" value="0039" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_AES_256_CBC_SHA" value="0038" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA" value="0088" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA" value="0087" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_AES_256_CBC_SHA" value="c00f" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA" value="c005" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_AES_256_CBC_SHA" value="0035" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_CAMELLIA_256_CBC_SHA" value="0084" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA" value="c012" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA" value="c008" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA" value="c01c" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA" value="c01b" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA" value="0016" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA" value="0013" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA" value="c00d" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA" value="c003" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_3DES_EDE_CBC_SHA" value="000a" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA" value="c013" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA" value="c009" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_DSS_WITH_AES_128_CBC_SHA" value="c01f" valueType="hex" length="2"/>
+            <Blob name="TLS_SRP_SHA_RSA_WITH_AES_128_CBC_SHA" value="c01e" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_AES_128_CBC_SHA" value="0033" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_AES_128_CBC_SHA" value="0032" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_SEED_CBC_SHA" value="009a" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_SEED_CBC_SHA" value="0099" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA" value="0045" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA" value="0044" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_AES_128_CBC_SHA" value="c00e" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA" value="c004" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_AES_128_CBC_SHA" value="002f" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_SEED_CBC_SHA" value="0096" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_CAMELLIA_128_CBC_SHA" value="0041" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_RSA_WITH_RC4_128_SHA" value="c011" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDHE_ECDSA_WITH_RC4_128_SHA" value="c007" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_RSA_WITH_RC4_128_SHA" value="c00c" valueType="hex" length="2"/>
+            <Blob name="TLS_ECDH_ECDSA_WITH_RC4_128_SHA" value="c002" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_RC4_128_SHA" value="0005" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_RC4_128_MD5" value="0004" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_WITH_DES_CBC_SHA" value="0015" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_WITH_DES_CBC_SHA" value="0012" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_WITH_DES_CBC_SHA" value="0009" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA" value="0014" valueType="hex" length="2"/>
+            <Blob name="TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA" value="0011" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_DES40_CBC_SHA" value="0008" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5" value="0006" valueType="hex" length="2"/>
+            <Blob name="TLS_RSA_EXPORT_WITH_RC4_40_MD5" value="0003" valueType="hex" length="2"/>
+            <Blob name="TLS_EMPTY_RENEGOTIATION_INFO_SCSV" value="00ff" valueType="hex" length="2"/>
+        </Block>
+        <Block name="Handshake-Compression-Methods">
+            <Number name="Compression-Methods-Length" size="8" endian="big">
+                <Relation type="size" of="Compression-Methods"/>
+            </Number>
+            <Number name="Compression-Methods" size="8" value="0" /> <!-- Compression Method: null -->
+        </Block>
+
+
+        <Number name="Extensions-Length" size="16" endian="big">
+            <Relation type="size" of="Extensions"/>
+        </Number>
+        <Block name="Extensions">
+
+            <Block name="Extension-ec_point_formats" ref="TLS-Extensions-Number">
+                <Number name="Type" size="16" value="000b" valueType="hex"/> <!-- 0x000b: ec_point_formats -->
+                <Block ref="TLS-Extension-Header">
+                        <Number name="Length" size="8">
+                            <Relation type="size" of="EC-PF-Data"/>
+                        </Number>
+                        <Block name="EC-PF-Data">
+                            <Number name="EC-PF-uncompressed" size="8" alue="0" /> <!-- 0: uncompressed -->
+                            <Number name="EC-PF-ansix962_compressed_prime" size="8" value="1" /> <!-- 1: ansix962_compressed_prime -->
+                            <Number name="EC-PF-ansix962_compressed_char2" size="8" value="2" /> <!-- 2: ansix962_compressed_char2 -->
+                        </Block>
+                </Block>
+            </Block>
+            <Block name="Extension-elliptic_curves" ref="TLS-Extensions-Number">
+                <Number name="Type" size="16" value="000a" valueType="hex"/> <!-- 0x000a: elliptic_curves -->
+                <Block ref="TLS-Extension-Header">
+                        <Number name="Length" size="16" endian="big">
+                            <Relation type="size" of="EC-Data"/>
+                        </Number>
+                        <Block name="EC-Data">
+                            <Number name="EC-sect571r1" value="000e" size="16" valueType="hex"/> <!-- 0x000e: sect571r1 -->
+                            <Number name="EC-sect571k1" value="000d" size="16" valueType="hex"/> <!-- 0x000d: sect571k1 -->
+                            <Number name="EC-secp521r1" value="0019" size="16" valueType="hex"/> <!-- 0x0010: secp521r1 -->
+                            <Number name="EC-sect409k1" value="000b" size="16" valueType="hex"/> <!-- 0x000b: sect409k1 -->
+                            <Number name="EC-sect409r1" value="000c" size="16" valueType="hex"/> <!-- 0x000c: sect409r1 -->
+                            <Number name="EC-secp384r1" value="0018" size="16" valueType="hex"/> <!-- 0x0018: secp384r1 -->
+                            <Number name="EC-sect283k1" value="0009" size="16" valueType="hex"/> <!-- 0x0009: sect283k1 -->
+                            <Number name="EC-sect283r1" value="000a" size="16" valueType="hex"/> <!-- 0x000a: sect283r1 -->
+                            <Number name="EC-secp256k1" value="0016" size="16" valueType="hex"/> <!-- 0x0016: secp256k1 -->
+                            <Number name="EC-secp256r1" value="0017" size="16" valueType="hex"/> <!-- 0x0017: secp256r1-->
+                            <Number name="EC-sect239k1" value="0008" size="16" valueType="hex"/> <!-- 0x0008: sect239k1-->
+                            <Number name="EC-sect233k1" value="0006" size="16" valueType="hex"/> <!-- 0x0006: sect233k1-->
+                            <Number name="EC-sect233r1" value="0007" size="16" valueType="hex"/> <!-- 0x0007: sect233r1 -->
+                            <Number name="EC-secp224k1" value="0014" size="16" valueType="hex"/> <!-- 0x0014: secp224k1 -->
+                            <Number name="EC-secp224r1" value="0015" size="16" valueType="hex"/> <!-- 0x0015: secp224r1 -->
+                            <Number name="EC-sect193r1" value="0004" size="16" valueType="hex"/> <!-- 0x0004: sect193r1 -->
+                            <Number name="EC-sect193r2" value="0005" size="16" valueType="hex"/> <!-- 0x0005: sect193r2 -->
+                            <Number name="EC-secp192k1" value="0012" size="16" valueType="hex"/> <!-- 0x0012: secp192k1 -->
+                            <Number name="EC-secp192r1" value="0013" size="16" valueType="hex"/> <!-- 0x0013: secp192r1 -->
+                            <Number name="EC-sect163k1" value="0001" size="16" valueType="hex"/> <!-- 0x0001: sect163k1 -->
+                            <Number name="EC-sect163r1" value="0002" size="16" valueType="hex"/> <!-- 0x0002: sect163r1 -->
+                            <Number name="EC-sect163r2" value="0003" size="16" valueType="hex"/> <!-- 0x0003: sect163r2 -->
+                            <Number name="EC-secp160k1" value="000f" size="16" valueType="hex"/> <!-- 0x000f: secp160k1 -->
+                            <Number name="EC-secp160r1" value="0010" size="16" valueType="hex"/> <!-- 0x0010: secp160r1 -->
+                            <Number name="EC-secp160r2" value="0011" size="16" valueType="hex"/> <!-- 0x0011: secp160r2 -->
+                        </Block>
+                </Block>
+            </Block>
+            <Block name="Extension-HeartBeat" ref="TLS-Extension-Blob">
+                <Number name="Type" size="16" value="000f" valueType="hex"/>
+                <Blob name="TLS-Extension-Data" valueType="hex" value="01" />
+            </Block>
+        </Block>
+        </Block>
+    </DataModel>
+
+    <DataModel name="TLS-Record-Client-Hello" ref="TLS-Record-Header">
+        <Number name="Hdr-Content-Type" size="8" value="22"/> <!-- 22: Handshake -->
+        <Block name="TLS-Record-Data" ref="TLS-Record-Handshake-Hello"/>
+    </DataModel>
+
+</Peach>	

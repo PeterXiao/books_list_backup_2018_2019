@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Peach xmlns="http://peachfuzzer.com/2012/Peach" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://peachfuzzer.com/2012/Peach /peach/peach.xsd"
+	author="Brad Antoniewicz (brad.antoniewicz@foundstone.com)">
+	
+	<!-- Peach Data Model for EAP-TLS
+		http://tools.ietf.org/html/rfc5216
+	-->
+    <!-- Includes Section -->
+	<Include ns="Eap" src="file:##PitPath##Eap.xml" />
+	<Include ns="Tls" src="file:##PitPath##Tls.xml" />
+    <!-- End Includes Section -->  
+	<!--
+        Reference This DataModel for a Client-Hello that can be Encapsulated inside 
+        the EAP-Message AVP
+    -->
+    <DataModel name="EAP-TLS-Record-Client-Hello">
+        <Number name="EAP-TLS-Flags" size="8" value="80" valueType="hex"/> <!-- 1: v1 -->
+        <Number name="EAP-TLS-Length" size="32" endian="big">
+            <Relation type="size" of="EAP-TLS-Client-Hello" />
+        </Number>
+        <Block name="EAP-TLS-Client-Hello" ref="Tls:TLS-Record-Client-Hello"/>
+    </DataModel>
+    <DataModel name="EAP-Request-EAP-TLS-Start" ref="Eap:EAP-Header">
+        <Number name="EAP-Code" size="8" value="1" /> <!-- 1: Request -->
+        <Number name="EAP-Type" size="8" value="13"/> <!-- 13: EAP-TLS -->
+        <Number name="EAP-TLS-Flags" size="8" valueType="hex" value="20"/>
+    </DataModel>
+
+	
+	
+</Peach>
