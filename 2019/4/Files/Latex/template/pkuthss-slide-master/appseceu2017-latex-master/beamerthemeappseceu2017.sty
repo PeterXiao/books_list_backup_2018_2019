@@ -1,0 +1,440 @@
+%% Copyright (C) 2016,2017 Achim D. Brucker, https://www.brucker.ch
+%%
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%   OR
+%%   The 2-clause BSD-style license.
+%%
+%%   SPDX-License-Identifier: LPPL-1.0+ OR BSD-2-Clause
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{beamerthemeappseceu2017}
+     [2017/04/28 v0.0  LaTeX presentation class mimicking the design of the OWASP AppSecEU 2017 PowerPoint template.]
+\RequirePackage{ifthen}
+\usepackage{xkeyval}
+\usepackage{xstring}
+\usepackage{etoolbox}
+\usepackage{environ}
+
+\usepackage{fontawesome}
+\definecolor{linkedin}{RGB}{24,103,158}
+\definecolor{twitter}{RGB}{29,161,242}
+
+\definecolor{owaspOrange}{RGB}{228,108,10}
+\definecolor{owaspBlue}{RGB}{55,96,146}
+
+\newcommand{\titlevisual}[1]{\titlegraphic{\includegraphics[width=\paperwidth,height=\paperheight]{#1}}}
+
+\titlevisual{visuals/appseceu2017-title-visual}
+
+\urlstyle{sf}
+%
+%
+\def\owasp@classification@sel@default{5}
+\def\owasp@classification@sel{5}
+\newcommand{\owasp@CCBYNCND}{\href{https://creativecommons.org/licenses/by-nc-nd/4.0/}{CC BY-NC-ND 4.0}}
+\newcommand{\owasp@CCBYND}{\href{https://creativecommons.org/licenses/by-nd/4.0/}{CC BY-ND 4.0}}
+\newcommand{\owasp@CCBY}{\href{https://creativecommons.org/licenses/by/4.0/}{CC BY 4.0}}
+\newcommand{\owasp@CCzero}{\href{https://creativecommons.org/publicdomain/zero/1.0/}{CC0 1.0}}
+\newcommand{\owasp@GFDL}{\href{https://www.gnu.org/licenses/fdl.html}{GFDL 1.3}}
+
+\newcommand{\owasp@strictlyconfidential}{Strictly Confidential}
+\newcommand{\owasp@confidential}{Confidential}
+\newcommand{\owasp@internal}{Internal}
+\newcommand{\owasp@customer}{Customer}
+\newcommand{\owasp@student}{Student\ifthenelse{\equal{\owasp@classification@student@short}{}}%
+{}{~(\owasp@classification@student@short)}}
+\newcommand{\owasp@public}{Public}
+
+
+\newboolean{owasp@slide@strictlyconfidential}\setboolean{owasp@slide@strictlyconfidential}{false}
+\newboolean{owasp@slide@confidential}\setboolean{owasp@slide@confidential}{false}
+\newboolean{owasp@slide@internal}\setboolean{owasp@slide@internal}{false}
+\newboolean{owasp@slide@customer}\setboolean{owasp@slide@customer}{false}
+\newboolean{owasp@slide@student}\setboolean{owasp@slide@student}{false}
+\newboolean{owasp@slide@public-cc-by-nc-nd}\setboolean{owasp@slide@public-cc-by-nc-nd}{false}
+\newboolean{owasp@slide@public-cc-by-nd}\setboolean{owasp@slide@public-cc-by-nd}{false}
+\newboolean{owasp@slide@public-cc-by}\setboolean{owasp@slide@public-cc-by}{false}
+\newboolean{owasp@slide@public-cc-zero}\setboolean{owasp@slide@public-cc-zero}{false}
+\newboolean{owasp@slide@public-gfdl}\setboolean{owasp@slide@public-gfdl}{false}
+
+
+
+\newcommand{\classification}{UNDEFINED}
+\define@choicekey*{beamerthemelh-presentation.sty}{classification}[\val\nr]%
+{strictly-confidential,confidential,internal,customer,student,public-cc-by-nc-nd,%
+  public-cc-by-nd,public-cc-by,public-cc-zero,public-gfdl}%
+[strictly-confidential]%
+{%
+  \let\owasp@classification@sel@default\nr
+}
+
+\define@choicekey*{beamerframe}{classification}[\val\nr]%
+{strictly-confidential,confidential,internal,customer,student,public-cc-by-nc-nd,%
+  public-cc-by-nd,public-cc-by,public-cc-zero,public-gfdl}%
+[strictly-confidential]%
+{%
+  \let\owasp@classification@sel\nr
+  \ifcase\nr\relax% strictly confidential
+    \setboolean{owasp@slide@strictlyconfidential}{true}
+  \or% confidential
+    \setboolean{owasp@slide@confidential}{true}
+  \or% internal
+    \setboolean{owasp@slide@internal}{true}
+  \or% customer
+    \setboolean{owasp@slide@customer}{true}
+  \or% student
+    \setboolean{owasp@slide@student}{true}
+  \or% public
+    \setboolean{owasp@slide@public-cc-by-nc-nd}{true}
+  \or
+    \setboolean{owasp@slide@public-cc-by-nd}{true}
+  \or
+    \setboolean{owasp@slide@public-cc-by}{true}
+  \or
+    \setboolean{owasp@slide@public-cc-zero}{true}
+  \or
+    \setboolean{owasp@slide@public-gfdl}{true}
+  \fi%
+}
+
+\ProcessOptionsX\relax
+%\ProcessOptionsBeamer\relax
+%\ProcessOptions
+
+\newcommand{\owasp@classification@text}[1]{%
+  \ifcase\number#1\relax% strictly confidential
+    \alert{\owasp@strictlyconfidential}%
+  \or% confidential
+    \alert{\owasp@confidential}%
+  \or% internal
+    \alert{\owasp@internal}%
+  \or% customer
+    \owasp@customer%
+  \or% student
+    \owasp@student%
+  \or% public
+    \owasp@public~(\owasp@CCBYNCND)%
+  \or
+    \owasp@public~(\owasp@CCBYND)%
+  \or
+    \owasp@public~(\owasp@CCBY)%
+  \or
+    \owasp@public~(\owasp@CCzero)%
+  \or
+    \owasp@public~(\owasp@GFDL)%
+  \else
+    UNDEFINED~CLASSIFICATION:~#1%
+  \fi%
+}
+\newcommand{\owasp@classification@description}[1]{%
+  \ifcase\number#1\relax% strictly confidential
+    classified ``\emph{\owasp@stricltyconfidential}'' and only available
+    to a small number of
+    precisely specified persons. Disclosure to third parties only after a
+    confidentiality agreement has been signed.
+   \or% confidential
+    classified ``\emph{\owasp@confidential}'' and only available to members of the Software
+    Assurance \& Security Research Team that are pre-defined by the
+    information owner. Disclosure to third parties only after a
+    confidentiality agreement has been signed.
+  \or% internal
+    classified ``\emph{\owasp@internal}'' and only available to staff of the Software
+    Assurance \& Security Research Team  Disclosure to third parties only after a
+    confidentiality agreement has been signed.
+  \or% customer
+    classified ``\emph{\owasp@customer}'' and only available to staff
+    of the University of Sheffield and to business partners. Disclosure to third parties only after a
+    confidentiality agreement has been signed.
+  \or% student
+    classified ``\emph{\owasp@student}'' and only available to 
+    \ifthenelse{\equal{\owasp@classification@student@long}{}}%
+    {staff of the University of Sheffield and to a limited group of students
+      (e.g., that are registered for a specific module) of the  University of Sheffield.}%
+     {students of the University of Sheffield that are registered to the module \owasp@classification@student@long.}
+    Disclosure to third parties only after a
+    confidentiality agreement has been signed.
+  \or% public CC BY NC ND
+     licensed under
+    a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0
+    International Public License (\owasp@CCBYNCND).
+  \or% public CC BY ND
+    licensed under
+    a Creative Commons Attribution-NoDerivatives 4.0
+    International Public License (\owasp@CCBYND).
+  \or% public CC BY
+    licensed under
+    a Creative Commons Attribution 4.0
+    International Public License (\owasp@CCBY).
+  \or% public CC 0
+    licensed under
+    a \owasp@CCzero license: To the extent possible under law, all copyright
+    and related or neighboring rights to the slides marked \owasp@CCBY are
+    waived.
+  \or% public GFDL
+    licensed under
+    the \owasp@GFDL:\\
+     Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+  \fi%
+}
+
+\BeforeBeginEnvironment{frame}{%
+  \let\owasp@classification@sel\owasp@classification@sel@default%
+}
+
+
+\mode<presentation>
+\let\owasp@classification@sel\owasp@classification@sel@default%
+\renewcommand{\classification}{\owasp@classification@text{\owasp@classification@sel}}
+\def\owasp@classification{\classification}
+
+
+\RequirePackage{xcolor}
+\RequirePackage[]{lh-logo}[2016/08/15]
+\RequirePackage{xparse}
+\usepackage{lmodern}
+\usepackage{carlito}
+\usepackage{sfmath}
+\usepackage{sansmathaccent}
+\usepackage{mathabx}
+\usepackage[T1]{fontenc}
+
+
+
+\usecolortheme{appseceu2017}
+\useinnertheme{appseceu2017}
+\useoutertheme{appseceu2017}
+\usefonttheme{appseceu2017}
+\mode
+<all>
+
+\AtBeginDocument{
+\providecommand{\thanksMsg}{Thank you for your attention!}
+\providecommand{\thankYouMsg}{Thank you!}
+\providecommand{\thanksQuestionsMsg}{Any questions or remarks?}
+\providecommand{\AgendaMsg}{Outline}
+}
+
+\newcommand{\CopyrightFrame}{%
+  \bgroup%\setbeamertemplate{footline}[default]%
+  \begin{frame}\vfill%
+    \frametitle{Document Classification and License Information}
+    \footnotesize
+    \textcopyright~\the\year~\href{https://logicalhacking.com}{LogicalHacking.com}, \insertshortauthor.
+    \begin{itemize}\footnotesize
+    \item This presentation is classified as \emph{\classification}:\\
+       Except where otherwise noted, this presentation is
+      \owasp@classification@description{\owasp@classification@sel}
+      \ifthenelse{%
+      \boolean{owasp@slide@strictlyconfidential}\OR%
+      \boolean{owasp@slide@confidential}\OR%
+      \boolean{owasp@slide@internal}\OR%
+      \boolean{owasp@slide@customer}\OR%
+      \boolean{owasp@slide@public-cc-by-nc-nd}\OR%
+      \boolean{owasp@slide@public-cc-by-nd}\OR%
+      \boolean{owasp@slide@public-cc-by}\OR%
+      \boolean{owasp@slide@public-cc-zero}\OR%
+      \boolean{owasp@slide@public-gfdl}}{
+    \item Deviating from this, the following classifications apply:
+        \begin{itemize}\tiny 
+          \ifthenelse{\boolean{owasp@slide@strictlyconfidential}}{
+          \item Slides marked \emph{\owasp@classification@text{0}} are
+            \owasp@classification@description{0}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@confidential}}{
+          \item Slides marked \emph{\owasp@classification@text{1}} are
+            \owasp@classification@description{1}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@internal}}{
+          \item Slides marked \emph{\owasp@classification@text{2}} are
+            \owasp@classification@description{2}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@customer}}{
+          \item Slides marked \emph{\owasp@classification@text{3}} are
+            \owasp@classification@description{3}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@public-cc-by-nc-nd}}{
+          \item Slides marked \emph{\owasp@classification@text{4}} are
+            \owasp@classification@description{4}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@public-cc-by-nd}}{
+          \item Slides marked \emph{\owasp@classification@text{5}} are
+            \owasp@classification@description{5}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@public-cc-by}}{
+          \item Slides marked \emph{\owasp@classification@text{6}} are
+            \owasp@classification@description{6}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@public-cc-zero}}{
+          \item Slides marked \emph{\owasp@classification@text{7}} are
+            \owasp@classification@description{7}
+          }{}
+          \ifthenelse{\boolean{owasp@slide@public-gfdl}}{
+          \item Slides marked \emph{\owasp@classification@text{8}} are
+            \owasp@classification@description{8}
+          }{}
+        \end{itemize}
+    }{}
+    \end{itemize}
+  \end{frame}
+  \egroup}
+
+\newcommand{\AgendaFrame}[1][]{%
+\bgroup  %\setbeamertemplate{footline}[default]%
+\begin{frame}
+  \frametitle{\AgendaMsg}
+  {\tableofcontents[#1]}
+\end{frame}
+\egroup}
+
+
+\def\owasp@contactauthor{\insertshortauthor}
+\newcommand{\contactauthor}[1]{\gdef\owasp@contactauthor{#1}}
+\def\owasp@contactemail{}
+\newcommand{\contactemail}[1]{\gdef\owasp@contactemail{#1}}
+\def\owasp@contacttwitter{}
+\newcommand{\contacttwitter}[1]{\gdef\owasp@contacttwitter{#1}}
+\def\owasp@contactlinkedin{}
+\newcommand{\contactlinkedin}[1]{\gdef\owasp@contactlinkedin{#1}}
+\def\owasp@contactwww{}
+\newcommand{\contactwww}[1]{\gdef\owasp@contactwww{#1}}
+\def\owasp@contactblog{}
+\newcommand{\contactblog}[1]{\gdef\owasp@contactblog{#1}}
+\def\owasp@thanks{\huge \thanksMsg\\ \thanksQuestionsMsg}
+\newcommand{\thanksinfo}[1]{\gdef\owasp@thanks{#1}}
+
+\def\owasp@classification@student@short{}
+\newcommand{\lectureshortname}[1]{\gdef\owasp@classification@student@short{#1}}
+
+\def\owasp@classification@student@long{}
+\newcommand{\lecturelongname}[1]{\gdef\owasp@classification@student@long{#1}}
+
+\newcommand{\ThanksFrame}[1][]{%
+  \@tempdima=\paperwidth%
+  \advance\@tempdima by -6mm%
+  \@tempdimb=\paperheight%
+  \advance\@tempdimb by -29mm%
+
+\begin{frame}
+%  \mbox{}\vspace{-5mm}\transparent{.80}\mbox{}%
+  \begin{beamercolorbox}[ht=.48\@tempdimb,sep=.2cm,center,dp=.3\@tempdimb,wd=\@tempdima]{}
+     \owasp@thanks
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=23mm,sep=.2cm,center,wd=\@tempdima]{footer}
+  \raggedright
+  \rlap{\noindent\small\textbf{\,\,\,\,Contact:}}%
+  {\scriptsize
+    \hfill\begin{minipage}[t]{.45\@tempdima}\raggedleft
+      \hfill\owasp@contactauthor\\
+      Department of Computer Science\\
+      University of Sheffield\\
+      Regent Court\\
+      211 Portobello St.\\
+      Sheffield S1 4DP, UK
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{.45\@tempdima}
+      \ifthenelse{\equal{\owasp@contactemail}{}}{}{\faEnvelopeSquare~\href{mailto:\owasp@contactemail}{\owasp@contactemail}\\}
+      \ifthenelse{\equal{\owasp@contacttwitter}{}}{}{\faTwitterSquare~\href{https://twitter.com/in/\owasp@contacttwitter/}{@\owasp@contacttwitter}\\}
+      \ifthenelse{\equal{\owasp@contactlinkedin}{}}{}{\faLinkedinSquare~\url{\owasp@contactlinkedin}\\}
+      \ifthenelse{\equal{\owasp@contactwww}{}}{}{\faExternalLinkSquare~\url{\owasp@contactwww}\\}
+      \ifthenelse{\equal{\owasp@contactblog}{}}{}{\faRssSquare~\url{\owasp@contactblog}}
+    \end{minipage}\hfill}
+\end{beamercolorbox}
+  \begin{beamercolorbox}[ht=0mm,sep=.2cm,wd=\@tempdima]{}
+{\setlength{\unitlength}{1mm}\begin{picture}(0,0)
+\put(0,4){\href{https://logicalhacking.com}{\lhSmallLogoDark[width=7mm]}}
+\end{picture}}
+\end{beamercolorbox}
+\end{frame}
+}
+
+\DeclareDocumentCommand{\PartFrame}{ O{red} O{lhWhite} m }{%
+  \setbeamercolor{footer}{fg=#1, bg=#2}
+  \bgroup
+  \part{#3}
+  \frame{\partpage}
+  \egroup
+}
+
+\newsavebox{\@tempsboxa}
+\newsavebox{\@tempsboxb}
+\newlength{\@tempdimd}
+\newenvironment{kickerbox}[1][]
+{%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by -8mm%
+  \advance\@tempdima by -4mm%   
+  % 
+  \sbox{\@tempsboxb}{\parbox{4mm}{#1}}%
+  % 
+  \begin{lrbox}{\@tempsboxa}%
+    \begin{minipage}{\the\@tempdima}%
+}{%
+\end{minipage}%
+\end{lrbox}%
+  \settowidth{\@tempdima}{\usebox{\@tempsboxa}}
+  \advance\@tempdima by .4cm%
+  \settoheight{\@tempdimb}{\usebox{\@tempsboxa}}
+  \settodepth{\@tempdimc}{\usebox{\@tempsboxa}}
+  \advance\@tempdimb by .4cm%
+  \advance\@tempdimb by \the\@tempdimc%
+  %
+  \@tempdimc=\@tempdimb%
+  \settodepth{\@tempdimd}{\usebox{\@tempsboxb}}
+  \advance\@tempdimc by -\@tempdimd
+  \settodepth{\@tempdimd}{\usebox{\@tempsboxb}}
+  \advance\@tempdimc by -\@tempdimd
+\advance\@tempdimc by -.6cm
+
+  \smallskip
+  \begin{columns}[onlytextwidth]
+    \begin{column}[t]{7mm}
+    \begin{beamercolorbox}[sep=.1cm,wd=8mm,ht=\the\@tempdimb]{palette secondary}
+     \usebox{\@tempsboxb}\vspace{\the\@tempdimc}%
+   \end{beamercolorbox}
+    \end{column}
+     \begin{column}[t]{\the\@tempdima}
+       \begin{beamercolorbox}[sep=0.2cm,wd=\the\@tempdima,ht=\the\@tempdimb]{kicker}%
+         \usebox{\@tempsboxa}%
+       \end{beamercolorbox}%
+     \end{column}
+   \end{columns}
+   \smallskip
+}
+
+\newenvironment{quotebox}
+{\begin{kickerbox}[{\Huge\textbf{\usebeamercolor[bg]{kicker}{\,``}}}]}
+  {\end{kickerbox}}
+
+\newcommand{\partnerLogo}[1][]{}
+
+\NewEnviron{abstractframe}[1][]{%
+% \begin{frame}<beamer:0>{plain,label={fra:abstract-en},#1}
+\begin{frame}[label={fra:abstract-en},#1]
+     \begin{center}\LARGE\textcolor{owaspOrange}
+     {\inserttitle%
+     \ifx\insertsubtitle\empty\relax%
+      \else%
+     : \insertsubtitle%
+    \fi%
+    }\end{center}    \bigskip\begin{abstract}\footnotesize
+    \BODY
+  \end{abstract}\end{frame}
+}
+
+\institute[The University of Sheffield]{%
+  \textbf{Software Assurance \& Security Research}\\
+  Department of Computer
+  Science, The University of Sheffield, Sheffield, UK\\
+  \hspace{.6cm} \href{https://logicalhacking.com/}{https://logicalhacking.com/} }
+
+
+
+\endinput
+

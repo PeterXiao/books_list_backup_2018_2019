@@ -1,0 +1,238 @@
+% \iffalse meta-comment -------------------------------------------------------
+% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+% contributors can be found at
+%
+%     https://github.com/matze/mtheme/graphs/contributors
+%
+% and the original template was based on the HSRM theme by Benjamin Weiss.
+%
+% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+% ------------------------------------------------------------------------- \fi
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthememetropolis}[2017/01/23 Metropolis outer theme]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+% ------------------------------------------------------------------------- \fi
+%
+% \subsection{\themename outer theme}
+%
+% A |beamer| outer theme dictates the style of the frame elements traditionally
+% set outside the body of each slide: the head, footline, and frame title.
+%
+%
+%
+% \subsubsection{Package dependencies}
+%
+%    \begin{macrocode}
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Options}
+%
+% \begin{macro}{numbering}
+%    Adds slide numbers to the bottom right of each slide.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/outer/numbering/.cd,
+    .is choice,
+    none/.code=\setbeamertemplate{frame numbering}[none],
+    counter/.code=\setbeamertemplate{frame numbering}[counter],
+    fraction/.code=\setbeamertemplate{frame numbering}[fraction],
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{progressbar}
+%    Adds a progress bar to the top, bottom, or frametitle of each slide.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/outer/progressbar/.cd,
+    .is choice,
+    none/.code={%
+      \setbeamertemplate{headline}[plain]
+      \setbeamertemplate{frametitle}[plain]
+      \setbeamertemplate{footline}[plain]
+    },
+    head/.code={\pgfkeys{/metropolis/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    frametitle/.code={\pgfkeys{/metropolis/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    foot/.code={\pgfkeys{/metropolis/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}%
+      }
+    },
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\metropolis@outer@setdefaults}
+%    Sets default values for outer theme options.
+%    \begin{macrocode}
+\newcommand{\metropolis@outer@setdefaults}{
+  \pgfkeys{/metropolis/outer/.cd,
+    numbering=counter,
+    progressbar=none,
+  }
+}
+%    \end{macrocode}%
+% \end{macro}
+%
+%
+%
+% \subsubsection{Head and footline}
+%
+% All good |beamer| presentations should already remove the navigation symbols,
+% but \themename removes them automatically (just in case).
+%
+%    \begin{macrocode}
+\setbeamertemplate{navigation symbols}{}
+%    \end{macrocode}
+%
+% \begin{macro}{frame numbering}
+%    Templates for the frame number. Can be omitted, shown or displayed as a
+%    fraction of the total frames.
+%    \begin{macrocode}
+\defbeamertemplate{frame footer}{none}{}
+\defbeamertemplate{frame footer}{custom}[1]{ #1 }
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\defbeamertemplate{frame numbering}{none}{}
+\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+\defbeamertemplate{frame numbering}{fraction}{
+  \insertframenumber/\inserttotalframenumber
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{headline}
+% \begin{macro}{footline}
+%    Templates for the head- and footline at the top and bottom of each frame.
+%    \begin{macrocode}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+  \begin{beamercolorbox}[wd=\textwidth, sep=3ex]{footline}%
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}
+    \hfill%
+    \usebeamertemplate*{frame numbering}
+  \end{beamercolorbox}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Frametitle}
+%
+% \begin{macro}{frametitle}
+%    Templates for the frame title, which is optionally underlined with a
+%    progress bar.
+%    \begin{macrocode}
+\newlength{\metropolis@frametitle@padding}
+\setlength{\metropolis@frametitle@padding}{2.2ex}
+\newcommand{\metropolis@frametitlestrut@start}{
+  \rule{0pt}{\metropolis@frametitle@padding +%
+    \totalheightof{%
+      \ifcsdef{metropolis@frametitleformat}{\metropolis@frametitleformat X}{X}%
+    }%
+  }%
+}
+\newcommand{\metropolis@frametitlestrut@end}{
+  \rule[-\metropolis@frametitle@padding]{0pt}{\metropolis@frametitle@padding}
+}
+\defbeamertemplate{frametitle}{plain}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,%
+      sep=0pt,%
+      leftskip=\metropolis@frametitle@padding,%
+      rightskip=\metropolis@frametitle@padding,%
+    ]{frametitle}%
+  \metropolis@frametitlestrut@start%
+  \insertframetitle%
+  \nolinebreak%
+  \metropolis@frametitlestrut@end%
+  \end{beamercolorbox}%
+}
+\setbeamertemplate{frametitle continuation}{%
+  \usebeamerfont{frametitle}
+  \romannumeral \insertcontinuationcount
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{progress bar in head/foot}
+%    Template for the progress bar optionally displayed below the frame title
+%    on each page. Much of this code is duplicated in the inner theme's
+%    template |progress bar in section page|.
+%    \begin{macrocode}
+\newlength{\metropolis@progressinheadfoot}
+\newlength{\metropolis@progressinheadfoot@linewidth}
+\setlength{\metropolis@progressinheadfoot@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in head/foot}{
+  \nointerlineskip
+  \setlength{\metropolis@progressinheadfoot}{%
+    \paperwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \begin{beamercolorbox}[wd=\paperwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \fill[bg] (0,0) rectangle (\paperwidth, \metropolis@progressinheadfoot@linewidth);
+      \fill[fg] (0,0) rectangle (\metropolis@progressinheadfoot, \metropolis@progressinheadfoot@linewidth);
+    \end{tikzpicture}%
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{appendix}
+%    Removes page numbering and per-slide progress bars when |\appendix| is
+%    called. This makes it easier to include additional ``backup slides'' at
+%    the end of the presentation, especially in conjunction with the package
+%    |appendixnumberbeamer|.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \apptocmd{\appendix}{%
+    \pgfkeys{%
+      /metropolis/outer/.cd,
+      numbering=none,
+      progressbar=none}
+    }{}{}
+}
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{Process package options}
+%
+%    \begin{macrocode}
+\metropolis@outer@setdefaults
+\ProcessPgfPackageOptions{/metropolis/outer}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

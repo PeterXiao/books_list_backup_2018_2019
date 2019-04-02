@@ -1,0 +1,94 @@
+%  -*- coding: utf-8 -*-
+% !TEX program = xelatex
+
+\documentclass[14pt,notheorems]{beamer}
+
+\usetheme[color=green]{epyt} % black, blue, green, white
+\usepackage[UTF8,noindent]{ctex}
+
+\hypersetup{
+  pdfpagemode={FullScreen},
+}
+
+\newtheorem{theorem}{定理}
+\newtheorem{definition}[theorem]{定义}
+\newtheorem{example}[theorem]{例子}
+
+\newtheorem*{theorem*}{定理}
+\newtheorem*{definition*}{定义}
+\newtheorem*{example*}{例子}
+
+\renewcommand{\proofname}{证明}
+
+\title{Epyt, a Simple and Nice Theme for Beamer}
+\author{zoho@bbs.ctex.org}
+
+\begin{document}
+
+\begin{frame}[plain]\transboxout
+\titlepage
+\end{frame}
+
+\begin{frame}\transboxin
+\begin{center}
+\tableofcontents[hideallsubsections]
+\end{center}
+\end{frame}
+
+\section{简要介绍}
+
+\begin{frame}{简要介绍}\transdissolve
+Epyt 是一个简洁美观的 Beamer 演示文稿主题。它有这些特点：\pause
+\begin{itemize}[<+->]
+\item 结构简洁，只有包含必需元素的底栏，没有顶栏和侧栏。
+\item 内容简洁，列表环境和定理环境都使用了简单的形式。
+\item 配色简洁，仅仅用到几种背景色和前景色。
+\end{itemize}
+\end{frame}
+
+\section{列表环境}
+
+\begin{frame}[fragile]{有序列表}\transwipe[direction=270]
+无序列表前面已经看到，现在来看看有序列表。一个 Beamer 的主题由下列四部分组成：\pause
+\begin{enumerate}[<+->]
+\item 外部主题，用 \verb!\usebeameroutertheme! 命令；
+\item 内部主题，用 \verb!\usebeamerinnertheme! 命令；
+\item 颜色主题，用 \verb!\usebeamercolortheme! 命令；
+\item 字体主题，用 \verb!\usebeamerfonttheme! 命令。
+\end{enumerate}
+\end{frame}
+
+\section{数学环境}
+
+\begin{frame}{例子证明}\transglitter[direction=90]
+\begin{example}
+用等价无穷小代换证明下面极限：
+\[ \lim_{x\to0}\frac{\sin 3x}{\ln(1-2x)}=-\frac{3}{2} \]
+\end{example}\pause
+\begin{proof}
+因为$\sin 3x \sim 3x$，$\ln(1-2x) \sim -2x$，所以我们有
+\[ \lim_{x\to0}\frac{\sin 3x}{\ln(1-2x)}=\lim_{x\to0}\frac{3x}{-2x}=-\frac{3}{2}, \]
+即等式成立。
+\end{proof}
+\end{frame}
+
+\section{使用说明}
+
+\begin{frame}[fragile]{使用说明}\transblindsvertical
+\begin{itemize}
+\item 建议在演示文稿中使用大号的字体，例如：
+\begin{verbatim}
+\documentclass[14pt]{beamer}
+\usebeamertheme{epyt}
+\end{verbatim}\pause
+\item 如果要使用中文，可以用 \verb ctex 宏包，例如：
+\begin{verbatim}
+\documentclass[14pt]{beamer}
+\usebeamertheme{epyt}
+\usepacakge[UTF8,noindent]{ctex}
+\end{verbatim}\pause
+\item 在载入主题时有几种配色风格可以选择。
+\end{itemize}
+\end{frame}
+
+\end{document}

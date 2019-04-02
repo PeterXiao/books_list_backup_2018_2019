@@ -1,0 +1,9 @@
+*.aux
+*.log
+auto
+*.out
+*.nav
+*.snm
+*.toc
+*~
+.#*

@@ -1,0 +1,144 @@
+%%% --->
+% listings settings
+%%% <---
+\makeatletter
+\renewcommand{\ALG@name}{伪代码}
+\makeatother
+
+% \renewcommand{\lstlistingname}{Code Snippet}
+\renewcommand{\lstlistingname}{代码片段}
+\lstdefinestyle{lfonts}{
+  basicstyle   = \scriptsize\ttfamily,
+  stringstyle  = \color{purple},
+  keywordstyle = \color{blue!60!black}\bfseries,
+  commentstyle = \color{olive}\scshape,
+}
+\lstdefinestyle{lnumbers}{
+  numbers     = left,
+  numberstyle = \tiny,
+  numbersep   = 1em,
+  firstnumber = 1,
+  stepnumber  = 1,
+}
+\lstdefinestyle{llayout}{
+  breaklines       = true,
+  tabsize          = 2,
+  columns          = spacefixed,
+}
+\lstdefinestyle{lgeometry}{
+  xleftmargin      = 20pt,
+  xrightmargin     = 0pt,
+  frame            = tb,
+  framesep         = \fboxsep,
+  framexleftmargin = 20pt,
+}
+\lstdefinestyle{lgeneral}{
+  style = lfonts,
+  style = lnumbers,
+  style = llayout,
+  style = lgeometry,
+  mathescape = true,
+  escapechar = \%,
+}
+\lstdefinestyle{lcpp}{
+  language = {C++},
+  style = {lgeneral},
+  morekeywords = {constexpr, noexcept, nullptr, override}
+}
+\lstdefinestyle{lltx}{
+  language = {LaTeX},
+  style = {lgeneral},
+}
+\lstdefinestyle{lpy}{
+  language = {Python},
+  style = {lgeneral},
+}
+\lstdefinestyle{lsh}{
+  language = {sh},
+  style = {lgeneral},
+}
+\lstdefinestyle{ljava}{
+  language = {Java},
+  style = {lgeneral},
+}
+
+%%% --->
+% list environment settings
+%%% <---
+\setlist{nosep}
+\setlist[description]{itemsep = 0.5ex}
+
+%%% --->
+% figure and TikZ settings
+%%% <---
+\graphicspath{{./figures/}{./global_figures/}}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes, arrows}
+\usetikzlibrary{positioning}
+\tikzstyle{decision} = [diamond, draw, fill=blue!20,
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width = 4pc, text centered, rounded corners, minimum height = 2pc]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+\tikzstyle{autocircle} = [circle, draw = black, fill = gray!30, inner sep = 5pt, minimum size = 0.4cm]
+\tikzset{global scale/.style={
+    scale=#1,
+    every node/.append style={scale=#1}
+  }
+}
+\tikzset{global xscale/.style={
+    xscale=#1,
+    every node/.append style={xscale=#1}
+  }
+}
+\tikzset{global yslant/.style={
+    yslant=#1,
+    every node/.append style={yslant=#1}
+  }
+}
+
+%%% --->
+% sectioning settings
+%%% <---
+\AtBeginDocument{\setcounter{secnumdepth}{0}}
+\ctexset{section/format += \raggedright}
+
+%%% --->
+% geometry and layout settings
+%%% <---
+\setlength{\parindent}{0pt}
+\addtolength{\parskip}{1ex}
+% \geometry{margin = 1in}
+\geometry{papersize={14.4cm, 10.8cm}, margin = 0.65in}
+
+%%% --->
+% hyperreference settings
+%%% <---
+\hypersetup{hidelinks}
+
+%%% --->
+% theorem environment settings
+%%% <---
+\newtheorem{note}{提示}
+\newtheorem*{note*}{提示}
+
+%%% --->
+% sectioning settings
+%%% <---
+\ctexset{paragraph/beforeskip = {0pt}}
+
+%%% --->
+% header & footer settings
+%%% <---
+\lhead{\relax}
+% \lhead{\raisebox{-.5ex}{\textcolor{black}{\large\bfseries\leftmark}}}
+\chead{\relax}
+\rhead{\relax}
+% \rhead{\raisebox{-.5ex}{\makebox[0pt][l]{\quad\large\textcolor{black}{\thepage}}}}
+\lfoot{\relax}
+\cfoot{\relax}
+\rfoot{\relax}
+\renewcommand{\headrulewidth}{0pt}
