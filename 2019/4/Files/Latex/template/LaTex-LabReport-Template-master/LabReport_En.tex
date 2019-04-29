@@ -1,0 +1,279 @@
+%---------------------------------------------------------------------
+%
+%                         Project Name:NUSRI Project Report 
+%
+%---------------------------------------------------------------------
+%
+%                 created by Qingyun Fang <fqy2017@gmail.com>
+%
+%                        Last-modified: 2018-11-03
+%
+%---------------------------------------------------------------------
+
+\documentclass[a4paper,12pt]{article}
+%\usepackage{ctex}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{array}  
+\usepackage[svgnames,table]{xcolor}
+\usepackage{fontspec,xunicode,xltxtra}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage[titletoc]{appendix}
+\usepackage[top=30mm,bottom=30mm,left=20mm,right=20mm]{geometry}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{lastpage} 
+\usepackage[framed,numbered,autolinebreaks,useliterate]{mcode} % insert matlab code
+
+
+\setmainfont{Book Antiqua}
+\newcommand{\BAB}{\fontspec{Book Antiqua Bold}}
+
+
+
+
+\begin{document}	
+%---------------------------------------------------------------------
+%	Infos for Labreport (You should modify here) !!!!
+%---------------------------------------------------------------------
+\newcommand{\ProjectName}{ \LaTeX~Templet for NUSRI }
+\newcommand{\ClassInstructor}{Professor Isaac Newton}
+\newcommand{\AuthorName}{Fang Qingyun}
+\newcommand{\StudentID}{913104330115}
+\newcommand{\theterm}{Fall 2018}
+
+
+%---------------------------------------------------------------------
+%	Set Headers and Footers 
+%---------------------------------------------------------------------
+\fancypagestyle{plain}{
+	\pagestyle{fancy}      % change the pagestyle 
+}
+\pagestyle{fancy}
+\lhead{\AuthorName}
+\chead{\ProjectName}
+\rhead{\small Page \thepage\ of \pageref{LastPage}}
+\cfoot{}
+
+%---------------------------------------------------------------------
+%	Set Reference Cite
+%---------------------------------------------------------------------
+\makeatletter
+\def\@cite#1#2{\textsuperscript{[{#1\if@tempswa , #2\fi}]}}
+\makeatother
+
+
+%---------------------------------------------------------------------
+%	Titlepage
+%---------------------------------------------------------------------
+\begin{titlepage}
+	\begin{center}
+		
+    \includegraphics[width=0.9\textwidth]{figure//NUSRI.png}\\
+    \vspace{8mm}
+    {\LARGE{\BAB  Project Name:\ProjectName}}\\[0.6cm]
+    {\Large{ \BAB{Instructor: \ClassInstructor}}}
+	\vspace{\fill}
+	
+	{\large	
+	\vspace{\fill}
+	\AuthorName \\[0.2cm]
+	\StudentID \\[0.2cm]
+	\theterm\\[0.2cm]
+	\today
+	}
+
+	\end{center}	
+\end{titlepage}
+
+%---------------------------------------------------------------------
+%  Abstract
+%---------------------------------------------------------------------
+{\newpage
+\thispagestyle{empty} 
+~ \\
+{\Large\centerline{ \BAB Abstract}}\\
+\begin{spacing}{1.5}
+	{
+	The establishment of the National University of Singapore (Suzhou) Research Institute (NUSRI), a comprehensive international research institution, reinforces the spirit of cooperation between China and Singapore in technology and education. At NUSRI, we strive to establish a multidisciplinary platform that leverages the strong research capabilities of National University of Singapore (NUS) to enhance the scientific, economic and industrial thrusts of Jiangsu and China.\\[0.5cm]
+	{\BAB Keywords}:~NUS;~NUSRI
+	}
+\end{spacing}
+}
+
+%---------------------------------------------------------------------
+%  Contents
+%---------------------------------------------------------------------
+{
+\newpage
+\thispagestyle{empty} 
+\tableofcontents % 生成目录
+}
+
+
+
+
+
+
+%---------------------------------------------------------------------
+%  Section One
+%---------------------------------------------------------------------
+\newpage
+\setlength{\baselineskip}{21pt}
+\setcounter{page}{1}
+
+\section{Introdction}
+
+NUSRI is the very first research institute in China which is independently operated and managed by an overseas top university, so as to reinforce the cooperation in science and education between China and Singapore. The development of NUSRI is timely in promoting more international research activities within Suzhou Industrial Park (SIP). NUSRI is registered as a local independent non-profit organization with legal identity under Suzhou Industrial Park Administrative Committee (SIPAC) and operated and managed by NUS.
+
+NUS is a leading global university with over a hundred years of history. For many years, NUS has been consistently ranked at the top in the Times Higher Education's list of the world's top universities. In 2019, it was ranked 23rd globally, and 2nd in Asia.
+
+NUSRI is the first overseas research institute of NUS. Rallying the diverse insight, world class scientific research resources and innovation ability of the university, NUSRI aims to focus on dedicated research, training and technology commercialization service to contribute to social transformation and upgrading as well as sustainable development, not only to SIP and Suzhou city but also the Jiangsu province and eventually to the whole of China\cite{Leslie.{1994}}.
+
+
+%---------------------------------------------------------------------
+%  Section Two
+%---------------------------------------------------------------------
+\section{Analysis of the Problem}
+
+\subsection{Vision}
+Our Vision
+\begin{itemize}
+	\item A global institute for knowledge creation and innovation
+\end{itemize}
+
+\subsection{Mission}
+Our Mission
+\begin{itemize}
+	\item Enhance economic and technological advancement and development
+\end{itemize}
+
+%---------------------------------------------------------------------
+%  Modeling and Calculating
+%---------------------------------------------------------------------
+\section{Modeling and Calculating}
+
+
+%---------------------------------------------------------------------
+%  Validating the Model
+%---------------------------------------------------------------------
+\section{Validating the Model}
+
+
+%---------------------------------------------------------------------
+%  Thinking
+%---------------------------------------------------------------------
+\section{Thinking}
+
+Happy TeXing!
+
+
+
+
+%---------------------------------------------------------------------
+%  Reference
+%---------------------------------------------------------------------
+\newpage
+\addcontentsline{toc}{section}{Reference}
+
+\begin{thebibliography}{99}
+
+	\bibitem{Leslie.{1994}}
+	Leslie Lamport. LATEX: A Document Preparation System.AddisonWesley, Reading, Massachusetts, second edition, 1994, ISBN 0-201-52983-1.
+	
+	\bibitem{Donald.{1984}}
+	Donald E. Knuth. The TEXbook, Volume A of Computers and Typesetting,Addison Wesley, Reading, Massachusetts, second edition, 1984,ISBN 0-201-13448-9.
+
+	
+\end{thebibliography}
+
+%---------------------------------------------------------------------
+%  Appendix
+%---------------------------------------------------------------------
+\newpage
+\titleformat{\section}{\Large \BAB}{Appendix~\Alph{section}}{11pt}{\Large}
+\titlespacing{\section}{0pt}{*-4}{*4}
+
+\lstset{breaklines}                %breaklines
+\lstset{extendedchars=false}
+\lstset{language=Matlab}
+\appendix
+\begin{appendix}
+	
+	
+\section{Tables of Data}
+Here is a sample table.
+{
+	\begin{table}[htb]
+		\begin{center}
+			\caption{SampleTable}\label{sampeltable}
+			\begin{tabular}{m{3cm} m{2cm} m{2cm} m{2cm}}
+				\hline
+				Project & A & B & C\\
+				\hline
+				ProjectOne   & a1 & b1 & c1 \\
+				ProjectTwo   & a2 & b2 & c2 \\
+				ProjectThree & a3 & b3 & c3 \\
+				ProjectFour  & a4 & b4 & c4 \\
+				ProjectFive  & a5 & b5 & c5 \\
+				\hline
+			\end{tabular}
+		\end{center}
+\end{table}}
+
+\newpage
+\section{Project Code}
+
+\begin{spacing}{1.5}
+The following is an example of a MATLAB program that uses Package mcode, which preserves the style of MATLAB.
+\begin{lstlisting}
+%The program normalizes the measurement data and compares it to the standard cosine function
+data=xlsread('data_sun',1,'B3:E39');
+min=[(data(1,1)+data(37,1))/2,(data(1,2)+data(37,2))/2,...
+(data(1,3)+data(37,3))/2,(data(1,4)+data(37,4))/2];
+max=[data(19,1),data(19,2),data(19,3),data(19,4)];
+Min=repmat(min,37,1);
+Max=repmat(max,37,1);
+data=(data-Min)./(Max-Min);
+x=-pi/2:pi/36:pi/2;
+y=cos(x);
+%----------------------figure-------------------------%
+figure(1);
+subplot(2,2,1);
+plot(x,data(:,1),'ro-');
+hold on;
+plot(x,y,'b-');
+title('R=1.2\Omega');
+axis([-2,2,0,1]);
+grid on;
+subplot(2,2,2);
+plot(x,data(:,2),'ro-');
+hold on;
+plot(x,y,'b-');
+title('R=1.6\Omega');
+axis([-2,2,0,1]);
+grid on;
+subplot(2,2,3);
+plot(x,data(:,2),'ro-');
+hold on;
+plot(x,y,'b-');
+title('R=2.0\Omega');
+axis([-2,2,0,1]);
+grid on;
+subplot(2,2,4);
+plot(x,data(:,4),'ro-');
+hold on;
+plot(x,y,'b-');
+title('R=2.4\Omega');
+grid on;
+axis([-2,2,0,1]);
+\end{lstlisting}
+\end{spacing}
+\end{appendix}
+		
+
+\end{document}
