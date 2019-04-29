@@ -1,0 +1,252 @@
+% \iffalse meta-comment -------------------------------------------------------
+% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+% contributors can be found at
+%
+%     https://github.com/matze/mtheme/graphs/contributors
+%
+% and the original template was based on the HSRM theme by Benjamin Weiss.
+%
+% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+% ------------------------------------------------------------------------- \fi
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthememetropolis}[2017/01/23 Metropolis color theme]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+% ------------------------------------------------------------------------- \fi
+%
+% \subsection{\themename color theme}
+%
+%
+%
+% \subsubsection{Package dependencies}
+%    \begin{macrocode}
+\RequirePackage{pgfopts}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Options}
+%
+% \begin{macro}{block}
+%    Optionally adds a light grey background to block environments like
+%    |theorem| and |example|.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/color/block/.cd,
+    .is choice,
+    transparent/.code=\metropolis@block@transparent,
+    fill/.code=\metropolis@block@fill,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{colors}
+%    Provides the option to have a dark background and light foreground instead
+%    of the reverse.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/color/background/.cd,
+    .is choice,
+    dark/.code=\metropolis@colors@dark,
+    light/.code=\metropolis@colors@light,
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\metropolis@color@setdefaults}
+%    Sets default values for color theme options.
+%    \begin{macrocode}
+\newcommand{\metropolis@color@setdefaults}{
+  \pgfkeys{/metropolis/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Base colors}
+%
+%    \begin{macrocode}
+\definecolor{mDarkBrown}{HTML}{604c38}
+\definecolor{mDarkTeal}{HTML}{23373b}
+\definecolor{mLightBrown}{HTML}{EB811B}
+\definecolor{mLightGreen}{HTML}{14B03D}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Base styles}
+%
+% All colors in \themename are derived from the definitions of |normal text|,
+% |alerted text|, and |example text|.
+%
+%    \begin{macrocode}
+\newcommand{\metropolis@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=black!2,
+    bg=mDarkTeal
+  }
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\metropolis@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=mDarkTeal,
+    bg=black!2
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=mLightBrown
+}
+\setbeamercolor{example text}{%
+  fg=mLightGreen
+}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Derived colors}
+%
+% The titles and structural elements (e.g. |itemize| bullets) are set in the
+% same color as |normal text|. This would ideally done by setting |normal text|
+% as a parent style, which we do to set |titlelike|, but this doesn't work for
+% |structure| as its foreground is set explicitly in
+% |beamercolorthemedefault.sty|.
+%
+%    \begin{macrocode}
+\setbeamercolor{titlelike}{use=normal text, parent=normal text}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+%    \end{macrocode}
+%
+% The “primary” palette should be used for the most important navigational
+% elements, and possibly of other elements. \themename uses it for frame
+% titles and slides.
+%
+%    \begin{macrocode}
+\setbeamercolor{palette primary}{%
+  use=normal text,
+  fg=normal text.bg,
+  bg=normal text.fg
+}
+\setbeamercolor{frametitle}{%
+  use=palette primary,
+  parent=palette primary
+}
+%    \end{macrocode}
+%
+% The \themename inner or outer themes optionally display progress
+% bars in various locations. Their color is set by |progress bar| but the two
+% different kinds can be customized separately. The horizontal rule on the
+% title page is also set based on the progress bar color and can be customized
+% with |title separator|.
+%
+%    \begin{macrocode}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!50!black!30
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+%    \end{macrocode}
+%
+% Block environments such as |theorem| and |example| have no background color
+% by default. The option |block=fill| sets a background color based on the
+% background and foreground of |normal text|. The option |block=transparent|
+% reverts the block environments to an empty background, which can be useful
+% if changing colors mid-presentation.
+%
+%    \begin{macrocode}
+\newcommand{\metropolis@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+}
+\newcommand{\metropolis@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.bg!80!fg
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!50!normal text.bg
+  }
+}
+\setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=block title.bg,
+    fg=alerted text.fg
+}
+\setbeamercolor{block title example}{%
+    use={block title, example text},
+    bg=block title.bg,
+    fg=example text.fg
+}
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+%    \end{macrocode}
+%
+% Footnotes
+%
+%    \begin{macrocode}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+%    \end{macrocode}
+%
+% We also reset the bibliography colors in order to pick up the surrounding
+% colors at the time of use. This prevents us having to set the correct color in
+% normal and standout mode.
+%
+%    \begin{macrocode}
+\setbeamercolor{bibliography entry author}{fg=, bg=}
+\setbeamercolor{bibliography entry title}{fg=, bg=}
+\setbeamercolor{bibliography entry location}{fg=, bg=}
+\setbeamercolor{bibliography entry note}{fg=, bg=}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Process package options}
+%
+%    \begin{macrocode}
+\metropolis@color@setdefaults
+\ProcessPgfPackageOptions{/metropolis/color}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\mode<all>
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput

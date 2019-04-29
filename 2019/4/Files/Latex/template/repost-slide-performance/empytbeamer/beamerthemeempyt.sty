@@ -1,0 +1,166 @@
+%% -*- coding: utf-8 -*-
+
+%% epyt: a simple and nice theme for beamer
+%% home: https://github.com/zohooo/epyt
+
+\ProvidesPackage{beamerthemeepyt}[2014/04/08 v0.5]
+
+\mode<presentation>
+
+\DeclareOptionBeamer{color}[black]{\def\beamer@epyt@color{#1}}
+\ProcessOptionsBeamer
+
+%% default theme
+
+\usetheme{default}
+
+%% color theme
+
+\def\beamer@epyt@color@black{black}
+\def\beamer@epyt@color@blue{blue}
+\def\beamer@epyt@color@green{green}
+\def\beamer@epyt@color@white{white}
+
+\definecolor{dgray}{HTML}{202020}
+\definecolor{lgray}{HTML}{404040}
+\definecolor{dblue}{HTML}{0000CC}
+\definecolor{lblue}{HTML}{ABCDEF}
+\definecolor{dgreen}{HTML}{254535}
+\definecolor{ggreen}{HTML}{214131}
+\definecolor{lgreen}{HTML}{A9EFA9}
+\definecolor{dorange}{HTML}{C07000}
+
+\ifx\beamer@epyt@color\beamer@epyt@color@white
+  \setbeamertemplate{background canvas}{}
+  \setbeamertemplate{background}{}
+  \setbeamercolor{normal text}{bg=white,fg=black}
+  \setbeamercolor{structure}{fg=blue}
+  \setbeamercolor{local structure}{fg=lgreen}
+\else\ifx\beamer@epyt@color\beamer@epyt@color@blue
+  \setbeamertemplate{background canvas}[vertical shading][top=black, middle=dblue, bottom=black]
+  \setbeamercolor{normal text}{bg=blue, fg=white}
+  \setbeamercolor{structure}{fg=yellow}
+  \setbeamercolor{local structure}{fg=lblue}
+\else\ifx\beamer@epyt@color\beamer@epyt@color@green
+  \setbeamercolor{background canvas}{bg=dgreen}
+  \setbeamertemplate{background}[grid][step=1mm,color=ggreen]
+  \setbeamercolor{normal text}{bg=dgreen, fg=white}
+  \setbeamercolor{structure}{fg=yellow}
+  \setbeamercolor{local structure}{fg=lgreen}
+  \setbeamercolor{footline}{bg=dorange}
+  \setbeamercolor{navigation symbols}{bg=dorange}
+  \setbeamercolor{navigation symbols dimmed}{fg=dorange}
+\else
+  \setbeamertemplate{background canvas}[vertical shading][top=black, middle=dgray, bottom=lgray]
+  \setbeamercolor{normal text}{bg=black,fg=white}
+  \setbeamercolor{structure}{fg=yellow}
+  \setbeamercolor{local structure}{fg=lblue}
+\fi\fi\fi
+
+\setbeamercolor{title}{fg=structure.fg}
+\setbeamercolor{subtitle}{fg=structure.fg!70!normal text.bg}
+\setbeamercolor{section in toc}{fg=structure.fg!90!normal text.bg}
+\setbeamercolor{subsection in toc}{fg=structure.fg!80!normal text.bg}
+\setbeamercolor{frametitle}{fg=structure.fg!70!normal text.bg}
+\setbeamercolor{theoremname}{fg=structure.fg!60!normal text.bg}
+\setbeamercolor{proofname}{fg=structure.fg!60!normal text.bg}
+\setbeamercolor{footline}{fg=normal text.fg}
+\setbeamercolor{navigation symbols}{fg=normal text.fg}
+\setbeamercolor{navigation symbols dimmed}{fg=normal text.fg}
+
+%% font theme
+
+\setbeamerfont{title}{size=\huge}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\large}
+\setbeamerfont{institute}{size=\normalsize}
+\setbeamerfont{date}{size=\large}
+\setbeamerfont{section in toc}{size=\Large}
+\setbeamerfont{subsection in toc}{size=\large}
+\setbeamerfont{frametitle}{size=\large}
+
+\usefonttheme{professionalfonts} % there is some problem with default math fonts
+
+%% inner theme
+
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}{}
+
+% sections and subsections
+
+\AtBeginSection[]{
+\begin{frame}
+  \begin{center}
+    \usebeamerfont{section in toc}
+    \tableofcontents[sectionstyle=show/hide,subsectionstyle=hide]
+  \end{center}
+\end{frame}
+}
+
+\AtBeginSubsection[]{
+\begin{frame}
+  \begin{beamercolorbox}[wd=\paperwidth,center]{subsection in toc}%
+  \usebeamerfont{subsection in toc}\insertsectionnumber.\insertsubsectionnumber\hspace*{2ex}\insertsubsection%
+  \end{beamercolorbox}%
+\end{frame}
+}
+
+% disable block style for theorems
+
+\setbeamertemplate{theorem begin}
+{%
+  \bfseries\upshape %\inserttheoremheadfont
+  {\usebeamercolor[fg]{theoremname}%
+  \inserttheoremname\inserttheoremnumber
+  \ifx\inserttheoremaddition\@empty\else\ (\inserttheoremaddition)\fi%
+  \inserttheorempunctuation}\quad
+  \normalfont
+}
+\setbeamertemplate{theorem end}{}
+
+
+\setbeamertemplate{proof begin}
+{%
+  \bfseries {\usebeamercolor[fg]{proofname}%
+  \insertproofname}\quad
+  \normalfont
+}
+\setbeamertemplate{proof end}{}
+
+%% outer theme
+
+\setbeamertemplate{frametitle}{\noindent\usebeamerfont{frametitle}\insertframetitle\par}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}
+{
+  \hbox{%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,left]{footline}%
+    \hspace*{1ex}\usebeamerfont{footline}\insertframenumber{}/\inserttotalframenumber
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.6\paperwidth,ht=2.25ex,dp=1ex,center]{footline}%
+    \usebeamerfont{footline}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=2.25ex,dp=1ex,right]{footline}%
+    \usebeamerfont{footline}\hyperlinkframeendprev{$\lhd$}\hspace*{1ex}\hyperlinkframestartnext{$\rhd$}\hspace*{1ex}
+  \end{beamercolorbox}%
+  }%
+}
+
+\mode<handout>{
+  \setbeamertemplate{background canvas}{}
+  \setbeamertemplate{background}{}
+  \setbeamercolor{normal text}{fg=black, bg=white}
+  \setbeamercolor{title}{fg=blue}
+  \setbeamercolor{subtitle}{fg=blue!70!gray}
+  \setbeamercolor{section in toc}{fg=blue!90!gray}
+  \setbeamercolor{subsection in toc}{fg=blue!80!gray}
+  \setbeamercolor{frametitle}{fg=blue!70!gray}
+  \setbeamercolor{theoremname}{fg=blue!60!gray}
+  \setbeamercolor{proofname}{fg=blue!60!gray}
+  \setbeamercolor{footline}{bg=white}
+}
+
+\mode<all>

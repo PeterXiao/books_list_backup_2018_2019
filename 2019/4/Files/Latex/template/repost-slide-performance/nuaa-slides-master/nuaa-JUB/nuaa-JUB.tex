@@ -1,0 +1,127 @@
+% This nuaa-JUB.tex is a latex-beamer template using the JUB beamer theme produced by Billy Okal.
+% URL: https://github.com/makokal/beamer-themes/tree/master/JUB
+% 
+% Copyright (c) 2011-2014, Billy Okal All rights reserved.
+% 
+% Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+% Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+% Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+% Neither the name of the nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+% Required files to compile:
+% 1. automation_logo.pdf
+% 2. beamerthemeJUB.sty
+% 3. bibliography_file.bib
+% 4. jjlogo.pdf
+% 5. large-corner.pdf
+% 6. nuaa.png
+% 7. small-corner.pdf
+
+% \documentclass[handout]{beamer}
+\documentclass[CJKutf8]{beamer}
+
+\usetheme{JUB}
+\usepackage{CJKutf8}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{helvet}
+\usepackage{libertine}
+
+\begin{document}
+\begin{CJK*}{UTF8}{gbsn} % support for Chinese
+
+  \title{Main Title 主标题}
+  \subtitle{Subtitle 副标题} % optional
+  \author{Author 作者}
+  \date{2017\ 06\ 08}
+  \institute{Nanjing University of Aeronautics and Astronautics\\ 南京航空航天大学\\ \url{http://www.nuaa.edu.cn/}} % optional
+
+  \begin{frame}[plain,t]
+    \titlepage
+  \end{frame} % ================================================================
+  
+  \begin{frame}{Table of Contents 目录}
+    \tableofcontents
+  \end{frame} % ================================================================
+  
+  \section{Introduction}
+  \label{Sec:introduction}
+  \begin{frame}{1. Introduction 引言}
+    \framesubtitle{frame subtitle 页面副标题}
+    This nuaa-JUB.tex is a \LaTeX \ Beamer template using the JUB Beamer theme \cite{JUBTheme} produced by Billy Okal.
+
+    \bigskip
+
+    此nuaa-JUB.tex文件是一个使用了Billy Okal制作的JUB Beam主题\cite{JUBTheme}的\LaTeX \ Beamer模板。
+
+    \begin{figure}
+      \begin{center}
+        \includegraphics[scale=0.1]{latex.png}
+      \end{center}
+      \caption{\LaTeX \ beamer}
+      \label{Fig:latex_beamer}
+    \end{figure}
+  \end{frame} % ================================================================
+
+  \section{Mathematical model}
+  \label{Sec:model}
+  \begin{frame}{2. Mathematical model 数学模型}
+    Lists 列表
+
+    \begin{itemize}
+    \item Apple
+    \item Orange
+    \item Banana
+    \end{itemize}
+
+    \begin{enumerate}
+    \item Monday
+    \item Tuesday
+    \item Wednesday
+    \end{enumerate}
+
+    \begin{description}
+    \item[Description list] is a type of list to describe items.
+    \item[Description list] 是一种用于描述的列表。
+    \end{description}
+  \end{frame} % ================================================================
+
+  \section{Empirical experiments}
+  \label{Sec:experiments}
+  \begin{frame}{3. Empirical experiments 实验}
+    Blocks 区块
+
+      \begin{definition}[Pythagorean theorem]
+        The Pythagorean theorem is a fundamental relation in Euclidean geometry among the three sides of a right triangle.
+      \end{definition}
+
+      \begin{theorem}[Pythagorean theorem]
+        $a^2 + b^2 = c^2$
+      \end{theorem}
+  \end{frame} % ================================================================
+
+  \begin{frame}{3. Empirical experiments 实验}
+    Blocks 区块
+
+      \begin{exampleblock}{For example}
+        $3^2 + 4^2 = 5^2$
+      \end{exampleblock}
+
+      \begin{alertblock}{Note}
+         Note that the Pythagorean theorem can only be applied to right triangles.
+      \end{alertblock}
+  \end{frame} % ================================================================
+
+  \begin{frame}
+    \begin{center}
+      \Huge{\bf{Thank you!}}
+    \end{center}
+  \end{frame} % ================================================================
+
+  \bibliographystyle{IEEEtran} % comment this line if nothing is cited
+  \bibliography{bibliography_file} % comment this line if nothing is cited
+
+\end{CJK*}
+\end{document}

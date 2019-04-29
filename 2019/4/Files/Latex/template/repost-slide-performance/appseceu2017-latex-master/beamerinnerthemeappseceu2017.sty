@@ -1,0 +1,113 @@
+%% Copyright (C) 2016,2017 Achim D. Brucker, https://www.brucker.ch
+%%
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%   OR
+%%   The 2-clause BSD-style license.
+%%
+%%   SPDX-License-Identifier: LPPL-1.0+ OR BSD-2-Clause
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+
+\ProvidesPackage{beamerinnerthemeappseceu2017}
+     [2017/04/28 v0.0  LaTeX presentation class mimicking the design of the OWASP AppSecEU 2017 PowerPoint template.]
+\usepackage{transparent}
+\usepackage{tikz}
+\mode<presentation>
+
+\newcommand{\vMaxPhantom}{\vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz}}
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{items}[square] % [circle]
+
+\setbeamertemplate{itemize item}{
+  \tikz{
+    \draw[fill=owaspOrange,draw=none] (0, 0) rectangle(0.1, 0.1);
+    \draw[fill=owaspOrange,draw=none] (0.1, 0.1) rectangle(0.2, 0.2);
+   \draw[fill=owaspOrange,draw=none] (0, 0.2) rectangle(0.1, 0.3);
+  }
+}
+\setbeamertemplate{itemize subitem}{
+  \tikz{
+   \draw[fill=lhDarkGray,draw=none] (0, 0) rectangle(0.075, 0.075);
+    \draw[fill=lhDarkGray,draw=none] (0.075, 0.075) rectangle(0.15, 0.15);
+   \draw[fill=lhDarkGray,draw=none] (0, 0.15) rectangle(0.075, 0.225);
+  }
+}
+\setbeamertemplate{itemize subsubitem}{
+  \tikz{
+    \draw[fill=lhLightGray,draw=none] (0, 0) rectangle(0.075, 0.075);
+    \draw[fill=lhLightGray,draw=none] (0.075, 0.075) rectangle(0.15, 0.15);
+    \draw[fill=lhLightGray,draw=none] (0, 0.15) rectangle(0.075, 0.225);
+  }
+}
+
+
+\defbeamertemplate*{title page}{owasp}[1][]
+{
+  % <background image>
+  \setbox\beamer@tempbox=\vbox to \paperheight {\vfil
+    \hbox to \paperwidth{%
+      \ifx\inserttitlegraphic\@empty%
+      \else%
+      \inserttitlegraphic\hyper@pagetransition\hyper@pageduration%
+      \fi%
+    }%
+    \vfil}%
+    \vbox{\hbox{\hskip-\Gm@lmargin\box\beamer@tempbox\box\@tempboxa}}%
+    \vskip-\paperheight%
+  % </background image>
+  \@tempdima=\paperwidth%
+  \advance\@tempdima by -66mm
+  \advance\@tempdima by 0mm
+  \@tempdimb=\paperheight
+  \advance\@tempdimb by -61mm
+  \@tempdimc=\paperwidth%
+  \advance\@tempdimc by -6mm
+  \advance\@tempdimc by 0mm
+  %\mbox{}\vspace{-8mm}
+  %\begin{beamercolorbox}[ht=1mm,sep=.1cm,wd=\@tempdima]{titlerule}
+  %\end{beamercolorbox}
+  %\mbox{}\vspace{-6mm}
+  \begin{beamercolorbox}[ht=10mm,sep=.2cm,ignorebg,wd=\@tempdima]{titlerule}
+  \end{beamercolorbox}
+  \mbox{}\vspace{-5mm}{\transparent{.80}\mbox{}%
+  \hspace{-1cm}\begin{beamercolorbox}[ht=44mm,sep=.2cm,center,wd=\@tempdima]{titleframe}
+    {\usebeamercolor[fg]{title}\usebeamerfont{title}\inserttitle\par}%
+    \ifx\insertsubtitle\@empty%
+      \vskip0.1em%
+      {\usebeamerfont{subtitle}\vMaxPhantom\par}%
+    \else%
+      \vskip0.1em%
+      {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\vMaxPhantom\par}%
+    \fi%
+    \vbox{}
+    \vfill
+     \begin{beamercolorbox}[sep=4pt,center,wd=1.1\@tempdima,#1]{author}
+     \usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor
+     \end{beamercolorbox}
+     \begin{beamercolorbox}[sep=4pt,center,wd=1.1\@tempdima,#1]{institute}
+       \usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute
+     \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=4pt,center,wd=1.1\@tempdima,#1]{date}
+      \usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate
+    \end{beamercolorbox}
+  \end{beamercolorbox}
+  \vspace{2mm}}
+  \begin{beamercolorbox}[ht=\@tempdimb,wd=\@tempdima,ignorebg]{lhWhite}
+  \end{beamercolorbox}
+    \vspace{1mm}
+  \begin{beamercolorbox}[wd=\@tempdimc,ignorebg]{lhWhite}
+      \raisebox{-\fboxsep}{{\setlength{\fboxsep}{0pt}
+     \begin{picture}(0,0)
+        \put(-10,-4){\colorbox{lhWhite}{\quad\vbox to 10mm{\vfil\hbox to 44mm{\lhcomLogoLight[width=42mm]\enspace}\vfil}}}
+     \end{picture}}}%
+    \hfill%
+    {\partnerLogo[height=4mm]}%
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=16mm,sep=.2cm,wd=\@tempdima,ignorebg]{titlerule}
+  \end{beamercolorbox}
+}
+
+\mode<all>

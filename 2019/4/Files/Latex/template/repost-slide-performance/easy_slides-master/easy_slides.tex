@@ -1,0 +1,138 @@
+% !TeX root = ./easy_slides.tex
+% !TeX program = xelatex
+\documentclass[UTF8, zihao = 5]{article}
+
+\input{./global_setup/packages}
+\input{./global_setup/macros}
+\input{./global_setup/settings}
+\usepackage{textcomp}
+
+\iffalse % Windows
+  \setCJKmainfont[Mapping = fullwidth-stop, ItalicFont = KaiTi, BoldFont = SimHei]
+                  {SimSun}
+  \setCJKsansfont[Mapping = fullwidth-stop]
+                  {SimHei}
+  \setCJKmonofont[Mapping = fullwidth-stop]
+                  {FangSong}
+\else % macOS
+  \setCJKmainfont[Mapping = fullwidth-stop,
+                  BoldFont = HiraginoSansGB-W6, ItalicFont = STKaiti]
+                  {HiraginoSansGB-W3}
+  \setCJKsansfont[Mapping = fullwidth-stop,
+                  BoldFont = PingFangSC-Semibold]
+                  {PingFangSC-Regular}
+  \setCJKmonofont[Mapping = fullwidth-stop]{STFangsong}
+\fi
+
+\title{标题}
+\newcommand{\authorname}{作者}
+\author{\authorname}
+\date{\today}
+
+\begin{document}
+\makefrontpage
+\FullPageBGPicture{book-bg.jpg}  % 设置底图
+
+\section{示例}
+\subsection{表格示例}
+
+\begin{tabu} to \linewidth{X[1,c]X[2,c]X[1.5,c]}
+\toprule
+部门 & 团队 & 职位 \\
+\midrule
+搜索事业部 & 引擎策略部 & 机器学习工程师 \\
+\bottomrule
+\end{tabu}
+
+\clp  % 换页
+
+\subsection{算法伪代码示例}
+
+假设弱学习器 $f$ 的一般形式记作 $f = h(\vx; \vec a)$，此处 $\vec a$ 是待确定的参数。
+
+\begin{algorithm}[!htbp]
+  \scriptsize
+  \caption{Gradient and Line Search}\label{alg:GALS}
+  \begin{algorithmic}[1]
+    \Procedure{Gradient and Line Search}{$S = \{(\vec{x}, y)\}$, $N = \lvert S\rvert$, $m$}
+      \For{$i: 1 \to N$}
+      \Comment{Get Gradients for each sample point.}
+        \State{$g_i \gets \frac{\partial L\bigl(F_{m - 1}(\vx_i)\bigr)}{\partial F_{m - 1}(\vx_i)}$}
+      \EndFor
+      \State{$\vec g \gets \{g_1, g_2, \ldots, g_N\}$}
+      \State{$\vec a^* \gets \argmin_{\vec a} \sum_{i = 1}^{N}\bigl[l\bigl(-g_i, h(\vx_i; \vec a)\bigr)\bigr]$}
+      \State{$\rho^{*} \gets \argmin_{\rho}\bigl[L(F_{m - 1} + \rho\cdot h(\vx; \vec a^{*}))\bigr]$}
+      \State{\Return{$f\gets\rho^{*}\cdot h(\vx; \vec a^{*})$}}
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
+
+\clp  % 换页
+
+\subsection{程序代码示例}
+
+\begin{lstlisting}[style = lcpp, caption = {快速排序主函数}]
+template <typename BidirIter,
+typename T = typename std::iterator_traits<BidirIter>::value_type,
+typename Compare = std::less<T>>
+void quick_sort(BidirIter first, BidirIter last, Compare comp = Compare()) {
+  for (auto size = std::distance(first, last); size > 1; size = std::distance(first, last)) {
+    T pivot = median(first, last - 1, first + size / 2, comp);
+    auto eq = inplace_partition(first, last, pivot, comp);
+    quick_sort(first, eq.first, comp);
+    first = eq.second;  // Liam Huang: economize around half of recursive calling.
+  }
+}
+\end{lstlisting}
+
+\clp  % 换页
+
+\subsection{插图示例}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale = 0.45]{l1-l2-sl.png}
+  \caption{$L_1$ 与 $L_2$ 范数等高线图}
+\end{figure}
+
+\clp  % 换页
+
+\subsection{分屏及罗列示例}
+
+\begin{minipage}{0.5\linewidth}
+  \begin{itemize}
+    \item 无编号地罗列
+    \item 继续
+    \item 再继续
+    \begin{enumerate}
+      \item 嵌套中的有编号地罗列
+      \item 继续
+      \item 再继续
+    \end{enumerate}
+  \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+  \begin{enumerate}
+    \item 有编号地罗列
+    \item 继续
+    \begin{itemize}
+      \item 嵌套中的无编号地罗列
+      \item 继续
+      \item 再继续
+    \end{itemize}
+    \item 再继续
+  \end{enumerate}
+\end{minipage}
+
+\clp  % 末页
+\thispagestyle{empty}
+\FullPageBGPicture{book-bg.jpg}  % 设置底图
+\null\vfill
+
+\centering
+\scalebox{3}{谢谢！}
+
+\vfill\null
+
+\clp
+\end{document}

@@ -1,0 +1,404 @@
+%-----------------------------------------------------------------------
+% 中国科学: 信息科学 中文模板, 请用 CCT & LaTeX 编译
+% 请作者注意: 在整篇文章中, 不要使用任何改变文章版式的命令, 谢谢.
+%-----------------------------------------------------------------------
+
+\documentclass{SCIS2015cn}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 作者附加的定义
+%%% 常用环境已经加载好, 不需要重复加载
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 开始
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Authors do not modify the information below
+%%% 作者不需要修改此处信息
+\ArticleType{20truemm}{论~~~文}{}
+\Year{2014}
+\Vol{44}
+\No{1}
+\BeginPage{1}
+\EndPage{?}
+\DOI{xxxxxxxx}
+\ReceiveDate{xxxxxxxx}
+\AcceptDate{xxxxxxxx}
+\OnlineDate{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 标题部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 标题 \title{正文标题}{引用的标题}
+\title{正文标题}{引用的标题}
+
+%%% 英文题目, 只有第一个单词的首字母大写, 其余单词非专有名词全部小写
+\entitle{Title}
+
+
+%%% 通信作者 \author[number]{姓名}{{abc@xxxx.xxx}}
+%%% 一般作者 \author[number]{姓名}{}
+%%% 使用带圈标号 \ding{172},\ding{173},\ding{174},\ding{175},\ding{176}
+\author[\ding{172}\ding{173}]{姓名}{{abc@xxxx.xxx}}
+\author[\ding{173}]{姓名}{}
+
+%%% 英文作者, 每行一个, []中写地址编号(1,2,3等), 与中文对应
+%%% 姓的拼音字母全部大写, 名的拼音首字母大写
+%%% 通信作者 \enauthor[number]{AAA BbbCcc}{{abc@xxxx.xxx}}
+%%% 一般作者 \enauthor[number]{AAA BbbCcc}{}
+\enauthor[1,2]{AAA BbbCcc}{{abc@xxxx.xxx}}
+\enauthor[2]{AAA BbbCcc}{}
+
+
+%%% 地址 \address[number]{地址, 城市 邮编}
+\address[\ding{172}]{地址, 城市 000000}
+\address[\ding{173}]{地址, 城市 000000}
+
+%%% 英文地址, 每行一个, []中写地址编号(1,2,3等), 与中文对应, 需要写国家
+%%% \enaddress[number]{Address, City {\rm 000000}, Country}
+\enaddress[1]{Address, City {\rm 000000}, Country}
+\enaddress[2]{Address, City {\rm 000000}, Country}
+
+
+%%% 项目资助信息
+%%% 国家自然科学基金 (批准号: 0000000, 0000000, 00000000),
+%%% 国家高技术研究发展计划 (863计划) (批准号: 0000000, 0000000, 00000000) 和
+%%% 国家重点基础研究发展计划 (973计划) (批准号: 0000000, 0000000, 00000000) 资助项目
+\Foundation{}
+
+%%% 页眉中的作者信息 \AuthorMark{第一作者等}
+%%% 若只有一个作者去掉"等"
+\AuthorMark{姓名等}
+
+%%% 引用中的作者信息 \AuthorCitation{第一作者, 第二作者, 第三作者, 等}
+%%% 少于三个作者去掉"等"
+\AuthorCitation{姓名, 姓名}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 摘要和关键词
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 中文摘要
+\abstract{}
+
+%%% 英文摘要
+\enabstract{}
+
+
+%%% 中文关键词, \keywords{...\quad ...\quad ...\quad ...\quad ...}
+%%% 多个关键词之间用\quad隔开
+%%% 要求5-8个, 请尽量补充EI数据库中的受控词为关键词, 谢谢!
+\keywords{}
+
+%%% 英文关键词, \enkeywords{..., ..., ..., ..., ...}
+%%% 非专有名词全部小写, 与中文对应
+\enkeywords{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 正文部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{引言}
+
+正文开始...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 致谢, 非必选
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\Acknowledgements{致谢.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料说明, 非必选
+%%% 有补充材料时请添加补充材料说明, 例如图S1~S5
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\Supplements{图S1$\sim$S5.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 参考文献, {}为引用的标签, 数字/字母均可
+%%% 文中上标引用: \upcite{1,2}
+%%% 文中正常引用: \cite{1,2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{thebibliography}{99}
+
+% 专著
+% 作者名. 书名. 版次(第一版不用列出). 出版社所在城市名: 出版社名, 出版年份. 起止页码
+\bibitem{1}Gaydon A G, Wolfhard H G. Flames. 2nd ed. London: Chapman and Hall Ltd, 1960. 30--35
+
+% 期刊
+% 作者名. 文章题目(用小写字母). 期刊名, 年份, 卷号: 起止页码
+\bibitem{2}Xu Y B, Shen L S, Susan R M. Extension of the rice DH population genetic map with microsatellite markers. Chin Sci Bull, 1998, 43:149--153
+\bibitem{3}Hutton B. Product of fuzzy topological space. Topology Appl, 1980, 11: 59--61
+\bibitem{4}Wang K J, Zhang J Y, Li D, et al. Adaptive affinity propagation clustering. Act Autom Sin, 2007, 33: 1242--1246 [王开军, 张军英, 李丹, 等. 自适应仿射传播聚类. 自动化学报, 2007, 33: 1242--1246]
+
+% 论文集
+% 作者名. 文章题目. In: 编者名, eds. 论文集名称. 出版社所在城市名: 出版社名, 出版年份. 起止页码
+\bibitem{5}Polito V S. Calmodulin and calmodulin inhibitors: effect on pollen germination and tube growth. In: Mulvshy D L, Ottaviaro E, eds. Pollen: Biology and Implication for Plant Breeding. New York: Elsevier, 1983. 53--60
+
+% 会议论文集 (必须是正式出版的, 否则只能作为脚注)
+% 作者名. 文章题目. In: Proceedings of 会议名称. 出版社所在城市名: 出版社名, 出版年份. 起止页码
+% 作者名. 文章题目. In: Proceedings of 会议名称, 会议地点, 会议年份. 起止页码
+\bibitem{6}Dmtriev V. Complete tables of the second rank constitutive tensors for linear homogeneous bianisotropic media described by point magnetic groups of symmetry and some general properties of the media. In: Proceedings of IEEE MTT-S IMOC' 99. Berlin: Springer, 2000. 435--439
+
+% 学位论文
+% 作者名. 文题. 学位. 学校所在城市名: 学校名, 年份
+\bibitem{7}Wang X M. Study on Data Visualization Methods and Related Techniques for Clustering. Dissertation for Ph.D. Degree. Beijing: Tsinghua University, 2006 [王晓明. 面向聚类的数据可视化方法及相关技术研究. 博士学位论文. 北京: 清华大学, 2006]
+
+% 技术报告
+% 作者名. 报告名. 报告编号. 年份
+\bibitem{8}Phillips N A. The Nested Grid Model. NOAA Technical Report NWS22. 1979
+
+% 专利文献
+% 作者名. 专利国籍, 专利号
+\bibitem{9}Plank C J, Posinski E J. US Patent, 4 081 490, 1978-02-15
+
+% 使用手册
+% 作者名. 手册名及版本号, 年份
+\bibitem{10}Wang D L, Zhu J, Li Z K, et al. User Manual for QTKMapper Version 1.6, 1999
+
+\end{thebibliography}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 附录章节, 非必选
+%%% 自动从A编号, 以\section开始一节
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{appendix}
+%\section{appendix1}
+
+%\end{appendix}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 自动生成英文标题部分
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeentitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 主要作者英文简介, 数量不超过4个
+%%% \authorcv[照片文件名]{姓名}{英文介绍}
+%%% [照片文件名]请提供清晰的一寸浅色背景照片, 宽高比为 25:35
+%%% {姓名}与英文标题处一致
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcv[]{}{}
+
+\authorcv[]{}{}
+
+%\vspace*{6mm} % 调整照片行间距
+
+\authorcv[]{}{}
+
+\authorcv[]{}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 补充材料, 以补充材料形式作网络在线, 不出现在印刷版中
+%%% 自动从I编号, 以\section开始一节
+%%% 可以没有\section
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{supplement}
+%\section{supplement1}
+
+%\end{supplement}
+
+\end{document}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 本模板使用的latex排版示例
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% 章节
+\section{}
+\subsection{}
+\subsubsection{}
+
+
+%%% 列表
+\begin{itemize}
+\item Aaa aaa.
+\item Bbb bbb.
+\item Ccc ccc.
+\end{itemize}
+
+
+%%% 定义、定理、引理、推论
+%%% []中的名称可以省略
+\definition[定义名]{定义内容.}
+\theorem[定理名]{定理内容.}
+\lemma[引理名]{引理内容.}
+\corollary[推论名]{推论内容.}
+
+%%% 若使用定理样式的其他前缀
+%%% 在 "作者附加的定义" 处加入\newtheorem命令, 例如
+%%% "定理" 是由以下命令定义的
+\newtheorem{theorem}{定理}
+
+
+%%% 单图
+%%% 可在文中使用图\ref{fig1}引用图编号
+\begin{figure}[!t]
+\centering
+\includegraphics{fig1.eps}
+\cnenfigcaption{中文图题}{Caption}
+\label{fig1}
+\end{figure}
+
+%%% 并排图
+%%% 可在文中使用图\ref{fig1}、图\ref{fig2}引用图编号
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{fig2.eps}
+\end{minipage}\\[3mm]
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题1}{Caption1}
+\label{fig1}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\cnenfigcaption{中文图题2}{Caption2}
+\label{fig2}
+\end{minipage}
+\end{figure}
+
+%%% 并排子图
+%%% 需要英文分图题 (a)...; (b)...
+\begin{figure}[!t]
+\centering
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig1.eps}
+\end{minipage}
+\hspace{0.02\textwidth}
+\begin{minipage}[c]{0.48\textwidth}
+\centering
+\includegraphics{subfig2.eps}
+\end{minipage}
+\cnenfigcaption{中文图题}{Caption. (a) Subfig1 caption; (b) subfig2 caption}
+\label{fig1}
+\end{figure}
+
+%%% 算法
+%%% 可在文中使用 算法\ref{alg1} 引用算法编号
+\begin{algorithm}
+\footnotesize
+\caption{算法标题}
+\label{alg1}
+\begin{algorithmic}
+    \REQUIRE $n \geq 0 \vee x \neq 0$;
+    \ENSURE $y = x^n$;
+    \STATE $y \Leftarrow 1$;
+    \IF{$n < 0$}
+        \STATE $X \Leftarrow 1 / x$;
+        \STATE $N \Leftarrow -n$;
+    \ELSE
+        \STATE $X \Leftarrow x$;
+        \STATE $N \Leftarrow n$;
+    \ENDIF
+    \WHILE{$N \neq 0$}
+        \IF{$N$ is even}
+            \STATE $X \Leftarrow X \times X$;
+            \STATE $N \Leftarrow N / 2$;
+        \ELSE[$N$ is odd]
+            \STATE $y \Leftarrow y \times X$;
+            \STATE $N \Leftarrow N - 1$;
+        \ENDIF
+    \ENDWHILE
+\end{algorithmic}
+\end{algorithm}
+
+%%% 简单表格
+%%% 可在文中使用 表\ref{tab1} 引用表编号
+\begin{table}[!t]
+\footnotesize
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\tabcolsep 10pt %space between two columns. 用于调整列间距
+\begin{tabular*}{\textwidth}{cccc}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+  Aaa & Bbb & Ccc & Ddd\\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+%%% 换行表格
+\begin{table}[!t]
+\footnotesize
+\cnentablecaption{表题}{Caption}
+\label{tab1}
+\def\tabblank{\hspace*{10mm}} %blank leaving of both side of the table. 左右两边的留白
+\begin{tabularx}{\textwidth} %using p{?mm} to define the width of a column. 用p{?mm}控制列宽
+{@{\tabblank}@{\extracolsep{\fill}}cccp{100mm}@{\tabblank}}
+\toprule
+  Title a & Title b & Title c & Title d \\\hline
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.
+
+  Ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+  Aaa & Bbb & Ccc & Ddd ddd ddd ddd.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%%% 单行公式
+%%% 可在文中使用 (\ref{eq1})式 引用公式编号
+%%% 如果是句子开头, 使用 公式(\ref{eq1}) 引用
+\begin{equation}
+A(d,f)=d^{l}a^{d}(f),
+\label{eq1}
+\end{equation}
+
+%%% 不编号的单行公式
+\begin{equation}
+\nonumber
+A(d,f)=d^{l}a^{d}(f),
+\end{equation}
+
+%%% 公式组
+\begin{eqnarray}
+\nonumber
+&X=[x_{11},x_{12},\ldots,x_{ij},\ldots ,x_{n-1,n}]^{\rm T},\\
+\nonumber
+&\varepsilon=[e_{11},e_{12},\ldots ,e_{ij},\ldots ,e_{n-1,n}],\\
+\nonumber
+&T=[t_{11},t_{12},\ldots ,t_{ij},\ldots ,t_{n-1,n}].
+\end{eqnarray}
+
+%%% 条件公式
+\begin{eqnarray}
+\sum_{j=1}^{n}x_{ij}-\sum_{k=1}^{n}x_{ki}=
+\left\{
+\begin{aligned}
+1,&\quad i=1,\\
+0,&\quad i=2,\ldots ,n-1,\\
+-1,&\quad i=n.
+\end{aligned}
+\right.
+\label{eq1}
+\end{eqnarray}
+
+%%% 其他格式
+\footnote{Comments.} %footnote. 脚注
+\raisebox{-1pt}[0mm][0mm]{xxxx} %put xxxx upper or lower. 控制xxxx的垂直位置

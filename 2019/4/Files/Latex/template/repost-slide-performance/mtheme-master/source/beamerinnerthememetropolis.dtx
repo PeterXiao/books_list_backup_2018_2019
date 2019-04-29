@@ -1,0 +1,607 @@
+% \iffalse meta-comment -------------------------------------------------------
+% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+% contributors can be found at
+%
+%     https://github.com/matze/mtheme/graphs/contributors
+%
+% and the original template was based on the HSRM theme by Benjamin Weiss.
+%
+% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+% ------------------------------------------------------------------------- \fi
+% \iffalse
+%<*package>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerinnerthememetropolis}[2017/01/23 Metropolis inner theme]
+%</package>
+% \fi
+% \CheckSum{0}
+% \StopEventually{}
+% \iffalse
+%<*package>
+% ------------------------------------------------------------------------- \fi
+%
+% \subsection{\themename inner theme}
+%
+% A |beamer| inner theme dictates the style of the frame elements traditionally
+% set in the ``body'' of each slide. These include:
+%
+% \begin{itemize}
+%   \item title, part, and section pages;
+%   \item itemize, enumerate, and description environments;
+%   \item block environments including theorems and proofs;
+%   \item figures and tables; and
+%   \item footnotes and plain text.
+% \end{itemize}
+%
+%
+%
+% \subsubsection{Package dependencies}
+%
+%    \begin{macrocode}
+\RequirePackage{etoolbox}
+\RequirePackage{keyval}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\RequirePackage{tikz}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Options}
+%
+% \begin{macro}{sectionpage}
+%    Optionally add a slide marking the beginning of each section.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/inner/sectionpage/.cd,
+    .is choice,
+    none/.code=\metropolis@disablesectionpage,
+    simple/.code={\metropolis@enablesectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\metropolis@enablesectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subsectionpage}
+%    Optionally add a slide marking the beginning of each subsection.
+%    \begin{macrocode}
+\pgfkeys{
+  /metropolis/inner/subsectionpage/.cd,
+    .is choice,
+    none/.code=\metropolis@disablesubsectionpage,
+    simple/.code={\metropolis@enablesubsectionpage
+                  \setbeamertemplate{section page}[simple]},
+    progressbar/.code={\metropolis@enablesubsectionpage
+                       \setbeamertemplate{section page}[progressbar]},
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\metropolis@inner@setdefaults}
+% Set default values for inner theme options.
+%    \begin{macrocode}
+\newcommand{\metropolis@inner@setdefaults}{
+  \pgfkeys{/metropolis/inner/.cd,
+    sectionpage=progressbar,
+    subsectionpage=none
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Title page}
+%
+% \begin{macro}{title page}
+% Template for the title page. Each element is only typset if it is defined
+% by the user. If |\subtitle| is empty, for example, it won't leave a blank
+% space on the title slide.
+%    \begin{macrocode}
+\setbeamertemplate{title page}{
+  \begin{minipage}[b][\paperheight]{\textwidth}
+    \ifx\inserttitlegraphic\@empty\else\usebeamertemplate*{title graphic}\fi
+    \vfill%
+    \ifx\inserttitle\@empty\else\usebeamertemplate*{title}\fi
+    \ifx\insertsubtitle\@empty\else\usebeamertemplate*{subtitle}\fi
+    \usebeamertemplate*{title separator}
+%    \end{macrocode}
+%
+% Beamer's definition of |\insertauthor| is always nonempty, so we have
+% to test another macro initialized by |\author{...}| to see if the user has
+% defined an author. This solution was suggested by Enrico Gregorio in an
+% answer to \href{https://tex.stackexchange.com/questions/241306/}{this
+% Stack Exchange question}.
+%
+%    \begin{macrocode}
+    \ifx\beamer@shortauthor\@empty\else\usebeamertemplate*{author}\fi
+    \ifx\insertdate\@empty\else\usebeamertemplate*{date}\fi
+    \ifx\insertinstitute\@empty\else\usebeamertemplate*{institute}\fi
+    \vfill
+    \vspace*{1mm}
+  \end{minipage}
+}
+%    \end{macrocode}
+% \end{macro}%
+%
+% Normal people should use |\maketitle| or |\titlepage| instead of using the
+% |title page| beamer template directly. Beamer already defines these macros,
+% but we patch them here to make the title page |[plain]| by default, remove
+% |\@thanks|, and ensure the title frame number doesn't count.
+%
+% \begin{macro}{\maketitle}
+% \begin{macro}{\titlepage}
+%
+%   Inserts the title frame, or causes the current frame to use the
+%   |title page| template.
+%
+%    \begin{macrocode}
+\def\maketitle{%
+  \ifbeamer@inframe
+    \titlepage
+  \else
+    \frame[plain,noframenumbering]{\titlepage}
+  \fi
+}
+\def\titlepage{%
+  \usebeamertemplate{title page}
+}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{title graphic}
+%   Set the title graphic in a zero-height box, so it doesn't change the
+%   position of other elements.
+%    \begin{macrocode}
+\setbeamertemplate{title graphic}{
+  \vbox to 0pt {
+    \vspace*{2em}
+    \inserttitlegraphic%
+  }%
+  \nointerlineskip%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{title}
+%   Set the title on the title page.
+%    \begin{macrocode}
+\setbeamertemplate{title}{
+  \raggedright%
+  \linespread{1.0}%
+  \inserttitle%
+  \par%
+  \vspace*{0.5em}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subtitle}
+%   Set the subtitle on the title page.
+%    \begin{macrocode}
+\setbeamertemplate{subtitle}{
+  \raggedright%
+  \insertsubtitle%
+  \par%
+  \vspace*{0.5em}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{title separator}
+%   Template to set the title graphic in a zero-height box. (It won't
+%   change the position of other elements.)
+%    \begin{macrocode}
+\newlength{\metropolis@titleseparator@linewidth}
+\setlength{\metropolis@titleseparator@linewidth}{0.4pt}
+\setbeamertemplate{title separator}{
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[fg] (0,0) rectangle (\textwidth, \metropolis@titleseparator@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+  \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{author}
+%   Set the author on the title page.
+%    \begin{macrocode}
+\setbeamertemplate{author}{
+  \vspace*{2em}
+  \insertauthor%
+  \par%
+  \vspace*{0.25em}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{date}
+%   Set the date on the title page.
+%    \begin{macrocode}
+\setbeamertemplate{date}{
+  \insertdate%
+  \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{institute}
+%   Set the institute on the title page.
+%    \begin{macrocode}
+\setbeamertemplate{institute}{
+  \vspace*{3mm}
+  \insertinstitute%
+  \par%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Section page}
+%
+% \begin{macro}{section page}
+%
+%   Template for the section title slide at the beginning of each section.
+%
+%    \begin{macrocode}
+\defbeamertemplate{section page}{simple}{
+  \begin{center}
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\par
+    \ifx\insertsubsectionhead\@empty\else
+      \usebeamercolor[fg]{subsection title}
+      \usebeamerfont{subsection title}
+      \insertsubsectionhead
+    \fi
+  \end{center}
+}
+\defbeamertemplate{section page}{progressbar}{
+  \centering
+  \begin{minipage}{22em}
+    \raggedright
+    \usebeamercolor[fg]{section title}
+    \usebeamerfont{section title}
+    \insertsectionhead\\[-1ex]
+    \usebeamertemplate*{progress bar in section page}
+    \par
+    \ifx\insertsubsectionhead\@empty\else%
+      \usebeamercolor[fg]{subsection title}%
+      \usebeamerfont{subsection title}%
+      \insertsubsectionhead
+    \fi
+  \end{minipage}
+  \par
+  \vspace{\baselineskip}
+}
+\newcommand{\metropolis@disablesectionpage}{
+  \AtBeginSection{
+    % intentionally empty
+  }
+}
+\newcommand{\metropolis@enablesectionpage}{
+  \AtBeginSection{
+    \ifbeamer@inframe
+      \sectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\sectionpage}
+    \fi
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{subsection page}
+%
+%   Template for the subsection title slide that can optionally be added to
+%   at the beginning of each subsection.
+%
+%    \begin{macrocode}
+\setbeamertemplate{subsection page}{%
+  \usebeamertemplate*{section page}
+}
+\newcommand{\metropolis@disablesubsectionpage}{
+  \AtBeginSubsection{
+    % intentionally empty
+  }
+}
+\newcommand{\metropolis@enablesubsectionpage}{
+  \AtBeginSubsection{
+    \ifbeamer@inframe
+      \subsectionpage
+    \else
+      \frame[plain,c,noframenumbering]{\subsectionpage}
+    \fi
+  }
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{progress bar in section page}
+%
+%   Template for the progress bar displayed by default on the section page.
+%   This code is duplicated in large part in the outer theme's template
+%   |progress bar in head/foot|.
+%
+%    \begin{macrocode}
+\newlength{\metropolis@progressonsectionpage}
+\newlength{\metropolis@progressonsectionpage@linewidth}
+\setlength{\metropolis@progressonsectionpage@linewidth}{0.4pt}
+\setbeamertemplate{progress bar in section page}{
+  \setlength{\metropolis@progressonsectionpage}{%
+    \textwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \tikzexternaldisable%
+  \begin{tikzpicture}
+    \fill[bg] (0,0) rectangle (\textwidth, \metropolis@progressonsectionpage@linewidth);
+    \fill[fg] (0,0) rectangle (\metropolis@progressonsectionpage, \metropolis@progressonsectionpage@linewidth);
+  \end{tikzpicture}%
+  \tikzexternalenable%
+}
+%    \end{macrocode}
+%
+%   The above code assumes that |\insertframenumber| is less than or equal to
+%   |\inserttotalframenumber|. However, this is not true on the first compile;
+%   in the absence of an |.aux| file, |\inserttotalframenumber| defaults to 1.
+%   This behaviour could cause fatal errors for long presentations, as
+%   |\metropolis@progressonsectionpage| would exceed \TeX's maximum length
+%   (16383.99999pt, roughly 5.75 metres or 18.9 feet).
+%   To avoid this, we increase the default value for |\inserttotalframenumber|;
+%   presentations with over 4000 slides will still break on first compile, but
+%   users in that situation likely have deeper problems to solve.
+%
+%    \begin{macrocode}
+\def\inserttotalframenumber{100}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Block environments}
+%
+%
+% \begin{macro}{block}
+% \begin{macro}{block alerted}
+% \begin{macro}{block example}
+%
+%    The three different block environments differ only in their colours.
+%    Rather than repeat the essentially the same template three times, we use
+%    the auxiliary macro |\metropolis@block| to define all three templates.
+%
+%    \begin{macrocode}
+\newlength{\metropolis@blocksep}
+\newlength{\metropolis@blockadjust}
+\setlength{\metropolis@blocksep}{0.75ex}
+\setlength{\metropolis@blockadjust}{0.25ex}
+\providecommand{\metropolis@strut}{%
+  \vphantom{ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz()}%
+}
+\newcommand{\metropolis@block}[1]{
+  \par\vskip\medskipamount%
+  \setlength{\parskip}{0pt}
+%    \end{macrocode}
+%
+%    If a background color is defined for the block title or body, we need to
+%    add a little bit of padding to the corresponding box. Ideally, this would
+%    be accomplished by setting |colsep=0.75ex|, which is intended to add
+%    ``color separation space'' only when the box has a colored background.
+%    Unfortunately, |colsep| also adds this separation if the background color
+%    is inherited, even if the inherited color is actually empty.
+%    (The technical reason for this boils down to the fact that the |\ifx|
+%    directive does not expand macros.)
+%
+%    To achieve the correct spacing for |alertblock|s and |exampleblock|s
+%    as well as for normal blocks, we have to begin the |beamercolorbox|
+%    differently based on whether |block title| has an empty background.
+%
+%    If the |block title| background is empty, or the user has explicitly
+%    removed the background from (e.g.) |block title alerted|, we just need to
+%    set a rightskip for a nice ragged-right block title.
+%
+%    \begin{macrocode}
+  \ifbeamercolorempty[bg]{block title#1}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}}{%
+  \ifbeamercolorempty[bg]{block title}{%
+    \begin{beamercolorbox}[rightskip=0pt plus 4em]{block title#1}%
+  }%
+%   \end{macrocode}
+%
+%   Otherwise, if the |block title| has a background, we set the padding based
+%   on |\metropolis@blockskip|. However, we have to visually compensate for
+%   the |\metropolis@strut| added to the block title (see below) by
+%   subtracting |\metropolis@blockadjust| from the top and bottom padding.
+%
+%   \begin{macrocode}
+  {%
+    \begin{beamercolorbox}[
+      sep=\dimexpr\metropolis@blocksep-\metropolis@blockadjust\relax,
+      leftskip=\metropolis@blockadjust,
+      rightskip=\dimexpr\metropolis@blockadjust plus 4em\relax
+    ]{block title#1}%
+  }}%
+%   \end{macrocode}
+%
+%   We can now set the contents of the |block title|. The zero-width but
+%   positive-height box |\metropolis@strut| ensures that the block title box
+%   has a consistent height, even if it lacks punctuation, ascenders, or
+%   descenders.
+%
+%   \begin{macrocode}
+      \usebeamerfont*{block title#1}%
+      \metropolis@strut%
+      \insertblocktitle%
+      \metropolis@strut%
+  \end{beamercolorbox}%
+%   \end{macrocode}
+%
+%   Next, we typeset the |block body|. This the code is similar to, but simpler
+%   than, the |block title| code since we don't need to adjust for any struts.
+%
+%   \begin{macrocode}
+  \nointerlineskip%
+  \ifbeamercolorempty[bg]{block body#1}{%
+    \begin{beamercolorbox}[vmode]{block body#1}}{
+  \ifbeamercolorempty[bg]{block body}{%
+    \begin{beamercolorbox}[vmode]{block body#1}%
+  }{%
+    \begin{beamercolorbox}[sep=\metropolis@blocksep, vmode]{block body#1}%
+    \vspace{-\metropolis@parskip}
+  }}%
+      \usebeamerfont{block body#1}%
+      \setlength{\parskip}{\metropolis@parskip}%
+}
+%    \end{macrocode}
+%
+%    This concludes the auxiliary macro |\metropolis@block|. Finally,
+%    we define the block beamer templates using this macro.
+%
+%    \begin{macrocode}
+\setbeamertemplate{block begin}{\metropolis@block{}}
+\setbeamertemplate{block alerted begin}{\metropolis@block{ alerted}}
+\setbeamertemplate{block example begin}{\metropolis@block{ example}}
+\setbeamertemplate{block end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block alerted end}{\end{beamercolorbox}\vspace*{0.2ex}}
+\setbeamertemplate{block example end}{\end{beamercolorbox}\vspace*{0.2ex}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+%
+% \subsubsection{Lists and floats}
+%
+%    \begin{macrocode}
+\setbeamertemplate{itemize items}{\textbullet}
+\setbeamertemplate{caption label separator}{: }
+\setbeamertemplate{caption}[numbered]
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Footnotes}
+%    \begin{macrocode}
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent%
+  \raggedright
+  \usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Text and spacing settings}
+%
+%    \begin{macrocode}
+\newlength{\metropolis@parskip}
+\setlength{\metropolis@parskip}{0.5em}
+\setlength{\parskip}{\metropolis@parskip}
+\linespread{1.15}
+%    \end{macrocode}
+%
+% By default, Beamer frames offer the |c| option to \textit{almost} vertically
+% center the text, but the placement is a little too high. To fix this, we
+% redefine the |c| option to equalize |\beamer@frametopskip| and
+% |\beamer@framebottomskip|. This solution was suggested by Enrico Gregorio in
+% an answer to \href{http://tex.stackexchange.com/questions/247826/}{this
+% Stack Exchange question}.
+%
+%    \begin{macrocode}
+\define@key{beamerframe}{c}[true]{% centered
+  \beamer@frametopskip=0pt plus 1fill\relax%
+  \beamer@framebottomskip=0pt plus 1fill\relax%
+  \beamer@frametopskipautobreak=0pt plus .4\paperheight\relax%
+  \beamer@framebottomskipautobreak=0pt plus .6\paperheight\relax%
+  \def\beamer@initfirstlineunskip{}%
+}
+%    \end{macrocode}
+%
+%
+%
+% \subsubsection{Standout frames}
+%
+% \themename offers a custom frame format with large, centered text and an
+% inverted background. To use it, add the key |standout| to the frame:
+% |\begin{frame}[standout] ... \end{frame}|.
+%
+% \begin{macro}{standout}
+%
+%     Optional arguments to Beamer's frames are implemented using
+%     |\define@key| from the |keyval| package, which will execute code when the
+%     defined option is called. For the |standout| option, we begin a group,
+%     change the colors and set frame options.
+%
+%    \begin{macrocode}
+\providebool{metropolis@standout}
+\define@key{beamerframe}{standout}[true]{%
+  \booltrue{metropolis@standout}
+  \begingroup
+    \setkeys{beamerframe}{c}
+    \setkeys{beamerframe}{noframenumbering}
+    \ifbeamercolorempty[bg]{palette primary}{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=-palette primary.fg
+      }
+    }{
+      \setbeamercolor{background canvas}{
+        use=palette primary,
+        bg=palette primary.bg
+      }
+    }
+    \setbeamercolor{local structure}{
+      fg=palette primary.fg
+    }
+    \usebeamercolor[fg]{palette primary}
+}
+%    \end{macrocode}
+%
+%    Then we just have to close the group after the standout slide is finished
+%    in order to restore the colours and fonts for the rest of the
+%    presentation. Unfortunately, we cannot use \AfterEndEnvironment{frame} for
+%    this (see \url{http://tex.stackexchange.com/questions/226319/}).
+%    Instead, we prepend the |\endgroup| to |\beamer@reseteecodes|, which is run
+%    exactly once at the end of each slide.
+%
+%    \begin{macrocode}
+  \pretocmd{\beamer@reseteecodes}{%
+    \ifbool{metropolis@standout}{
+      \endgroup
+      \boolfalse{metropolis@standout}
+    }{}
+  }{}{}
+%    \end{macrocode}
+%
+%    We set the fonts and the \centering alignment on the inner content,
+%    in such a way that the speaker's note layout isn't affected by the custom
+%    formatting.
+%
+%    \begin{macrocode}
+  \AtBeginEnvironment{beamer@frameslide}{
+    \ifbool{metropolis@standout}{
+      \centering
+      \usebeamerfont{standout}
+    }{}
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Process package options}
+%
+%    \begin{macrocode}
+\metropolis@inner@setdefaults
+\ProcessPgfPackageOptions{/metropolis/inner}
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+% \Finale
+\endinput
