@@ -1,5 +1,11 @@
 # blog
 some blog coding thinking or rethinking
+## 2019
+### 2019-08 blog
+####+ [2019-0811基准测试](/blob/master/2019/8/11.md)
+
+
+
 # 哲学书籍 方法论
 
 # 学习方法
