@@ -3,8 +3,12 @@ some blog coding thinking or rethinking
 ## 2019
 ### 2019-01 blog
 + ####  [Oracle 性能相关常用脚本](/2019/1/15.md)
-
-
+    + ##### [性能常用Oracle语句](/2019/1/13.1.md)
+    + ##### [如何手工生成addm报告](/2019/1/12.1.md)
+    + ##### [oracle 数据库 awr 如何修改采样时间间隔](/2019/1/8.md)
++ ### [索引失效的场景](/2019/1/12.md)   
++ ### [Tomcat配置和参数说明](/2019/1/9.md) 
++ ### [索引失效的场景](/2019/1/12.md)
 ### 2019-07 blog
 + #### [ The Architecture : What every software engineer should understand the unified abstraction of a sustainable evolution architecture](/2019/7/21.md)
 ### 2019-08 blog
