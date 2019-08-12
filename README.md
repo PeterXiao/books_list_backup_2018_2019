@@ -27,7 +27,9 @@ some blog coding thinking or rethinking
   + ##### [后端架构师技术图谱](/2019/3/22.md)
   + ##### [如何快速集成Jmeter到Jenkins，实现性能测试持续进行](/2019/3/26.md)
 + ### [淺談知乎上的“如何看待”？](/2019/3/10.md)  
-+ ### [互联网设计最优秀的操作抽象](/2019/3/6.2.md)  
++ ### [互联网设计最优秀的操作抽象](/2019/3/6.2.md) 
+### 2019-03 blog
++ #### [ Android app  性能](/2019/4/3.md)
 ### 2019-07 blog
 + #### [ The Architecture : What every software engineer should understand the unified abstraction of a sustainable evolution architecture](/2019/7/21.md)
 ### 2019-08 blog
