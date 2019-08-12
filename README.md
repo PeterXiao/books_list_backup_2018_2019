@@ -9,8 +9,8 @@ some blog coding thinking or rethinking
 + #### [ The Architecture : What every software engineer should understand the unified abstraction of a sustainable evolution architecture](/2019/7/21.md)
 ### 2019-08 blog
 + ####  [2019-0811基准测试](/2019/8/11.md)
-+ ####  [微基准测试：以Java为例--如何使用Jmh做Java方法微基准测试](/2019/8/11.1.md)
-
+  + ####  [微基准测试：以Java为例--如何使用Jmh做Java方法微基准测试](/2019/8/11.1.md)
+  + ##### [blog-2019-08-11  使用Jmh 对比各种排序算法的性能](/2019/8/11.2.md)
 
 # 哲学书籍 方法论
 
