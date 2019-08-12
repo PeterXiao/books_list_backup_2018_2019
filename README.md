@@ -3,7 +3,7 @@ some blog coding thinking or rethinking
 ## 2019
 ### 2019-08 blog
 + ####  [2019-0811基准测试](/2019/8/11.md)
-
++ ####  [微基准测试：以Java为例--如何使用Jmh做Java方法微基准测试](/2019/8/11.1.md)
 
 
 # 哲学书籍 方法论
