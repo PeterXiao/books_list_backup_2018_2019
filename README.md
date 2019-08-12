@@ -1,5 +1,13 @@
 # blog
 some blog coding thinking or rethinking
+## 2018
+### 2018-10
++ #### [缺失单元测试下如何重构系统，并持续提供服务](/2018/10/10.24.1.md)
++ #### [计算机程序的构造与解释-notes](/2018/10/10.31.1.md)
++ #### [系统事故生命周期管理](/2018/10/10.23.2.md)
+### 2018-11
+### 2018-12
++ #### [标准化如何影响效率](/2018/12/12.13.md) 
 ## 2019
 ### 2019-01 blog
 + ####  [Oracle 性能相关常用脚本](/2019/1/15.md)
@@ -9,6 +17,11 @@ some blog coding thinking or rethinking
 + ### [索引失效的场景](/2019/1/12.md)   
 + ### [Tomcat配置和参数说明](/2019/1/9.md) 
 + ### [索引失效的场景](/2019/1/12.md)
+### 2019-02 blog
++ ### [HTTPS如何进行安全部署，如何缓解单向证书校验下的抓包和中间人攻击](/2019/2/28.md)
++ ### [HTTPS如何进行安全部署，如何缓解单向证书校验下的抓包和中间人攻击](/2019/2/28.md)
+
+
 ### 2019-07 blog
 + #### [ The Architecture : What every software engineer should understand the unified abstraction of a sustainable evolution architecture](/2019/7/21.md)
 ### 2019-08 blog
