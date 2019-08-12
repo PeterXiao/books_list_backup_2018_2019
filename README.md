@@ -1,6 +1,12 @@
 # blog
 some blog coding thinking or rethinking
 ## 2019
+### 2019-01 blog
++ ####  [Oracle 性能相关常用脚本](/2019/1/15.md)
+
+
+### 2019-07 blog
++ #### [ The Architecture : What every software engineer should understand the unified abstraction of a sustainable evolution architecture](/2019/7/21.md)
 ### 2019-08 blog
 + ####  [2019-0811基准测试](/2019/8/11.md)
 + ####  [微基准测试：以Java为例--如何使用Jmh做Java方法微基准测试](/2019/8/11.1.md)
