@@ -1,3 +1,27 @@
+## 2019-6
+
+###  2019-6-tools
+       
+            Dism++10.1.1000.100.zip
+			FastStone Capture 9.0 -色版.exe
+			FastStone Photo Resizer图片批量处理v4.3绿色
+			Hard Disk Sentinel 5.40.7.7z
+			IDDD.png
+			ThreatModelingTool2016.msi
+			VSCodeJavaInstaller-online-win-0.1.0.exe
+			WindowsTerminal_SelfSigned_x86_x64_arm64.7z
+			ascii
+			binaryAppScannerInstaller.jar
+			citation-281176275.bib
+			dpdk-19.05.tar.xz
+			jdk 10 api.CHM
+			jdk api 1.8_google.CHM
+			jdk10-1中英文对照.CHM
+			restclient-ui-fat-3.7.0.jar
+			wfuzz-2.1.3.tar.gz
+			zh
+			网络安全漏洞管理规定（征求意见稿）.docx
+	   
 ###  2019-6-files  
 			Architect
 				4年增长200倍，技术如何做好支撑？.pdf
@@ -60,9 +84,98 @@
 				Software FMEA and Software FTA – An Effective Tool for Embedded Software Quality Assurance.pdf
 				第五版FMEA表单.xlsx
 					
+				API Gateway设计与落地.pdf
+				OpenResty 在直播场景的应用.pdf
+				OpenResty在⼜又拍云容器器平台中的应⽤用.pdf
+				OpenResty构建 ⼀一站式应⽤用⽹网关实践分享.pdf
+				apigateway-dg.pdf
+				买单侠微服务的API网关演进之路.pdf
+				基于OpenRestyKong构 建边缘计算平台.pdf
+				基于OpenResty的动态服务路由方案.pdf
+				斗鱼API网关演进之路.pdf
+				翟永超－关于Zuul的经验分享和扩展思路.pdf
+				饿了么API-Gateway架构演进.pdf
+
+				2018 qcon java 11jeanne.ppt
+				Cloud Native Java Applications on Spring Boot.pdf
+				DPDK_19_02_Intel_NIC_performance_report.pdf
+				DPDK_19_02_Intel_crypto_performance_report.pdf
+				DPDK_19_02_Intel_virtio_performance_report.pdf
+				DPDK_19_02_Mellanox_NIC_performance_report.pdf
+				Dubbo介绍.pptx
+				JAVA应用优化.pptx
+				Java GC的副本.pptx
+				Java 容器化部署 从应⽤用服务器到云原⽣生.pdf
+				Java反序列化实战 廖新喜.pdf
+				Java多线程编程实战指南 设计模式篇.pdf
+				Meraki 颠覆性的IT即服务.pptx
+				Spring Boot Cloud.pptx
+				Spring Boot发送邮件.pptx
+				Spring Cloud 许进-如何使用 Spring Cloud 快速构建微服务应用.pdf
+				ThinkPad P53_Datasheet.pdf
+				Word、Excel、PPT高效办公快捷键速查表.pdf
+				efsf2012-whatsapp-scaling.pdf
+				java11 jvm特性（EN-官方）.pdf
+				spring5.0.2中文官网文档.pdf
+				wider-reach-of-the-gdpr-what-hk-businesses-should-know.pdf
+				使用SpringCloud与Docker实战微服务.pdf
+				基于 AWS 的 Spring Cloud 微服务实践.pdf
+				基于Java构建的淘宝.pdf
+				大众点评 零压力Java组件部署.pdf
+				深入理解Java虚拟机.pdf
+				瘋狂的Java.pdf
+				码出高效.pdf
+				设计模式Java版本.pdf
+				高质量Java编程实践.pdf
+				高质量Java编程实践v4.pdf
+				黑马程序员面试宝典(java).pdf
+
+				10_童磊_互联网时代企业如何应对GDPR.pdf
+				Blackboard_GDPR_White_Paper_Chinese_2.pdf
+				DAR_QnA_sc.pdf
+				GDPR 与 隐私技术.pdf
+				HK_4980_Data_privacy_notice_nat_pers_bank_sc.pdf
+				Mainland_HK_Cyber_Security_Forum.pdf
+				THU_CHKMR_20181115.pdf
+				《欧盟数据保护通用条例》详解.pdf
+				欧盟GDPR（中文版）《一般数据保护法案》-中国政法大学翻译-2018.06-32页.pdf
+
+				Smart Contracts Approach with caution.pdf
+				Spring Cloud Contract在微服务中的应⽤.pdf
+				Spring Cloud Finchley.RELEASE参考手册 中文文档.pdf
+				react redux数据契约驱动开发.pdf
+				springcloudcontract-webinar-161025182319.pdf
+				微服务下的契约管理.pdf
+				用Pact-_Swagger做契约测试.pdf
 
 
-	   
+				3-12侵入服务注册与发现--冰鉴科技.pdf
+				Spring Cloud 微服务落地从0到1.pdf
+				Spring Cloud与领域驱动设计.pdf
+				Spring Cloud在持续交付产品中的运用.pdf
+				Spring Cloud微服务实践.pdf
+				SpringCloud微服务架构升级总结.pdf
+				SpringCloud总结PDF.pdf
+				Spring微服务的最新技术进展和运行环境PCF-S.pdf
+				分布式追踪-DaoCloud 谭建王垚.pdf
+				宋顺－基于Spring Cloud的Apollo配置中心介绍.pdf
+				微服务中的领域驱动设计.pdf
+				微服务应用性能监控系统演进历程及实践.pdf
+				李乘胜+拍拍贷消息系统架构演进.pdf
+
+				OpenAPI Specification 中文摘要譯本.pdf
+				swagger 规范文档.pdf
+				开放API规范中文翻译.pdf
+					   
+				20180918期美团行业报告.pdf
+				2018年Q1中国外卖O2O行业发展分析报告.pdf
+				20190127212905_23055.pdf
+				H3_AP201904221321171000_1.pdf
+				comparison-AlicloudvsAzure-intl-zh-2018-09-11.pdf
+				新零售与数字化赋能成抢滩重点互联网餐饮外卖市场年度综合分析2019.pdf
+				竞品分析入门必学20案例丨产品壹佰干货铺.pdf
+				饿了么美团外卖百度外卖.pdf
+					   
 	   
 	   
 			019阿里巴巴技术.pdf
@@ -176,3 +289,6 @@
 			高维度思考法：如何从解决问题进化到发现问题-细谷功.pdf
 			高质量的软件是否值得其付出的成本？.pdf
 			鲁滨逊漂流记.pdf
+
+	 
+ 
