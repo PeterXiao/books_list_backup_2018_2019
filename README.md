@@ -2165,7 +2165,7 @@
 				QCon北京2018--《Reactive架构升级实践》--李鼎.pdf	2019/3/files/后端/SUN+Java编码规范中文版.pdf	14 months ago
 				QCon北京2018-《JVM问题定位典型案例分析》-李嘉鹏.pdf	2019/3/files/后端/SUN+Java编码规范中文版.pdf	14 months ago
 				RESTful.xmind	2019/3/files/安全/CTF资料/CTF攻防部署.png	14 months ago
-				SSL Server Test_ test.aomi.mo (Powered by Qualys SSL Labs).pdf	2019/3/files/测试/pts-performance-system-cn-zh-2016-06-08.pdf	14 months ago
+				SSL Server Test_ test.Show.mo (Powered by Qualys SSL Labs).pdf	2019/3/files/测试/pts-performance-system-cn-zh-2016-06-08.pdf	14 months ago
 				SUN+Java编码规范中文版.pdf	2019/3/files/后端/SUN+Java编码规范中文版.pdf	14 months ago
 				Tomcat权威指南(第二版)(英文版).pdf	2019/3/files/后端/SUN+Java编码规范中文版.pdf	14 months ago
 				Tomcat源码研究.pdf	2019/3/files/安全/《渗透测试实践指南+必知必会的工具与方法》.((美)Patrick+Engebretson).[PDF]@…	14 months ago
@@ -2279,7 +2279,7 @@
 				06_探寻业务安全的极（基）点(江南天安_张洪骏).pdf	2019\3\files\安全\01_悬崖-业务安全工作二三事(唯品会_傅奎).pdf	14 months ago
 				07风控产品与产品风控.pdf	2019\3\files\安全\01_悬崖-业务安全工作二三事(唯品会_傅奎).pdf	14 months ago
 				08单点登录与安全网关实践.pdf	2019\3\files\安全\01_悬崖-业务安全工作二三事(唯品会_傅奎).pdf	14 months ago
-				0day2.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				0day2.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				1-5-内建安全的软件开发-刘庆华.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				1OWASP.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				2018 全球科技資安風險與法遵議題.pdf	2019\3\files\安全\01_悬崖-业务安全工作二三事(唯品会_傅奎).pdf	14 months ago
@@ -2296,13 +2296,13 @@
 				Docker逃逸：从一个进程崩溃讲起.pdf	2019\3\files\安全\DevOps 與應用程式中的特權存取安全.pdf	14 months ago
 				FreeBuf 2018金融行业应用安全态势报告.pdf	2019\3\files\安全\FreeBuf 2018金融行业应用安全态势报告.pdf	14 months ago
 				Freebuf 企业级安全服务解决方案.pdf	2019\3\files\安全\API 平台的安全实践.pdf	14 months ago
-				HTTPS 最佳安全实践.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				HTTPS 最佳安全实践.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				ISC 2018 DevSecOps.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				Java反序列化实战.pdf	2019\3\files\安全\API 平台的安全实践.pdf	14 months ago
 				Nmap渗透测试指南.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
-				S-SDL.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				S-SDL.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				S-SDL企业应用实践 (1).pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
-				S-SDL企业应用实践.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				S-SDL企业应用实践.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				Talk Is Cheap：Web 2.0 云攻击.pdf	2019\3\files\安全\Talk Is Cheap：Web 2.0 云攻击.pdf	14 months ago
 				TalkingData 2017+十一月电商广告热点榜单.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
 				VxWorks Fuzzing 之道——VxWorks 工控实时操作系统漏洞挖掘揭秘.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
@@ -2311,7 +2311,7 @@
 				Web安全深度剖析.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				Web应用安全性测试.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				XSS挖掘与攻击面延伸.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				[IT安全面试攻略].Chris.Butler等.扫描版[ED2000.COM].pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				[IT安全面试攻略].Chris.Butler等.扫描版[ED2000.COM].pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				acr2018final.pdf	2019\3\files\安全\FreeBuf 2018金融行业应用安全态势报告.pdf	14 months ago
 				alisec mobile security 潘爱民.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				data.zip	2019/3/9.md	14 months ago
@@ -2336,9 +2336,9 @@
 				不可忽视的业务安全问题-唯品会.pdf	2019\3\files\安全\不可忽视的业务安全问题-唯品会.pdf	14 months ago
 				不可忽视的业务安全问题.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				个人数据保护与企业数据权属.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				二维码安全问题报告.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				二维码安全问题报告.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				从刑事个案看信息保护与数据利用.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				从攻击者视角看待安全.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				从攻击者视角看待安全.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				从高危漏洞看电商金融安全.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
 				企业如何构造安全防护堡垒.pdf	2019/3/files/安全/企业如何构造安全防护堡垒.pdf	14 months ago
 				企业安全之路.pdf	2019/3/files/安全/企业如何构造安全防护堡垒.pdf	14 months ago
@@ -2352,16 +2352,16 @@
 				唯品会日日志平台建设.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				基于内网流量的高级威胁检测.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				基于威胁博弈理论的决策级融合模型.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
-				基于移动威胁情报的安全价值观.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				基于移动威胁情报的安全价值观.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				基于零信任的身份安全理念、架构及实践.pdf	2019\3\files\安全\API 平台的安全实践.pdf	14 months ago
 				多种网络环境下应急响应的探索.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				大数据技术助力金融业务安全.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				大规模分布式存储系统：原理解析与架构实战-杨传辉[6寸PDF mobi epub kindle版].pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				大规模分布式存储系统：原理解析与架构实战-杨传辉[6寸PDF mobi epub kindle版].pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				威胁情报的业务安全应用价值.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				安全专项测试方案 (1).pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
-				安全专项测试方案.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				安全专项测试方案.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				安全事件的发现、分析、响应与取证.pdf	2019\3\files\安全\不可忽视的业务安全问题-唯品会.pdf	14 months ago
-				安全加密风控.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				安全加密风控.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				安全测试中一些有趣的姿势和技巧.pdf	2019\3\files\安全\不可忽视的业务安全问题-唯品会.pdf	14 months ago
 				安全的复杂与复杂的安全.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				安全管理到安全评审.pdf	2019\3\files\安全\不可忽视的业务安全问题-唯品会.pdf	14 months ago
@@ -2370,16 +2370,16 @@
 				师克在和不在众.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				应用安全威胁及解决方案.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				应用安全高级测试.pdf	2019/3/files/安全/企业如何构造安全防护堡垒.pdf	14 months ago
-				开发安全的 API 所需要核对的清单.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				开发安全的 API 所需要核对的清单.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				微服务监控与优化.pdf	2019/3/files/安全/企业如何构造安全防护堡垒.pdf	14 months ago
 				支付卡行业 (PCI) 支付应用程序数据安全标准.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				数据驱动安全 ——滴滴安全基础数据建设.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				永别了SQL注入.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				淘宝前台系统性能分析与优化.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				淘宝性能测试白皮书V0.3.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				淘宝前台系统性能分析与优化.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				淘宝性能测试白皮书V0.3.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				用行为驱动开发和面向接口的设计做微服务开发.pdf	2019/3/files/安全/企业如何构造安全防护堡垒.pdf	14 months ago
 				甲方企业整体安全建设思路及坑点.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
-				电商安全坑.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				电商安全坑.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				百度 企业安全监控经验教训分享.pdf	2019\3\files\wifi\wirelessmon.zip	14 months ago
 				移劢互联时代的隐私保护.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
 				移动安全威胁分析和安全建设.pdf	2019/3/files/安全/1-5-内建安全的软件开发-刘庆华.pdf	14 months ago
@@ -2388,11 +2388,11 @@
 				端口渗透.pdf	2019\3\files\安全\API 平台的安全实践.pdf	14 months ago
 				细数安卓 APP 那些远程攻击漏洞.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
 				网络安全北向技术和方法探究.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				网络游戏安全揭密.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				网络游戏安全揭密.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				让我们做Web安全测试吧.pdf	2019\3\files\安全\vipread.com_信息安全研究2019.5.1.zip	14 months ago
 				谈谈安卓的 Intent 注入.pdf	2019\3\files\安全\TalkingData 2017+十一月电商广告热点榜单.pdf	14 months ago
 				金融科技助力支付安全.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
-				阿里云合作伙伴研发-安全开发规范.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				阿里云合作伙伴研发-安全开发规范.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				阿里云威胁检测实践.pdf	2019\3\files\安全\不可忽视的业务安全问题-唯品会.pdf	14 months ago
 				陈建 企业信息安全实践 ISC2018.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
 				面向全流量的网络APT智能检测方法.pdf	2019\3\files\安全\ISC 2018 DevSecOps.pdf	14 months ago
@@ -2634,37 +2634,37 @@
 				Docker生产环境实践指南.epub	2019\3\files\产品\UI设计师的色彩搭配手册（全彩）.epub	13 months ago
 				Docker进阶与实战 (容器技术系列).epub	2019\3\files\性能\Google工作整理术（解读版）.epub	13 months ago
 				HTTP权威指南 (图灵程序设计丛书 69).epub	2019\3\files\产品\UI设计师的色彩搭配手册（全彩）.epub	13 months ago
-				Jenkins入门.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Jetty-的工作原理以及与-Tomcat-的比较.doc	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				Jenkins入门.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Jetty-的工作原理以及与-Tomcat-的比较.doc	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				Linux Shell脚本攻略.pdf	2019/3/files/运维/Linux Shell脚本攻略.pdf	14 months ago
-				LoadRunner函数大全之中文解释 (1).doc	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Loadrunner脚本开发规范 (1).doc	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Python基础.xmind	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				ThreatModelingTool2016.msi	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Tomcat 8 权威指南.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Tomcat Performance Tuning for Pentaho.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Tomcat优化.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				Tomcat系统架构分析_尚硅谷_张晓飞.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				LoadRunner函数大全之中文解释 (1).doc	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Loadrunner脚本开发规范 (1).doc	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Python基础.xmind	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				ThreatModelingTool2016.msi	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Tomcat 8 权威指南.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Tomcat Performance Tuning for Pentaho.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Tomcat优化.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				Tomcat系统架构分析_尚硅谷_张晓飞.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				Wireshark网络分析就这么简单.pdf	2019/3/files/运维/Linux Shell脚本攻略.pdf	14 months ago
 				apigateway-errors-cn-zh-2018-03-13.pdf	2019/3/files/运维/Linux Shell脚本攻略.pdf	14 months ago
 				apigateway-p_user-guide-cn-zh-2018-05-04.pdf	2019/3/files/运维/Linux Shell脚本攻略.pdf	14 months ago
-				git 操作手册.xmind	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				jenkins-git-ant实现持续集成及远程部署.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				jenkins中文使用手册.doc	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				jenkins入门手册.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				git 操作手册.xmind	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				jenkins-git-ant实现持续集成及远程部署.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				jenkins中文使用手册.doc	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				jenkins入门手册.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				ngx lua在又拍云的应用 日志收集及作用.pdf	2019/3/files/测试/pts-performance-system-cn-zh-2016-06-08.pdf	14 months ago
-				tomcat优化配置.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				一份不太短的Latex介绍.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				业务安全与DevSecOps的最佳实践.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				tomcat优化配置.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				一份不太短的Latex介绍.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				业务安全与DevSecOps的最佳实践.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				互联网创业服务器运维工具集.pdf	2019/3/files/测试/pts-performance-system-cn-zh-2016-06-08.pdf	14 months ago
-				你的知识需要管理--田志刚.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				如何像计算机科学家一样思考.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				你的知识需要管理--田志刚.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				如何像计算机科学家一样思考.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				学习Nginx+HTTP+Server.pdf	2019/3/files/运维/学习Nginx+HTTP+Server.pdf	14 months ago
-				左耳听风-隔离设计.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				微软的软件测试之道.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				疯狂的程序员.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				移劢互联时代的隐私保护.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
-				蓝海战略-W.钱·金.pdf	2019/3/files/运维/Aomi_Pay_Threat_Model.tm7	14 months ago
+				左耳听风-隔离设计.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				微软的软件测试之道.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				疯狂的程序员.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				移劢互联时代的隐私保护.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
+				蓝海战略-W.钱·金.pdf	2019/3/files/运维/Show_Pay_Threat_Model.tm7	14 months ago
 				阿里云网关的使用和配置.xmind	2019/3/files/运维/Linux Shell脚本攻略.pdf	14 months ago	
 
 				# 目录
